@@ -188,16 +188,26 @@
       50% { height: 100%; opacity: 1; }
     }
 
-    #popup {
-      display: none;
-      text-align: center;
-      color: #fff;
-      background: #00e5ff22;
-      padding: 10px;
-      border-radius: 10px;
-      margin-top: 10px;
-      position: relative;
-    }
+   #popup {
+  display: none;
+  text-align: center;
+  color: #fff;
+  background: #00e5ff22;
+  padding: 10px;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  box-shadow: 0 0 15px #00ffff99;
+  backdrop-filter: blur(4px);
+  width: 80%;
+  max-width: 300px;
+  font-weight: bold;
+}
+
+ }
 
     #timerBox {
       display: none;

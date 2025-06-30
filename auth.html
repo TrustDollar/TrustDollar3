@@ -1,7 +1,7 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF- />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrustDollar – Auth</title>
   <style>
@@ -17,7 +17,6 @@
       min-height: 100vh;
       padding: 20px;
     }
-
     .container {
       display: flex;
       flex-wrap: wrap;
@@ -26,7 +25,6 @@
       width: 100%;
       justify-content: center;
     }
-
     .card {
       position: relative;
       flex: 1 1 320px;
@@ -39,19 +37,15 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       backdrop-filter: brightness(1.1) contrast(1.2);
     }
-
     .card::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       border-radius: inherit;
       background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(0,255,255,0.02));
       pointer-events: none;
     }
-
     h2 {
       text-align: center;
       color: #00ffff;
@@ -59,7 +53,6 @@
       position: relative;
       z-index: 2;
     }
-
     input {
       width: 100%;
       padding: 12px;
@@ -72,7 +65,6 @@
       position: relative;
       z-index: 2;
     }
-
     button {
       width: 100%;
       padding: 12px;
@@ -87,7 +79,6 @@
       position: relative;
       z-index: 2;
     }
-
     .switch {
       text-align: center;
       margin-top: 15px;
@@ -96,13 +87,11 @@
       position: relative;
       z-index: 2;
     }
-
     .switch a {
       color: #00ffff;
       text-decoration: underline;
       cursor: pointer;
     }
-
     .forgot-link {
       color: #00ffff;
       font-size: 13px;
@@ -111,11 +100,9 @@
       position: relative;
       z-index: 2;
     }
-
     .forgot-link:hover {
       text-shadow: 0 0 5px #00ffff;
     }
-
     .toast {
       position: fixed;
       top: 50%;
@@ -133,7 +120,6 @@
       text-align: center;
       z-index: 9999;
     }
-
     @keyframes fade {
       0% {opacity: 0; transform: translate(-50%, -60%);}
       10% {opacity: 1; transform: translate(-50%, -50%);}
@@ -150,7 +136,7 @@
     <input type="email" id="loginEmail" placeholder="Email" />
     <input type="password" id="loginPassword" placeholder="Password" />
     <div style="text-align:right; margin-top: -5px; margin-bottom: 10px;">
-      <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot Password?</a>
+      <a href="#" id="forgotPasswordLink" class="forgot-link"> Forgot Password?</a>
     </div>
     <button id="loginBtn">Login</button>
     <div class="switch">Don't have an account? <a id="switchToRegister">Register</a></div>

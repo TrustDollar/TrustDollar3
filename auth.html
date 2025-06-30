@@ -1,7 +1,7 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF- />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrustDollar – Auth</title>
   <style>
@@ -17,6 +17,7 @@
       min-height: 100vh;
       padding: 20px;
     }
+
     .container {
       display: flex;
       flex-wrap: wrap;
@@ -25,19 +26,40 @@
       width: 100%;
       justify-content: center;
     }
+
     .card {
+      position: relative;
       flex: 1 1 320px;
-      background: #1a1a1a;
+      background: rgba(255, 255, 255, 0.05);
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 0 20px #00fff740;
-      border: 1px solid #1047db;
+      box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.3),
+        inset 0 0 10px rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: brightness(1.1) contrast(1.2);
     }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(0,255,255,0.02));
+      pointer-events: none;
+    }
+
     h2 {
       text-align: center;
       color: #00ffff;
       margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
     }
+
     input {
       width: 100%;
       padding: 12px;
@@ -47,7 +69,10 @@
       background: #2c2c2c;
       color: #00ffff;
       font-size: 15px;
+      position: relative;
+      z-index: 2;
     }
+
     button {
       width: 100%;
       padding: 12px;
@@ -59,18 +84,38 @@
       margin-top: 15px;
       cursor: pointer;
       font-size: 16px;
+      position: relative;
+      z-index: 2;
     }
+
     .switch {
       text-align: center;
       margin-top: 15px;
       color: #aaa;
       font-size: 14px;
+      position: relative;
+      z-index: 2;
     }
+
     .switch a {
       color: #00ffff;
       text-decoration: underline;
       cursor: pointer;
     }
+
+    .forgot-link {
+      color: #00ffff;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .forgot-link:hover {
+      text-shadow: 0 0 5px #00ffff;
+    }
+
     .toast {
       position: fixed;
       top: 50%;
@@ -88,6 +133,7 @@
       text-align: center;
       z-index: 9999;
     }
+
     @keyframes fade {
       0% {opacity: 0; transform: translate(-50%, -60%);}
       10% {opacity: 1; transform: translate(-50%, -50%);}
@@ -103,6 +149,9 @@
     <h2>Login</h2>
     <input type="email" id="loginEmail" placeholder="Email" />
     <input type="password" id="loginPassword" placeholder="Password" />
+    <div style="text-align:right; margin-top: -5px; margin-bottom: 10px;">
+      <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot Password?</a>
+    </div>
     <button id="loginBtn">Login</button>
     <div class="switch">Don't have an account? <a id="switchToRegister">Register</a></div>
   </div>
@@ -121,12 +170,13 @@
 
 <div id="toast" class="toast">Welcome!</div>
 
- <script type="module">
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
   import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    sendPasswordResetEmail
   } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
   import {
     getFirestore,
@@ -227,8 +277,24 @@
     }
   }
 
+  async function forgotPassword() {
+    const email = document.getElementById("loginEmail").value.trim();
+    if (!email) {
+      showToast("Enter your email first");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      showToast("Reset link sent to your email!");
+    } catch (err) {
+      showToast("Failed to send reset link");
+    }
+  }
+
   document.getElementById("loginBtn").addEventListener("click", login);
   document.getElementById("registerBtn").addEventListener("click", register);
+  document.getElementById("forgotPasswordLink").addEventListener("click", forgotPassword);
 
   document.getElementById("switchToRegister").addEventListener("click", () => {
     document.getElementById("loginCard").style.display = "none";

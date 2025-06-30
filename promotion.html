@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Promotion – TrustDollar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+    body {
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .phone {
+      width: 100%;
+      max-width: 420px;
+      min-height: 100vh;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 40px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 10px #00e5ff66,
+        0 0 40px rgba(0, 229, 255, 0.3),
+        inset 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+    .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      z-index: 2;
+    }
+    .screen {
+      width: 100%;
+      height: calc(100vh - 80px);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 30px;
+      padding: 20px 14px 100px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+    h2 {
+      color: #ffd700;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px #ffd70099;
+    }
+    .box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+      transition: 0.3s;
+      text-align: center;
+    }
+    .box * {
+      background: transparent !important;
+    }
+    .value {
+      font-size: 16px;
+      color: #00ffff;
+      margin-top: 10px;
+      word-break: break-word;
+    }
+    .btn {
+      background: rgba(0, 255, 255, 0.1);
+      color: #00ffff;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background: rgba(0, 255, 255, 0.25);
+    }
+    .share-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+    .grid-boxes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    h3, h4 {
+      color: #00ffff;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 0 0 8px #00ffffaa;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: #00ff99;
+      padding: 14px 24px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ff9966;
+      font-size: 16px;
+      display: none;
+      z-index: 9999;
+      text-align: center;
+      animation: fadeInOut 2.5s ease forwards;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .nav-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      border-radius: 20px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      width: 90%;
+      max-width: 320px;
+      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+      z-index: 999;
+      box-sizing: border-box;
+    }
+    .nav-bar a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      color: #ccc;
+      font-size: 10px;
+      transition: 0.3s ease;
+    }
+    .nav-bar a i {
+      font-size: 16px;
+      margin-bottom: 2px;
+      display: block;
+    }
+    .nav-bar a:hover,
+    .nav-bar a.active {
+      color: #00e5ff;
+      transform: translateY(-3px);
+    }
+    @media (max-width: 600px) {
+      .grid-boxes {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="screen">
+      <h2>3X Boost Your Income</h2>
+
+      <div class="box">
+        <h3>Refer a Friend</h3>
+        <div class="value" id="refCode">Loading...</div><br/>
+        <button class="btn" onclick="copyReferral()">Copy Code</button>
+        <div class="share-box">
+          <button class="btn" onclick="shareWhatsApp()">WhatsApp</button>
+          <button class="btn" onclick="shareTelegram()">Telegram</button>
+        </div>
+      </div>
+
+      <div class="grid-boxes">
+        <div class="box"><h4>Total Wallet</h4><div class="value" id="totalIncome">$0</div></div>
+        <div class="box"><h4>Total Joined</h4><div class="value" id="refCount">0</div></div>
+        <div class="box"><h4>Referral Income</h4><div class="value" id="refIncome">$0</div></div>
+        <div class="box"><h4>Today’s Income</h4><div class="value" id="todayIncome">$0</div></div>
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="start.html"><i class="fas fa-bolt"></i><span>Mining</span></a>
+      <a href="promotion.html" class="active"><i class="fas fa-users"></i><span>Promo</span></a>
+      <a href="wallet.html"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+      <a href="account.html"><i class="fas fa-user"></i><span>Account</span></a>
+    </div>
+  </div>
+
+  <div class="popup" id="popupMsg"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+      authDomain: "trustdollar-f72f4.firebaseapp.com",
+      projectId: "trustdollar-f72f4",
+      storageBucket: "trustdollar-f72f4.appspot.com",
+      messagingSenderId: "217643658538",
+      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const refCodeEl = document.getElementById("refCode");
+    const refCountEl = document.getElementById("refCount");
+    const refIncomeEl = document.getElementById("refIncome");
+    const todayIncomeEl = document.getElementById("todayIncome");
+    const totalIncomeEl = document.getElementById("totalIncome");
+    const popup = document.getElementById("popupMsg");
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return location.href = "auth.html";
+      const uid = user.uid;
+
+      const userSnap = await getDoc(doc(db, "users", uid));
+      const userData = userSnap.data();
+      const code = userData.refCode;
+      refCodeEl.innerText = code;
+
+      const q1 = query(collection(db, "users"), where("referredBy", "==", code));
+      onSnapshot(q1, snap => {
+        refCountEl.innerText = snap.size;
+      });
+
+      const q2 = query(collection(db, "referral_income"), where("upline", "==", uid));
+      onSnapshot(q2, snapshot => {
+        let total = 0, today = 0;
+        const todayDate = new Date().toDateString();
+
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const amt = d.amount || 0;
+          total += amt;
+          if (d.timestamp?.toDate().toDateString() === todayDate) {
+            today += amt;
+          }
+        });
+
+        refIncomeEl.innerText = `$${total.toFixed(2)}`;
+        todayIncomeEl.innerText = `$${today.toFixed(2)}`;
+        const walletBalance = userData.wallet || 0;
+        totalIncomeEl.innerText = `$${(walletBalance + total).toFixed(2)}`;
+      });
+    });
+
+    window.copyReferral = function () {
+      const code = refCodeEl.innerText;
+      navigator.clipboard.writeText(code).then(() => showPopup("Referral code copied!"));
+    }
+
+    window.shareWhatsApp = function () {
+      const code = refCodeEl.innerText;
+      const link = `https://trustdollar.in/?ref=${code}`;
+      window.open(`https://wa.me/?text=Join%20TrustDollar%20and%20earn!%20Use%20my%20referral%20code:%20${link}`);
+    }
+
+    window.shareTelegram = function () {
+      const code = refCodeEl.innerText;
+      const link = `https://trustdollar.in/?ref=${code}`;
+      window.open(`https://t.me/share/url?url=${link}&text=Join%20TrustDollar%20and%20earn%20daily%20income!`);
+    }
+
+    function showPopup(message) {
+      popup.innerText = message;
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", 2500);
+    }
+  </script>
+</body>
+</html>

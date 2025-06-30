@@ -1,0 +1,373 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deposit – TrustDollar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+    .phone {
+      width: 400px;
+      height: 800px;
+      background: #000;
+      border-radius: 40px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 4px #00e5ff,
+        0 0 30px #00e5ff,
+        0 0 60px rgba(0, 229, 255, 0.6),
+        0 0 80px rgba(0, 229, 255, 0.5);
+    }
+    .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 30px;
+      background: #111;
+      border-radius: 20px;
+      z-index: 2;
+    }
+    .screen {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #212121, #424242);
+      border-radius: 30px;
+      padding: 60px 14px 100px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1;
+    }
+    h2 {
+      text-align: center;
+      color: #ffd700;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .amount-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .amount-box {
+      background: #1a1a1a;
+      border: 2px solid #00ffff99;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: #00ffff;
+      box-shadow: 0 0 15px #00ffff55;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .amount-box:hover {
+      background: #00ffff22;
+      transform: scale(1.05);
+    }
+
+    #invoiceSection {
+      display: none;
+      background: linear-gradient(to right, #ffff, #1f1f1f);
+      padding: 16px;
+      border-radius: 16px;
+      border: 2px solid #ffd70066;
+      box-shadow: 0 0 25px #ffd70044;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #walletAddress {
+      font-size: 16px;
+      font-weight: bold;
+      color: #00ffff;
+      background: #111;
+      padding: 14px 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #00ffff55;
+      word-break: break-word;
+      margin: 10px 0;
+    }
+
+    #copyBtn {
+      background: #ffd700;
+      border: none;
+      padding: 8px 14px;
+      color: #000;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffd70055;
+    }
+
+    #countdownTimer {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #ff4c4c;
+    }
+
+    button {
+      background: #00ff99;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000;
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00ff9955;
+    }
+
+    #popupMessage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #00ffcc;
+      color: #000;
+      padding: 16px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px #00ffccee;
+      font-weight: bold;
+      display: none;
+      z-index: 9999;
+    }
+
+   .nav-bar {
+  position: fixed; /* changed from absolute */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  border-radius: 20px 20px 0 0;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 -2px 20px rgba(0, 229, 255, 0.3);
+  z-index: 999;
+}
+
+      .nav-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  border-radius: 20px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+    .nav-bar a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      color: #ccc;
+      font-size: 10px;
+      transition: 0.3s ease;
+    }
+
+    .nav-bar a i {
+      font-size: 16px;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .nav-bar a:hover,
+    .nav-bar a.active {
+      color: #00e5ff;
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="notch"></div>
+  <div class="screen">
+    <h2>Select Deposit Amount</h2>
+    <div class="amount-grid" id="amountGrid">
+      <div class="amount-box" data-amount="50">$50</div>
+      <div class="amount-box" data-amount="100">$100</div>
+      <div class="amount-box" data-amount="200">$200</div>
+      <div class="amount-box" data-amount="500">$500</div>
+      <div class="amount-box" data-amount="1000">$1000</div>
+      <div class="amount-box" data-amount="2000">$2000</div>
+    </div>
+ <div id="invoiceSection">
+      <h3>Use ( USE BEP20 )</h3>
+      <p>Send exactly <span id="selectedAmountDisplay"></span> to the address below:</p>
+      <div id="walletAddress">0x87bfc11aff75eab1a4f560885a97dbeb70b11716</div>
+      <button id="copyBtn">Copy</button>
+      <div id="countdownTimer">Time Remaining: 3:00</div>
+      <button id="confirmBtn">I Have Paid</button>
+    </div>
+  </div>
+
+
+  <div class="nav-bar">
+    <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="start.html" class="nav-item"><i class="fas fa-bolt"></i><span>Mining</span></a>
+    <a href="promotion.html" class="nav-item"><i class="fas fa-users"></i><span>Promotion</span></a>
+    <a href="wallet.html" class="nav-item active"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+    <a href="account.html" class="nav-item"><i class="fas fa-user"></i><span>Account</span></a>
+  </div>
+</div>
+
+<div id="popupMessage"></div>
+
+<!-- ✅ Firebase + Logic -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, updateDoc,
+    collection, addDoc, query, where, getDocs, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  let currentUser;
+  let selectedAmount = 0;
+
+  const popup = document.getElementById("popupMessage");
+  const confirmBtn = document.getElementById("confirmBtn");
+
+  function showPopup(msg) {
+    popup.innerText = msg;
+    popup.style.display = "block";
+    setTimeout(() => popup.style.display = "none", 2500);
+  }
+
+  function startCountdown() {
+    let timeLeft = 180;
+    const timerEl = document.getElementById("countdownTimer");
+    const interval = setInterval(() => {
+      if (--timeLeft <= 0) {
+        clearInterval(interval);
+        window.location.href = "deposit-history.html";
+      }
+      const mins = Math.floor(timeLeft / 60);
+      const secs = timeLeft % 60;
+      timerEl.textContent = `Time Remaining: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }, 1000);
+  }
+
+  document.querySelectorAll(".amount-box").forEach(box => {
+    box.onclick = () => {
+      selectedAmount = parseInt(box.dataset.amount);
+      document.getElementById("selectedAmountDisplay").textContent = `$${selectedAmount}`;
+      document.getElementById("amountGrid").style.display = "none";
+      document.getElementById("invoiceSection").style.display = "block";
+      startCountdown();
+      console.log("Invoice Text:", document.getElementById("invoiceSection").innerText);
+
+    };
+  });
+
+  document.getElementById("copyBtn").onclick = () => {
+    navigator.clipboard.writeText(document.getElementById("walletAddress").textContent);
+    showPopup("Address Copied!");
+  };
+
+  function generateOrderId() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let id = 'ORD';
+    for (let i = 0; i < 10; i++) {
+      id += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return id;
+  }
+
+  onAuthStateChanged(auth, async user => {
+    if (!user) return location.href = "auth.html";
+    currentUser = user;
+  });
+
+  confirmBtn.onclick = async () => {
+    if (!currentUser || !selectedAmount) return;
+
+    const depositsQuery = query(collection(db, "deposits"), where("uid", "==", currentUser.uid));
+    const existing = await getDocs(depositsQuery);
+    const isFirstDeposit = existing.empty;
+
+    const userRef = doc(db, "users", currentUser.uid);
+    const userSnap = await getDoc(userRef);
+
+    let walletBal = 0, referredBy = null;
+    if (userSnap.exists()) {
+      const data = userSnap.data();
+      walletBal = data.wallet || 0;
+      referredBy = data.referredBy || null;
+    }
+
+    const newDepositRef = await addDoc(collection(db, "deposits"), {
+      uid: currentUser.uid,
+      email: currentUser.email,
+      amount: selectedAmount,
+      orderId: generateOrderId(),
+      status: "pending",
+      timestamp: serverTimestamp(),
+      walletAtDeposit: walletBal
+    });
+
+    if (isFirstDeposit && referredBy) {
+      const uplineSnap = await getDocs(query(collection(db, "users"), where("refCode", "==", referredBy)));
+      if (!uplineSnap.empty) {
+        const upline = uplineSnap.docs[0].id;
+        await addDoc(collection(db, "referral_pending"), {
+          upline,
+          downline: currentUser.uid,
+          depositId: newDepositRef.id,
+          amount: selectedAmount * 0.2,
+          timestamp: serverTimestamp()
+        });
+      }
+    }
+
+    showPopup(" Processing ");
+    setTimeout(() => location.href = "deposit-history.html", 2000);
+  };
+</script>
+</body>
+</html>

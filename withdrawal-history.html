@@ -1,0 +1,315 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Withdrawal History</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .phone {
+      width: 400px;
+      height: 800px;
+      background: #000;
+      border-radius: 40px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 4px #00e5ff,
+        0 0 30px #00e5ff,
+        0 0 60px rgba(0, 229, 255, 0.6),
+        0 0 80px rgba(0, 229, 255, 0.5);
+    }
+
+    .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 30px;
+      background: #111;
+      border-radius: 20px;
+      z-index: 2;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #212121, #424242);
+      border-radius: 30px;
+      padding: 60px 14px 100px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ffd700;
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ffd70088;
+    }
+
+    .spinner {
+      border: 4px solid #555;
+      border-top: 4px solid #00ffff;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 30px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+
+    .box {
+      background: #1c1c1c;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 12px #00ffff33;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #333;
+      font-size: 15px;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .status-box {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .success { background: #003300; color: #00ff00; }
+    .pending { background: #332200; color: #ffaa00; }
+
+    .copy-btn {
+      background: #00ffff;
+      color: #000;
+      padding: 4px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .copy-popup {
+      text-align: center;
+      margin-top: 10px;
+      color: #00ffcc;
+      display: none;
+    }
+
+    .nav-bar {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      border-radius: 20px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      width: 90%;
+      max-width: 320px;
+      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+      z-index: 999;
+    }
+
+    .nav-bar a {
+      text-decoration: none;
+      color: #ccc;
+      transition: 0.3s;
+    }
+
+    .nav-item {
+      flex: 1;
+      background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+      border-radius: 12px;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 10px;
+      box-shadow: inset 0 0 4px rgba(255,255,255,0.1), 0 6px 12px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item i {
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+
+    .nav-item:hover {
+      color: #00ffff;
+      transform: translateY(-4px) scale(1.05);
+      text-shadow: 0 0 6px #00ffff, 0 0 12px #00ffff66;
+    }
+
+    .nav-item.active {
+      color: #00e5ff;
+      font-weight: bold;
+      transform: translateY(-4px) scale(1.05);
+      box-shadow:
+        0 8px 20px rgba(0,229,255,0.8),
+        inset 0 0 14px rgba(0,255,255,0.3),
+        0 0 10px rgba(0,229,255,0.6);
+    }
+    {
+  box-sizing: border-box;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  margin: 0;
+  padding: 0;
+}
+.screen {
+  max-height: 100vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+}
+  </style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="notch"></div>
+  <div class="screen">
+    <h2>Withdrawal History</h2>
+    <div id="historyList"><div class="spinner"></div></div>
+  </div>
+
+  <div class="nav-bar">
+    <a href="index.html" class="nav-item">
+      <i class="fas fa-home"></i><span>Home</span>
+    </a>
+    <a href="start.html" class="nav-item">
+      <i class="fas fa-bolt"></i><span>Mining</span>
+    </a>
+    <a href="promotion.html" class="nav-item">
+      <i class="fas fa-users"></i><span>Promotion</span>
+    </a>
+    <a href="wallet.html" class="nav-item active">
+      <i class="fas fa-wallet"></i><span>Wallet</span>
+    </a>
+    <a href="account.html" class="nav-item">
+      <i class="fas fa-user"></i><span>Account</span>
+    </a>
+  </div>
+</div>
+
+<!-- Firebase v9 SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const historyList = document.getElementById("historyList");
+
+  onAuthStateChanged(auth, user => {
+    if (!user) return window.location.href = "auth.html";
+    const uid = user.uid;
+
+    const q = query(
+      collection(db, "withdrawals"),
+      where("uid", "==", uid),
+      orderBy("timestamp", "desc")
+    );
+
+    onSnapshot(q, (snapshot) => {
+      if (snapshot.empty) {
+        historyList.innerHTML = "<p style='text-align:center'>No withdrawal history found.</p>";
+        return;
+      }
+
+      historyList.innerHTML = "";
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const time = data.timestamp?.seconds
+          ? new Date(data.timestamp.seconds * 1000).toLocaleString()
+          : "N/A";
+        const statusClass = data.status?.toLowerCase().includes("success") ? "success" : "pending";
+
+        const box = document.createElement("div");
+        box.className = "box";
+        box.innerHTML = `
+          <div class="row"><strong>Amount</strong> <span>$ ${data.amount?.toFixed(2) || 0}</span></div>
+          <div class="row"><strong>Time</strong> <span>${time}</span></div>
+          <div class="row"><strong>Order ID</strong> 
+            <span>${data.orderId || "-"}
+            <button class="copy-btn" onclick="copyOrderId('${data.orderId || ""}')">Copy</button></span>
+          </div>
+          <div class="row"><strong>Status</strong> 
+            <span><span class="status-box ${statusClass}">${data.status || "pending"}</span></span>
+          </div>
+          <div class="copy-popup" id="copy-${data.orderId}">Order ID Copied!</div>
+        `;
+        historyList.appendChild(box);
+      });
+    });
+  });
+
+  window.copyOrderId = function(id) {
+    navigator.clipboard.writeText(id).then(() => {
+      const popup = document.getElementById("copy-" + id);
+      if (popup) {
+        popup.style.display = "block";
+        setTimeout(() => { popup.style.display = "none"; }, 1500);
+      }
+    });
+  };
+</script>
+
+</body>
+</html>

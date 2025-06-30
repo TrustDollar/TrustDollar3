@@ -1,0 +1,244 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrustDollar – Auth</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(145deg, #0a0a0a, #1f1f1f);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1000px;
+      width: 100%;
+      justify-content: center;
+    }
+    .card {
+      flex: 1 1 320px;
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00fff740;
+      border: 1px solid #1047db;
+    }
+    h2 {
+      text-align: center;
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: none;
+      background: #2c2c2c;
+      color: #00ffff;
+      font-size: 15px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #00ffff;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      margin-top: 15px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .switch {
+      text-align: center;
+      margin-top: 15px;
+      color: #aaa;
+      font-size: 14px;
+    }
+    .switch a {
+      color: #00ffff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #00ff99dd;
+      color: #000;
+      padding: 16px 30px;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 0 20px #00ff99;
+      display: none;
+      animation: fade 3s ease forwards;
+      text-align: center;
+      z-index: 9999;
+    }
+    @keyframes fade {
+      0% {opacity: 0; transform: translate(-50%, -60%);}
+      10% {opacity: 1; transform: translate(-50%, -50%);}
+      90% {opacity: 1;}
+      100% {opacity: 0; transform: translate(-50%, -50%);}
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card" id="loginCard">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email" />
+    <input type="password" id="loginPassword" placeholder="Password" />
+    <button id="loginBtn">Login</button>
+    <div class="switch">Don't have an account? <a id="switchToRegister">Register</a></div>
+  </div>
+
+  <div class="card" id="registerCard" style="display:none;">
+    <h2>Register</h2>
+    <input type="text" id="regUsername" placeholder="Username" />
+    <input type="email" id="regEmail" placeholder="Email" />
+    <input type="password" id="regPassword" placeholder="Password" />
+    <input type="password" id="regConfirmPassword" placeholder="Confirm Password" />
+    <input type="text" id="regReferral" placeholder="Referral Code (optional)" />
+    <button id="registerBtn">Register</button>
+    <div class="switch">Already have an account? <a id="switchToLogin">Login</a></div>
+  </div>
+</div>
+
+<div id="toast" class="toast">Welcome!</div>
+
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    serverTimestamp,
+  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.style.display = "block";
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 2000);
+  }
+
+  function generateRefCode(length = 8) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let code = "";
+    for (let i = 0; i < length; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+  }
+
+  async function register() {
+    const email = document.getElementById("regEmail").value.trim();
+    const password = document.getElementById("regPassword").value;
+    const confirmPassword = document.getElementById("regConfirmPassword").value;
+    const username = document.getElementById("regUsername").value.trim();
+    const referredBy = document.getElementById("regReferral").value.trim().toUpperCase() || null;
+
+    if (!username || !email || !password || !confirmPassword) {
+      showToast("All required fields!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      showToast("Passwords not match!");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      const refCode = generateRefCode(8);
+      const userID = generateRefCode(7);
+
+      await setDoc(doc(db, "users", uid), {
+        username,
+        email,
+        userID,
+        refCode,
+        referredBy,
+        wallet: 0,
+        createdAt: serverTimestamp(),
+      });
+
+      showToast("Registration successful!");
+      setTimeout(() => (window.location.href = "index.html"), 1000);
+    } catch (err) {
+      if (err.code === "auth/email-already-in-use") {
+        showToast("Email already registered!");
+      } else if (err.code === "auth/invalid-email") {
+        showToast("Please enter a valid email!");
+      } else if (err.code === "auth/weak-password") {
+        showToast("Minimum 6 characters");
+      } else {
+        showToast("Registration failed");
+      }
+    }
+  }
+
+  async function login() {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      showToast("Login successful!");
+      setTimeout(() => (window.location.href = "index.html"), 1000);
+    } catch (err) {
+      showToast("Please enter correct login details!");
+    }
+  }
+
+  document.getElementById("loginBtn").addEventListener("click", login);
+  document.getElementById("registerBtn").addEventListener("click", register);
+
+  document.getElementById("switchToRegister").addEventListener("click", () => {
+    document.getElementById("loginCard").style.display = "none";
+    document.getElementById("registerCard").style.display = "block";
+  });
+
+  document.getElementById("switchToLogin").addEventListener("click", () => {
+    document.getElementById("registerCard").style.display = "none";
+    document.getElementById("loginCard").style.display = "block";
+  });
+</script>
+</body>
+</html>

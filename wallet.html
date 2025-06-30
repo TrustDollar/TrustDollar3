@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wallet </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style><style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .phone {
+    width: 100%;
+    max-width: 400px;
+    height: 800px;
+    background: #000;
+    border-radius: 40px;
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 4px #00e5ff,
+      0 0 20px #00e5ff,
+      0 0 40px rgba(0, 229, 255, 0.6),
+      0 0 60px rgba(0, 229, 255, 0.4);
+  }
+
+  .notch {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 30px;
+    background: #111;
+    border-radius: 20px;
+    z-index: 2;
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #212121, #424242);
+    border-radius: 30px;
+    padding: 20px 14px 80px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+    max-height: 100vh;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  h2 {
+    color: #ffd700;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .wallet-box {
+    background: #1c1c1c;
+    border: 2px solid #00ffff88;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 0 20px #00ffff55;
+  }
+
+  .wallet-amount {
+    font-size: 26px;
+    font-weight: bold;
+    color: #00ffcc;
+  }
+
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .btn {
+    padding: 14px 30px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 255, 255, 0.1);
+    color: #00ffff;
+    box-shadow: 0 0 12px #00ffff66;
+    border: none;
+    text-align: center;
+  }
+
+  .btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: scale(1.05);
+    color: #ffffff;
+  }
+
+  .amount-boxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .amount-box {
+    background: rgba(0, 255, 255, 0.08);
+    border: 2px solid #00ffff88;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #00ffff;
+    box-shadow: 0 0 12px #00ffff55;
+    cursor: pointer;
+    transition: 0.3s;
+    backdrop-filter: blur(10px);
+  }
+
+  .amount-box:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: scale(1.05);
+    color: #fff;
+  }
+
+  .nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 20px 20px 0 0;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-around;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 -6px 20px rgba(0, 229, 255, 0.3);
+    z-index: 999;
+  }
+
+  .nav-bar a {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #ccc;
+    font-size: 10px;
+    transition: 0.3s ease;
+  }
+
+  .nav-bar a i {
+    font-size: 16px;
+    margin-bottom: 2px;
+    display: block;
+  }
+
+  .nav-bar a:hover,
+  .nav-bar a.active {
+    color: #00e5ff;
+    transform: translateY(-3px);
+  }
+</style>
+</style>
+
+  </style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="notch"></div>
+  <div class="screen">
+
+    <h2>Wallet Balance</h2>
+
+    <div class="wallet-box">
+      <div class="wallet-amount" id="walletBalance">$0.00</div>
+
+      <div class="button-row">
+        <button class="btn" onclick="window.location.href='deposit.html'">Deposit</button>
+        <button class="btn" onclick="window.location.href='withdrawal.html'">Withdraw</button>
+      </div>
+
+      <div class="button-row" style="margin-top: 25px;">
+        <button class="btn btn-outline" onclick="window.location.href='deposit-history.html'">Deposit History</button>
+        <button class="btn btn-outline" onclick="window.location.href='withdrawal-history.html'">Withdrawal History</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav Bar -->
+  <div class="nav-bar">
+    <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="start.html"><i class="fas fa-bolt"></i><span>Mining</span></a>
+    <a href="promotion.html"><i class="fas fa-users"></i><span>Promo</span></a>
+    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+    <a href="account.html"><i class="fas fa-user"></i><span>Account</span></a>
+  </div>
+</div>
+
+<!-- Firebase Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const walletEl = document.getElementById("walletBalance");
+
+  onAuthStateChanged(auth, user => {
+    if (!user) return window.location.href = "auth.html";
+    const uid = user.uid;
+    const userDoc = doc(db, "users", uid);
+    onSnapshot(userDoc, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const wallet = data.wallet || 0;
+        walletEl.innerText = `$${wallet.toFixed(2)}`;
+      } else {
+        walletEl.innerText = "$0.00";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

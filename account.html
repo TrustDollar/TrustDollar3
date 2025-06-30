@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 400px;
+      height: 800px;
+      background: #000;
+      border-radius: 40px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 4px #00e5ff,
+        0 0 20px #00e5ff,
+        0 0 40px rgba(0, 229, 255, 0.6),
+        0 0 60px rgba(0, 229, 255, 0.4);
+    }
+
+    .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 30px;
+      background: #111;
+      border-radius: 20px;
+      z-index: 2;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #212121, #424242);
+      border-radius: 30px;
+      padding: 20px 14px 80px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ffd700;
+      margin-bottom: 20px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .box {
+      background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 0 12px #00ffff88;
+      flex: 0 0 48%;
+    }
+
+    .box-full {
+      flex: 0 0 100%;
+    }
+
+    .label {
+      color: #aaa;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .value-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: #0ff;
+      flex-wrap: wrap;
+    }
+
+    .value-row input {
+      background: transparent;
+      border: none;
+      color: #0ff;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .value-row span {
+      word-break: break-word;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .save-btn {
+      background: #00ffcc;
+      color: #000;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .logout-btn {
+      display: block;
+      background: #ff4d4d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff4d4d66;
+      margin: 20px auto 10px;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      color: #00ffcc;
+      padding: 14px 24px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffcc66;
+      font-size: 16px;
+      display: none;
+      z-index: 9999;
+      text-align: center;
+      animation: fadeInOut 2.5s ease forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+      .nav-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  border-radius: 20px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+    .nav-bar a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      color: #ccc;
+      font-size: 10px;
+      transition: 0.3s ease;
+    }
+
+    .nav-bar a i {
+      font-size: 16px;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .nav-bar a:hover,
+    .nav-bar a.active {
+      color: #00e5ff;
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="notch"></div>
+  <div class="screen">
+    <h2>Account Details</h2>
+
+    <div class="row">
+      <div class="box">
+        <div class="label">Wallet Balance</div>
+        <div class="value-row"><span id="walletBalance">$0.00</span></div>
+      </div>
+
+      <div class="box">
+        <div class="label">Name</div>
+        <div class="value-row">
+          <input type="text" id="name" readonly />
+          <span onclick="makeEditable('name')" style="cursor:pointer;">🖊️</span>
+        </div>
+      </div>
+
+      <div class="box box-full">
+        <div class="label">Gmail ID</div>
+        <div class="value-row"><span id="email">Loading...</span></div>
+      </div>
+
+      <div class="box">
+        <div class="label">User ID</div>
+        <div class="value-row"><span id="userId">Loading...</span></div>
+      </div>
+
+      <div class="box">
+        <div class="label">USE BEP20 Address</div>
+        <div class="value-row">
+          <input type="text" id="userAddress" readonly />
+          <span onclick="makeEditable('userAddress')" style="cursor:pointer;">🖊️</span>
+        </div>
+      </div>
+
+      <div class="box box-full">
+        <div class="label">Change Password</div>
+        <div class="value-row">
+          <input type="password" id="newPassword" placeholder="Enter new password"/>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="saveAddress()" class="save-btn">Save</button>
+    <button onclick="logout()" class="logout-btn">Logout</button>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="nav-bar">
+    <a href="index.html" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="start.html"><i class="fas fa-bolt"></i><span>Mining</span></a>
+    <a href="promotion.html"><i class="fas fa-users"></i><span>Promotion</span></a>
+    <a href="wallet.html"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+    <a href="account.html"><i class="fas fa-user"></i><span>Account</span></a>
+  </div>
+</div>
+
+<div class="popup" id="popupMsg"></div>
+
+<!-- Firebase & Logic -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const walletBalance = document.getElementById("walletBalance");
+  const nameInput = document.getElementById("name");
+  const emailEl = document.getElementById("email");
+  const userIdEl = document.getElementById("userId");
+  const userAddressInput = document.getElementById("userAddress");
+  const popup = document.getElementById("popupMsg");
+  let currentUID;
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return window.location.href = "auth.html";
+    currentUID = user.uid;
+    emailEl.textContent = user.email;
+
+    const userRef = doc(db, "users", currentUID);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      nameInput.value = data.name || "Unnamed";
+      userIdEl.textContent = data.userID || "Not set";
+      walletBalance.textContent = `$${(data.wallet || 0).toFixed(2)}`;
+      userAddressInput.value = data.userAddress || "";
+    }
+  });
+
+  window.makeEditable = function (fieldId) {
+    const input = document.getElementById(fieldId);
+    input.removeAttribute("readonly");
+    input.focus();
+    input.addEventListener("blur", () => {
+      input.setAttribute("readonly", true);
+    }, { once: true });
+  }
+
+  window.saveAddress = async function () {
+    const nameValue = nameInput.value.trim();
+    const addressValue = userAddressInput.value.trim();
+    const passwordValue = document.getElementById("newPassword").value.trim();
+
+    const userRef = doc(db, "users", currentUID);
+    const updateData = {};
+
+    if (nameValue !== "") updateData.name = nameValue;
+    if (addressValue !== "") updateData.userAddress = addressValue;
+
+    try {
+      if (Object.keys(updateData).length > 0) {
+        await updateDoc(userRef, updateData);
+      }
+
+      if (passwordValue !== "") {
+        const user = auth.currentUser;
+        await updatePassword(user, passwordValue);
+      }
+
+      showPopup("Profile updated successfully");
+    } catch (error) {
+      console.error("Update error:", error);
+      showPopup("Error: " + error.message);
+    }
+  }
+
+  window.logout = function () {
+    signOut(auth).then(() => {
+      window.location.href = "auth.html";
+    }).catch((error) => {
+      console.error("Logout error:", error);
+    });
+  }
+
+  function showPopup(message) {
+    popup.innerText = message;
+    popup.style.display = "block";
+    setTimeout(() => {
+      popup.style.display = "none";
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>

@@ -498,7 +498,8 @@
   </div>
 </div>
 
-<!-- Firebase SDK -->
+<!-- HEAD PART Jaisa tumhare code me hai, wahi rakho -->
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
@@ -526,6 +527,7 @@
   const timerBox = document.getElementById("timerBox");
   const miningTimer = document.getElementById("miningTimer");
   const inputSection = document.getElementById("inputSection");
+
   let currentUser, mining = false, timerInterval;
 
   function showPopup(msg) {
@@ -578,8 +580,6 @@
   btn.onclick = async () => {
     const uid = currentUser.uid;
     const userRef = doc(db, "users", uid);
-
-    // Reload fresh data
     const snap = await getDoc(userRef);
     const data = snap.data();
     const wallet = parseFloat(data.wallet || 0);
@@ -597,9 +597,9 @@
         miningStartedAt: Date.now()
       });
 
-      showPopup("Mining Started");
-      btn.innerText = "Stop Mining";
+      showPopup("🚀 Mining Started");
       mining = true;
+      btn.innerText = "Stop Mining";
       toggleMiningSections(true);
       fundEl.innerText = `$${amount.toFixed(2)}`;
       walletEl.innerText = `$${(wallet - amount).toFixed(2)}`;
@@ -634,14 +634,18 @@
         }
       }
 
-      showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
-      btn.innerText = "Start Mining";
+      // ✅ UI Update
+      const freshSnap = await getDoc(userRef);
+      const freshData = freshSnap.data();
+
+      walletEl.innerText = `$${(freshData.wallet || 0).toFixed(2)}`;
+      fundEl.innerText = `$0.00`;
+
+      showPopup(`✅ Mining Stopped\nEarned $${earning.toFixed(4)} added`);
       mining = false;
+      btn.innerText = "Start Mining";
       toggleMiningSections(false);
       stopMiningTimer();
-      await loadUserData();
     }
   };
 </script>
-</body>
-</html>

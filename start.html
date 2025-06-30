@@ -578,11 +578,13 @@
   btn.onclick = async () => {
     const uid = currentUser.uid;
     const userRef = doc(db, "users", uid);
+
+    // Reload fresh data
     const snap = await getDoc(userRef);
     const data = snap.data();
-    const wallet = data.wallet || 0;
-    const miningAmount = data.miningAmount || 0;
-    const startedAt = data.miningStartedAt;
+    const wallet = parseFloat(data.wallet || 0);
+    const miningAmount = parseFloat(data.miningAmount || 0);
+    const startedAt = data.miningStartedAt || 0;
 
     if (!mining) {
       const amount = parseFloat(amountInput.value);

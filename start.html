@@ -511,16 +511,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
   import {
-    getFirestore,
-    doc,
-    getDoc,
-    updateDoc,
-    increment,
-    deleteField,
-    collection,
-    query,
-    where,
-    getDocs
+    getFirestore, doc, getDoc, updateDoc, increment, deleteField, collection, query, where, getDocs
   } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -579,12 +570,10 @@
     const docRef = doc(db, "users", currentUser.uid);
     const snap = await getDoc(docRef);
     const data = snap.data();
-
-    let wallet = parseFloat(data.wallet);
-    if (isNaN(wallet)) wallet = 0;
-
+    const wallet = parseFloat(data.wallet || 0);
+    const miningAmount = parseFloat(data.miningAmount || 0);
     walletEl.innerText = `$${wallet.toFixed(2)}`;
-    fundEl.innerText = `$${(data.miningAmount || 0).toFixed(2)}`;
+    fundEl.innerText = `$${miningAmount.toFixed(2)}`;
     mining = !!data.miningStartedAt;
     btn.innerText = mining ? "Stop Mining" : "Start Mining";
     toggleMiningSections(mining);
@@ -601,12 +590,10 @@
   btn.onclick = async () => {
     const uid = currentUser.uid;
     const userRef = doc(db, "users", uid);
+
     const snap = await getDoc(userRef);
     const data = snap.data();
-
-    let wallet = parseFloat(data.wallet);
-    if (isNaN(wallet)) wallet = 0;
-
+    const wallet = parseFloat(data.wallet || 0);
     const miningAmount = parseFloat(data.miningAmount || 0);
     const startedAt = data.miningStartedAt || 0;
 
@@ -641,8 +628,16 @@
       const uplineEarn = earning * 0.1;
       const totalUser = miningAmount + userEarn;
 
+      btn.innerText = "Start Mining";
+      mining = false;
+      toggleMiningSections(false);
+      stopMiningTimer();
+      showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
+      walletEl.innerText = `$${(wallet + totalUser).toFixed(2)}`;
+      fundEl.innerText = `$0.00`;
+
       await updateDoc(userRef, {
-        wallet: wallet + totalUser,
+        wallet: increment(totalUser),
         miningAmount: 0,
         miningStartedAt: deleteField()
       });
@@ -658,12 +653,7 @@
         }
       }
 
-      showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
-      btn.innerText = "Start Mining";
-      mining = false;
-      toggleMiningSections(false);
-      stopMiningTimer();
-      await loadUserData();
+      setTimeout(() => loadUserData(), 1000);
     }
   };
 </script>

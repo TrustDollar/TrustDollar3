@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -192,7 +192,7 @@
   display: none;
   text-align: center;
   color: #fff;
-  background: #021eed;
+  background: #00e5ffdd;
   padding: 12px;
   border-radius: 12px;
   position: fixed;
@@ -457,7 +457,7 @@
     </div>
 
     <div id="graphContainer" style="display:none; text-align:center; margin-top:20px; color:#00ffff;">
-      <p>Graph Placeholder</p>
+      <p>Received your amount</p>
     </div>
     <!-- ⛏️ Wave animation ke just niche paste karo -->
 <div class="floating-box-3d">
@@ -627,7 +627,6 @@
       const userEarn = earning * 0.9;
       const uplineEarn = earning * 0.1;
       const totalUser = miningAmount + userEarn;
-
       btn.innerText = "Start Mining";
       mining = false;
       toggleMiningSections(false);
@@ -645,10 +644,21 @@
       if (data.referredBy) {
         const q = query(collection(db, "users"), where("refCode", "==", data.referredBy));
         const qSnap = await getDocs(q);
+
         if (!qSnap.empty) {
           const uplineUID = qSnap.docs[0].id;
+
+          // 🔹 Upline wallet update
           await updateDoc(doc(db, "users", uplineUID), {
             wallet: increment(uplineEarn)
+          });
+
+          // 🔹 Referral income record save in Firebase
+          await addDoc(collection(db, "ReferralIncome"), {
+            fromUser: currentUser.uid,
+            toUpline: uplineUID,
+            amount: uplineEarn,
+            time: Date.now()
           });
         }
       }

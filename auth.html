@@ -5,18 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrustDollar – Auth</title>
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(145deg, #0a0a0a, #1f1f1f);
       color: #fff;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    /* Back Button */
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      border: 2px solid #00ffff;
+      background: rgba(0,0,0,0.3);
+      color: white;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
     .container {
       display: flex;
       flex-wrap: wrap;
@@ -24,85 +45,89 @@
       max-width: 1000px;
       width: 100%;
       justify-content: center;
+      margin-top: 100px;
     }
+
     .card {
-      position: relative;
-      flex: 1 1 320px;
+      flex: 1 1 340px;
       background: rgba(255, 255, 255, 0.05);
       padding: 30px;
       border-radius: 20px;
-      box-shadow:
-        0 0 20px rgba(0, 255, 255, 0.3),
-        inset 0 0 10px rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: brightness(1.1) contrast(1.2);
-    }
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(0,255,255,0.02));
-      pointer-events: none;
-    }
-    h2 {
-      text-align: center;
-      color: #00ffff;
-      margin-bottom: 20px;
+      border: 1px solid #00ffff55;
+      box-shadow: 0 0 15px #00ffff55;
+      backdrop-filter: blur(10px);
       position: relative;
-      z-index: 2;
+      transition: all 0.3s ease;
     }
+
+    .card h2 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
     input {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
       border-radius: 10px;
       border: none;
-      background: #2c2c2c;
+      background: #111;
       color: #00ffff;
       font-size: 15px;
-      position: relative;
-      z-index: 2;
     }
+
     button {
       width: 100%;
       padding: 12px;
-      background: #00ffff;
-      color: #000;
       border: none;
       border-radius: 10px;
-      font-weight: bold;
       margin-top: 15px;
       cursor: pointer;
       font-size: 16px;
-      position: relative;
-      z-index: 2;
+      font-weight: bold;
+      background: linear-gradient(to right, #ffcc00, #ff6600);
+      color: #000;
+      box-shadow: 0 0 10px #ff9900aa;
     }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
     .switch {
       text-align: center;
-      margin-top: 15px;
-      color: #aaa;
+      margin-top: 20px;
       font-size: 14px;
-      position: relative;
-      z-index: 2;
+      color: #aaa;
     }
+
     .switch a {
       color: #00ffff;
-      text-decoration: underline;
+      text-decoration: none;
+      font-weight: bold;
       cursor: pointer;
+      transition: 0.3s;
     }
+
+    .switch a:hover {
+      text-shadow: 0 0 6px #00ffff;
+    }
+
     .forgot-link {
       color: #00ffff;
       font-size: 13px;
       text-decoration: none;
-      transition: all 0.2s ease;
-      position: relative;
-      z-index: 2;
+      float: right;
+      margin-top: -10px;
+      display: block;
     }
+
     .forgot-link:hover {
       text-shadow: 0 0 5px #00ffff;
     }
+
     .toast {
       position: fixed;
       top: 50%;
@@ -120,6 +145,7 @@
       text-align: center;
       z-index: 9999;
     }
+
     @keyframes fade {
       0% {opacity: 0; transform: translate(-50%, -60%);}
       10% {opacity: 1; transform: translate(-50%, -50%);}
@@ -130,18 +156,20 @@
 </head>
 <body>
 
+
+
 <div class="container">
+  <!-- LOGIN CARD -->
   <div class="card" id="loginCard">
-    <h2>Login</h2>
+    <h2>Log In</h2>
     <input type="email" id="loginEmail" placeholder="Email" />
     <input type="password" id="loginPassword" placeholder="Password" />
-    <div style="text-align:right; margin-top: -5px; margin-bottom: 10px;">
-      <a href="#" id="forgotPasswordLink" class="forgot-link">🔒 Forgot Password?</a>
-    </div>
-    <button id="loginBtn">Login</button>
+    <a href="#" id="forgotPasswordLink" class="forgot-link">🔒 Forgot Password?</a>
+    <button id="loginBtn">Log In</button>
     <div class="switch">Don't have an account? <a id="switchToRegister">Register</a></div>
   </div>
 
+  <!-- REGISTER CARD -->
   <div class="card" id="registerCard" style="display:none;">
     <h2>Register</h2>
     <input type="text" id="regUsername" placeholder="Username" />
@@ -282,6 +310,7 @@
   document.getElementById("registerBtn").addEventListener("click", register);
   document.getElementById("forgotPasswordLink").addEventListener("click", forgotPassword);
 
+  // Switch toggle
   document.getElementById("switchToRegister").addEventListener("click", () => {
     document.getElementById("loginCard").style.display = "none";
     document.getElementById("registerCard").style.display = "block";
@@ -290,20 +319,6 @@
   document.getElementById("switchToLogin").addEventListener("click", () => {
     document.getElementById("registerCard").style.display = "none";
     document.getElementById("loginCard").style.display = "block";
-  });
-
-  // ✅ Auto-show register form + autofill referral from URL
-  window.addEventListener("DOMContentLoaded", () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const refCode = urlParams.get("ref");
-
-    if (refCode) {
-      const input = document.getElementById("regReferral");
-      if (input) input.value = refCode.toUpperCase();
-
-      document.getElementById("loginCard").style.display = "none";
-      document.getElementById("registerCard").style.display = "block";
-    }
   });
 </script>
 </body>

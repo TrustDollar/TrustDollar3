@@ -587,85 +587,91 @@
     await loadUserData();
   });
 
-  btn.onclick = async () => {
-    const uid = currentUser.uid;
-    const userRef = doc(db, "users", uid);
+ btn.onclick = async () => {
+  const uid = currentUser.uid;
+  const userRef = doc(db, "users", uid);
+  const snap = await getDoc(userRef);
+  const data = snap.data();
+  const wallet = parseFloat(data.wallet || 0);
+  const miningAmount = parseFloat(data.miningAmount || 0);
+  const startedAt = data.miningStartedAt || 0;
 
-    const snap = await getDoc(userRef);
-    const data = snap.data();
-    const wallet = parseFloat(data.wallet || 0);
-    const miningAmount = parseFloat(data.miningAmount || 0);
-    const startedAt = data.miningStartedAt || 0;
+  if (!mining) {
+    const amount = parseFloat(amountInput.value);
+    if (isNaN(amount) || amount <= 0) return showPopup("Enter valid amount");
+    if (amount > wallet) return showPopup("Insufficient Balance");
 
-    if (!mining) {
-      const amount = parseFloat(amountInput.value);
-      if (isNaN(amount) || amount <= 0) return showPopup("Enter valid amount");
-      if (amount > wallet) return showPopup("Insufficient Balance");
+    await updateDoc(userRef, {
+      wallet: wallet - amount,
+      miningAmount: amount,
+      miningStartedAt: Date.now()
+    });
 
-      await updateDoc(userRef, {
-        wallet: wallet - amount,
-        miningAmount: amount,
-        miningStartedAt: Date.now()
-      });
+    showPopup("Mining Started");
+    btn.innerText = "Stop Mining";
+    mining = true;
+    toggleMiningSections(true);
+    fundEl.innerText = `$${amount.toFixed(2)}`;
+    walletEl.innerText = `$${(wallet - amount).toFixed(2)}`;
+    startMiningTimer(Date.now());
+  } else {
+    const now = Date.now();
+    const duration = now - startedAt;
+    const dayMs = 86400000;
+    let fraction = duration / dayMs;
+    if (fraction < 1 / 1440) fraction = 1 / 1440;
 
-      showPopup("Mining Started");
-      btn.innerText = "Stop Mining";
-      mining = true;
-      toggleMiningSections(true);
-      fundEl.innerText = `$${amount.toFixed(2)}`;
-      walletEl.innerText = `$${(wallet - amount).toFixed(2)}`;
-      startMiningTimer(Date.now());
+    const earning = miningAmount * 0.01 * fraction;
+    const userEarn = earning * 0.9;
+    const uplineEarn = earning * 0.1;
+    const totalUser = miningAmount + userEarn;
 
-    } else {
-      const now = Date.now();
-      const duration = now - startedAt;
-      const dayMs = 86400000;
-      let fraction = duration / dayMs;
-      if (fraction < 1 / 1440) fraction = 1 / 1440;
+    btn.innerText = "Start Mining";
+    mining = false;
+    toggleMiningSections(false);
+    stopMiningTimer();
+    showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
+    walletEl.innerText = `$${(wallet + totalUser).toFixed(2)}`;
+    fundEl.innerText = `$0.00`;
 
-      const earning = miningAmount * 0.01 * fraction;
-      const userEarn = earning * 0.9;
-      const uplineEarn = earning * 0.1;
-      const totalUser = miningAmount + userEarn;
-      btn.innerText = "Start Mining";
-      mining = false;
-      toggleMiningSections(false);
-      stopMiningTimer();
-      showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
-      walletEl.innerText = `$${(wallet + totalUser).toFixed(2)}`;
-      fundEl.innerText = `$0.00`;
+    await updateDoc(userRef, {
+      wallet: increment(totalUser),
+      miningAmount: 0,
+      miningStartedAt: deleteField()
+    });
 
-      await updateDoc(userRef, {
-        wallet: increment(totalUser),
-        miningAmount: 0,
-        miningStartedAt: deleteField()
-      });
-
-      if (data.referredBy) {
+    // ✅ Send 10% to upline
+    if (data.referredBy) {
+      try {
         const q = query(collection(db, "users"), where("refCode", "==", data.referredBy));
         const qSnap = await getDocs(q);
-
         if (!qSnap.empty) {
           const uplineUID = qSnap.docs[0].id;
 
-          // 🔹 Upline wallet update
+          // Add 10% to upline wallet
           await updateDoc(doc(db, "users", uplineUID), {
             wallet: increment(uplineEarn)
           });
 
-          // 🔹 Referral income record save in Firebase
-          await addDoc(collection(db, "ReferralIncome"), {
+          // Save referral income
+          await addDoc(collection(db, "referral_income"), {
+            uid: currentUser.uid,
             fromUser: currentUser.uid,
             toUpline: uplineUID,
             amount: uplineEarn,
             time: Date.now()
           });
+        } else {
+          console.warn("Upline not found: refCode mismatch");
         }
+      } catch (e) {
+        console.error("Error sending to upline:", e);
       }
-
-      setTimeout(() => loadUserData(), 1000);
     }
-  };
+
+    setTimeout(() => loadUserData(), 1000);
+  }
+};
 </script>
 </body>
 </html>

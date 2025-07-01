@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrustDollar Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
   <style>
-    /* --- Global Reset --- */
     * {
       box-sizing: border-box;
-      will-change: transform, opacity;
-      transform: translateZ(0);
     }
     html, body {
       margin: 0;
@@ -19,91 +17,17 @@
       font-family: 'Segoe UI', sans-serif;
       scroll-behavior: smooth;
       overflow-x: hidden;
-      overscroll-behavior: none;
-    }
-
-    /* --- Popup Glassmorphism --- */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      backdrop-filter: blur(15px) saturate(150%);
-      -webkit-backdrop-filter: blur(15px) saturate(150%);
-      background: rgba(255, 255, 255, 0.08);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-      opacity: 1;
-    }
-    .popup-overlay.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .popup-box {
-      width: 90%;
-      max-width: 380px;
-      max-height: 80vh;
-      padding: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      border: 1.8px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
-      color: #fff;
-      font-size: 15px;
       overflow-y: auto;
-      text-align: center;
-    }
-    .popup-box::-webkit-scrollbar {
-      width: 6px;
-    }
-    .popup-box::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
     }
 
-    /* --- Phone Frame --- */
-    .phone {
-      width: 100%;
+    body {
+      padding-bottom: 120px;
+    }
+
+    .container {
       max-width: 400px;
-      height: 100vh;
-      background: #000;
-      border-radius: 40px;
-      padding: 12px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 0 4px #00e5ff,
-                  0 0 20px #00e5ff,
-                  0 0 40px rgba(0, 229, 255, 0.6),
-                  0 0 60px rgba(0, 229, 255, 0.4);
-      margin: auto;
-    }
-
-    .notch {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 30px;
-      background: #111;
-      border-radius: 20px;
-      z-index: 2;
-    }
-
-    .screen {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, #212121, #424242);
-      border-radius: 30px;
-      padding: 20px 14px 100px;
-      overflow-y: auto;
-      position: relative;
-      z-index: 1;
-      -webkit-overflow-scrolling: touch;
+      margin: 0 auto;
+      padding: 16px;
     }
 
     .row {
@@ -113,66 +37,32 @@
       margin-bottom: 15px;
     }
 
-    .box, .large-box {
+    .box {
+      flex: 0 0 48%;
       background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
       border-radius: 14px;
       box-shadow: 0 0 10px #00ffff99;
       color: #0ff;
       padding: 12px;
-    }
-
-    .box {
-      flex: 0 0 48%;
       text-align: center;
       font-size: 13px;
     }
 
     .large-box {
       width: 100%;
+      background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
+      border-radius: 14px;
+      box-shadow: 0 0 10px #00ffff99;
+      color: #0ff;
+      padding: 14px;
       text-align: center;
       font-size: 14px;
       margin-bottom: 20px;
     }
 
-    .animation-section {
-      width: 100%;
-      height: 120px;
-      background: #111;
-      border-radius: 16px;
-      box-shadow: inset 0 0 15px #00ffcc44;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .glass-btc-box {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(5px);
-      border-radius: 16px;
-      box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 120px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btc-icon {
-      font-size: 48px;
-      color: #ffcc00;
-      text-shadow: 0 0 10px rgba(255, 204, 0, 0.6), 0 0 20px rgba(255, 204, 0, 0.4);
-      animation: floatBTC 2s ease-in-out infinite;
-    }
-
-    @keyframes floatBTC {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
     .typing-box {
       width: 100%;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.1);
       border-radius: 12px;
       padding: 10px;
       text-align: center;
@@ -180,15 +70,8 @@
       color: #fff;
       font-size: 13px;
       min-height: 32px;
-      overflow: hidden;
       white-space: nowrap;
-    }
-
-    h3 {
-      text-align: center;
-      color: #ffd700;
-      font-size: 16px;
-      margin-top: 10px;
+      overflow: hidden;
     }
 
     .wave-section {
@@ -217,6 +100,31 @@
       100% { transform: translateX(-50%); }
     }
 
+    .glass-btc-box {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(5px);
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 120px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .btc-icon {
+      font-size: 48px;
+      color: #ffcc00;
+      text-shadow: 0 0 10px rgba(255, 204, 0, 0.6), 0 0 20px rgba(255, 204, 0, 0.4);
+      animation: floatBTC 2s ease-in-out infinite;
+    }
+
+    @keyframes floatBTC {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     .info-banner {
       background: linear-gradient(to right, #2c3e50, #2980b9);
       border-radius: 18px;
@@ -229,6 +137,14 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
+    h3 {
+      text-align: center;
+      color: #ffd700;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    /* ✅ YOUR FINAL NAV BAR */
     .nav-bar {
       position: fixed;
       bottom: 20px;
@@ -242,7 +158,7 @@
       gap: 10px;
       width: 90%;
       max-width: 320px;
-      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
       z-index: 999;
     }
 
@@ -250,7 +166,7 @@
       flex: 1;
       text-align: center;
       text-decoration: none;
-      color: #ccc;
+      color: gold;
       font-size: 10px;
       transition: 0.3s ease;
     }
@@ -259,157 +175,162 @@
       font-size: 16px;
       margin-bottom: 2px;
       display: block;
+      color: crimson;
     }
 
     .nav-bar a:hover,
     .nav-bar a.active {
-      color: #00e5ff;
+      color: crimson;
       transform: translateY(-3px);
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-in.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .glass-mini-box {
-      flex: 0 0 48%;
+    /* Popup Overlay */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      backdrop-filter: blur(15px) saturate(150%);
+      -webkit-backdrop-filter: blur(15px) saturate(150%);
       background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(6px);
-      border-radius: 16px;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.25);
-      color: #ff5733;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+      opacity: 1;
+    }
+
+    .popup-overlay.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .popup-box {
+      width: 90%;
+      max-width: 380px;
+      max-height: 80vh;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      border: 1.8px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+      color: #fff;
+      font-size: 15px;
+      overflow-y: auto;
       text-align: center;
-      font-size: 13px;
-      padding: 16px 10px;
-      transition: 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .glass-mini-box i {
-      font-size: 22px;
-      color: #00e5ff;
-      margin-bottom: 6px;
+    .popup-box::-webkit-scrollbar {
+      width: 6px;
     }
 
-    .animated-glass {
-      animation: floatGlass 2.5s ease-in-out infinite, glowPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes floatGlass {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    @keyframes glowPulse {
-      0%, 100% {
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.25);
-      }
-      50% {
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-      }
+    .popup-box::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
- <script>
-  const params = new URLSearchParams(window.location.search);
-  const ref = params.get("ref");
-  if (ref) {
-    window.location.href = `auth.html?ref=${ref}`;
-  }
-</script>
 
+<!-- ✅ POPUP GLASS OVERLAY -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-box">
+    <h2>Welcome to TrustDollar</h2>
+    <p>
+      A system where growth is earned, security is guaranteed, and transparency is not a feature — it's a foundation.<br><br>
+      ✅ BTC Mining Machine – Profit Sharing and Fee Policy<br>
+      🔹 50% profit shared with us as service fee<br>
+      🔹 50% direct to your wallet<br><br>
+      Join us for a fair and transparent system.<br>💎💎💎
+    </p>
+  </div>
+</div>
 
-  <!-- Fullscreen Popup -->
-  <div class="popup-overlay" id="popupOverlay">
-    <div class="popup-box">
-      <h2>Welome to TustDollar</h2>
-      <p>
-         a system where growth is earned, security is guaranteed, and transparency is not a feature — it's a foundation. Your trust powers everything we do."
-
-        BTC Mining Machine – Profit Sharing and Fee Policy<br><br>
-             To participate in BTC mining using our platform, a small fee is required to activate your mining machine. Once activated, you become a part of our mining pool, where your earnings depend on the overall mining performance.<br>If you have any problem please contact your admin<br>
-         
-         We follow a 50/50 profit-sharing model. This means:<br><br>
-        
-
-         50% of the profit or loss from your mining activity is shared with us as a service fee.
-
-         The remaining 50% belongs to you and is credited directly to your wallet.
-
-         By joining, you agree to this fair and transparent system where both the gains and losses are shared equally, ensuring long-term sustainability for both you and the platform.
-         💎💎💎💎
-      </p>
-    </div>
+<!-- ✅ MAIN CONTENT -->
+<div class="container">
+  <div class="row">
+    <div class="box">Secure System</div>
+    <div class="box">Fast Payouts</div>
+  </div>
+  <div class="row">
+    <div class="box">24/7 Mining</div>
+    <div class="box">Low Fees</div>
+  </div>
+  <div class="large-box">
+    Welcome to our BTC mining platform. Earn passive income with ease!
   </div>
 
-  <!-- Phone UI -->
-  <div class="phone">
-    <div class="notch"></div>
-    <div class="screen">
-      <div class="row fade-in">
-        <div class="box">Secure System</div>
-        <div class="box">Fast Payouts</div>
-      </div>
-      <div class="row fade-in">
-        <div class="box">24/7 Mining</div>
-        <div class="box">Low Fees</div>
-      </div>
-      <div class="large-box fade-in">
-        Welcome to our BTC mining platform. Earn passive income with ease!
-      </div>
-      <div class="animation-section glass-btc-box fade-in">
-        <div class="btc-icon"><i class="fab fa-btc"></i></div>
-      </div>
-      <div class="row fade-in">
-        <div class="glass-mini-box animated-glass">
-          <i class="fas fa-coins"></i><br/>Make a good income
-        </div>
-        <div class="glass-mini-box animated-glass">
-          <i class="fas fa-users"></i><br/>Grow your team
-        </div>
-      </div>
-      <div class="typing-box fade-in" id="typingText"></div>
-      <h3 class="fade-in">This platform is made for real users</h3>
-      <div class="wave-section fade-in">
-        <svg class="wave-svg" viewBox="0 0 1440 320">
-          <path fill="#ffffff44" fill-opacity="1" d="M0,160L60,165.3C120,171,240,181,360,165.3C480,149,600,107,720,101.3C840,96,960,128,1080,138.7C1200,149,1320,139,1380,133.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-        </svg>
-      </div>
-      <div class="info-banner fade-in">
-        🛡️ “You’re now connected to a secure, trusted, and eco-powered mining system.”<br />and eco-powered mining system.”
-      </div>
-      <div class="info-banner fade-in">
-       🍀 “Green means growth. White means clarity. <br /> Together, they build your future.”
-      </div>
-      <div class="info-banner fade-in">
-    💹 “Your profits grow in a system that’s as reliable as nature  <br /> pure and transparent.”
-      </div>
-      <div class="info-banner fade-in">
-        “Verified & Trustworthy ✅” <br />“Greenlighted for success 💚”
-      </div>
-      <div class="info-banner fade-in">
-       💚 “Simplicity meets security — your funds and faith are always respected here.” <br />Strong security 🔐
-      </div>
-      <div class="info-banner fade-in">
-        🌿 “We combine clarity and reliability to ensure your experience remains secure and rewarding.”<br />
-      </div>
-    </div>
+  <div class="glass-btc-box">
+    <div class="btc-icon"><i class="fab fa-btc"></i></div>
+  </div>
+
+  <div class="typing-box" id="typingText"></div>
+
+  <h3>This platform is made for real users</h3>
+
+  <div class="wave-section">
+    <svg class="wave-svg" viewBox="0 0 1440 320">
+      <path fill="#ffffff44" fill-opacity="1" d="M0,160L60,165.3C120,171,240,181,360,165.3C480,149,600,107,720,101.3C840,96,960,128,1080,138.7C1200,149,1320,139,1380,133.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+    </svg>
+  </div>
+
+  <div class="info-banner">🛡️ You’re now connected to a secure, trusted system.</div>
+  <div class="info-banner">🍀 Green means growth. White means clarity.</div>
+  <div class="info-banner">💹 Profits grow in a system that’s pure and transparent.</div>
+  <div class="info-banner">✅ Verified & Trustworthy – Greenlighted for success 💚</div>
+  <div class="info-banner">🔐 Simplicity meets security — funds & faith respected.</div>
+  <div class="info-banner">🌿 Clarity + Reliability = Rewarding experience.</div>
+</div>
+
+<!-- ✅ NAV BAR -->
 <div class="nav-bar">
-      <a href="index.html"><i class="fas fa-home"></i>Home</a>
-      <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
-      <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-      <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
-      <a href="account.html"><i class="fas fa-user"></i>Account</a>
-    </div>
-  </div>
+  <a href="index.html" class="active"><i class="fas fa-home"></i>Home</a>
+  <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
+  <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+  <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
+  <a href="account.html"><i class="fas fa-user"></i>Account</a>
+</div>
+
+<!-- ✅ SCRIPTS -->
+<script>
+  // Typing Text
+  const texts = ["Earn BTC Daily!", "Start mining in one click", "No hidden fees", "Withdraw anytime"];
+  let index = 0;
+  let typingBox = document.getElementById("typingText");
+
+  function typeText() {
+    let text = texts[index];
+    let i = 0;
+    typingBox.innerHTML = "";
+    let typingInterval = setInterval(() => {
+      if (i < text.length) {
+        typingBox.innerHTML += text[i];
+        i++;
+      } else {
+        clearInterval(typingInterval);
+        setTimeout(() => {
+          typingBox.innerHTML = "";
+          index = (index + 1) % texts.length;
+          typeText();
+        }, 2000);
+      }
+    }, 60);
+  }
+
+  typeText();
+
+  // Auto-hide popup
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const popup = document.getElementById("popupOverlay");
+      if (popup) popup.classList.add("hide");
+    }, 5000);
+  });
+
+  
+</script>
 <!-- ✅ Auth Check (Paste before </body>) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
@@ -482,5 +403,6 @@
       }, 5000);
     });
   </script>
+
 </body>
 </html>

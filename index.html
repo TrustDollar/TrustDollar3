@@ -318,6 +318,14 @@
   </style>
 </head>
 <body>
+ <script>
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get("ref");
+  if (ref) {
+    window.location.href = `auth.html?ref=${ref}`;
+  }
+</script>
+
 
   <!-- Fullscreen Popup -->
   <div class="popup-overlay" id="popupOverlay">

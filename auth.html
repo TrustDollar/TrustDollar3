@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TrustDollar/login/register</title>
+  <title>TrustDollar – Auth</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -136,7 +136,7 @@
     <input type="email" id="loginEmail" placeholder="Email" />
     <input type="password" id="loginPassword" placeholder="Password" />
     <div style="text-align:right; margin-top: -5px; margin-bottom: 10px;">
-      <a href="#" id="forgotPasswordLink" class="forgot-link"> Forgot Password?</a>
+      <a href="#" id="forgotPasswordLink" class="forgot-link">🔒 Forgot Password?</a>
     </div>
     <button id="loginBtn">Login</button>
     <div class="switch">Don't have an account? <a id="switchToRegister">Register</a></div>
@@ -290,6 +290,20 @@
   document.getElementById("switchToLogin").addEventListener("click", () => {
     document.getElementById("registerCard").style.display = "none";
     document.getElementById("loginCard").style.display = "block";
+  });
+
+  // ✅ Auto-show register form + autofill referral from URL
+  window.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refCode = urlParams.get("ref");
+
+    if (refCode) {
+      const input = document.getElementById("regReferral");
+      if (input) input.value = refCode.toUpperCase();
+
+      document.getElementById("loginCard").style.display = "none";
+      document.getElementById("registerCard").style.display = "block";
+    }
   });
 </script>
 </body>

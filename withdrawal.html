@@ -1,61 +1,27 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Withdraw – TrustDollar</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
     body {
       background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding-bottom: 80px;
-    }
-
-    .phone {
-      width: 400px;
-      height: 800px;
-      background: #000;
-      border-radius: 40px;
-      padding: 12px;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        0 0 0 4px #00e5ff,
-        0 0 30px #00e5ff,
-        0 0 60px rgba(0, 229, 255, 0.6),
-        0 0 80px rgba(0, 229, 255, 0.5);
-    }
-
-    .notch {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 30px;
-      background: #111;
-      border-radius: 20px;
-      z-index: 2;
-    }
-
-    .screen {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, #212121, #424242);
-      border-radius: 30px;
-      padding: 60px 14px 100px;
-      box-sizing: border-box;
-      overflow-y: auto;
-      position: relative;
-      z-index: 1;
+      padding: 60px 14px 120px;
+      max-width: 420px;
+      margin: 0 auto;
+      color: #fff;
     }
 
     h2 {
@@ -124,9 +90,9 @@
       text-align: center;
     }
 
-    /* ✅ Bottom NavBar */
+    /* ✅ Exact Index Nav Bar */
     .nav-bar {
-      position: absolute;
+      position: fixed;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
@@ -135,126 +101,59 @@
       padding: 10px 14px;
       display: flex;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       width: 90%;
       max-width: 320px;
-      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
       z-index: 999;
     }
 
     .nav-bar a {
-      text-decoration: none;
-      color: #ccc;
-      transition: 0.3s;
-    }
-
-    .nav-item {
       flex: 1;
-      background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-      border-radius: 12px;
-      padding: 8px 4px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: gold;
       font-size: 10px;
-      box-shadow:
-        inset 0 0 4px rgba(255,255,255,0.1),
-        0 6px 12px rgba(0,0,0,0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
+      transition: 0.3s ease;
     }
 
-    .nav-item i {
+    .nav-bar a i {
       font-size: 16px;
       margin-bottom: 2px;
+      display: block;
+      color: crimson;
     }
 
-    .nav-item:hover {
-      color: #00ffff;
-      transform: translateY(-4px) scale(1.05);
-      text-shadow: 0 0 6px #00ffff, 0 0 12px #00ffff66;
+    .nav-bar a:hover,
+    .nav-bar a.active {
+      color: crimson;
+      transform: translateY(-3px);
     }
-
-    .nav-item.active {
-      color: #00e5ff;
-      font-weight: bold;
-      transform: translateY(-4px) scale(1.05);
-      box-shadow:
-        0 8px 20px rgba(0,229,255,0.8),
-        inset 0 0 14px rgba(0,255,255,0.3),
-        0 0 10px rgba(0,229,255,0.6);
-    }
-    {
-  box-sizing: border-box;
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  margin: 0;
-  padding: 0;
-}
-.screen {
-  max-height: 100vh;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-.nav-bar {
-  position: fixed;;
-  bottom: 0;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(6px);
-  z-index: 999;
-}
-.nav-bar {
-  position: fixed;;
-  bottom: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(6px);
-  z-index: 999;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-}
-
   </style>
 </head>
 <body>
 
-<div class="phone">
-  <div class="notch"></div>
-  <div class="screen">
-    <h2>Withdraw Funds</h2>
-    <div class="withdraw-box">
-      <label for="amount">Enter Amount ($)</label>
-      <input type="number" id="amount" placeholder="Minimum $20" />
+  <h2>Withdraw Funds</h2>
+  <div class="withdraw-box">
+    <label for="amount">Enter Amount ($)</label>
+    <input type="number" id="amount" placeholder="Minimum $20" />
 
-      <label for="wallet">Your Wallet Address</label>
-      <input type="text" id="wallet" readonly />
+    <label for="wallet">Your Wallet Address</label>
+    <input type="text" id="wallet" readonly />
 
-      <button id="confirmBtn">Confirm</button>
-      <div class="popup" id="popupMsg"></div>
-    </div>
+    <button id="confirmBtn">Confirm</button>
+    <div class="popup" id="popupMsg"></div>
   </div>
 
+  <!-- ✅ Bottom Nav Bar (same as index.html) -->
   <div class="nav-bar">
-    <a href="index.html" class="nav-item">
-      <i class="fas fa-home"></i><span>Home</span>
-    </a>
-    <a href="start.html" class="nav-item">
-      <i class="fas fa-bolt"></i><span>Mining</span>
-    </a>
-    <a href="promotion.html" class="nav-item">
-      <i class="fas fa-users"></i><span>Promotion</span>
-    </a>
-    <a href="wallet.html" class="nav-item active">
-      <i class="fas fa-wallet"></i><span>Wallet</span>
-    </a>
-    <a href="account.html" class="nav-item">
-      <i class="fas fa-user"></i><span>Account</span>
-    </a>
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
+    <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
+    <a href="account.html"><i class="fas fa-user"></i>Account</a>
   </div>
-</div>
-
+  <div class="popup" id="popupMsg"></div>
 <!-- ✅ Firebase Script -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";

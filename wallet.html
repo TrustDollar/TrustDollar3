@@ -150,26 +150,125 @@
       color: crimson;
       transform: translateY(-3px);
     }
+    /* Button Box (Already Existing) */
+.button-box {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* New Photo Box */
+.photo-box {
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px;
+  background: #111;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+  text-align: center;
+}
+
+.photo-box img {
+  width: 100%;
+  border-radius: 10px;
+}
+
   </style>
 </head>
 <body>
 
 <div class="screen">
-  <h2>Wallet Balance</h2>
+  
 
   <div class="wallet-box">
     <div class="wallet-amount" id="walletBalance">$0.00</div>
 
     <div class="button-row">
-      <button class="btn" onclick="window.location.href='deposit.html'">Deposit</button>
-      <button class="btn" onclick="window.location.href='withdrawal.html'">Withdraw</button>
-    </div>
+  <a href="deposit.html" class="btn">Deposit</a>
+  <a href="withdraw.html" class="btn">Withdraw</a>
+</div>
+
+
+<style>
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .btn {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 12px;
+    background-color: #011;
+    color: #00fff7;
+    box-shadow: 0 0 10px #00fff7;
+    transition: 0.3s;
+    font-size: 16px;
+  }
+
+  .btn:hover {
+    background-color: #022;
+    box-shadow: 0 0 20px #00fff7;
+  }
+</style>
+
 
     <div class="button-row" style="margin-top: 25px;">
       <button class="btn" onclick="window.location.href='deposit-history.html'">Deposit History</button>
       <button class="btn" onclick="window.location.href='withdrawal-history.html'">Withdrawal History</button>
     </div>
+    
   </div>
+  <!-- NEW PHOTO BOX UNDER IT -->
+<div class="photo-box">
+  <img src="photo/c3145790-1ba1-404b-90eb-0453c9a62415.png" alt="Deposit Image" />
+</div>
+
+
+   <div class="live-activity-box" style="margin-top: 10px;" id="activityBox">
+  <p id="activityText">26GHDF deposited $694</p>
+</div>
+
+<style>
+  .live-activity-box {
+  width: 90%;
+  margin: 10px auto 0 auto; /* 👈 Added top margin */
+  padding: 10px;
+  background: #111;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+  color: #00ffc6;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+</style>
+
+<script>
+  const names = ["KODQIAH", "YIDASB", "GHT4AD", "26GHDF", "GASJ345", "647GDH", "FSF5654", "554GFF", "5THGFH", "FGD54Y","TYSHAD "];
+  const actions = ["deposited", "withdrew"];
+  
+  function getRandomActivity() {
+    const name = names[Math.floor(Math.random() * names.length)];
+    const action = actions[Math.floor(Math.random() * actions.length)];
+    const amount = Math.floor(Math.random() * 900 + 100); // Random amount between 100 and 1000
+    return `${name} ${action} $${amount}`;
+  }
+
+  function updateActivity() {
+    document.getElementById("activityText").innerText = getRandomActivity();
+  }
+
+  // Initial call and interval
+  updateActivity();
+  setInterval(updateActivity, 4000); // Update every 4 seconds
+</script>
+
 
   <!-- ✅ Fixed Bottom Nav Bar from index.html -->
 <div class="nav-bar">

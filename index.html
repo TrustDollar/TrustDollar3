@@ -403,6 +403,14 @@
       }, 5000);
     });
   </script>
+ <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const ref = urlParams.get('ref');
+  if (ref) {
+    window.location.href = `https://www.trustdollar.in/auth.html?ref=${ref}`;
+  }
+</script>
+
 
 </body>
 </html>

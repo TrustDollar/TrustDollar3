@@ -320,6 +320,31 @@
     document.getElementById("registerCard").style.display = "none";
     document.getElementById("loginCard").style.display = "block";
   });
+   // URL se referral code uthao aur input me daalo
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get("ref");
+    if (ref) {
+      document.getElementById("regReferral").value = ref.toUpperCase();
+
+      // Referral code aaya hai to Register form khol do
+      document.getElementById("loginCard").style.display = "none";
+      document.getElementById("registerCard").style.display = "block";
+    }
+  });
+  // URL se referral code uthao aur input me daalo
+  document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get("ref");
+    if (ref) {
+      document.getElementById("regReferral").value = ref.toUpperCase();
+
+      // Referral code aaya hai to Register form khol do
+      document.getElementById("loginCard").style.display = "none";
+      document.getElementById("registerCard").style.display = "block";
+    }
+  });
+
 </script>
 </body>
 </html>

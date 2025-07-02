@@ -306,7 +306,7 @@
     }
   }
 
-  document.getElementById("loginBtn").addEventListener("click", login);
+     document.getElementById("loginBtn").addEventListener("click", login);
   document.getElementById("registerBtn").addEventListener("click", register);
   document.getElementById("forgotPasswordLink").addEventListener("click", forgotPassword);
 
@@ -320,31 +320,19 @@
     document.getElementById("registerCard").style.display = "none";
     document.getElementById("loginCard").style.display = "block";
   });
-   // URL se referral code uthao aur input me daalo
-  document.addEventListener("DOMContentLoaded", () => {
+
+  // ✅ Referral code URL se uthao aur register form me dikhao
+  window.addEventListener("load", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const ref = urlParams.get("ref");
+
     if (ref) {
       document.getElementById("regReferral").value = ref.toUpperCase();
-
-      // Referral code aaya hai to Register form khol do
       document.getElementById("loginCard").style.display = "none";
       document.getElementById("registerCard").style.display = "block";
     }
   });
-  // URL se referral code uthao aur input me daalo
-  document.addEventListener("DOMContentLoaded", () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const ref = urlParams.get("ref");
-    if (ref) {
-      document.getElementById("regReferral").value = ref.toUpperCase();
-
-      // Referral code aaya hai to Register form khol do
-      document.getElementById("loginCard").style.display = "none";
-      document.getElementById("registerCard").style.display = "block";
-    }
-  });
-
 </script>
 </body>
 </html>
+

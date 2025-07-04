@@ -360,16 +360,23 @@
     }
   });
 
+  
   function openChat() {
     const w = 400;
     const h = 600;
     const left = (screen.width / 2) - (w / 2);
     const top = (screen.height / 2) - (h / 2);
 
-    // ✅ Replace this with your actual Telegram link
-    window.open('https://t.me/YourTelegramUsername', '_blank', `width=${w},height=${h},left=${left},top=${top}`);
+    // Open Telegram in a centered popup
+    window.open('https://t.me/TrustDollarmining', '_blank', `width=${w},height=${h},left=${left},top=${top}`);
+
+    // Open SMS app on mobile with pre-filled message
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      window.location.href = "sms:?body=Hi, I just joined TrustDollar. Please help me with my problem.";
+    }
   }
 </script>
+
 
 
      

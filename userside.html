@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -20,24 +20,36 @@
     .chat-wrapper {
       width: 100%;
       max-width: 500px;
-      height: 96vh;
-      background: #1a0000;
-      border-radius: 16px;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+      background: #1a0000;
+      border-radius: 0;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
       border: 1px solid #990000;
-      position: relative;
     }
 
     .chat-header {
       background: linear-gradient(to right, #cc0000, #ffcc00);
-      padding: 14px;
-      text-align: center;
+      padding: 14px 20px;
       font-weight: bold;
       color: #000;
       font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-header .close-btn {
+      font-size: 20px;
+      cursor: pointer;
+      color: #000;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      text-align: center;
+      line-height: 24px;
     }
 
     .chat-messages {
@@ -48,6 +60,7 @@
       flex-direction: column;
       gap: 10px;
       scroll-behavior: smooth;
+      background: #1a0000;
     }
 
     .msg {
@@ -57,8 +70,8 @@
       font-size: 15px;
       line-height: 1.4;
       word-wrap: break-word;
-      box-shadow: 0 0 6px #00000044;
       animation: pop 0.2s ease-in-out;
+      box-shadow: 0 0 6px #00000044;
     }
 
     .user-msg {
@@ -122,41 +135,19 @@
       font-size: 15px;
     }
 
-    /* ✅ Close Button */
-    #closeBtn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 20px;
-      color: #fff;
-      background: #cc0000;
-      padding: 5px 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      z-index: 999;
-    }
-
-    #closeBtn:hover {
-      background: #ff0000;
-      transform: scale(1.05);
-    }
-
     @media (max-width: 600px) {
       .chat-wrapper {
-        height: 100vh;
         border-radius: 0;
-      }
-      .msg {
-        max-width: 90%;
-        font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
   <div class="chat-wrapper">
-    <div id="closeBtn" onclick="window.close()">✖</div>
-    <div class="chat-header">💬 TrustDollar Chat Support</div>
+    <div class="chat-header">
+      💬 TrustDollar Chat Support
+      <div class="close-btn" onclick="window.close()">✕</div>
+    </div>
     <div class="chat-messages" id="chatBox"></div>
     <div class="chat-input">
       <input type="text" id="msgInput" placeholder="Type your message..." />
@@ -164,7 +155,7 @@
     </div>
   </div>
 
-  <!-- ✅ Firebase Script -->
+  <!-- ✅ Firebase Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";

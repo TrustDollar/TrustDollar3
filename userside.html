@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -20,36 +20,24 @@
     .chat-wrapper {
       width: 100%;
       max-width: 500px;
-      height: 100vh;
+      height: 96vh;
+      background: #1a0000;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
       display: flex;
       flex-direction: column;
-      background: #1a0000;
-      border-radius: 0;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+      overflow: hidden;
       border: 1px solid #990000;
+      position: relative;
     }
 
     .chat-header {
       background: linear-gradient(to right, #cc0000, #ffcc00);
-      padding: 14px 20px;
+      padding: 14px;
+      text-align: center;
       font-weight: bold;
       color: #000;
       font-size: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .chat-header .close-btn {
-      font-size: 20px;
-      cursor: pointer;
-      color: #000;
-      background: rgba(255,255,255,0.4);
-      border-radius: 50%;
-      width: 26px;
-      height: 26px;
-      text-align: center;
-      line-height: 24px;
     }
 
     .chat-messages {
@@ -60,7 +48,6 @@
       flex-direction: column;
       gap: 10px;
       scroll-behavior: smooth;
-      background: #1a0000;
     }
 
     .msg {
@@ -71,7 +58,6 @@
       line-height: 1.4;
       word-wrap: break-word;
       animation: pop 0.2s ease-in-out;
-      box-shadow: 0 0 6px #00000044;
     }
 
     .user-msg {
@@ -88,20 +74,6 @@
       border: 1px solid #ffd700aa;
       color: #ffd700;
       border-top-left-radius: 0;
-    }
-
-    .typing-indicator {
-      font-size: 13px;
-      color: #ffaaaa;
-      font-style: italic;
-      margin-left: 5px;
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0% { opacity: 0.2; }
-      50% { opacity: 1; }
-      100% { opacity: 0.2; }
     }
 
     @keyframes pop {
@@ -137,17 +109,19 @@
 
     @media (max-width: 600px) {
       .chat-wrapper {
+        height: 100vh;
         border-radius: 0;
+      }
+      .msg {
+        max-width: 90%;
+        font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
   <div class="chat-wrapper">
-    <div class="chat-header">
-      💬 TrustDollar Chat Support
-      <div class="close-btn" onclick="window.close()">✕</div>
-    </div>
+    <div class="chat-header">💬 TrustDollar Chat Support</div>
     <div class="chat-messages" id="chatBox"></div>
     <div class="chat-input">
       <input type="text" id="msgInput" placeholder="Type your message..." />
@@ -155,22 +129,19 @@
     </div>
   </div>
 
-  <!-- ✅ Firebase Logic -->
+  <!-- ✅ Firebase Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
     import {
       getFirestore, collection, addDoc, serverTimestamp,
-      query, orderBy, onSnapshot
+      query, orderBy, onSnapshot, where
     } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
       authDomain: "trustdollar-f72f4.firebaseapp.com",
-      projectId: "trustdollar-f72f4",
-      storageBucket: "trustdollar-f72f4.appspot.com",
-      messagingSenderId: "217643658538",
-      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+      projectId: "trustdollar-f72f4"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -205,31 +176,21 @@
     });
 
     function listenToMessages() {
-      const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+      const q = query(
+        collection(db, "messages"),
+        where("uid", "==", currentUser.uid),
+        orderBy("timestamp", "asc")
+      );
+
       onSnapshot(q, (snapshot) => {
         chatBox.innerHTML = "";
-        let showTyping = false;
-
         snapshot.forEach(doc => {
           const msg = doc.data();
-
-          if (msg.from === "typing" && msg.to === currentUser.uid) {
-            showTyping = true;
-            return;
-          }
-
           const div = document.createElement("div");
           div.className = "msg " + (msg.from === "user" ? "user-msg" : "admin-msg");
           div.textContent = msg.text;
           chatBox.appendChild(div);
         });
-
-        if (showTyping) {
-          const typingDiv = document.createElement("div");
-          typingDiv.className = "typing-indicator";
-          typingDiv.textContent = "Admin is typing...";
-          chatBox.appendChild(typingDiv);
-        }
 
         chatBox.scrollTop = chatBox.scrollHeight;
       });

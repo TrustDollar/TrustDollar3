@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Chat – TrustDollar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #330000, #1a0000);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-wrapper {
+      width: 100%;
+      max-width: 500px;
+      height: 96vh;
+      background: #1a0000;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #990000;
+      position: relative;
+    }
+
+    .chat-header {
+      background: linear-gradient(to right, #cc0000, #ffcc00);
+      padding: 14px;
+      text-align: center;
+      font-weight: bold;
+      color: #000;
+      font-size: 18px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scroll-behavior: smooth;
+    }
+
+    .msg {
+      padding: 10px 14px;
+      max-width: 80%;
+      border-radius: 18px;
+      font-size: 15px;
+      line-height: 1.4;
+      word-wrap: break-word;
+      box-shadow: 0 0 6px #00000044;
+      animation: pop 0.2s ease-in-out;
+    }
+
+    .user-msg {
+      align-self: flex-end;
+      background: linear-gradient(to right, #ff0000, #ffd700);
+      color: #000;
+      font-weight: 500;
+      border-top-right-radius: 0;
+    }
+
+    .admin-msg {
+      align-self: flex-start;
+      background: #2b0000;
+      border: 1px solid #ffd700aa;
+      color: #ffd700;
+      border-top-left-radius: 0;
+    }
+
+    .typing-indicator {
+      font-size: 13px;
+      color: #ffaaaa;
+      font-style: italic;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #990000;
+      background: #220000;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      background: #330000;
+      color: white;
+    }
+
+    .chat-input button {
+      padding: 0 20px;
+      background: linear-gradient(to right, #ff0000, #ffd700);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    /* ✅ Close Button */
+    #closeBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      color: #fff;
+      background: #cc0000;
+      padding: 5px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    #closeBtn:hover {
+      background: #ff0000;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      .chat-wrapper {
+        height: 100vh;
+        border-radius: 0;
+      }
+      .msg {
+        max-width: 90%;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-wrapper">
+    <div id="closeBtn" onclick="window.close()">✖</div>
+    <div class="chat-header">💬 TrustDollar Chat Support</div>
+    <div class="chat-messages" id="chatBox"></div>
+    <div class="chat-input">
+      <input type="text" id="msgInput" placeholder="Type your message..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <!-- ✅ Firebase Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    import {
+      getFirestore, collection, addDoc, serverTimestamp,
+      query, orderBy, onSnapshot
+    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+      authDomain: "trustdollar-f72f4.firebaseapp.com",
+      projectId: "trustdollar-f72f4",
+      storageBucket: "trustdollar-f72f4.appspot.com",
+      messagingSenderId: "217643658538",
+      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const chatBox = document.getElementById("chatBox");
+    const msgInput = document.getElementById("msgInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    let currentUser;
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) return (window.location.href = "auth.html");
+      currentUser = user;
+      listenToMessages();
+    });
+
+    sendBtn.addEventListener("click", async () => {
+      const text = msgInput.value.trim();
+      if (!text || !currentUser) return;
+
+      await addDoc(collection(db, "messages"), {
+        uid: currentUser.uid,
+        from: "user",
+        to: "admin",
+        text,
+        timestamp: serverTimestamp()
+      });
+
+      msgInput.value = "";
+    });
+
+    function listenToMessages() {
+      const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+      onSnapshot(q, (snapshot) => {
+        chatBox.innerHTML = "";
+        let showTyping = false;
+
+        snapshot.forEach(doc => {
+          const msg = doc.data();
+
+          if (msg.from === "typing" && msg.to === currentUser.uid) {
+            showTyping = true;
+            return;
+          }
+
+          const div = document.createElement("div");
+          div.className = "msg " + (msg.from === "user" ? "user-msg" : "admin-msg");
+          div.textContent = msg.text;
+          chatBox.appendChild(div);
+        });
+
+        if (showTyping) {
+          const typingDiv = document.createElement("div");
+          typingDiv.className = "typing-indicator";
+          typingDiv.textContent = "Admin is typing...";
+          chatBox.appendChild(typingDiv);
+        }
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
+    }
+  </script>
+</body>
+</html>

@@ -251,8 +251,7 @@
     </p>
   </div>
 </div>
-
-<!-- ✅ FIXED CHAT ICON BUTTON -->
+<!-- ✅ DRAGGABLE FIXED CHAT ICON -->
 <div id="chatIcon">
   <div class="rotating-ring"></div>
   <div class="chat-btn" onclick="openChat()">
@@ -263,16 +262,17 @@
 <style>
   #chatIcon {
     position: fixed;
-    right: 20px;
-    bottom: 100px;
+    left: 50%;
+    bottom: 80px;
+    transform: translateX(-50%);
     width: 60px;
     height: 60px;
     border-radius: 50%;
     z-index: 99999;
-    cursor: grab;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: grab;
   }
 
   .rotating-ring {
@@ -316,18 +316,23 @@
 <script>
   const chatIcon = document.getElementById('chatIcon');
   let isDragging = false, offsetX = 0, offsetY = 0;
-  let hasMoved = false;
 
-  // Load saved position
-  const saved = JSON.parse(localStorage.getItem('chatIconPos'));
-  if (saved) {
+  // ✅ Set default center-bottom position
+  if (!localStorage.getItem('chatIconPos')) {
+    chatIcon.style.left = '50%';
+    chatIcon.style.bottom = '80px';
+    chatIcon.style.top = '';
+    chatIcon.style.transform = 'translateX(-50%)';
+  } else {
+    const saved = JSON.parse(localStorage.getItem('chatIconPos'));
     chatIcon.style.left = saved.x + 'px';
     chatIcon.style.top = saved.y + 'px';
+    chatIcon.style.bottom = '';
+    chatIcon.style.transform = 'none';
   }
 
   chatIcon.addEventListener('mousedown', (e) => {
     isDragging = true;
-    hasMoved = false;
     offsetX = e.clientX - chatIcon.offsetLeft;
     offsetY = e.clientY - chatIcon.offsetTop;
     chatIcon.style.cursor = 'grabbing';
@@ -335,9 +340,12 @@
 
   document.addEventListener('mousemove', (e) => {
     if (isDragging) {
-      hasMoved = true;
-      chatIcon.style.left = `${e.clientX - offsetX}px`;
-      chatIcon.style.top = `${e.clientY - offsetY}px`;
+      const x = e.clientX - offsetX;
+      const y = e.clientY - offsetY;
+      chatIcon.style.left = x + 'px';
+      chatIcon.style.top = y + 'px';
+      chatIcon.style.bottom = '';
+      chatIcon.style.transform = 'none';
     }
   });
 
@@ -353,15 +361,18 @@
   });
 
   function openChat() {
-    if (!hasMoved) {
-      const w = 400;
-      const h = 600;
-      const left = (screen.width / 2) - (w / 2);
-      const top = (screen.height / 2) - (h / 2);
-      window.open('userside.html', '_blank', `width=${w},height=${h},left=${left},top=${top}`);
-    }
+    const w = 400;
+    const h = 600;
+    const left = (screen.width / 2) - (w / 2);
+    const top = (screen.height / 2) - (h / 2);
+
+    // ✅ Replace this with your actual Telegram link
+    window.open('https://t.me/YourTelegramUsername', '_blank', `width=${w},height=${h},left=${left},top=${top}`);
   }
 </script>
+
+
+     
 
 <!-- ✅ MAIN CONTENT -->
 <div class="container">

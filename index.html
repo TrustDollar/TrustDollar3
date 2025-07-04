@@ -1,10 +1,12 @@
- <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrustDollar Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+ 
+
   
   <style>
     * {
@@ -50,7 +52,7 @@
 
     .large-box {
       width: 100%;
-      background: linear-gradient(135deg, #1a1a1a, #f11c1c);
+      background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
       border-radius: 14px;
       box-shadow: 0 0 10px #00ffff99;
       color: #0ff;
@@ -230,11 +232,13 @@
       background: rgba(255, 255, 255, 0.2);
       border-radius: 10px;
     }
-  </style>
+
+    </style>
+
+ 
 </head>
 <body>
-
-<!-- ✅ POPUP GLASS OVERLAY -->
+  <!-- ✅ POPUP GLASS OVERLAY -->
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup-box">
     <h2>Welcome to TrustDollar</h2>
@@ -247,6 +251,117 @@
     </p>
   </div>
 </div>
+
+<!-- ✅ FIXED CHAT ICON BUTTON -->
+<div id="chatIcon">
+  <div class="rotating-ring"></div>
+  <div class="chat-btn" onclick="openChat()">
+    <img src="photo/chatlogo.png" alt="Chat Icon" />
+  </div>
+</div>
+
+<style>
+  #chatIcon {
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    z-index: 99999;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rotating-ring {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top: 4px solid red;
+    border-right: 4px solid gold;
+    animation: spinRing 2s linear infinite;
+    box-shadow: 0 0 8px red;
+    z-index: 1;
+  }
+
+  .chat-btn {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: white;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .chat-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  @keyframes spinRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  const chatIcon = document.getElementById('chatIcon');
+  let isDragging = false, offsetX = 0, offsetY = 0;
+  let hasMoved = false;
+
+  // Load saved position
+  const saved = JSON.parse(localStorage.getItem('chatIconPos'));
+  if (saved) {
+    chatIcon.style.left = saved.x + 'px';
+    chatIcon.style.top = saved.y + 'px';
+  }
+
+  chatIcon.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    hasMoved = false;
+    offsetX = e.clientX - chatIcon.offsetLeft;
+    offsetY = e.clientY - chatIcon.offsetTop;
+    chatIcon.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      hasMoved = true;
+      chatIcon.style.left = `${e.clientX - offsetX}px`;
+      chatIcon.style.top = `${e.clientY - offsetY}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      chatIcon.style.cursor = 'grab';
+      localStorage.setItem('chatIconPos', JSON.stringify({
+        x: chatIcon.offsetLeft,
+        y: chatIcon.offsetTop
+      }));
+    }
+  });
+
+  function openChat() {
+    if (!hasMoved) {
+      const w = 400;
+      const h = 600;
+      const left = (screen.width / 2) - (w / 2);
+      const top = (screen.height / 2) - (h / 2);
+      window.open('userside.html', '_blank', `width=${w},height=${h},left=${left},top=${top}`);
+    }
+  }
+</script>
 
 <!-- ✅ MAIN CONTENT -->
 <div class="container">
@@ -284,6 +399,7 @@
   <div class="info-banner">🌿 Clarity + Reliability = Rewarding experience.</div>
 </div>
 
+
 <!-- ✅ NAV BAR -->
 <div class="nav-bar">
   <a href="index.html" class="active"><i class="fas fa-home"></i>Home</a>
@@ -292,6 +408,10 @@
   <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
   <a href="account.html"><i class="fas fa-user"></i>Account</a>
 </div>
+
+  
+
+
 
 <!-- ✅ SCRIPTS -->
 <script>

@@ -116,7 +116,6 @@
       opacity: 0.7;
     }
 
-    /* Copy Popup */
     .popup {
       position: fixed;
       top: 50%;
@@ -184,12 +183,14 @@
     <div class="footer">© 2025 Trust Dollar – Referral System</div>
   </div>
 
-  <!-- Centered Popup -->
   <div id="popup" class="popup">Referral link copied!</div>
 
-  <!-- Firebase + Copy Script -->
+  <!-- Firebase + Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import {
+      getFirestore, doc, getDoc
+    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
     import {
       getAuth, onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
@@ -205,12 +206,21 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    onAuthStateChanged(auth, (user) => {
-      const refBox = document.getElementById("refLink");
+    const refBox = document.getElementById("refLink");
+
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
-        refBox.innerText = `https://trustdollar.com/register?ref=${uid}`;
+        const userDoc = await getDoc(doc(db, "users", uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          const refCode = data.refCode || uid; // fallback if no custom code
+          refBox.innerText = `https://trustdollar.com/register?ref=${refCode}`;
+        } else {
+          refBox.innerText = "Referral info not found.";
+        }
       } else {
         refBox.innerText = "Please login to view your referral link.";
       }

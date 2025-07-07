@@ -1,0 +1,232 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trust Dollar Referral Bonus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #8b0000, #ffd700);
+      color: #fff;
+    }
+
+    .top-bar {
+      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .top-bar a {
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffd700;
+      text-shadow: 0 0 8px red;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+    .referral-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #ffd700;
+      border-radius: 10px;
+      padding: 10px 15px;
+      margin: 20px 0;
+      gap: 10px;
+    }
+
+    .referral-link {
+      color: #fff;
+      font-weight: bold;
+      word-break: break-word;
+      flex: 1;
+    }
+
+    .copy-btn {
+      background: #ffd700;
+      color: #8b0000;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .copy-btn:hover {
+      background: #ffa500;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+      margin-top: 10px;
+      border: 1px solid #ffd700;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ffd700;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    th {
+      background: rgba(255, 215, 0, 0.3);
+      color: black;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    /* Copy Popup */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 15px 25px;
+      border: 1px solid #ffd700;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(255,215,0,0.4);
+      display: none;
+      z-index: 9999;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 6vw; }
+      p, th, td { font-size: 14px; }
+      .copy-btn { width: 100%; }
+      .referral-box { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="next.html">🔙 Back</a>
+  </div>
+
+  <div class="container">
+    <h1>🎁 Referral Bonus Program</h1>
+
+    <p><strong>🔗 Your Referral Link:</strong></p>
+    <div class="referral-box">
+      <div class="referral-link" id="refLink">Loading...</div>
+      <button class="copy-btn" onclick="copyLink()">Copy</button>
+    </div>
+
+    <p>
+      ✅ When someone joins through your link and makes their <strong>first deposit</strong>, you earn a <strong>20% bonus</strong> instantly.<br><br>
+      🔁 Then you also earn <strong>10% of their daily mining income</strong> — automatically, every single day.<br><br>
+      💰 More referrals = more passive income without extra effort.
+    </p>
+
+    <h2 style="color:#ffd700;text-shadow:0 0 5px red;">📊 Referral Earnings Estimation</h2>
+
+    <div class="table-wrapper">
+      <table>
+        <tr><th>Referrals</th><th>Avg Deposit</th><th>20% Bonus</th><th>10% Daily Income</th></tr>
+        <tr><td>5</td><td>$100</td><td>$100</td><td>$1/day</td></tr>
+        <tr><td>10</td><td>$100</td><td>$200</td><td>$2/day</td></tr>
+        <tr><td>50</td><td>$200</td><td>$2000</td><td>$10/day</td></tr>
+        <tr><td>100</td><td>$500</td><td>$10000</td><td>$50/day</td></tr>
+      </table>
+    </div>
+
+    <p>
+      🔥 Imagine referring 100 active users — you could earn over <strong>$50 per day</strong> without doing anything.<br>
+      That’s the power of the Trust Dollar Referral Program 🚀
+    </p>
+
+    <div class="footer">© 2025 Trust Dollar – Referral System</div>
+  </div>
+
+  <!-- Centered Popup -->
+  <div id="popup" class="popup">Referral link copied!</div>
+
+  <!-- Firebase + Copy Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+      authDomain: "trustdollar-f72f4.firebaseapp.com",
+      projectId: "trustdollar-f72f4",
+      storageBucket: "trustdollar-f72f4.appspot.com",
+      messagingSenderId: "217643658538",
+      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      const refBox = document.getElementById("refLink");
+      if (user) {
+        const uid = user.uid;
+        refBox.innerText = `https://trustdollar.com/register?ref=${uid}`;
+      } else {
+        refBox.innerText = "Please login to view your referral link.";
+      }
+    });
+
+    window.copyLink = function () {
+      const text = document.getElementById("refLink").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const popup = document.getElementById("popup");
+        popup.style.display = "block";
+        setTimeout(() => {
+          popup.style.display = "none";
+        }, 1500);
+      });
+    };
+  </script>
+
+</body>
+</html>

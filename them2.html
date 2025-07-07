@@ -1,0 +1,183 @@
+ <!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mining Fees – TrustDollar</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(to bottom right, #2c0b0e, #5c0000);
+      color: #f9f9f9;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      animation: slideIn 0.6s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      font-size: 26px;
+      color: gold;
+      text-shadow: 0 0 8px red;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 18px;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-left: 5px solid gold;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+      margin-bottom: 30px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #aaaaaa;
+    }
+
+    .lang-switch {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .lang-switch button {
+      background: gold;
+      border: none;
+      color: #5c0000;
+      font-weight: bold;
+      padding: 10px 18px;
+      margin-left: 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 0 10px gold, 0 0 5px red;
+      transition: 0.3s;
+    }
+
+    .lang-switch button:hover {
+      background: red;
+      color: white;
+    }
+
+    .lang-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .lang-content.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: gold;
+      color: #5c0000;
+      padding: 8px 16px;
+      font-weight: bold;
+      border-radius: 20px;
+      text-decoration: none;
+      box-shadow: 0 0 10px gold, 0 0 5px red;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    .back-btn:hover {
+      background: red;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔙 Back Button -->
+  <a href="wallet.html" class="back-btn">← Back</a>
+
+  <div class="container">
+    <!-- Language Switch Buttons -->
+    <div class="lang-switch">
+      <button onclick="switchLang('en')">🇬🇧 English</button>
+      <button onclick="switchLang('hi')">🇮🇳 हिंदी</button>
+    </div>
+
+    <!-- Hindi Content -->
+    <div id="content-hi" class="lang-content">
+      <h2>💡 क्यों Mining Fees ली जाती है?</h2>
+      <p>
+        हमारे पास Bitcoin माइनिंग के लिए सभी आवश्यक संसाधन पहले से उपलब्ध हैं जैसे कि:
+        पावरफुल माइनिंग मशीन, सोलर और बैटरी बैकअप, कूलिंग सिस्टम और सिक्योर वॉलेट मैनेजमेंट।
+        <br><br>
+        लेकिन इस सिस्टम को चलाने में दैनिक खर्च (बिजली, मेंटेनेंस, सर्वर, टेक्निकल टीम) आता है।
+        इसलिए हम आपसे एक छोटी-सी माइनिंग फीस लेते हैं — ताकि यह सिस्टम बिना रुके और सुरक्षित तरीके से चलता रहे।
+        <br><br>
+        ✅ आपकी भागीदारी → माइनिंग चालू होती है  
+        ✅ हमारी ज़िम्मेदारी → निष्पक्ष और ऑटोमेटेड कमाई सुनिश्चित करना
+        <br><br>
+        धन्यवाद 🙏 आपकी ट्रस्ट ही हमारी ताकत है।
+      </p>
+    </div>
+
+    <!-- English Content -->
+    <div id="content-en" class="lang-content">
+      <h2>💡 Why is Mining Fee Charged?</h2>
+      <p>
+        We already have all the necessary resources for Bitcoin mining like:
+        powerful mining machines, solar & battery backup, cooling systems, and secure wallet management.
+        <br><br>
+        However, running this system involves daily costs (electricity, maintenance, server, technical team).
+        That’s why we charge a small mining fee — to keep the system running continuously and securely.
+        <br><br>
+        ✅ Your Participation → Mining gets activated  
+        ✅ Our Responsibility → Fair and automated earning is ensured
+        <br><br>
+        Thank you 🙏 Your trust is our strength.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 TrustDollar | सभी अधिकार सुरक्षित | All Rights Reserved
+  </div>
+
+  <!-- JavaScript for Language Switching -->
+  <script>
+    function switchLang(lang) {
+      document.getElementById('content-hi').classList.remove('active');
+      document.getElementById('content-en').classList.remove('active');
+      document.getElementById('content-' + lang).classList.add('active');
+    }
+
+    // Detect browser language on load
+    window.onload = function () {
+      const lang = navigator.language.startsWith('hi') ? 'hi' : 'en';
+      switchLang(lang);
+    };
+  </script>
+
+</body>
+</html>

@@ -166,30 +166,93 @@
       color: crimson;
       transform: translateY(-3px);
     }
+     <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f0f0f;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+    }
+
+    .glow-box {
+      position: relative;
+      padding: 20px 40px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .glow-box a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: bold;
+      z-index: 2;
+      position: relative;
+    }
+
+    .glow-box::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: conic-gradient(
+        from 0deg,
+        red,
+        orange,
+        yellow,
+        green,
+        cyan,
+        blue,
+        magenta,
+        red
+      );
+      border-radius: 22px;
+      z-index: 0;
+      animation: borderGlow 2s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .glow-box.animate::before {
+      opacity: 1;
+    }
+
+    @keyframes borderGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
   </style>
 </head>
 <body>
-<div class="account-title-box">Account Details</div>
+ 
 
-<style>
-  .account-title-box {
-    background: rgba(0, 255, 255, 0.1);
-    color: #00ffff;
-    padding: 10px 20px;
-    text-align: center;
-    border-radius: 14px;
-    font-size: 18px;
-    font-weight: bold;
-    box-shadow: 0 0 12px #00ffff66;
-    width: fit-content;
-    margin: 20px auto;
-    border: 1px solid #00ffff33;
-    backdrop-filter: blur(8px);
-  }
-</style>
+  <div class="glow-box" id="magicBox">
+    <a href="them.html" target="_blank">What is TrustDollar ? go = </a>
+  </div>
 
+  <script>
+    const box = document.getElementById('magicBox');
+    setInterval(() => {
+      box.classList.add('animate');
+      setTimeout(() => {
+        box.classList.remove('animate');
+      }, 500);
+    }, 1000);
+  </script>
 
-  <div class="row">
+<div class="row">
     <div class="box">
       <div class="label">Wallet Balance</div>
       <div class="value-row"><span id="walletBalance">$0.00</span></div>

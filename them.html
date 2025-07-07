@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -187,8 +187,77 @@
     }
 
   </style>
+  <style>
+    body {
+      background: black;
+      padding: 40px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .glow-btn {
+      position: relative;
+      padding: 12px 28px;
+      font-size: 18px;
+      color: #fff;
+      background: #8b0000;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      font-weight: bold;
+      overflow: hidden;
+      z-index: 1;
+      transition: 0.3s;
+    }
+
+    .glow-btn::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(#ffd700, #ff0000, #ffd700);
+      animation: rotateBorder 1s linear infinite;
+      z-index: -1;
+      filter: blur(8px);
+      border-radius: 20px;
+    }
+
+    .glow-btn::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+      background: black;
+      border-radius: 8px;
+      z-index: -1;
+    }
+
+    @keyframes rotateBorder {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .glow-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+
+  <button class="glow-btn" onclick="window.location.href='next.html'">
+    GO more
+  </button>
+
+
+
 
   <!-- 🔥 Intro Animation -->
   <div class="intro">
@@ -260,7 +329,7 @@
     <p>Our platform uses secure BEP-20 wallets and Google authentication to keep your data and funds safe. Whether you're just starting or already have a network, Trust Dollar makes it easy to earn passively with minimal effort.</p>
     <p>Join thousands of users already earning with Trust Dollar. Simple. Secure. Reliable.</p>
   </div>
-  <a href="next.html" target="_blank" style="
+  <a href="them2.html" target="_blank" style="
   display: inline-block;
   padding: 14px 30px;
   background: rgba(255, 255, 255, 0.1);
@@ -275,7 +344,7 @@
   position: relative;
   font-size: 18px;
 ">
-  🔗Erning Calculation 
+  mining fee ? 
 </a>
 
 <style>
@@ -304,7 +373,7 @@
 
 
   <!-- 🌐 Website Button -->
-  <a href="https://www.trustdollar.in/" target="_blank" class="visit-btn">Visit Website</a>
+  <a href="index.html" target="_blank" class="visit-btn">Back</a>
  
 
 

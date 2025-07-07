@@ -217,7 +217,7 @@
         if (userDoc.exists()) {
           const data = userDoc.data();
           const refCode = data.refCode || uid; // fallback if no custom code
-          refBox.innerText = `https://trustdollar.com/register?ref=${refCode}`;
+          refBox.innerText = `https://trustdollar.in/register?ref=${refCode}`;
         } else {
           refBox.innerText = "Referral info not found.";
         }

@@ -1,0 +1,176 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trust Dollar Investment Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #8b0000, #ffd700);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+      color: #fff;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    h1, h2 {
+      color: #ffd700;
+      text-align: center;
+      text-shadow: 0 0 8px red;
+      margin-bottom: 10px;
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 16px;
+      margin: 15px;
+    }
+
+    .amount-section {
+      margin: 20px 0 40px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+      margin-top: 10px;
+      border: 1px solid #ffd700;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      border: 1px solid #ffd700;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    th {
+      background: rgba(255, 215, 0, 0.3);
+      color: black;
+    }
+
+    .footer {
+      text-align: center;
+      color: #fff;
+      margin-top: 40px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 6vw; }
+      h2 { font-size: 5vw; }
+      .container {
+        margin: 15px;
+        padding: 15px;
+      }
+      th, td {
+        font-size: 14px;
+        padding: 10px 5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 7vw; }
+      h2 { font-size: 6vw; }
+      p { font-size: 14px; }
+      .footer { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Trust Dollar Investment Growth</h1>
+    <p>
+      Trust Dollar provides 1% daily compound interest on your investment. This means your income grows every day based on your total from the previous day. Below is the projection chart for various amounts:
+    </p>
+
+    <!-- $100 Section -->
+    <div class="amount-section">
+      <h2>Investment: $100</h2>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Duration</th><th>Final Amount</th><th>Profit</th></tr>
+          <tr><td>30 Days</td><td>$134.78</td><td>$34.78</td></tr>
+          <tr><td>90 Days</td><td>$244.99</td><td>$144.99</td></tr>
+          <tr><td>180 Days</td><td>$600.28</td><td>$500.28</td></tr>
+          <tr><td>365 Days</td><td>$3773.01</td><td>$3673.01</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- $500 Section -->
+    <div class="amount-section">
+      <h2>Investment: $500</h2>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Duration</th><th>Final Amount</th><th>Profit</th></tr>
+          <tr><td>30 Days</td><td>$673.89</td><td>$173.89</td></tr>
+          <tr><td>90 Days</td><td>$1224.95</td><td>$724.95</td></tr>
+          <tr><td>180 Days</td><td>$3001.40</td><td>$2501.40</td></tr>
+          <tr><td>365 Days</td><td>$18865.07</td><td>$18365.07</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- $1000 Section -->
+    <div class="amount-section">
+      <h2>Investment: $1000</h2>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Duration</th><th>Final Amount</th><th>Profit</th></tr>
+          <tr><td>30 Days</td><td>$1347.85</td><td>$347.85</td></tr>
+          <tr><td>90 Days</td><td>$2449.90</td><td>$1449.90</td></tr>
+          <tr><td>180 Days</td><td>$6002.80</td><td>$5002.80</td></tr>
+          <tr><td>365 Days</td><td>$37730.14</td><td>$36730.14</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- $2000 Section -->
+    <div class="amount-section">
+      <h2>Investment: $2000</h2>
+      <div class="table-wrapper">
+        <table>
+          <tr><th>Duration</th><th>Final Amount</th><th>Profit</th></tr>
+          <tr><td>30 Days</td><td>$2695.70</td><td>$695.70</td></tr>
+          <tr><td>90 Days</td><td>$4899.80</td><td>$2899.80</td></tr>
+          <tr><td>180 Days</td><td>$12005.60</td><td>$10005.60</td></tr>
+          <tr><td>365 Days</td><td>$75460.29</td><td>$73460.29</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <p>
+      This system shows how small investments can turn into big earnings using Trust Dollar's 1% daily auto compounding. No manual effort — just passive growth.
+    </p>
+
+    <div class="footer">© 2025 Trust Dollar – All rights reserved.</div>
+  </div>
+
+</body>
+</html>

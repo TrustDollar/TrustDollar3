@@ -1,0 +1,351 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trust Dollar </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #8b0000, #ffd700);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #8b0000, #ffd700);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      animation: zoomOut 3s ease forwards;
+    }
+
+    .intro h1 {
+      font-size: 6vw;
+      color: white;
+      text-shadow: 0 0 10px gold, 0 0 20px red;
+      animation: growText 2s ease forwards;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    @keyframes growText {
+      0% { font-size: 6vw; opacity: 0.2; }
+      50% { font-size: 10vw; opacity: 1; }
+      100% { font-size: 12vw; opacity: 0; }
+    }
+
+    @keyframes zoomOut {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(3); opacity: 0; visibility: hidden; }
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 70px;
+    }
+
+    .slider {
+      position: relative;
+      width: 300px;
+      height: 360px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeIn 1s ease 3s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #ff0000, #ffcc00);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 0 20px #ffd700;
+      padding: 20px;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.6s, transform 0.6s;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .big-box-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 5px gold, 0 0 10px red;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .item-box {
+      background: rgba(0, 0, 128, 0.5);
+      border: 2px solid #00aaff;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 8px 0;
+      font-weight: bold;
+      color: white;
+      box-shadow: inset 0 0 10px #00ccff, 0 0 10px rgba(0, 0, 255, 0.3);
+      text-align: left;
+    }
+
+    .item-box span {
+      font-weight: bold;
+      margin-right: 10px;
+      color: #ffd700;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      opacity: 0;
+      animation: fadeIn 1s ease 3s forwards;
+    }
+
+    .dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #ffffff55;
+      color: black;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dot.active {
+      background: #ffd700;
+      color: black;
+    }
+
+    .visit-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 10000;
+      background: linear-gradient(145deg, gold, red);
+      padding: 10px 18px;
+      border-radius: 30px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px gold, 0 0 5px red;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .visit-btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(145deg, red, gold);
+    }
+
+    /* 📰 Article section */
+    .article-section {
+      background: #fff8dc;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 25px 20px;
+      max-width: 800px;
+      margin: 30px auto 60px;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      line-height: 1.7;
+      font-size: 16px;
+      animation: fadeIn 2s ease 2.5s forwards;
+      opacity: 0;
+    }
+
+    .article-section h2 {
+      color: #8b0000;
+      text-shadow: 0 0 5px gold;
+      margin-bottom: 15px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 🔥 Intro Animation -->
+  <div class="intro">
+    <h1>What is Trust Dollar?</h1>
+  </div>
+
+  <!-- 🔁 Slider + Dots -->
+  <div class="main">
+    <div class="slider" id="slider">
+      <div class="slide active">
+        <div class="big-box-title">Trust Dollar</div>
+        <div class="item-box"><span>1.</span> 20% Team Deposit Bonus</div>
+        <div class="item-box"><span>2.</span> Daily 1% Mining</div>
+        <div class="item-box"><span>3.</span> 10% Referral Income</div>
+        <div class="item-box"><span>4.</span> Safe & Secure</div>
+        <div class="item-box"><span>5.</span> Start Now</div>
+      </div>
+
+      <div class="slide">
+        <div class="big-box-title">Referral Benefits</div>
+        <div class="item-box"><span>1.</span> Instant Reward</div>
+        <div class="item-box"><span>2.</span> Level Income</div>
+        <div class="item-box"><span>3.</span> No Limits</div>
+        <div class="item-box"><span>4.</span> Lifetime Income</div>
+        <div class="item-box"><span>5.</span> Auto Tracking</div>
+      </div>
+
+      <div class="slide">
+        <div class="big-box-title">Mining System</div>
+        <div class="item-box"><span>1.</span> Auto Start</div>
+        <div class="item-box"><span>2.</span> Daily 1% Return</div>
+        <div class="item-box"><span>3.</span> Pause Anytime</div>
+        <div class="item-box"><span>4.</span> Live History</div>
+        <div class="item-box"><span>5.</span> No Manual Click</div>
+      </div>
+
+      <div class="slide">
+        <div class="big-box-title">Security</div>
+        <div class="item-box"><span>1.</span> BEP-20 Wallet</div>
+        <div class="item-box"><span>2.</span> Google Auth</div>
+        <div class="item-box"><span>3.</span> OTP Login</div>
+        <div class="item-box"><span>4.</span> Encrypted Data</div>
+        <div class="item-box"><span>5.</span> Firebase Protected</div>
+      </div>
+
+      <div class="slide">
+        <div class="big-box-title">Support</div>
+        <div class="item-box"><span>1.</span> Live Chat</div>
+        <div class="item-box"><span>2.</span> Telegram Group</div>
+        <div class="item-box"><span>3.</span> Video Help</div>
+        <div class="item-box"><span>4.</span> FAQ Guide</div>
+        <div class="item-box"><span>5.</span> 24/7 Online</div>
+      </div>
+    </div>
+
+    <div class="dots" id="dots">
+      <div class="dot active">1</div>
+      <div class="dot">2</div>
+      <div class="dot">3</div>
+      <div class="dot">4</div>
+      <div class="dot">5</div>
+    </div>
+  </div>
+
+  <!-- 📰 Article Section -->
+  <div class="article-section">
+    <h2>About Trust Dollar</h2>
+    <p><strong>Trust Dollar</strong> is a powerful digital earning ecosystem designed to help users grow their income daily. With a focus on simplicity and transparency, users can earn through referral bonuses, mining income, and automated tracking systems.</p>
+    <p>Our platform uses secure BEP-20 wallets and Google authentication to keep your data and funds safe. Whether you're just starting or already have a network, Trust Dollar makes it easy to earn passively with minimal effort.</p>
+    <p>Join thousands of users already earning with Trust Dollar. Simple. Secure. Reliable.</p>
+  </div>
+  <a href="next.html" target="_blank" style="
+  display: inline-block;
+  padding: 14px 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  color: red;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 0 18px red;
+  animation: jumpFall 2.2s infinite;
+  position: relative;
+  font-size: 18px;
+">
+  🔗Erning Calculation 
+</a>
+
+<style>
+@keyframes jumpFall {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-60px); /* Upar tez jump */
+  }
+  40% {
+    transform: translateY(-30px); /* Thoda kam */
+  }
+  60% {
+    transform: translateY(-10px); /* Almost neeche */
+  }
+  80% {
+    transform: translateY(-2px);  /* Lagbhag base */
+  }
+  100% {
+    transform: translateY(0);     /* Apni jagah wapas */
+  }
+}
+</style>
+
+
+
+  <!-- 🌐 Website Button -->
+  <a href="https://www.trustdollar.in/" target="_blank" class="visit-btn">Visit Website</a>
+ 
+
+
+  <!-- 🔁 Slider Logic -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const slider = document.getElementById('slider');
+    let current = 0;
+    let interval;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+        dots[i].classList.toggle('active', i === index);
+      });
+      current = index;
+    }
+
+    function nextSlide() {
+      let next = (current + 1) % slides.length;
+      showSlide(next);
+    }
+
+    function startSlider() {
+      interval = setInterval(nextSlide, 4000);
+    }
+
+    function stopSlider() {
+      clearInterval(interval);
+    }
+
+    slider.addEventListener('mouseenter', stopSlider);
+    slider.addEventListener('mouseleave', startSlider);
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => showSlide(index));
+    });
+
+    startSlider();
+  </script>
+
+</body>
+</html>

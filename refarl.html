@@ -187,56 +187,56 @@
 
   <!-- Firebase + Script -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import {
-      getFirestore, doc, getDoc
-    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-    import {
-      getAuth, onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import {
+    getFirestore, doc, getDoc
+  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  import {
+    getAuth, onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-      authDomain: "trustdollar-f72f4.firebaseapp.com",
-      projectId: "trustdollar-f72f4",
-      storageBucket: "trustdollar-f72f4.appspot.com",
-      messagingSenderId: "217643658538",
-      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-    const refBox = document.getElementById("refLink");
+  const refBox = document.getElementById("refLink");
 
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const uid = user.uid;
-        const userDoc = await getDoc(doc(db, "users", uid));
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          const refCode = data.refCode || uid; // fallback if no custom code
-          refBox.innerText = `https://trustdollar.in/?ref=${refCode}`;
-        } else {
-          refBox.innerText = "Referral info not found.";
-        }
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const uid = user.uid;
+      const userDoc = await getDoc(doc(db, "users", uid));
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        const refCode = data.refCode || uid;
+        const link = `https://www.trustdollar.in/?ref=${refCode}`;
+        refBox.innerText = `Join TrustDollar and earn daily income! ${link}`;
       } else {
-        refBox.innerText = "Please login to view your referral link.";
+        refBox.innerText = "Referral info not found.";
       }
+    } else {
+      refBox.innerText = "Please login to view your referral link.";
+    }
+  });
+
+  window.copyLink = function () {
+    const text = document.getElementById("refLink").innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const popup = document.getElementById("popup");
+      popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 1500);
     });
-
-    window.copyLink = function () {
-      const text = document.getElementById("refLink").innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const popup = document.getElementById("popup");
-        popup.style.display = "block";
-        setTimeout(() => {
-          popup.style.display = "none";
-        }, 1500);
-      });
-    };
-  </script>
-
+  };
+</script>
 </body>
 </html>

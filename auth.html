@@ -1,14 +1,11 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrustDollar – Auth</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -19,11 +16,9 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
-      position: relative;
       overflow-x: hidden;
     }
 
-    /* Back Button */
     .back-btn {
       position: absolute;
       top: 20px;
@@ -57,12 +52,10 @@
       box-shadow: 0 0 15px #00ffff55;
       backdrop-filter: blur(10px);
       position: relative;
-      transition: all 0.3s ease;
     }
 
     .card h2 {
       text-align: center;
-      color: #fff;
       margin-bottom: 20px;
       font-size: 24px;
     }
@@ -76,6 +69,20 @@
       background: #111;
       color: #00ffff;
       font-size: 15px;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .password-container span {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #00ffff;
+      font-size: 18px;
     }
 
     button {
@@ -108,11 +115,6 @@
       text-decoration: none;
       font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .switch a:hover {
-      text-shadow: 0 0 6px #00ffff;
     }
 
     .forgot-link {
@@ -122,10 +124,6 @@
       float: right;
       margin-top: -10px;
       display: block;
-    }
-
-    .forgot-link:hover {
-      text-shadow: 0 0 5px #00ffff;
     }
 
     .toast {
@@ -156,14 +154,15 @@
 </head>
 <body>
 
-
-
 <div class="container">
   <!-- LOGIN CARD -->
   <div class="card" id="loginCard">
     <h2>Log In</h2>
     <input type="email" id="loginEmail" placeholder="Email" />
-    <input type="password" id="loginPassword" placeholder="Password" />
+    <div class="password-container">
+      <input type="password" id="loginPassword" placeholder="Password" />
+      <span onclick="togglePassword('loginPassword', this)">👁️</span>
+    </div>
     <a href="#" id="forgotPasswordLink" class="forgot-link">🔒 Forgot Password?</a>
     <button id="loginBtn">Log In</button>
     <div class="switch">Don't have an account? <a id="switchToRegister">Register</a></div>
@@ -174,8 +173,14 @@
     <h2>Register</h2>
     <input type="text" id="regUsername" placeholder="Username" />
     <input type="email" id="regEmail" placeholder="Email" />
-    <input type="password" id="regPassword" placeholder="Password" />
-    <input type="password" id="regConfirmPassword" placeholder="Confirm Password" />
+    <div class="password-container">
+      <input type="password" id="regPassword" placeholder="Password" />
+      <span onclick="togglePassword('regPassword', this)">👁️</span>
+    </div>
+    <div class="password-container">
+      <input type="password" id="regConfirmPassword" placeholder="Confirm Password" />
+      <span onclick="togglePassword('regConfirmPassword', this)">👁️</span>
+    </div>
     <input type="text" id="regReferral" placeholder="Referral Code (optional)" />
     <button id="registerBtn">Register</button>
     <div class="switch">Already have an account? <a id="switchToLogin">Login</a></div>
@@ -196,7 +201,7 @@
     getFirestore,
     doc,
     setDoc,
-    serverTimestamp,
+    serverTimestamp
   } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -238,12 +243,12 @@
     const referredBy = document.getElementById("regReferral").value.trim().toUpperCase() || null;
 
     if (!username || !email || !password || !confirmPassword) {
-      showToast("All required fields!");
+      showToast("Please fill all required fields!");
       return;
     }
 
     if (password !== confirmPassword) {
-      showToast("Passwords not match!");
+      showToast("Passwords do not match!");
       return;
     }
 
@@ -269,11 +274,11 @@
       if (err.code === "auth/email-already-in-use") {
         showToast("Email already registered!");
       } else if (err.code === "auth/invalid-email") {
-        showToast("Please enter a valid email!");
+        showToast("Invalid email format!");
       } else if (err.code === "auth/weak-password") {
-        showToast("Minimum 6 characters");
+        showToast("Password should be at least 6 characters!");
       } else {
-        showToast("Registration failed");
+        showToast("Registration failed!");
       }
     }
   }
@@ -282,35 +287,51 @@
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
 
+    if (!email || !password) {
+      showToast("Please enter email and password!");
+      return;
+    }
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       showToast("Login successful!");
       setTimeout(() => (window.location.href = "index.html"), 1000);
     } catch (err) {
-      showToast("Please enter correct login details!");
+      showToast("Invalid login details!");
     }
   }
 
   async function forgotPassword() {
     const email = document.getElementById("loginEmail").value.trim();
     if (!email) {
-      showToast("Enter your email first");
+      showToast("Enter your email first!");
       return;
     }
 
     try {
       await sendPasswordResetEmail(auth, email);
-      showToast("Reset link sent to your email!");
+      showToast("Password reset link sent!");
     } catch (err) {
-      showToast("Failed to send reset link");
+      showToast("Failed to send reset link!");
     }
   }
 
-     document.getElementById("loginBtn").addEventListener("click", login);
+  // 👁️ Password Show/Hide
+  window.togglePassword = function (id, el) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+      input.type = "text";
+      el.textContent = "🙈";
+    } else {
+      input.type = "password";
+      el.textContent = "👁️";
+    }
+  };
+
+  document.getElementById("loginBtn").addEventListener("click", login);
   document.getElementById("registerBtn").addEventListener("click", register);
   document.getElementById("forgotPasswordLink").addEventListener("click", forgotPassword);
 
-  // Switch toggle
   document.getElementById("switchToRegister").addEventListener("click", () => {
     document.getElementById("loginCard").style.display = "none";
     document.getElementById("registerCard").style.display = "block";
@@ -321,13 +342,12 @@
     document.getElementById("loginCard").style.display = "block";
   });
 
-  // ✅ Referral code URL se uthao aur register form me dikhao
-  window.addEventListener("load", () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const ref = urlParams.get("ref");
-
+  window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
     if (ref) {
-      document.getElementById("regReferral").value = ref.toUpperCase();
+      const referralInput = document.getElementById("regReferral");
+      referralInput.value = ref.toUpperCase();
       document.getElementById("loginCard").style.display = "none";
       document.getElementById("registerCard").style.display = "block";
     }
@@ -335,4 +355,3 @@
 </script>
 </body>
 </html>
-

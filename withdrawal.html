@@ -5,18 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Withdraw – TrustDollar</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  
-
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
+    * {margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth;}
     body {
-      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      background: linear-gradient(to bottom right, #8b0000, #ffd700);
       font-family: 'Segoe UI', sans-serif;
       padding: 60px 14px 120px;
       max-width: 420px;
@@ -26,71 +18,68 @@
 
     h2 {
       text-align: center;
-      color: #00ffff;
+      color: gold;
       font-size: 20px;
       margin-bottom: 20px;
-      text-shadow: 0 0 10px #00ffff88;
+      text-shadow: 0 0 8px red;
     }
 
     .withdraw-box {
-      background: #1c1c1c;
-      border: 2px solid #00ffff66;
+      background: #1a1a1a;
+      border: 2px solid gold;
       border-radius: 15px;
       padding: 20px;
-      box-shadow: 0 0 15px #00ffff33;
-      max-width: 340px;
-      margin: auto;
+      box-shadow: 0 0 20px red;
     }
 
     .withdraw-box label {
       display: block;
       margin-bottom: 6px;
       font-weight: bold;
-      color: #ccc;
       font-size: 14px;
+      color: #ffcc00;
     }
 
     .withdraw-box input {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 14px;
-      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 10px;
       border: none;
       background: #111;
-      color: #0ff;
+      color: gold;
       font-size: 16px;
+      box-shadow: 0 0 10px red;
     }
 
     .withdraw-box button {
       width: 100%;
       padding: 12px;
-      background: #00ffff;
+      background: gold;
       color: #000;
-      border: none;
-      border-radius: 8px;
       font-weight: bold;
+      border: none;
+      border-radius: 10px;
       font-size: 16px;
-      box-shadow: 0 0 15px #00ffff88;
+      box-shadow: 0 0 10px red;
       cursor: pointer;
     }
 
     .popup {
-      display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #111;
+      background: gold;
+      color: #000;
       padding: 14px 24px;
       border-radius: 10px;
-      color: #00ffcc;
       font-weight: bold;
-      box-shadow: 0 0 15px #00ffff55;
+      box-shadow: 0 0 20px red;
+      display: none;
       z-index: 9999;
-      text-align: center;
     }
 
-    /* ✅ Exact Index Nav Bar */
     .nav-bar {
       position: fixed;
       bottom: 20px;
@@ -101,10 +90,9 @@
       padding: 10px 14px;
       display: flex;
       justify-content: space-between;
-      gap: 10px;
       width: 90%;
       max-width: 320px;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+      box-shadow: 0 6px 20px red;
       z-index: 999;
     }
 
@@ -114,7 +102,6 @@
       text-decoration: none;
       color: gold;
       font-size: 10px;
-      transition: 0.3s ease;
     }
 
     .nav-bar a i {
@@ -136,7 +123,7 @@
   <h2>Withdraw Funds</h2>
   <div class="withdraw-box">
     <label for="amount">Enter Amount ($)</label>
-    <input type="number" id="amount" placeholder="Minimum $20" />
+    <input type="number" id="amount" placeholder="Minimum $5" />
 
     <label for="wallet">Your Wallet Address</label>
     <input type="text" id="wallet" readonly />
@@ -145,98 +132,10 @@
     <div class="popup" id="popupMsg"></div>
   </div>
 
-  <!-- ✅ Bottom Nav Bar (same as index.html) -->
   <div class="nav-bar">
     <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
+    <a href="start.html"><i class="fas fa-bolt"></i>Mining</a>
     <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
-    <a href="account.html"><i class="fas fa-user"></i>Account</a>
+    <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
+    <a href="account.html" class="active"><i class="fas fa-user"></i>Account</a>
   </div>
-  <div class="popup" id="popupMsg"></div>
-<!-- ✅ Firebase Script -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-  import {
-    getFirestore, doc, getDoc, updateDoc, increment,
-    addDoc, collection, serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-    authDomain: "trustdollar-f72f4.firebaseapp.com",
-    projectId: "trustdollar-f72f4",
-    storageBucket: "trustdollar-f72f4.appspot.com",
-    messagingSenderId: "217643658538",
-    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  const popup = document.getElementById("popupMsg");
-  const confirmBtn = document.getElementById("confirmBtn");
-  const walletInput = document.getElementById("wallet");
-
-  onAuthStateChanged(auth, async user => {
-    if (!user) return window.location.href = "auth.html";
-
-    const uid = user.uid;
-    const email = user.email;
-    const userRef = doc(db, "users", uid);
-    const userSnap = await getDoc(userRef);
-
-    if (userSnap.exists()) {
-      const userData = userSnap.data();
-      const walletAddress = userData.userAddress;
-      const balance = userData.wallet || 0;
-
-      if (!walletAddress) {
-        walletInput.value = "❌ Wallet address not set!";
-        confirmBtn.disabled = true;
-        confirmBtn.innerText = "Set Wallet Address First";
-        return;
-      } else {
-        walletInput.value = walletAddress;
-      }
-
-      confirmBtn.addEventListener("click", async () => {
-        const amount = parseFloat(document.getElementById("amount").value);
-        if (isNaN(amount) || amount < 20) return showPopup("❗ Minimum amount is $20");
-        if (amount > balance) return showPopup("❌ Insufficient balance");
-
-        const orderId = `WD${Math.floor(100000000 + Math.random() * 900000000)}`;
-
-        await addDoc(collection(db, "withdrawals"), {
-          uid,
-          email,
-          amount,
-          walletAddress,
-          timestamp: serverTimestamp(),
-          status: "pending",
-          orderId
-        });
-
-        await updateDoc(userRef, {
-          wallet: increment(-amount)
-        });
-
-        showPopup(` Withdrawal Requested: $${amount}`);
-        setTimeout(() => {
-          window.location.href = "withdrawal-history.html";
-        }, 2500);
-      });
-    }
-  });
-
-  function showPopup(message) {
-    popup.innerText = message;
-    popup.style.display = "block";
-    setTimeout(() => popup.style.display = "none", 3000);
-  }
-</script>
-
-</body>
-</html>

@@ -1,11 +1,10 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Promotion – TrustDollar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
- 
   <style>
     * {
       box-sizing: border-box;
@@ -15,47 +14,60 @@
     }
 
     body {
-      background: radial-gradient(ellipse at center, #0f2027, #203a43, #2c5364);
+      background: linear-gradient(145deg, #8b0000, #ffd700);
       font-family: 'Segoe UI', sans-serif;
-      padding-bottom: 120px;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    .container {
-      max-width: 400px;
+      padding: 20px 14px 120px;
+      max-width: 420px;
       margin: 0 auto;
-      padding: 20px 16px;
+      color: #fff;
     }
 
-    h2 {
+    h2, h3, h4 {
       color: #ffd700;
       text-align: center;
-      margin-bottom: 20px;
-      text-shadow: 0 0 8px #ffd70099;
+      margin-bottom: 12px;
+      text-shadow: 0 0 8px #ff0000;
       font-size: 18px;
     }
 
     .box {
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid #ffd70099;
       border-radius: 14px;
       padding: 14px;
-      margin-bottom: 14px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+      box-shadow: 0 0 14px rgba(255, 0, 0, 0.4);
+      margin-bottom: 16px;
       text-align: center;
+      backdrop-filter: blur(6px);
     }
 
-    .value {
+    .value-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #ffd700aa;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+      color: #ffd700;
+      padding: 10px 14px;
       font-size: 16px;
-      color: #00ffff;
-      margin-top: 10px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 8px;
+      font-weight: bold;
       word-break: break-word;
     }
 
+    .value-box.copyable {
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .value-box.copyable:hover {
+      background: rgba(255, 215, 0, 0.1);
+      color: #fff;
+    }
+
     .btn {
-      background: rgba(0, 255, 255, 0.1);
-      color: #00ffff;
+      background: #ffd700;
+      color: #8b0000;
       padding: 10px 16px;
       border: none;
       border-radius: 10px;
@@ -63,10 +75,12 @@
       font-size: 14px;
       transition: 0.2s;
       margin: 5px;
+      font-weight: bold;
+      box-shadow: 0 0 10px #ffd700aa;
     }
 
     .btn:hover {
-      background: rgba(0, 255, 255, 0.25);
+      background: #ffe75a;
     }
 
     .share-box {
@@ -84,24 +98,16 @@
       margin-top: 20px;
     }
 
-    h3, h4 {
-      color: #00ffff;
-      font-weight: bold;
-      text-align: center;
-      text-shadow: 0 0 8px #00ffffaa;
-      font-size: 16px;
-    }
-
     .popup {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.6);
-      color: #00ff99;
+      background: #ffd700;
+      color: #8b0000;
       padding: 14px 24px;
       border-radius: 10px;
-      box-shadow: 0 0 20px #00ff9966;
+      box-shadow: 0 0 20px #ff0000aa;
       font-size: 16px;
       display: none;
       z-index: 9999;
@@ -116,7 +122,6 @@
       100% { opacity: 0; }
     }
 
-    /* ✅ NAV BAR – from index.html */
     .nav-bar {
       position: fixed;
       bottom: 20px;
@@ -130,7 +135,7 @@
       gap: 10px;
       width: 90%;
       max-width: 320px;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
       z-index: 999;
     }
 
@@ -165,34 +170,28 @@
 </head>
 <body>
 
-  <div class="container">
-   
-    <div class="box">
-      <h3>Refer a Friend</h3>
-      <div class="value" id="refCode">Loading...</div><br/>
-      <button class="btn" onclick="copyReferral()">Copy Code</button>
-      <div class="share-box">
-        <button class="btn" onclick="shareWhatsApp()">WhatsApp</button>
-        <button class="btn" onclick="shareTelegram()">Telegram</button>
-      </div>
-    </div>
-
-    <div class="grid-boxes">
-      <div class="box"><h4>Total Wallet</h4><div class="value" id="totalIncome">$0</div></div>
-      <div class="box"><h4>Total Joined</h4><div class="value" id="refCount">0</div></div>
-      <div class="box"><h4>Not supported..</h4><div class="value" id="refIncome"></div></div>
-      <div class="box"><h4>Not supported..</h4><div class="value" id="todayIncome">$0</div></div>
+  <div class="box">
+    <h3>Refer a Friend</h3>
+    <div class="value-box copyable" id="refCode" onclick="copyReferral()">Loading...</div><br/>
+    <div class="share-box">
+      <button class="btn" onclick="shareWhatsApp()">WhatsApp</button>
+      <button class="btn" onclick="shareTelegram()">Telegram</button>
     </div>
   </div>
-  </div>
- <!--  Image Box under income cards -->
-<div style="margin-top: 20px; display: flex; justify-content: center;">
-  <div style="background: #111b20; padding: 15px; border-radius: 15px; box-shadow: 0 0 10px #00f7ff; width: 340px; text-align: center;">
-    <img src="photo/261873613612861836hhakdhajd.png" alt="Promo Image" style="width: 100%; border-radius: 10px;" />
-  </div>
-</div>
 
-  <!-- ✅ NAV BAR -->
+  <div class="grid-boxes">
+    <div class="box"><h4>Total Wallet</h4><div class="value-box" id="totalIncome">$0</div></div>
+    <div class="box"><h4>Total Joined</h4><div class="value-box" id="refCount">0</div></div>
+    <div class="box"><h4>Total Referral</h4><div class="value-box" id="refIncome">$0</div></div>
+    <div class="box"><h4>Today Income</h4><div class="value-box" id="todayIncome">$0</div></div>
+  </div>
+
+  <div style="margin-top: 20px; display: flex; justify-content: center;">
+    <div style="background: #111b20; padding: 15px; border-radius: 15px; box-shadow: 0 0 10px #ffd700; width: 340px; text-align: center;">
+      <img src="photo/261873613612861836hhakdhajd.png" alt="Promo Image" style="width: 100%; border-radius: 10px;" />
+    </div>
+  </div>
+
   <div class="nav-bar">
     <a href="index.html"><i class="fas fa-home"></i>Home</a>
     <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
@@ -200,42 +199,6 @@
     <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
     <a href="account.html"><i class="fas fa-user"></i>Account</a>
   </div>
-
-  <!-- ✅ SCRIPT -->
-  <script>
-    function copyReferral() {
-      const code = "TD123456"; // Replace with actual dynamic code
-      navigator.clipboard.writeText(code);
-      document.getElementById("refCode").textContent = code;
-      showPopup("Referral code copied!");
-    }
-
-    function shareWhatsApp() {
-      const message = encodeURIComponent("Join TrustDollar with my code: TD123456");
-      window.open("https://wa.me/?text=" + message, "_blank");
-    }
-
-    function shareTelegram() {
-      const message = encodeURIComponent("Join TrustDollar with my code: TD123456");
-      window.open("https://t.me/share/url?url=" + message, "_blank");
-    }
-
-    function showPopup(msg) {
-      const popup = document.createElement("div");
-      popup.className = "popup";
-      popup.textContent = msg;
-      document.body.appendChild(popup);
-      popup.style.display = "block";
-      setTimeout(() => {
-        popup.remove();
-      }, 2500);
-    }
-
-    // Simulate loading referral code
-    window.addEventListener("load", () => {
-      document.getElementById("refCode").textContent = "TD123456";
-    });
-  </script>
 
   <div class="popup" id="popupMsg"></div>
 
@@ -322,6 +285,6 @@
       setTimeout(() => popup.style.display = "none", 2500);
     }
   </script>
+
 </body>
 </html>
-

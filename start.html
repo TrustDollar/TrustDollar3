@@ -1,85 +1,69 @@
-  <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Start Mining – TrustDollar</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
- 
   <style>
     * {
       box-sizing: border-box;
-    }
-    html, body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
-      font-family: 'Segoe UI', sans-serif;
       scroll-behavior: smooth;
-      overflow-x: hidden;
-      overflow-y: auto;
     }
 
     body {
-      padding-bottom: 120px;
-    }
-
-    .container {
-      max-width: 400px;
+      background: linear-gradient(to bottom right, #ff0000, #ff9900);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 60px 14px 140px;
+      max-width: 420px;
       margin: 0 auto;
-      padding: 16px;
+      color: #fff;
     }
 
     h2 {
-      color: #00ffff;
       text-align: center;
-      text-shadow: 0 0 10px #00ffff88;
+      color: #ffd700;
       margin-bottom: 20px;
+      text-shadow: 0 0 10px #ffcc00;
     }
 
     .grid-boxes {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
+      justify-content: space-between;
+      gap: 10px;
       margin-bottom: 16px;
     }
 
     .box {
-      flex: 1;
-      min-width: 140px;
-      background: #1c1c1c;
-      border: 2px solid #00ffff66;
+      background: linear-gradient(135deg, #e04e00, #a61700);
       border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      box-shadow: 0 0 15px #00ffff33;
+      padding: 14px;
+      box-shadow: 0 0 12px #ffcc0055;
+      flex: 0 0 48%;
+      border: 1px solid #ffcc00;
     }
 
     .label {
-      font-size: 14px;
-      color: #ccc;
-      margin-bottom: 8px;
+      color: #ffd700;
+      font-size: 12px;
+      margin-bottom: 5px;
     }
 
     .value {
       font-size: 20px;
-      color: #00ffff;
+      color: #fff;
       font-weight: bold;
-      word-break: break-word;
-      overflow-wrap: break-word;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .input-box {
-      width: 100%;
-      background: #1c1c1c;
-      border: 2px solid #00ffff66;
+      background: linear-gradient(135deg, #e04e00, #a61700);
+      border: 1px solid #ffcc00;
       border-radius: 12px;
       padding: 14px;
-      box-shadow: 0 0 10px #00ffff22;
+      box-shadow: 0 0 10px #ffcc0055;
       margin-top: 16px;
     }
 
@@ -87,9 +71,9 @@
       width: 100%;
       padding: 10px;
       background: #111;
-      border: 1px solid #00ffff99;
+      border: 1px solid #ffcc00;
       border-radius: 10px;
-      color: #00ffff;
+      color: #ffd700;
       font-size: 16px;
       margin-top: 8px;
     }
@@ -103,8 +87,8 @@
       border: none;
       border-radius: 10px;
       color: #000;
-      background: #ff0068;
-      box-shadow: 0 0 15px #00ffffaa;
+      background: #ffd700;
+      box-shadow: 0 0 15px #ffd700aa;
       cursor: pointer;
       transition: 0.2s ease;
     }
@@ -112,38 +96,12 @@
     button:hover {
       transform: scale(1.03);
     }
-      .mining-waves {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
-      margin-top: 20px;
-      height: 30px;
-    }
-    .mining-waves .wave {
-      width: 6px;
-      height: 100%;
-      background: #00ffff;
-      border-radius: 4px;
-      animation: waveFlow 1.2s ease-in-out infinite;
-      box-shadow: 0 0 8px #00ffff99;
-    }
-    .mining-waves .wave:nth-child(1) { animation-delay: 0s; }
-    .mining-waves .wave:nth-child(2) { animation-delay: 0.2s; }
-    .mining-waves .wave:nth-child(3) { animation-delay: 0.4s; }
-    .mining-waves .wave:nth-child(4) { animation-delay: 0.6s; }
-    .mining-waves .wave:nth-child(5) { animation-delay: 0.8s; }
-
-    @keyframes waveFlow {
-      0%, 100% { height: 10%; opacity: 0.3; }
-      50% { height: 100%; opacity: 1; }
-    }
 
     #popup {
       display: none;
       text-align: center;
-      color: #fff;
-      background: #000aff;
+      color: #000;
+      background: #ffcc00;
       padding: 12px;
       border-radius: 12px;
       position: fixed;
@@ -151,8 +109,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 99999;
-      box-shadow: 0 0 20px #00ffff;
-      backdrop-filter: blur(4px);
+      box-shadow: 0 0 20px #ffd700;
       width: 85%;
       max-width: 320px;
       font-weight: bold;
@@ -163,49 +120,94 @@
       display: none;
       text-align: center;
       margin-top: 10px;
-      background: #fd0909;
-      border: 2px solid #00ffff66;
+      background: #a61700;
+      border: 2px solid #ffd70066;
       padding: 10px;
       border-radius: 10px;
-      box-shadow: 0 0 10px #00ffff44;
+      box-shadow: 0 0 10px #ffcc0055;
     }
 
     #miningTimer {
       font-size: 20px;
-      color: #00ffff;
+      color: #fff;
       margin-top: 4px;
       background: #111;
       padding: 10px 20px;
       border-radius: 12px;
       display: inline-block;
-      box-shadow: 0 0 12px #00ffffaa;
-      text-shadow: 0 0 8px #00ffff;
+      box-shadow: 0 0 12px #ffcc00aa;
+      text-shadow: 0 0 8px #ffd700;
     }
-        .floating-box-3d {
-  margin-top: 20px;
-  margin-bottom: 90px;  /* ✅ Add this line */
-  padding: 14px 22px;
-  background: linear-gradient(145deg, #0f2027, #203a43);
-  border-radius: 14px;
-  text-align: center;
-  font-size: 17px;
-  color: #00ffff;
-  font-weight: bold;
-  letter-spacing: 1px;
-  box-shadow: 0 0 10px #00ffff, 0 0 30px #00ffff99, inset 0 0 8px #00ffff55;
-  animation: float3d 3s ease-in-out infinite;
-  transform: perspective(100px) rotateX(1deg);
-}
 
-}
+    .mining-waves {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      height: 30px;
+    }
+
+    .wave {
+      width: 6px;
+      height: 100%;
+      background: #ffd700;
+      border-radius: 4px;
+      animation: waveFlow 1.2s ease-in-out infinite;
+      box-shadow: 0 0 8px #ffd70099;
+    }
+
+    .wave:nth-child(1) { animation-delay: 0s; }
+    .wave:nth-child(2) { animation-delay: 0.2s; }
+    .wave:nth-child(3) { animation-delay: 0.4s; }
+    .wave:nth-child(4) { animation-delay: 0.6s; }
+    .wave:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes waveFlow {
+      0%, 100% { height: 10%; opacity: 0.3; }
+      50% { height: 100%; opacity: 1; }
+    }
+
+    #graphContainer {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      color: #ffd700;
+    }
+
+    /* 🔥 Floating Info Box */
+    .floating-box-3d {
+      margin-top: 20px;
+      padding: 14px 22px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 14px;
+      text-align: center;
+      font-size: 17px;
+      color: #ffd700;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 0 10px #ffd700, 0 0 30px #ffcc00aa, inset 0 0 8px #ffcc00aa;
+      animation: float3d 3s ease-in-out infinite;
+    }
 
     @keyframes float3d {
-      0% { transform: translateY(0) rotateX(1deg); }
-      50% { transform: translateY(-10px) rotateX(2deg); }
-      100% { transform: translateY(0) rotateX(1deg); }
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
 
-    /* ✅ NAV BAR EXACTLY FROM HOME PAGE */
+    /* 🔥 Auto Video Box */
+    .video-box {
+      margin: 20px auto;
+      max-width: 90%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 20px #ffd700;
+      border: 2px solid #ffcc00;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+    }
+
     .nav-bar {
       position: fixed;
       bottom: 20px;
@@ -248,8 +250,7 @@
 </head>
 <body>
 
-<div class="container">
-  <h2></h2>
+  <h2>Start Mining</h2>
 
   <div class="grid-boxes">
     <div class="box">
@@ -267,7 +268,7 @@
     <input type="number" id="amount" min="1" placeholder="Enter amount...">
   </div>
 
-  <button id="miningBtn">Start Mining</button>
+  <button id="miningBtn">Unlock Mining Power</button>
 
   <div id="popup"></div>
 
@@ -282,40 +283,35 @@
     </div>
   </div>
 
-  <div id="graphContainer" style="display:none; text-align:center; margin-top:20px; color:#00ffff;">
+  <div id="graphContainer">
     <p>Received your amount</p>
   </div>
 
-  <!-- Mining Info Box (Fixing lifted/float effect) -->
-<div style="margin: 30px auto 40px auto; max-width: 90%; padding: 15px; text-align: center; color: cyan; font-weight: bold; font-size: 18px; border-radius: 20px; background: rgba(0,0,0,0.5); box-shadow: 0 0 15px cyan; backdrop-filter: blur(8px);">
-  You can do mining and trading 24/7 !
-</div>
-<!-- Auto-Playing Video Box -->
-<div style="margin: 20px auto; max-width: 90%; border-radius: 20px; overflow: hidden; box-shadow: 0 0 20px cyan; border: 2px solid #00ffff; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px);">
-  <video autoplay muted loop playsinline style="width: 100%; height: auto; border-radius: 20px;">
-    <source src="photo/xsakjsghadkjashdkjashdjhdkhas.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
+  <!-- Floating Info Box -->
+  <div class="floating-box-3d">You can do mining and trading 24/7!</div>
 
+  <!-- Auto-Playing Video Box -->
+  <div class="video-box">
+    <video autoplay muted loop playsinline style="width: 100%; height: auto;">
+      <source src="photo/xsakjsghadkjashdkjashdjhdkhas.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
-<!-- ✅ FINAL NAV BAR (EXACT COPY) -->
-<div class="nav-bar">
-  <a href="index.html"><i class="fas fa-home"></i>Home</a>
-  <a href="start.html" class="active"><i class="fas fa-industry"></i>Mining</a>
-  <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-  <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
-  <a href="account.html"><i class="fas fa-user"></i>Account</a>
-</div>
+  <div class="nav-bar">
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="start.html" class="active"><i class="fas fa-industry"></i>Mining</a>
+    <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+    <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
+    <a href="account.html"><i class="fas fa-user"></i>Account</a>
+  </div>
 
-</div>
-
-<div class="popup" id="popupMsg"></div>
+  <div class="popup" id="popupMsg"></div>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
   import {
-    getFirestore, doc, getDoc, updateDoc, increment, deleteField, collection, query, where, getDocs
+    getFirestore, doc, getDoc, updateDoc, increment, deleteField, collection, query, where, getDocs, addDoc
   } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -391,92 +387,93 @@
     await loadUserData();
   });
 
- btn.onclick = async () => {
-  const uid = currentUser.uid;
-  const userRef = doc(db, "users", uid);
-  const snap = await getDoc(userRef);
-  const data = snap.data();
-  const wallet = parseFloat(data.wallet || 0);
-  const miningAmount = parseFloat(data.miningAmount || 0);
-  const startedAt = data.miningStartedAt || 0;
+  btn.onclick = async () => {
+    const uid = currentUser.uid;
+    const userRef = doc(db, "users", uid);
+    const snap = await getDoc(userRef);
+    const data = snap.data();
+    const wallet = parseFloat(data.wallet || 0);
+    const miningAmount = parseFloat(data.miningAmount || 0);
+    const startedAt = data.miningStartedAt || 0;
 
-  if (!mining) {
-    const amount = parseFloat(amountInput.value);
-    if (isNaN(amount) || amount <= 0) return showPopup("Enter valid amount");
-    if (amount > wallet) return showPopup("Insufficient Balance");
+    if (!mining) {
+      const amount = parseFloat(amountInput.value);
+      if (isNaN(amount) || amount <= 0) return showPopup("Enter valid amount");
+      if (amount > wallet) return showPopup("Insufficient Balance");
 
-    await updateDoc(userRef, {
-      wallet: wallet - amount,
-      miningAmount: amount,
-      miningStartedAt: Date.now()
-    });
+      await updateDoc(userRef, {
+        wallet: wallet - amount,
+        miningAmount: amount,
+        miningStartedAt: Date.now()
+      });
 
-    showPopup("Mining Started");
-    btn.innerText = "Stop Mining";
-    mining = true;
-    toggleMiningSections(true);
-    fundEl.innerText = `$${amount.toFixed(2)}`;
-    walletEl.innerText = `$${(wallet - amount).toFixed(2)}`;
-    startMiningTimer(Date.now());
-  } else {
-    const now = Date.now();
-    const duration = now - startedAt;
-    const dayMs = 86400000;
-    let fraction = duration / dayMs;
-    if (fraction < 1 / 1440) fraction = 1 / 1440;
+      showPopup("Mining Started");
+      btn.innerText = "Stop Mining";
+      mining = true;
+      toggleMiningSections(true);
+      fundEl.innerText = `$${amount.toFixed(2)}`;
+      walletEl.innerText = `$${(wallet - amount).toFixed(2)}`;
+      startMiningTimer(Date.now());
 
-    const earning = miningAmount * 0.01 * fraction;
-    const userEarn = earning * 0.9;
-    const uplineEarn = earning * 0.1;
-    const totalUser = miningAmount + userEarn;
+    } else {
+      const now = Date.now();
+      const duration = now - startedAt;
+      const dayMs = 86400000;
+      let fraction = duration / dayMs;
+      if (fraction < 1 / 1440) fraction = 1 / 1440;
 
-    btn.innerText = "Start Mining";
-    mining = false;
-    toggleMiningSections(false);
-    stopMiningTimer();
-    showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
-    walletEl.innerText = `$${(wallet + totalUser).toFixed(2)}`;
-    fundEl.innerText = `$0.00`;
+      const earning = miningAmount * 0.01 * fraction;
+      const userEarn = earning * 0.9;
+      const uplineEarn = earning * 0.1;
+      const totalUser = miningAmount + userEarn;
 
-    await updateDoc(userRef, {
-      wallet: increment(totalUser),
-      miningAmount: 0,
-      miningStartedAt: deleteField()
-    });
+      btn.innerText = "Start Mining";
+      mining = false;
+      toggleMiningSections(false);
+      stopMiningTimer();
+      showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
+      walletEl.innerText = `$${(wallet + totalUser).toFixed(2)}`;
+      fundEl.innerText = `$0.00`;
 
-    // ✅ Send 10% to upline
-    if (data.referredBy) {
-      try {
-        const q = query(collection(db, "users"), where("refCode", "==", data.referredBy));
-        const qSnap = await getDocs(q);
-        if (!qSnap.empty) {
-          const uplineUID = qSnap.docs[0].id;
+      await updateDoc(userRef, {
+        wallet: increment(totalUser),
+        miningAmount: 0,
+        miningStartedAt: deleteField()
+      });
 
-          // Add 10% to upline wallet
-          await updateDoc(doc(db, "users", uplineUID), {
-            wallet: increment(uplineEarn)
-          });
+      // ✅ Send 10% to upline
+      if (data.referredBy) {
+        try {
+          const q = query(collection(db, "users"), where("refCode", "==", data.referredBy));
+          const qSnap = await getDocs(q);
 
-          // Save referral income
-          await addDoc(collection(db, "referral_income"), {
-            uid: currentUser.uid,
-            fromUser: currentUser.uid,
-            toUpline: uplineUID,
-            amount: uplineEarn,
-            time: Date.now()
-          });
-        } else {
-          console.warn("Upline not found: refCode mismatch");
+          if (!qSnap.empty) {
+            const uplineUID = qSnap.docs[0].id;
+
+            // Add 10% to upline wallet
+            await updateDoc(doc(db, "users", uplineUID), {
+              wallet: increment(uplineEarn)
+            });
+
+            // Save referral income
+            await addDoc(collection(db, "referral_income"), {
+              uid: currentUser.uid,
+              fromUser: currentUser.uid,
+              toUpline: uplineUID,
+              amount: uplineEarn,
+              time: Date.now()
+            });
+          } else {
+            console.warn("Upline not found: refCode mismatch");
+          }
+        } catch (e) {
+          console.error("Error sending to upline:", e);
         }
-      } catch (e) {
-        console.error("Error sending to upline:", e);
       }
-    }
 
-    setTimeout(() => loadUserData(), 1000);
-  }
-};
+      setTimeout(() => loadUserData(), 1000);
+    }
+  };
 </script>
 </body>
 </html>
-

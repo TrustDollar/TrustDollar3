@@ -139,3 +139,99 @@
     <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
     <a href="account.html" class="active"><i class="fas fa-user"></i>Account</a>
   </div>
+
+  <!-- ✅ Bottom Nav Bar (same as index.html) -->
+  <div class="nav-bar">
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
+    <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
+    <a href="account.html"><i class="fas fa-user"></i>Account</a>
+  </div>
+  <div class="popup" id="popupMsg"></div>
+<!-- ✅ Firebase Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, updateDoc, increment,
+    addDoc, collection, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const popup = document.getElementById("popupMsg");
+  const confirmBtn = document.getElementById("confirmBtn");
+  const walletInput = document.getElementById("wallet");
+
+  onAuthStateChanged(auth, async user => {
+    if (!user) return window.location.href = "auth.html";
+
+    const uid = user.uid;
+    const email = user.email;
+    const userRef = doc(db, "users", uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+      const walletAddress = userData.userAddress;
+      const balance = userData.wallet || 0;
+
+      if (!walletAddress) {
+        walletInput.value = "❌ Wallet address not set!";
+        confirmBtn.disabled = true;
+        confirmBtn.innerText = "Set Wallet Address First";
+        return;
+      } else {
+        walletInput.value = walletAddress;
+      }
+
+      confirmBtn.addEventListener("click", async () => {
+        const amount = parseFloat(document.getElementById("amount").value);
+        if (isNaN(amount) || amount < 20) return showPopup("❗ Minimum amount is $20");
+        if (amount > balance) return showPopup("❌ Insufficient balance");
+
+        const orderId = `WD${Math.floor(100000000 + Math.random() * 900000000)}`;
+
+        await addDoc(collection(db, "withdrawals"), {
+          uid,
+          email,
+          amount,
+          walletAddress,
+          timestamp: serverTimestamp(),
+          status: "pending",
+          orderId
+        });
+
+        await updateDoc(userRef, {
+          wallet: increment(-amount)
+        });
+
+        showPopup(` Withdrawal Requested: $${amount}`);
+        setTimeout(() => {
+          window.location.href = "withdrawal-history.html";
+        }, 2500);
+      });
+    }
+  });
+
+  function showPopup(message) {
+    popup.innerText = message;
+    popup.style.display = "block";
+    setTimeout(() => popup.style.display = "none", 3000);
+  }
+</script>
+
+</body>
+</html>

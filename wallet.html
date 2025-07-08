@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wallet</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  
+
   <style>
     * {
       box-sizing: border-box;
@@ -15,103 +15,120 @@
     }
 
     body {
-      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+      background: linear-gradient(to bottom right, #ff0000, #ff9900);
       font-family: 'Segoe UI', sans-serif;
-      padding-bottom: 120px;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    .screen {
+      padding: 60px 14px 120px;
       max-width: 420px;
       margin: 0 auto;
-      padding: 20px 16px;
+      color: #fff;
     }
 
     h2 {
-      color: #ffd700;
       text-align: center;
-      margin-bottom: 25px;
-      text-shadow: 0 0 8px #ffd70099;
+      color: #ffd700;
+      margin-bottom: 20px;
     }
 
-    .wallet-box {
-      background: #1c1c1c;
-      border: 2px solid #00ffff88;
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .box {
+      background: linear-gradient(135deg, #e04e00, #a61700);
       border-radius: 12px;
-      padding: 25px;
-      text-align: center;
-      margin-bottom: 30px;
-      box-shadow: 0 0 20px #00ffff55;
+      padding: 14px;
+      box-shadow: 0 0 12px #ffcc0055;
+      flex: 0 0 48%;
+      border: 1px solid #ffcc00;
+    }
+
+    .box-full {
+      flex: 0 0 100%;
+    }
+
+    .label {
+      color: #ffd700;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .value-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: #fff;
+      flex-wrap: wrap;
+      word-break: break-word;
     }
 
     .wallet-amount {
-      font-size: 26px;
+      font-size: 20px;
       font-weight: bold;
-      color: #00ffcc;
+      color: #fff;
     }
 
     .button-row {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 20px 0;
     }
 
     .btn {
-      padding: 14px 30px;
-      font-size: 15px;
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      padding: 12px;
       font-weight: bold;
       border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      color: #ffcc00;
+      box-shadow: 0 0 10px #ffcc00aa;
+      border: 1px solid #ffcc00;
+      transition: 0.3s;
+      font-size: 14px;
       cursor: pointer;
-      text-decoration: none;
-      backdrop-filter: blur(10px);
-      background: rgba(0, 255, 255, 0.1);
-      color: #00ffff;
-      box-shadow: 0 0 12px #00ffff66;
-      border: none;
-      text-align: center;
-      transition: transform 0.3s ease;
     }
 
     .btn:hover {
-      background: rgba(0, 255, 255, 0.2);
-      transform: scale(1.05);
-      color: #ffffff;
-    }
-
-    .amount-boxes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .amount-box {
-      flex: 1 1 calc(50% - 7px);
-      background: rgba(0, 255, 255, 0.08);
-      border: 2px solid #00ffff88;
-      border-radius: 12px;
-      padding: 18px;
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      color: #00ffff;
-      box-shadow: 0 0 12px #00ffff55;
-      cursor: pointer;
-      transition: 0.3s;
-      backdrop-filter: blur(10px);
-    }
-
-    .amount-box:hover {
-      background: rgba(0, 255, 255, 0.2);
-      transform: scale(1.05);
+      background-color: rgba(255,255,255,0.1);
       color: #fff;
     }
 
-    /* ✅ Exact Nav Bar from index.html */
+    .photo-box {
+      width: 100%;
+      margin: 20px auto 10px;
+      padding: 10px;
+      background: linear-gradient(to bottom right, #e04e00, #a61700);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,204,0,0.3);
+      text-align: center;
+      border: 1px solid #ffcc00;
+    }
+
+    .photo-box img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .live-activity-box {
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      background: linear-gradient(to bottom right, #e04e00, #a61700);
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,204,0,0.3);
+      color: #ffffff;
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      border: 1px solid #ffcc00;
+    }
+
     .nav-bar {
       position: fixed;
       bottom: 20px;
@@ -150,172 +167,116 @@
       color: crimson;
       transform: translateY(-3px);
     }
-    /* Button Box (Already Existing) */
-.button-box {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* New Photo Box */
-.photo-box {
-  width: 90%;
-  margin: 0 auto;
-  padding: 10px;
-  background: #111;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0,255,255,0.2);
-  text-align: center;
-}
-
-.photo-box img {
-  width: 100%;
-  border-radius: 10px;
-}
-
   </style>
 </head>
 <body>
 
-<div class="screen">
-  
+  <h2>Wallet</h2>
 
-  <div class="wallet-box">
-    <div class="wallet-amount" id="walletBalance">$0.00</div>
+  <div class="row">
+    <div class="box">
+      <div class="label">Wallet Balance</div>
+      <div class="wallet-amount" id="walletBalance">$0.00</div>
+    </div>
+
+    <div class="box">
+      <div class="label">Name</div>
+      <div class="value-row" id="userName">Loading...</div>
+    </div>
+
+    <div class="box box-full">
+      <div class="label">Gmail ID</div>
+      <div class="value-row" id="userEmail">Loading...</div>
+    </div>
+
+    <div class="box box-full">
+      <div class="label">User ID</div>
+      <div class="value-row" id="userId">Loading...</div>
+    </div>
 
     <div class="button-row">
-  <a href="deposit.html" class="btn">Deposit</a>
-  <a href="withdrawal.html" class="btn">Withdraw</a>
-</div>
+      <a href="deposit.html" class="btn">Deposit</a>
+      <a href="withdraw.html" class="btn">Withdraw</a>
+    </div>
 
-
-<style>
-  .button-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-
-  .btn {
-    flex: 1;
-    text-align: center;
-    text-decoration: none;
-    padding: 12px;
-    font-weight: bold;
-    border-radius: 12px;
-    background-color: #011;
-    color: #00fff7;
-    box-shadow: 0 0 10px #00fff7;
-    transition: 0.3s;
-    font-size: 16px;
-  }
-
-  .btn:hover {
-    background-color: #022;
-    box-shadow: 0 0 20px #00fff7;
-  }
-</style>
-
-
-    <div class="button-row" style="margin-top: 25px;">
+    <div class="button-row">
       <button class="btn" onclick="window.location.href='deposit-history.html'">Deposit History</button>
       <button class="btn" onclick="window.location.href='withdrawal-history.html'">Withdrawal History</button>
     </div>
-    
   </div>
-  <!-- NEW PHOTO BOX UNDER IT -->
-<div class="photo-box">
-  <img src="photo/c3145790-1ba1-404b-90eb-0453c9a62415.png" alt="Deposit Image" />
-</div>
 
+  <div class="photo-box">
+    <img src="photo/c3145790-1ba1-404b-90eb-0453c9a62415.png" alt="Deposit Image" />
+  </div>
 
-   <div class="live-activity-box" style="margin-top: 10px;" id="activityBox">
-  <p id="activityText">26GHDF deposited $694</p>
-</div>
+  <div class="live-activity-box" id="activityText">KODQIAH deposited $700</div>
 
-<style>
-  .live-activity-box {
-  width: 90%;
-  margin: 10px auto 0 auto; /* 👈 Added top margin */
-  padding: 10px;
-  background: #111;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0,255,255,0.2);
-  color: #00ffc6;
-  text-align: center;
-  font-size: 15px;
-  font-weight: bold;
-}
+  <!-- ✅ Nav Bar -->
+  <div class="nav-bar">
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
+    <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
+    <a href="account.html"><i class="fas fa-user"></i>Account</a>
+  </div>
 
-</style>
+  <!-- ✅ Firebase Wallet Sync -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-<script>
-  const names = ["KODQIAH", "YIDASB", "GHT4AD", "26GHDF", "GASJ345", "647GDH", "FSF5654", "554GFF", "5THGFH", "FGD54Y","TYSHAD "];
-  const actions = ["deposited", "withdrew"];
-  
-  function getRandomActivity() {
-    const name = names[Math.floor(Math.random() * names.length)];
-    const action = actions[Math.floor(Math.random() * actions.length)];
-    const amount = Math.floor(Math.random() * 900 + 100); // Random amount between 100 and 1000
-    return `${name} ${action} $${amount}`;
-  }
+    const firebaseConfig = {
+      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+      authDomain: "trustdollar-f72f4.firebaseapp.com",
+      projectId: "trustdollar-f72f4",
+      storageBucket: "trustdollar-f72f4.appspot.com",
+      messagingSenderId: "217643658538",
+      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+    };
 
-  function updateActivity() {
-    document.getElementById("activityText").innerText = getRandomActivity();
-  }
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  // Initial call and interval
-  updateActivity();
-  setInterval(updateActivity, 4000); // Update every 4 seconds
-</script>
+    const walletEl = document.getElementById("walletBalance");
+    const userName = document.getElementById("userName");
+    const userEmail = document.getElementById("userEmail");
+    const userId = document.getElementById("userId");
 
+    onAuthStateChanged(auth, (user) => {
+      if (!user) return window.location.href = "auth.html";
 
-  <!-- ✅ Fixed Bottom Nav Bar from index.html -->
-<div class="nav-bar">
-  <a href="index.html"><i class="fas fa-home"></i>Home</a>
-  <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
-  <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-  <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
-  <a href="account.html"><i class="fas fa-user"></i>Account</a>
-</div>
-<div class="popup" id="popupMsg"></div>
-<!-- Firebase Script -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-  import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+      const uid = user.uid;
+      const userRef = doc(db, "users", uid);
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-    authDomain: "trustdollar-f72f4.firebaseapp.com",
-    projectId: "trustdollar-f72f4",
-    storageBucket: "trustdollar-f72f4.appspot.com",
-    messagingSenderId: "217643658538",
-    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  const walletEl = document.getElementById("walletBalance");
-
-  onAuthStateChanged(auth, user => {
-    if (!user) return window.location.href = "auth.html";
-    const uid = user.uid;
-    const userDoc = doc(db, "users", uid);
-    onSnapshot(userDoc, (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const wallet = data.wallet || 0;
-        walletEl.innerText = `$${wallet.toFixed(2)}`;
-      } else {
-        walletEl.innerText = "$0.00";
-      }
+      onSnapshot(userRef, (docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          walletEl.innerText = `$${(data.wallet || 0).toFixed(2)}`;
+          userName.textContent = data.name || "Unnamed";
+          userEmail.textContent = user.email;
+          userId.textContent = data.userID || uid;
+        }
+      });
     });
-  });
-</script>
+  </script>
+
+  <!-- 🔁 Activity Auto Update -->
+  <script>
+    const names = ["KODQIAH", "YIDASB", "GHT4AD", "26GHDF", "GASJ345"];
+    const actions = ["deposited", "withdrew"];
+    function getRandomActivity() {
+      const name = names[Math.floor(Math.random() * names.length)];
+      const action = actions[Math.floor(Math.random() * actions.length)];
+      const amount = Math.floor(Math.random() * 900 + 100);
+      return `${name} ${action} $${amount}`;
+    }
+    function updateActivity() {
+      document.getElementById("activityText").innerText = getRandomActivity();
+    }
+    setInterval(updateActivity, 4000);
+  </script>
 
 </body>
 </html>
-

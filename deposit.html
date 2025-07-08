@@ -1,217 +1,216 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Deposit/TrustDollar</title>
+  <title>Deposit – TrustDollar</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
- 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
 
-    body {
-      background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
-      font-family: 'Segoe UI', sans-serif;
-      padding: 60px 14px 120px;
-      max-width: 420px;
-      margin: 0 auto;
-    }
+  body {
+    background: linear-gradient(to bottom right, #8b0000, #ffd700);
+    font-family: 'Segoe UI', sans-serif;
+    padding: 60px 14px 120px;
+    max-width: 420px;
+    margin: 0 auto;
+    color: #fff;
+  }
 
-    h2 {
-      text-align: center;
-      color: #ffd700;
-      font-size: 20px;
-      margin-bottom: 20px;
-      text-shadow: 0 0 8px #ffd70088;
-    }
+  h2 {
+    text-align: center;
+    color: gold;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px red;
+  }
 
-    .amount-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
+  .amount-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
 
-    .amount-box {
-      background: #1a1a1a;
-      border: 2px solid #00ffff99;
-      border-radius: 12px;
-      padding: 18px;
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      color: #00ffff;
-      box-shadow: 0 0 15px #00ffff55;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+  .amount-box {
+    background: #1a1a1a;
+    border: 2px solid gold;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: gold;
+    box-shadow: 0 0 15px red;
+    cursor: pointer;
+    transition: 0.3s;
+  }
 
-    .amount-box:hover {
-      background: #00ffff22;
-      transform: scale(1.05);
-    }
+  .amount-box:hover {
+    background: #ff000022;
+    transform: scale(1.05);
+  }
 
-    #invoiceSection {
-      display: none;
-      background: linear-gradient(to right, #fff, #1f1f1f);
-      padding: 16px;
-      border-radius: 16px;
-      border: 2px solid #ffd70066;
-      box-shadow: 0 0 25px #ffd70044;
-      margin-top: 20px;
-      text-align: center;
-    }
+  .custom-amount {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+  }
 
-    #walletAddress {
-      font-size: 16px;
-      font-weight: bold;
-      color: #00ffff;
-      background: #111;
-      padding: 14px 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #00ffff55;
-      word-break: break-word;
-      margin: 10px 0;
-    }
+  .custom-amount input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid gold;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #111;
+    color: gold;
+    text-align: center;
+    box-shadow: 0 0 10px red;
+  }
 
-    #copyBtn {
-      background: #ffd700;
-      border: none;
-      padding: 8px 14px;
-      color: #000;
-      font-weight: bold;
-      font-size: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ffd70055;
-    }
+  #invoiceSection {
+    display: none;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    border-radius: 16px;
+    border: 2px solid red;
+    box-shadow: 0 0 20px gold;
+    margin-top: 20px;
+    text-align: center;
+  }
 
-    #countdownTimer {
-      margin-top: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #ff4c4c;
-    }
+  #walletAddress {
+    font-size: 15px;
+    font-weight: bold;
+    color: gold;
+    background: #111;
+    padding: 12px;
+    border-radius: 10px;
+    word-break: break-word;
+    margin: 10px 0;
+    box-shadow: 0 0 10px red;
+  }
 
-    button {
-      background: #00ff99;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #000;
-      border-radius: 10px;
-      margin-top: 20px;
-      cursor: pointer;
-      box-shadow: 0 0 15px #00ff9955;
-    }
+  #copyBtn, #confirmBtn {
+    background: gold;
+    border: none;
+    padding: 10px 16px;
+    color: #000;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 8px 4px;
+    box-shadow: 0 0 10px red;
+  }
 
-    #popupMessage {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #00ffcc;
-      color: #000;
-      padding: 16px 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 25px #00ffccee;
-      font-weight: bold;
-      display: none;
-      z-index: 9999;
-    }
+  #qrCode {
+    margin: 10px auto;
+    max-width: 160px;
+  }
 
-    /* ✅ Nav Bar from index.html */
-    .nav-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #111;
-      border-radius: 20px;
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      width: 90%;
-      max-width: 320px;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
-      z-index: 999;
-    }
+  #popupMessage {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: gold;
+    color: #000;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 0 20px red;
+    display: none;
+    z-index: 9999;
+  }
 
-    .nav-bar a {
-      flex: 1;
-      text-align: center;
-      text-decoration: none;
-      color: gold;
-      font-size: 10px;
-      transition: 0.3s ease;
-    }
+  #countdownTimer {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff4c4c;
+  }
 
-    .nav-bar a i {
-      font-size: 16px;
-      margin-bottom: 2px;
-      display: block;
-      color: crimson;
-    }
+  .nav-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    border-radius: 20px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 320px;
+    box-shadow: 0 6px 20px red;
+    z-index: 999;
+  }
 
-    .nav-bar a:hover,
-    .nav-bar a.active {
-      color: crimson;
-      transform: translateY(-3px);
-    }
-  </style>
+  .nav-bar a {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: gold;
+    font-size: 10px;
+  }
+
+  .nav-bar a i {
+    font-size: 16px;
+    margin-bottom: 2px;
+    display: block;
+    color: crimson;
+  }
+
+  .nav-bar a:hover,
+  .nav-bar a.active {
+    color: crimson;
+    transform: translateY(-3px);
+  }
+</style>
+
 </head>
 <body>
 
-  <h2>Select Deposit Amount</h2>
+<h2>Select Deposit Amount</h2>
 
-  <div class="amount-grid" id="amountGrid">
-    <div class="amount-box" data-amount="50">$50</div>
-    <div class="amount-box" data-amount="100">$100</div>
-    <div class="amount-box" data-amount="200">$200</div>
-    <div class="amount-box" data-amount="500">$500</div>
-    <div class="amount-box" data-amount="1000">$1000</div>
-    <div class="amount-box" data-amount="2000">$2000</div>
-  </div>
+<div class="amount-grid" id="amountGrid">
+  <div class="amount-box" data-amount="50">$50</div>
+  <div class="amount-box" data-amount="100">$100</div>
+  <div class="amount-box" data-amount="200">$200</div>
+  <div class="amount-box" data-amount="500">$500</div>
+</div>
 
- <div class="popup" id="popupMsg"></div>
+<div class="custom-amount">
+  <input type="number" id="customAmountInput" placeholder="Or enter amount manually" />
+</div>
 
-  <!-- ✅ Bottom Nav Bar -->
-  <div class="nav-bar">
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
-    <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
-    <a href="account.html"><i class="fas fa-user"></i>Account</a>
-  </div>
-   <div id="invoiceSection">
-      <h3>Use ( USE BEP20 )</h3>
-      <p>Send exactly <span id="selectedAmountDisplay"></span> to the address below:</p>
-      <div id="walletAddress">0x87bfc11aff75eab1a4f560885a97dbeb70b11716</div>
-      <button id="copyBtn">Copy</button>
-      <div id="countdownTimer">Time Remaining: 3:00</div>
-      <button id="confirmBtn">I Have Paid</button>
-    </div>
-  </div>
-
-
-  <div class="nav-bar">
-    <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>Home</span></a>
-    <a href="start.html" class="nav-item"><i class="fas fa-bolt"></i><span>Mining</span></a>
-    <a href="promotion.html" class="nav-item"><i class="fas fa-users"></i><span>Promotion</span></a>
-    <a href="wallet.html" class="nav-item active"><i class="fas fa-wallet"></i><span>Wallet</span></a>
-    <a href="account.html" class="nav-item"><i class="fas fa-user"></i><span>Account</span></a>
-  </div>
+<div id="invoiceSection">
+  <h3 style="color: gold; text-shadow: 0 0 6px red;">Send (BEP20)</h3>
+  <p>Send exactly <span id="selectedAmountDisplay"></span> to:</p>
+  <div id="qrCode"><img id="qrImage" src="" width="160" height="160" /></div>
+  <div id="walletAddress">0x87bfc11aff75eab1a4f560885a97dbeb70b11716</div>
+  <button id="copyBtn">Copy Address</button>
+  <div id="countdownTimer">Time Remaining: 3:00</div>
+  <button id="confirmBtn">I Have Paid</button>
 </div>
 
 <div id="popupMessage"></div>
 
-<!-- ✅ Firebase + Logic -->
+<div class="nav-bar">
+  <a href="index.html"><i class="fas fa-home"></i>Home</a>
+  <a href="start.html"><i class="fas fa-bolt"></i>Mining</a>
+  <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+  <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
+  <a href="account.html"><i class="fas fa-user"></i>Account</a>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
@@ -232,9 +231,9 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
-
   let currentUser;
   let selectedAmount = 0;
+  const address = "0x87bfc11aff75eab1a4f560885a97dbeb70b11716";
 
   const popup = document.getElementById("popupMessage");
   const confirmBtn = document.getElementById("confirmBtn");
@@ -242,7 +241,7 @@
   function showPopup(msg) {
     popup.innerText = msg;
     popup.style.display = "block";
-    setTimeout(() => popup.style.display = "none", 2500);
+    setTimeout(() => popup.style.display = "none", 2000);
   }
 
   function startCountdown() {
@@ -251,7 +250,7 @@
     const interval = setInterval(() => {
       if (--timeLeft <= 0) {
         clearInterval(interval);
-       window.location.href = "deposit-history.html";
+        window.location.href = "deposit-history.html";
       }
       const mins = Math.floor(timeLeft / 60);
       const secs = timeLeft % 60;
@@ -259,22 +258,38 @@
     }, 1000);
   }
 
-  document.querySelectorAll(".amount-box").forEach(box => {
-    box.onclick = () => {
-      selectedAmount = parseInt(box.dataset.amount);
-      document.getElementById("selectedAmountDisplay").textContent = `$${selectedAmount}`;
-      document.getElementById("amountGrid").style.display = "none";
-      document.getElementById("invoiceSection").style.display = "block";
-      startCountdown();
-      console.log("Invoice Text:", document.getElementById("invoiceSection").innerText);
+  function openInvoice(amount) {
+    selectedAmount = amount;
+    document.getElementById("selectedAmountDisplay").textContent = `$${amount}`;
+    document.getElementById("invoiceSection").style.display = "block";
+    document.getElementById("amountGrid").style.display = "none";
+    document.getElementById("customAmountInput").style.display = "none";
 
-    };
+    const qrImage = `https://api.qrserver.com/v1/create-qr-code/?data=${address}&size=160x160`;
+    document.getElementById("qrImage").src = qrImage;
+    startCountdown();
+  }
+
+  document.querySelectorAll(".amount-box").forEach(box => {
+    box.onclick = () => openInvoice(parseInt(box.dataset.amount));
   });
 
+  document.getElementById("customAmountInput").oninput = function () {
+    const val = parseInt(this.value);
+    if (val > 0) {
+      setTimeout(() => openInvoice(val), 1000);
+    }
+  };
+
   document.getElementById("copyBtn").onclick = () => {
-    navigator.clipboard.writeText(document.getElementById("walletAddress").textContent);
+    navigator.clipboard.writeText(address);
     showPopup("Address Copied!");
   };
+
+  onAuthStateChanged(auth, async user => {
+    if (!user) return location.href = "auth.html";
+    currentUser = user;
+  });
 
   function generateOrderId() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -285,18 +300,11 @@
     return id;
   }
 
-  onAuthStateChanged(auth, async user => {
-    if (!user) return location.href = "auth.html";
-    currentUser = user;
-  });
-
   confirmBtn.onclick = async () => {
     if (!currentUser || !selectedAmount) return;
-
     const depositsQuery = query(collection(db, "deposits"), where("uid", "==", currentUser.uid));
     const existing = await getDocs(depositsQuery);
     const isFirstDeposit = existing.empty;
-
     const userRef = doc(db, "users", currentUser.uid);
     const userSnap = await getDoc(userRef);
 
@@ -331,10 +339,9 @@
       }
     }
 
-    showPopup(" Processing ");
+    showPopup("Processing...");
     setTimeout(() => location.href = "deposit-history.html", 2000);
   };
 </script>
 </body>
 </html>
-

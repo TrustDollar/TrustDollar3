@@ -1,10 +1,23 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
- <head>
+<head>
   <title>TrustDollar – The World's First Crypto Mining Platform with 1% Daily Earnings</title>
   <meta name="description" content="Join TrustDollar – the first crypto mining platform that generates 1% daily income. Secure your wallet, refer and earn, and start mining instantly.">
-</head>
+
+  <!-- ✅ Favicon -->
+  <link rel="icon" href="https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/logo.png" type="image/png" />
+
+  <!-- ✅ Logo Structured Data for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "TrustDollar",
+    "url": "https://www.trustdollar.in",
+    "logo": "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/logo.png"
+  }
+  </script>
 
   <style>
     * { box-sizing: border-box; }
@@ -43,6 +56,7 @@
       width: 100%;
       justify-content: center;
       margin-top: 100px;
+      padding: 0 10px; /* ✅ Added for mobile spacing */
     }
 
     .card {
@@ -54,6 +68,7 @@
       box-shadow: 0 0 15px #00ffff55;
       backdrop-filter: blur(10px);
       position: relative;
+      max-width: 400px;
     }
 
     .card h2 {
@@ -154,6 +169,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -318,7 +334,6 @@
     }
   }
 
-  // 👁️ Password Show/Hide
   window.togglePassword = function (id, el) {
     const input = document.getElementById(id);
     if (input.type === "password") {
@@ -355,5 +370,6 @@
     }
   });
 </script>
+
 </body>
 </html>

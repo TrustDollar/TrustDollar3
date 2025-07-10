@@ -246,6 +246,50 @@
       color: crimson;
       transform: translateY(-3px);
     }
+      #liveEarnings {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .earning-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+      font-weight: bold;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    .user-box,
+    .text-box,
+    .amount-box {
+      padding: 6px 10px;
+      border-radius: 6px;
+    }
+
+    .user-box {
+      background: #ffffff22;
+    }
+
+    .text-box {
+      background: #2196f3;
+      color: white;
+    }
+
+    .amount-box {
+      background: #ffcc00;
+      color: #000;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -289,6 +333,64 @@
 
   <!-- Floating Info Box -->
   <div class="floating-box-3d">You can do mining and trading 24/7!</div>
+    <div id="liveEarnings"></div>
+
+  <script>
+    const maxEntries = 10;
+
+    function getRandomUsername() {
+      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let name = '';
+      const length = Math.floor(Math.random() * 5) + 5;
+      for (let i = 0; i < length; i++) {
+        name += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return name;
+    }
+
+    function getRandomAmount() {
+      return (Math.random() * 1).toFixed(6);
+    }
+
+    function renderEntries(entries) {
+      const container = document.getElementById("liveEarnings");
+      container.innerHTML = "";
+
+      entries.forEach(entry => {
+        const box = document.createElement("div");
+        box.className = "earning-box";
+
+        box.innerHTML = `
+          <div class="user-box">${entry.username}</div>
+          <div class="text-box">earned</div>
+          <div class="amount-box">$${entry.amount}</div>
+        `;
+
+        container.appendChild(box);
+      });
+    }
+
+    function addNewEntry() {
+      const username = getRandomUsername();
+      const amount = getRandomAmount();
+
+      let entries = JSON.parse(localStorage.getItem("earningEntries")) || [];
+      entries.push({ username, amount });
+
+      if (entries.length > maxEntries) {
+        entries = entries.slice(entries.length - maxEntries);
+      }
+
+      localStorage.setItem("earningEntries", JSON.stringify(entries));
+      renderEntries(entries);
+    }
+
+    // Load on start
+    const savedEntries = JSON.parse(localStorage.getItem("earningEntries")) || [];
+    renderEntries(savedEntries);
+    setInterval(addNewEntry, 3000);
+  </script>
+
 
   <!-- Auto-Playing Video Box -->
   <div class="video-box">

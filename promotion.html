@@ -12,7 +12,6 @@
       padding: 0;
       scroll-behavior: smooth;
     }
-
     body {
       background: linear-gradient(145deg, #8b0000, #ffd700);
       font-family: 'Segoe UI', sans-serif;
@@ -21,7 +20,6 @@
       margin: 0 auto;
       color: #fff;
     }
-
     h2, h3, h4 {
       color: #ffd700;
       text-align: center;
@@ -29,42 +27,34 @@
       text-shadow: 0 0 8px #ff0000;
       font-size: 18px;
     }
-
     .box {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid #ffd70099;
       border-radius: 14px;
       padding: 14px;
       box-shadow: 0 0 14px rgba(255, 0, 0, 0.4);
-      margin-bottom: 16px;
-      text-align: center;
       backdrop-filter: blur(6px);
+      margin-bottom: 12px;
     }
-
     .value-box {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid #ffd700aa;
       box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
       color: #ffd700;
-      padding: 10px 14px;
-      font-size: 16px;
+      padding: 8px 10px;
+      font-size: 14px;
       border-radius: 10px;
       text-align: center;
-      margin-top: 8px;
       font-weight: bold;
       word-break: break-word;
+      flex: 1;
     }
-
-    .value-box.copyable {
-      cursor: pointer;
-      transition: 0.3s ease;
+    .row-box {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
-
-    .value-box.copyable:hover {
-      background: rgba(255, 215, 0, 0.1);
-      color: #fff;
-    }
-
     .btn {
       background: #ffd700;
       color: #8b0000;
@@ -73,55 +63,10 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 14px;
-      transition: 0.2s;
       margin: 5px;
       font-weight: bold;
       box-shadow: 0 0 10px #ffd700aa;
     }
-
-    .btn:hover {
-      background: #ffe75a;
-    }
-
-    .share-box {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-      justify-content: center;
-    }
-
-    .grid-boxes {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #ffd700;
-      color: #8b0000;
-      padding: 14px 24px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #ff0000aa;
-      font-size: 16px;
-      display: none;
-      z-index: 9999;
-      text-align: center;
-      animation: fadeInOut 2.5s ease forwards;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
     .nav-bar {
       position: fixed;
       bottom: 20px;
@@ -138,33 +83,43 @@
       box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
       z-index: 999;
     }
-
     .nav-bar a {
       flex: 1;
       text-align: center;
       text-decoration: none;
       color: gold;
       font-size: 10px;
-      transition: 0.3s ease;
     }
-
     .nav-bar a i {
       font-size: 16px;
       margin-bottom: 2px;
       display: block;
       color: crimson;
     }
-
-    .nav-bar a:hover,
     .nav-bar a.active {
       color: crimson;
-      transform: translateY(-3px);
     }
 
-    @media (max-width: 600px) {
-      .grid-boxes {
-        grid-template-columns: 1fr 1fr;
-      }
+    /* Glass popup */
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid #ffd700aa;
+      backdrop-filter: blur(10px);
+      padding: 15px 20px;
+      border-radius: 14px;
+      box-shadow: 0 0 20px #ff0000;
+      z-index: 9999;
+      color: #fff;
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
   </style>
 </head>
@@ -173,24 +128,25 @@
   <div class="box">
     <h3>Refer a Friend</h3>
     <div class="value-box copyable" id="refCode" onclick="copyReferral()">Loading...</div><br/>
-    <div class="share-box">
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
       <button class="btn" onclick="shareWhatsApp()">WhatsApp</button>
       <button class="btn" onclick="shareTelegram()">Telegram</button>
     </div>
   </div>
 
-  <div class="grid-boxes">
+  <div class="grid-boxes" style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:20px;">
     <div class="box"><h4>Total Wallet</h4><div class="value-box" id="totalIncome">$0</div></div>
     <div class="box"><h4>Total Joined</h4><div class="value-box" id="refCount">0</div></div>
     <div class="box"><h4>Total Referral</h4><div class="value-box" id="refIncome">$0</div></div>
     <div class="box"><h4>Today Income</h4><div class="value-box" id="todayIncome">$0</div></div>
   </div>
 
-  <div style="margin-top: 20px; display: flex; justify-content: center;">
-    <div style="background: #111b20; padding: 15px; border-radius: 15px; box-shadow: 0 0 10px #ffd700; width: 340px; text-align: center;">
-      <img src="photo/ChatGPT Image Jul 9, 2025, 08_25_20 AM.png" alt="Promo Image" style="width: 100%; border-radius: 10px;" />
-    </div>
+  
+
+  <div id="referralHistory" style="margin-top: 25px;">
+    <h3>Referral Income History</h3>
   </div>
+  
 
   <div class="nav-bar">
     <a href="index.html"><i class="fas fa-home"></i>Home</a>
@@ -200,12 +156,13 @@
     <a href="account.html"><i class="fas fa-user"></i>Account</a>
   </div>
 
-  <div class="popup" id="popupMsg"></div>
+  <!-- Center Popup -->
+  <div id="popup">Referral Code Copied!</div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, collection, query, where, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
@@ -225,12 +182,12 @@
     const refIncomeEl = document.getElementById("refIncome");
     const todayIncomeEl = document.getElementById("todayIncome");
     const totalIncomeEl = document.getElementById("totalIncome");
-    const popup = document.getElementById("popupMsg");
+    const referralHistoryContainer = document.getElementById("referralHistory");
+    const popup = document.getElementById("popup");
 
     onAuthStateChanged(auth, async (user) => {
       if (!user) return location.href = "auth.html";
       const uid = user.uid;
-
       const userSnap = await getDoc(doc(db, "users", uid));
       const userData = userSnap.data();
       const code = userData.refCode;
@@ -245,7 +202,6 @@
       onSnapshot(q2, snapshot => {
         let total = 0, today = 0;
         const todayDate = new Date().toDateString();
-
         snapshot.forEach(doc => {
           const d = doc.data();
           const amt = d.amount || 0;
@@ -254,17 +210,44 @@
             today += amt;
           }
         });
-
         refIncomeEl.innerText = `$${total.toFixed(2)}`;
         todayIncomeEl.innerText = `$${today.toFixed(2)}`;
-        const walletBalance = userData.wallet || 0;
-        totalIncomeEl.innerText = `$${(walletBalance + total).toFixed(2)}`;
+        totalIncomeEl.innerText = `$${((userData.wallet || 0) + total).toFixed(2)}`;
+      });
+
+      const referredSnap = await getDocs(q1);
+      referredSnap.forEach(async (refDoc) => {
+        const refData = refDoc.data();
+        const refId = refDoc.id;
+        const username = refData.username || "N/A";
+        let depositAmount = 0;
+        let status = "Pending";
+        let reward = 0;
+        const depositQuery = query(collection(db, "deposits"), where("uid", "==", refId));
+        const depositSnap = await getDocs(depositQuery);
+        depositSnap.forEach(d => depositAmount += d.data().amount || 0);
+        if (depositAmount > 0) {
+          status = "Success";
+          reward = depositAmount * 0.2;
+        }
+
+        const boxHTML = `
+          <div class="box">
+            <div style="font-size: 14px; color:#ffd;">👤 <b>${username}</b></div>
+            <div class="row-box">
+              <div class="value-box">💰 $${depositAmount.toFixed(2)}</div>
+              <div class="value-box"> <span style="color:${status === 'Success' ? '#0f0' : '#ff0'}">${status}</span></div>
+              <div class="value-box">🎁 $${reward.toFixed(2)}</div>
+            </div>
+          </div>`;
+        referralHistoryContainer.insertAdjacentHTML("beforeend", boxHTML);
       });
     });
 
     window.copyReferral = function () {
-      const code = refCodeEl.innerText;
-      navigator.clipboard.writeText(code).then(() => showPopup("Referral code copied!"));
+      navigator.clipboard.writeText(refCodeEl.innerText);
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", 1000);
     }
 
     window.shareWhatsApp = function () {
@@ -278,13 +261,6 @@
       const link = `https://www.trustdollar.in/?ref=${code}`;
       window.open(`https://t.me/share/url?url=${link}&text=Join%20TrustDollar%20and%20earn%20daily%20income!`);
     }
-
-    function showPopup(message) {
-      popup.innerText = message;
-      popup.style.display = "block";
-      setTimeout(() => popup.style.display = "none", 2500);
-    }
   </script>
-
 </body>
 </html>

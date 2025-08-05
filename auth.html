@@ -6,151 +6,111 @@
   <title>TrustDollar – The World's First Crypto Mining Platform with 1% Daily Earnings</title>
   <meta name="description" content="Join TrustDollar – the first crypto mining platform that generates 1% daily income. Secure your wallet, refer and earn, and start mining instantly.">
   <link rel="icon" href="https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO/main/logo.png" />
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
+ <style>
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(145deg, #0a0a0a, #1f1f1f);
-      color: #fff;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(145deg, #0d0d0d, #1a0000);
+      color: white;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
-      overflow-x: hidden;
     }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      max-width: 1000px;
-      width: 100%;
-      justify-content: center;
-      margin-top: 80px;
-      padding: 0 15px;
-    }
-
     .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 2px solid red;
+      border-radius: 20px;
+      padding: 30px;
       width: 100%;
       max-width: 400px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 30px;
-      border-radius: 20px;
-      border: 1px solid #00ffff55;
-      box-shadow: 0 0 15px #00ffff55;
-      backdrop-filter: blur(10px);
-      position: relative;
-      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+      animation: slideIn 0.4s ease;
     }
-
-    .card h2 {
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    h2 {
       text-align: center;
       margin-bottom: 20px;
-      font-size: 24px;
+      color: #ff4d4d;
     }
-
     input {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
-      border-radius: 10px;
       border: none;
-      background: #111;
-      color: #00ffff;
-      font-size: 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
     }
-
+    input::placeholder {
+      color: #ccc;
+    }
     .password-container {
       position: relative;
     }
-
     .password-container span {
       position: absolute;
-      right: 12px;
+      right: 15px;
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      color: #00ffff;
-      font-size: 18px;
+      font-size: 16px;
+      color: #ccc;
     }
-
     button {
       width: 100%;
       padding: 12px;
-      border: none;
-      border-radius: 10px;
       margin-top: 15px;
-      cursor: pointer;
-      font-size: 16px;
+      border: none;
+      background: linear-gradient(to right, red, gold);
+      color: black;
       font-weight: bold;
-      background: linear-gradient(to right, #ffcc00, #ff6600);
-      color: #000;
-      box-shadow: 0 0 10px #ff9900aa;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-
     button:hover {
-      opacity: 0.9;
+      transform: scale(1.02);
     }
-
     .switch {
       text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
+      margin-top: 15px;
       color: #aaa;
     }
-
     .switch a {
-      color: #00ffff;
-      text-decoration: none;
-      font-weight: bold;
+      color: gold;
       cursor: pointer;
+      text-decoration: underline;
     }
-
     .forgot-link {
-      color: #00ffff;
-      font-size: 13px;
-      text-decoration: none;
-      float: right;
-      margin-top: -10px;
       display: block;
+      margin-top: 5px;
+      color: #aaa;
+      text-align: right;
+      font-size: 14px;
+      text-decoration: underline;
     }
-
-    .toast {
+    #toast {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #00ff99dd;
-      color: #000;
-      padding: 16px 30px;
-      border-radius: 14px;
-      font-weight: bold;
-      font-size: 16px;
-      box-shadow: 0 0 20px #00ff99;
+      background: rgba(0,0,0,0.85);
+      padding: 15px 30px;
+      color: white;
+      border-radius: 10px;
       display: none;
-      animation: fade 3s ease forwards;
-      text-align: center;
-      z-index: 9999;
-    }
-
-    @keyframes fade {
-      0% {opacity: 0; transform: translate(-50%, -60%);}
-      10% {opacity: 1; transform: translate(-50%, -50%);}
-      90% {opacity: 1;}
-      100% {opacity: 0; transform: translate(-50%, -50%);}
-    }
-
-    @media (max-width: 480px) {
-      .card {
-        padding: 20px;
-      }
-
-      input, button {
-        font-size: 14px;
-      }
+      z-index: 999;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -357,3 +317,4 @@
 
 </body>
 </html>
+

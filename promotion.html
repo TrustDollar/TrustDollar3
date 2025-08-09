@@ -145,7 +145,6 @@
 <div class="referral-btn-container">
   <a href="referral.html" class="referral-btn">See Your Referral</a>
 </div>
-
 <style>
   .referral-btn-container {
     display: flex;
@@ -189,6 +188,116 @@
     }
   }
 </style>
+          
+  <div class="info-box-container">
+  <div class="info-box">
+    <div class="info-text">
+      Welcome to our platform! Here, you can explore exciting features, earn rewards,
+      and connect with friends. Invite others to join, share your unique referral link,
+      and start collecting bonuses today.
+    </div>
+  </div>
+
+        <style>
+  .info-box-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:20px 0;
+    width:100%;
+  }
+
+  .info-box{
+    --radius: 12px;      /* corner radius */
+    --border-thickness: 4px; /* border thickness (change to make ring thicker/thinner) */
+    --rotation-speed: 11s; /* animation speed (lower = faster) */
+
+    position: relative;
+    padding: 16px 24px;
+    width: min(700px, 92%);
+    border-radius: var(--radius);
+    /* inner stable background (same look as earlier) */
+    background: linear-gradient(145deg, #b30000, #ffcc00);
+    color: #fff5d7;
+    font-weight:500;
+    text-align:center;
+    box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
+    line-height:1.5;
+    z-index: 2; /* above the masking layer */
+    overflow: visible;
+  }
+
+  /* rotating gradient ring behind the box */
+  .info-box::before{
+    content: "";
+    position: absolute;
+    inset: calc(-1 * var(--border-thickness)); /* extend outward by border thickness */
+    border-radius: calc(var(--radius) + var(--border-thickness));
+    padding: 0;
+    background: conic-gradient(
+      from 0deg,
+      #ff3d00,
+      #ffcf00,
+      #00d4ff,
+      #8b00ff,
+      #ff3d00
+    );
+    z-index: 0;
+    filter: blur(0px); /* remove blur; keep crisp ring */
+    animation: rotateRing linear infinite;
+    animation-duration: var(--rotation-speed);
+  }
+
+  /* mask the center so only the ring (border) remains visible */
+  .info-box::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    background: linear-gradient(145deg, #b30000, #ffcc00); /* same as inner so center looks solid */
+    z-index: 1;
+    /* create the hollow effect by shrinking the ::after inset by border-thickness */
+    /* we do that by using clip-path to cut out the inner rectangle */
+    clip-path: inset(var(--border-thickness) round var(--radius));
+  }
+
+  .info-text{
+    position: relative;
+    z-index: 3; /* top of everything so text stays clickable/selectable */
+    font-size: 15px;
+    color: #fff5d7;
+    word-break: break-word;
+  }
+
+  @keyframes rotateRing {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Hover: slight speed up (optional) */
+  .info-box:hover::before{
+    animation-duration: 2s;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width:500px){
+    .info-box{
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+  }
+  .info-box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 60px 0 20px 0; /* Pehle 20px tha, ab 60px top space */
+  width: 100%;
+}
+
+</style>
+
+
+
 
    <div class="nav-bar">
     <a href="index.html"><i class="fas fa-home"></i>Home</a>

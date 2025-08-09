@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -141,126 +141,171 @@
     <div class="box"><h4>Today Income</h4><div class="value-box" id="todayIncome">$0</div></div>
   </div>
 
-  
+    <!-- Referral Button -->
+<div class="referral-btn-container">
+  <a href="referral.html" class="referral-btn">See Your Referral</a>
+</div>
 
-  <div id="referralHistory" style="margin-top: 25px;">
-    <h3>Referral Income History</h3>
-  </div>
-  
+<style>
+  .referral-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    width: 100%;
+  }
 
-  <div class="nav-bar">
+  .referral-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff5d7;
+    background: linear-gradient(145deg, #b30000, #ffcc00);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .referral-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #7a0000, 0 6px 12px rgba(0,0,0,0.4);
+  }
+
+  .referral-btn:hover {
+    background: linear-gradient(145deg, #ffcc00, #b30000);
+  }
+
+  /* Mobile-friendly */
+  @media (max-width: 500px) {
+    .referral-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+</style>
+
+   <div class="nav-bar">
     <a href="index.html"><i class="fas fa-home"></i>Home</a>
     <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
     <a href="promotion.html" class="active"><i class="fas fa-bullhorn"></i>Promotion</a>
     <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
     <a href="account.html"><i class="fas fa-user"></i>Account</a>
   </div>
+<!-- Center Popup -->
+<div id="popup">Referral Code Copied!</div>
 
-  <!-- Center Popup -->
-  <div id="popup">Referral Code Copied!</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import {
+  getFirestore, doc, getDoc, collection, query,
+  where, onSnapshot
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, collection, query, where, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+// 🔹 Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+  authDomain: "trustdollar-f72f4.firebaseapp.com",
+  projectId: "trustdollar-f72f4",
+  storageBucket: "trustdollar-f72f4.appspot.com",
+  messagingSenderId: "217643658538",
+  appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+};
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-      authDomain: "trustdollar-f72f4.firebaseapp.com",
-      projectId: "trustdollar-f72f4",
-      storageBucket: "trustdollar-f72f4.appspot.com",
-      messagingSenderId: "217643658538",
-      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-    };
+// 🔹 Init Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+// 🔹 DOM Elements
+const refCodeEl = document.getElementById("refCode");
+const refCountEl = document.getElementById("refCount");
+const refIncomeEl = document.getElementById("refIncome");
+const todayIncomeEl = document.getElementById("todayIncome");
+const totalIncomeEl = document.getElementById("totalIncome");
+const popup = document.getElementById("popup");
 
-    const refCodeEl = document.getElementById("refCode");
-    const refCountEl = document.getElementById("refCount");
-    const refIncomeEl = document.getElementById("refIncome");
-    const todayIncomeEl = document.getElementById("todayIncome");
-    const totalIncomeEl = document.getElementById("totalIncome");
-    const referralHistoryContainer = document.getElementById("referralHistory");
-    const popup = document.getElementById("popup");
+onAuthStateChanged(auth, async (user) => {
+  if (!user) return location.href = "auth.html";
+  const uid = user.uid;
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) return location.href = "auth.html";
-      const uid = user.uid;
-      const userSnap = await getDoc(doc(db, "users", uid));
-      const userData = userSnap.data();
-      const code = userData.refCode;
-      refCodeEl.innerText = code;
+  // 🔹 Get user data
+  const userSnap = await getDoc(doc(db, "users", uid));
+  const userData = userSnap.data();
+  const code = userData.refCode || "N/A";
+  refCodeEl.innerText = code;
 
-      const q1 = query(collection(db, "users"), where("referredBy", "==", code));
-      onSnapshot(q1, snap => {
-        refCountEl.innerText = snap.size;
-      });
+  // 🔹 Referral count live
+  const referredQuery = query(
+    collection(db, "users"),
+    where("referredBy", "==", code)
+  );
+  onSnapshot(referredQuery, (snap) => {
+    refCountEl.innerText = snap.size;
+  });
 
-      const q2 = query(collection(db, "referral_income"), where("upline", "==", uid));
-      onSnapshot(q2, snapshot => {
-        let total = 0, today = 0;
-        const todayDate = new Date().toDateString();
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const amt = d.amount || 0;
-          total += amt;
-          if (d.timestamp?.toDate().toDateString() === todayDate) {
-            today += amt;
-          }
-        });
-        refIncomeEl.innerText = `$${total.toFixed(2)}`;
-        todayIncomeEl.innerText = `$${today.toFixed(2)}`;
-        totalIncomeEl.innerText = `$${((userData.wallet || 0) + total).toFixed(2)}`;
-      });
-
-      const referredSnap = await getDocs(q1);
-      referredSnap.forEach(async (refDoc) => {
-        const refData = refDoc.data();
-        const refId = refDoc.id;
-        const username = refData.username || "N/A";
-        let depositAmount = 0;
-        let status = "Pending";
-        let reward = 0;
-        const depositQuery = query(collection(db, "deposits"), where("uid", "==", refId));
-        const depositSnap = await getDocs(depositQuery);
-        depositSnap.forEach(d => depositAmount += d.data().amount || 0);
-        if (depositAmount > 0) {
-          status = "Success";
-          reward = depositAmount * 0.2;
-        }
-
-        const boxHTML = `
-          <div class="box">
-            <div style="font-size: 14px; color:#ffd;">👤 <b>${username}</b></div>
-            <div class="row-box">
-              <div class="value-box">💰 $${depositAmount.toFixed(2)}</div>
-              <div class="value-box"> <span style="color:${status === 'Success' ? '#0f0' : '#ff0'}">${status}</span></div>
-              <div class="value-box">🎁 $${reward.toFixed(2)}</div>
-            </div>
-          </div>`;
-        referralHistoryContainer.insertAdjacentHTML("beforeend", boxHTML);
-      });
+  // 🔹 Referral total income live
+  const incomeQuery = query(
+    collection(db, "referral_income"),
+    where("toUpline", "==", uid)
+  );
+  onSnapshot(incomeQuery, (snapshot) => {
+    let totalReferral = 0;
+    snapshot.forEach((docSnap) => {
+      totalReferral += docSnap.data().amount || 0;
     });
+    refIncomeEl.innerText = `$${totalReferral.toFixed(2)}`;
+    totalIncomeEl.innerText = `$${((userData.wallet || 0) + totalReferral).toFixed(2)}`;
+  });
 
-    window.copyReferral = function () {
-      navigator.clipboard.writeText(refCodeEl.innerText);
-      popup.style.display = "block";
-      setTimeout(() => popup.style.display = "none", 1000);
-    }
+  // 🔹 User's own today mining income
+  const todayDateOnly = new Date().toISOString().split("T")[0];
+  const miningQuery = collection(db, "users", uid, "miningHistory");
 
-    window.shareWhatsApp = function () {
-      const code = refCodeEl.innerText;
-      const link = `https://www.trustdollar.in/?ref=${code}`;
-      window.open(`https://wa.me/?text=Join%20TrustDollar%20and%20earn!%20Use%20my%20referral%20code:%20${link}`);
-    }
+  onSnapshot(miningQuery, (snap) => {
+    let miningToday = 0;
+    snap.forEach((docSnap) => {
+      const mData = docSnap.data();
+      if (mData.date) {
+        let mineDate;
+        if (typeof mData.date.toDate === "function") {
+          mineDate = mData.date.toDate().toISOString().split("T")[0];
+        } else {
+          mineDate = new Date(mData.date).toISOString().split("T")[0];
+        }
+        if (mineDate === todayDateOnly) {
+          miningToday += mData.amount || 0;
+        }
+      }
+    });
+    todayIncomeEl.innerText = `$${miningToday.toFixed(2)}`;
+  });
 
-    window.shareTelegram = function () {
-      const code = refCodeEl.innerText;
-      const link = `https://www.trustdollar.in/?ref=${code}`;
-      window.open(`https://t.me/share/url?url=${link}&text=Join%20TrustDollar%20and%20earn%20daily%20income!`);
-    }
-  </script>
+  // 🔹 Copy referral code
+  window.copyReferral = function () {
+    navigator.clipboard.writeText(refCodeEl.innerText);
+    popup.style.display = "block";
+    setTimeout(() => (popup.style.display = "none"), 1000);
+  };
+
+  // 🔹 Share WhatsApp
+  window.shareWhatsApp = function () {
+    const link = `https://www.trustdollar.in/?ref=${code}`;
+    window.open(`https://wa.me/?text=Join%20TrustDollar%20and%20earn!%20Use%20my%20referral%20code:%20${link}`);
+  };
+
+  // 🔹 Share Telegram
+  window.shareTelegram = function () {
+    const link = `https://www.trustdollar.in/?ref=${code}`;
+    window.open(`https://t.me/share/url?url=${link}&text=Join%20TrustDollar%20and%20earn%20daily%20income!`);
+  };
+});
+</script>
 </body>
 </html>

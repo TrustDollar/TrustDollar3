@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -190,6 +190,117 @@
 <div class="custom-amount">
   <input type="number" id="customAmountInput" placeholder="Type with speed...Mini. 170$" />
 </div>
+     
+  <div class="info-box-container">
+  <div class="info-box">
+    <h3 class="notice-heading">📢 Notice</h3>
+    <div class="info-text">
+      𝐈𝐦𝐩𝐨𝐫𝐭𝐚𝐧𝐭 𝐢𝐧𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧 == 𝐀𝐟𝐭𝐞𝐫 𝐬𝐞𝐧𝐝𝐢𝐧𝐠 𝐭𝐡𝐞 𝐚𝐦𝐨𝐮𝐧𝐭, 𝐝𝐨 𝐜𝐥𝐢𝐜𝐤 𝐨𝐧 𝐈 𝐡𝐚𝐯𝐞 𝐩𝐚𝐢𝐝, 
+      𝐢𝐟 𝐲𝐨𝐮 𝐝𝐨 𝐧𝐨𝐭 𝐝𝐨 𝐬𝐨, 𝐭𝐡𝐞 𝐚𝐦𝐨𝐮𝐧𝐭 𝐦𝐚𝐲 𝐛𝐞 𝐥𝐨𝐬𝐭
+      𝐈𝐟 𝐲𝐨𝐮 𝐧𝐞𝐞𝐝 𝐚𝐧𝐲 𝐨𝐭𝐡𝐞𝐫 𝐢𝐧𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧, 𝐩𝐥𝐞𝐚𝐬𝐞 𝐜𝐨𝐧𝐭𝐚𝐜𝐭 𝐲𝐨𝐮𝐫 𝐚𝐝𝐦𝐢𝐧
+    </div>
+  </div>
+</div>
+
+<style>
+  .info-box-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:60px 0 20px 0;
+    width:100%;
+  }
+
+  .info-box{
+    --radius: 12px;
+    --border-thickness: 0px;
+    --rotation-speed: s;
+
+    position: relative;
+    padding: 16px 24px;
+    width: min(700px, 92%);
+    border-radius: var(--radius);
+    background: linear-gradient(145deg, #b30000, #ffcc00);
+    color: #fff5d7;
+    font-weight:500;
+    text-align:center;
+    box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
+    line-height:1.5;
+    z-index: 2;
+    overflow: visible;
+  }
+
+  /* Rotating gradient ring */
+  .info-box::before{
+    content: "";
+    position: absolute;
+    inset: calc(-1 * var(--border-thickness));
+    border-radius: calc(var(--radius) + var(--border-thickness));
+    padding: 0;
+    background: conic-gradient(
+      from 0deg,
+      #ff3d00,
+      #ffcf00,
+      #00d4ff,
+      #8b00ff,
+      #ff3d00
+    );
+    z-index: 0;
+    filter: blur(0px);
+    animation: rotateRing linear infinite;
+    animation-duration: var(--rotation-speed);
+  }
+
+  .info-box::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    background: linear-gradient(145deg, #b30000, #ffcc00);
+    z-index: 1;
+    clip-path: inset(var(--border-thickness) round var(--radius));
+  }
+
+  .info-text{
+    position: relative;
+    z-index: 3;
+    font-size: 15px;
+    color: #fff5d7;
+    word-break: break-word;
+  }
+
+  .notice-heading {
+    background: linear-gradient(to right, #87fd28, #ffcc00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 3;
+  }
+
+  @keyframes rotateRing {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .info-box:hover::before{
+    animation-duration: 2s;
+  }
+
+  @media (max-width:500px){
+    .info-box{
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+    .notice-heading {
+      font-size: 18px;
+    }
+  }
+</style>
+
 
 <div id="invoiceSection">
   <h3 style="color: gold; text-shadow: 0 0 6px red;">Send QR/VS Addresh(BEP20)</h3>
@@ -345,4 +456,3 @@
 </script>
 </body>
 </html>
-

@@ -1,0 +1,229 @@
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Referral Income</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, red, gold);
+    padding: 20px;
+    color: #fff;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+  }
+  .btn-3d {
+    background: linear-gradient(to right, red, gold);
+    border: none;
+    padding: 12px 25px;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 5px 0 darkred;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  .btn-3d:active {
+    box-shadow: 0 2px 0 darkred;
+    transform: translateY(3px);
+  }
+  #history {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #a00;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .card strong {
+    color: #000;
+  }
+  .loader {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid gold;
+    border-right: 6px solid red;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 40px auto;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  #searchBar {
+    margin-bottom: 20px;
+  }
+  #searchBar input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    width: 200px;
+  }
+  /* Popup styling */
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: red;
+    padding: 20px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1000;
+  }
+  .popup.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+</style>
+</head>
+<body>
+
+<div>
+  <button class="btn-3d" onclick="history.back()">← Back</button>
+</div>
+
+<div id="searchBar">
+  <input type="text" id="searchName" placeholder="Enter name..." />
+  <button class="btn-3d" id="btnSearch">Search</button>
+</div>
+
+<div id="history"></div>
+
+<div id="popup" class="popup"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+  authDomain: "trustdollar-f72f4.firebaseapp.com",
+  projectId: "trustdollar-f72f4",
+  storageBucket: "trustdollar-f72f4.appspot.com",
+  messagingSenderId: "217643658538",
+  appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUser = null;
+let referralData = [];
+const container = document.getElementById("history");
+const popup = document.getElementById("popup");
+
+function showPopup(message) {
+  popup.textContent = message;
+  popup.classList.add("show");
+  setTimeout(() => popup.classList.remove("show"), 2000);
+}
+
+function showLoader() {
+  container.innerHTML = '<div class="loader"></div>';
+}
+
+async function loadReferralIncome() {
+  showLoader();
+  try {
+    const refCol = collection(db, "referral_income");
+    const snapshot = await getDocs(refCol);
+    if (snapshot.empty) {
+      container.innerHTML = "<p>No referral income found.</p>";
+      return;
+    }
+
+    let fromUserIds = new Set();
+    let rawData = [];
+
+    snapshot.forEach(docSnap => {
+      const d = docSnap.data();
+      if (d.toUpline === currentUser.uid) { 
+        rawData.push(d);
+        if (d.fromUser) fromUserIds.add(d.fromUser);
+      }
+    });
+
+    if (!rawData.length) {
+      container.innerHTML = "<p>No referral income found for you.</p>";
+      return;
+    }
+
+    let userNameMap = {};
+    await Promise.all([...fromUserIds].map(async uid => {
+      const userDoc = await getDoc(doc(db, "users", uid));
+      userNameMap[uid] = userDoc.exists() ? (userDoc.data().name || "N/A") : "N/A";
+    }));
+
+    referralData = rawData.map(item => ({
+      name: userNameMap[item.fromUser] || "N/A",
+      commission: item.amount || 0,
+      date: item.time ? new Date(item.time * 1000).toLocaleDateString() : "N/A"
+    }));
+
+    referralData.sort((a, b) => b.commission - a.commission);
+
+    renderList(referralData);
+
+  } catch (e) {
+    console.error(e);
+    container.innerHTML = "<p>Error loading referral income.</p>";
+  }
+}
+
+function renderList(data) {
+  if (!data.length) {
+    container.innerHTML = "<p>No results found.</p>";
+    return;
+  }
+  container.innerHTML = data.map(d => `
+    <div class="card">
+      <strong>Name:</strong> ${d.name}<br>
+      <strong>Commission:</strong> $${d.commission.toFixed(6)}<br>
+      <strong>Date:</strong> ${d.date}
+    </div>
+  `).join("");
+}
+
+document.getElementById("btnSearch").addEventListener("click", () => {
+  const searchVal = document.getElementById("searchName").value.trim().toLowerCase();
+  if (!searchVal) {
+    showPopup("Please enter a name!");
+    return;
+  }
+  const filtered = referralData.filter(d => d.name.toLowerCase().includes(searchVal));
+  renderList(filtered);
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    container.innerHTML = "<p>Please log in to view income.</p>";
+    return;
+  }
+  currentUser = user;
+  loadReferralIncome();
+});
+</script>
+
+</body>
+</html>

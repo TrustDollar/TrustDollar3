@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -390,7 +390,54 @@
     renderEntries(savedEntries);
     setInterval(addNewEntry, 3000);
   </script>
+               
+       <!-- Referral Button -->
+<div class="referral-btn-container">
+  <a href="miningincome.html" class="referral-btn">See Your Referral</a>
+</div>
+<style>
+  .referral-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    width: 100%;
+  }
 
+  .referral-btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff5d7;
+    background: linear-gradient(145deg, #b30000, #ffcc00);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .referral-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #7a0000, 0 6px 12px rgba(0,0,0,0.4);
+  }
+
+  .referral-btn:hover {
+    background: linear-gradient(145deg, #ffcc00, #b30000);
+  }
+
+  /* Mobile-friendly */
+  @media (max-width: 500px) {
+    .referral-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+</style>
 
   <!-- Auto-Playing Video Box -->
   <div class="video-box">

@@ -1,245 +1,262 @@
    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title></title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Deposit History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    body {
-      background: linear-gradient(to bottom right, #1a0000, #330000, #4d0000);
-      font-family: 'Segoe UI', sans-serif;
-      padding: 20px 14px 120px;
-      max-width: 420px;
-      margin: 0 auto;
-      color: #fff;
-    }
+      body {
+        background: linear-gradient(to bottom right, #1a0000, #330000, #4d0000);
+        font-family: 'Segoe UI', sans-serif;
+        padding: 20px 14px 120px;
+        max-width: 420px;
+        margin: 0 auto;
+        color: #fff;
+      }
 
-    h2 {
-      text-align: center;
-      color: gold;
-      margin-bottom: 20px;
-      text-shadow: 0 0 10px #ffd700aa;
-    }
+      h2 {
+        text-align: center;
+        color: gold;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px #ffd700aa;
+      }
 
-    .box {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(255, 0, 0, 0.3);
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
-      position: relative;
-    }
+      .box {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+        position: relative;
+      }
 
-    .label {
-      position: absolute;
-      top: -12px;
-      left: 14px;
-      background: crimson;
-      color: white;
-      font-size: 12px;
-      padding: 2px 10px;
-      border-radius: 6px;
-      font-weight: bold;
-      box-shadow: 0 0 8px crimson;
-    }
+      .label {
+        position: absolute;
+        top: -12px;
+        left: 14px;
+        background: crimson;
+        color: white;
+        font-size: 12px;
+        padding: 2px 10px;
+        border-radius: 6px;
+        font-weight: bold;
+        box-shadow: 0 0 8px crimson;
+      }
 
-    .status {
-      position: absolute;
-      top: -12px;
-      right: 14px;
-      background: #222;
-      color: deepskyblue;
-      font-size: 12px;
-      padding: 2px 10px;
-      border-radius: 6px;
-      font-weight: bold;
-      box-shadow: 0 0 6px deepskyblue;
-    }
+      .status {
+        position: absolute;
+        top: -12px;
+        right: 14px;
+        background: #222;
+        color: deepskyblue;
+        font-size: 12px;
+        padding: 2px 10px;
+        border-radius: 6px;
+        font-weight: bold;
+        box-shadow: 0 0 6px deepskyblue;
+      }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      font-size: 14px;
-    }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        font-size: 14px;
+      }
 
-    .row strong {
-      color: gold;
-    }
+      .row strong {
+        color: gold;
+      }
 
-    .amount {
-      color: orange;
-      font-weight: bold;
-    }
+      .amount {
+        color: orange;
+        font-weight: bold;
+      }
 
-    .copy-btn {
-      background: gold;
-      color: black;
-      border: none;
-      font-size: 11px;
-      padding: 2px 6px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 6px;
-    }
+      .copy-btn {
+        background: gold;
+        color: black;
+        border: none;
+        font-size: 11px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 6px;
+      }
 
-    .copy-popup {
-      text-align: center;
-      color: lightgreen;
-      font-size: 12px;
-      margin-top: 6px;
-      display: none;
-    }
+      .copy-popup {
+        text-align: center;
+        color: lightgreen;
+        font-size: 12px;
+        margin-top: 6px;
+        display: none;
+      }
 
-    .spinner {
-      width: 30px;
-      height: 30px;
-      margin: 40px auto;
-      border: 4px solid #555;
-      border-top: 4px solid gold;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
+      .spinner {
+        width: 30px;
+        height: 30px;
+        margin: 40px auto;
+        border: 4px solid #555;
+        border-top: 4px solid gold;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
+      @keyframes spin {
+        0% { transform: rotate(0deg);}
+        100% { transform: rotate(360deg);}
+      }
 
-    .nav-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #111;
-      border-radius: 20px;
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      width: 90%;
-      max-width: 320px;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
-      z-index: 999;
-    }
+      .nav-bar {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #111;
+        border-radius: 20px;
+        padding: 10px 14px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        width: 90%;
+        max-width: 320px;
+        box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+        z-index: 999;
+      }
 
-    .nav-bar a {
-      flex: 1;
-      text-align: center;
-      text-decoration: none;
-      color: gold;
-      font-size: 10px;
-      transition: 0.3s ease;
-    }
+      .nav-bar a {
+        flex: 1;
+        text-align: center;
+        text-decoration: none;
+        color: gold;
+        font-size: 10px;
+        transition: 0.3s ease;
+      }
 
-    .nav-bar a i {
-      font-size: 16px;
-      margin-bottom: 2px;
-      display: block;
-      color: crimson;
-    }
+      .nav-bar a i {
+        font-size: 16px;
+        margin-bottom: 2px;
+        display: block;
+        color: crimson;
+      }
 
-    .nav-bar a:hover,
-    .nav-bar a.active {
-      color: crimson;
-      transform: translateY(-3px);
-    }
-  </style>
-</head>
-<body>
+      .nav-bar a:hover,
+      .nav-bar a.active {
+        color: crimson;
+        transform: translateY(-3px);
+      }
+      .status.success {
+        background: #004d00; /* dark green background */
+        color: #00ff00; /* bright green text */
+        box-shadow: 0 0 6px #00ff00;
+      }
 
-  <h2></h2>
-  <div id="historyList"><div class="spinner"></div></div>
+      .status.rejected {
+        background: #4d0000; /* dark red background */
+        color: #ff3333; /* bright red text */
+        box-shadow: 0 0 6px #ff3333;
+      }
 
-  <div class="nav-bar">
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
-    <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
-    <a href="account.html"><i class="fas fa-user"></i>Account</a>
-  </div>
+    </style>
+  </head>
+  <body>
 
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    <h2>Deposit History</h2>
+    <div id="historyList"><div class="spinner"></div></div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-      authDomain: "trustdollar-f72f4.firebaseapp.com",
-      projectId: "trustdollar-f72f4",
-      storageBucket: "trustdollar-f72f4.appspot.com",
-      messagingSenderId: "217643658538",
-      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-    };
+    <div class="nav-bar">
+      <a href="index.html"><i class="fas fa-home"></i>Home</a>
+      <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
+      <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+      <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
+      <a href="account.html"><i class="fas fa-user"></i>Account</a>
+    </div>
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const historyList = document.getElementById("historyList");
+    <!-- Firebase -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+      import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user) return (window.location.href = "auth.html");
+      const firebaseConfig = {
+        apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+        authDomain: "trustdollar-f72f4.firebaseapp.com",
+        projectId: "trustdollar-f72f4",
+        storageBucket: "trustdollar-f72f4.appspot.com",
+        messagingSenderId: "217643658538",
+        appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+      };
 
-      const q = query(
-        collection(db, "deposits"),
-        where("uid", "==", user.uid),
-        orderBy("timestamp", "desc")
-      );
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const historyList = document.getElementById("historyList");
 
-      onSnapshot(q, (snapshot) => {
-        if (snapshot.empty) {
-          historyList.innerHTML = "<p style='text-align:center'>No deposit history found.</p>";
-          return;
-        }
+      onAuthStateChanged(auth, (user) => {
+        if (!user) return (window.location.href = "auth.html");
 
-        historyList.innerHTML = "";
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const time = data.timestamp?.seconds
+        const q = query(
+          collection(db, "deposits"),
+          where("uid", "==", user.uid),
+          orderBy("timestamp", "desc")
+          );
+
+        onSnapshot(q, (snapshot) => {
+          if (snapshot.empty) {
+            historyList.innerHTML = "<p style='text-align:center'>No deposit history found.</p>";
+            return;
+          }
+
+          historyList.innerHTML = "";
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            const time = data.timestamp?.seconds
             ? new Date(data.timestamp.seconds * 1000).toLocaleString()
             : "N/A";
-          const status = data.status || "Pending";
+            const status = data.status || "Pending";
 
-          const box = document.createElement("div");
-          box.className = "box";
-          box.innerHTML = `
+          // Status ke hisaab se class lagana
+            let statusClass = "";
+            if (status.toLowerCase() === "success") statusClass = "success";
+            if (status.toLowerCase() === "rejected") statusClass = "rejected";
+            if (status.toLowerCase() === "pending") statusClass = "pending";
+
+            const box = document.createElement("div");
+            box.className = "box";
+            box.innerHTML = `
             <div class="label">Deposit</div>
-            <div class="status">${status}</div>
+            <div class="status ${statusClass}">${status}</div>
             <div class="row"><strong>Balance</strong> <span class="amount">$${data.amount?.toFixed(2) || '0.00'}</span></div>
             <div class="row"><strong>Type</strong> <span>${data.type || 'USDT'}</span></div>
             <div class="row"><strong>Time</strong> <span>${time}</span></div>
             <div class="row"><strong>Order number</strong> 
-              <span>${data.orderId || '-'}
-              <button class="copy-btn" onclick="copyOrderId('${data.orderId || ''}')">Copy</button></span>
+            <span>${data.orderId || '-'}
+            <button class="copy-btn" onclick="copyOrderId('${data.orderId || ''}')">Copy</button></span>
             </div>
             <div class="copy-popup" id="copy-${data.orderId}">Order ID Copied!</div>
-          `;
-          historyList.appendChild(box);
+            `;
+            historyList.appendChild(box);
+          });
         });
       });
-    });
 
-    window.copyOrderId = function(id) {
-      navigator.clipboard.writeText(id).then(() => {
-        const popup = document.getElementById("copy-" + id);
-        if (popup) {
-          popup.style.display = "block";
-          setTimeout(() => { popup.style.display = "none"; }, 1500);
-        }
-      });
-    };
-  </script>
-
-</body>
-</html>
+      window.copyOrderId = function(id) {
+        navigator.clipboard.writeText(id).then(() => {
+          const popup = document.getElementById("copy-" + id);
+          if (popup) {
+            popup.style.display = "block";
+            setTimeout(() => { popup.style.display = "none"; }, 1500);
+          }
+        });
+      };
+    </script>
+  </body>
+  </html>

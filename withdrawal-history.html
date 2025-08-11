@@ -1,9 +1,9 @@
   <!DOCTYPE html>
-<html lang="en">
-<head>
+ <html lang="en">
+ <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Withdrawal in seccends </title>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   
   <style>
@@ -152,12 +152,31 @@
     .nav-bar a.active {
       color: crimson;
       transform: translateY(-3px);
+    }    
+
+    .status.success {
+      background: #004d00;
+      color: #00ff00;
+      box-shadow: 0 0 6px #00ff00;
     }
+
+    .status.rejected {
+      background: #4d0000;
+      color: #ff3333;
+      box-shadow: 0 0 6px #ff3333;
+    }
+
+    .status.pending {
+      background: #665500;
+      color: #ffcc00;
+      box-shadow: 0 0 6px #ffcc00;
+    }
+
   </style>
 </head>
 <body>
 
-  <h2></h2>
+  
 
   <div id="historyList">
     <div class="spinner"></div>
@@ -202,7 +221,7 @@
         collection(db, "withdrawals"),
         where("uid", "==", uid),
         orderBy("timestamp", "desc")
-      );
+        );
 
       onSnapshot(q, (snapshot) => {
         if (snapshot.empty) {
@@ -214,23 +233,29 @@
         snapshot.forEach(doc => {
           const data = doc.data();
           const time = data.timestamp?.seconds
-            ? new Date(data.timestamp.seconds * 1000).toLocaleString()
-            : "N/A";
-          const statusText = data.status || "Pending";
+          ? new Date(data.timestamp.seconds * 1000).toLocaleString()
+          : "N/A";
+          const status = data.status || "Pending";
+
+          // Status ke hisaab se class lagana
+          let statusClass = "";
+          if (status.toLowerCase() === "success") statusClass = "success";
+          if (status.toLowerCase() === "rejected") statusClass = "rejected";
+          if (status.toLowerCase() === "pending") statusClass = "pending";
 
           const box = document.createElement("div");
           box.className = "box";
           box.innerHTML = `
-            <div class="label">Withdraw</div>
-            <div class="status">${statusText}</div>
-            <div class="row"><strong>Balance</strong> <span class="amount">$${data.amount?.toFixed(2) || '0.00'}</span></div>
-            <div class="row"><strong>Type</strong> <span>${data.type || 'USDT'}</span></div>
-            <div class="row"><strong>Time</strong> <span>${time}</span></div>
-            <div class="row"><strong>Order number</strong> 
-              <span>${data.orderId || '-'}
-              <button class="copy-btn" onclick="copyOrderId('${data.orderId || ''}')">Copy</button></span>
-            </div>
-            <div class="copy-popup" id="copy-${data.orderId}">Order ID Copied!</div>
+          <div class="label">Withdraw</div>
+          <div class="status ${statusClass}">${status}</div>
+          <div class="row"><strong>Balance</strong> <span class="amount">$${data.amount?.toFixed(2) || '0.00'}</span></div>
+          <div class="row"><strong>Type</strong> <span>${data.type || 'USDT'}</span></div>
+          <div class="row"><strong>Time</strong> <span>${time}</span></div>
+          <div class="row"><strong>Order number</strong> 
+          <span>${data.orderId || '-'}
+          <button class="copy-btn" onclick="copyOrderId('${data.orderId || ''}')">Copy</button></span>
+          </div>
+          <div class="copy-popup" id="copy-${data.orderId}">Order ID Copied!</div>
           `;
           historyList.appendChild(box);
         });
@@ -247,6 +272,5 @@
       });
     };
   </script>
-
 </body>
 </html>

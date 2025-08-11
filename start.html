@@ -77,25 +77,34 @@
       font-size: 16px;
       margin-top: 8px;
     }
+         button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  color: #fff; /* White text for contrast */
+  background: linear-gradient(145deg, #ff0000, #ffd700); /* 🔴 Red to Gold mix */
+  box-shadow: 0 4px 0 #aa0000, /* Bottom shadow for 3D depth */
+              0 0 15px rgba(255, 215, 0, 0.7); /* Glow effect */
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-    button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      color: #000;
-      background: #ffd700;
-      box-shadow: 0 0 15px #ffd700aa;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
+button:hover {
+  transform: translateY(-2px) scale(1.03); /* Lift on hover */
+  box-shadow: 0 6px 0 #aa0000, 
+              0 0 20px rgba(255, 215, 0, 0.9);
+}
 
-    button:hover {
-      transform: scale(1.03);
-    }
+button:active {
+  transform: translateY(2px) scale(0.98); /* Press down */
+  box-shadow: 0 2px 0 #aa0000, 
+              0 0 10px rgba(255, 215, 0, 0.5);
+}
+
 
          #popup {
   display: none;
@@ -627,4 +636,5 @@
 </script>
 </body>
 </html>
+
 

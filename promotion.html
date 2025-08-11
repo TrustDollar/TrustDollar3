@@ -139,6 +139,8 @@
     <div class="box"><h4>Total Joined</h4><div class="value-box" id="refCount">0</div></div>
     <div class="box"><h4>Total Referral</h4><div class="value-box" id="refIncome">$0</div></div>
     <div class="box"><h4>Today Income</h4><div class="value-box" id="todayIncome">$0</div></div>
+     <div class="box"><h4>Total deposit</h4><div class="value-box" id="totalDeposit">$0</div></div>
+      <div class="box"><h4>Total Withdrawals</h4><div class="value-box" id="totalWithdrawal">$0</div></div>
   </div>
 
     <!-- Referral Button -->
@@ -210,7 +212,7 @@
   .info-box{
     --radius: 12px;      /* corner radius */
     --border-thickness: 4px; /* border thickness (change to make ring thicker/thinner) */
-    --rotation-speed: 11s; /* animation speed (lower = faster) */
+    --rotation-speed: 11000s; /* animation speed (lower = faster) */
 
     position: relative;
     padding: 16px 24px;
@@ -295,11 +297,7 @@
 }
 
 </style>
-
-
-
-
-   <div class="nav-bar">
+    <div class="nav-bar">
     <a href="index.html"><i class="fas fa-home"></i>Home</a>
     <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
     <a href="promotion.html" class="active"><i class="fas fa-bullhorn"></i>Promotion</a>
@@ -414,6 +412,40 @@ onAuthStateChanged(auth, async (user) => {
     const link = `https://www.trustdollar.in/?ref=${code}`;
     window.open(`https://t.me/share/url?url=${link}&text=Join%20TrustDollar%20and%20earn%20daily%20income!`);
   };
+});
+  
+onAuthStateChanged(auth, (user) => {
+  if (!user) return window.location.href = "auth.html";
+
+  const uid = user.uid;
+
+  // 🔹 LIVE Total Deposit
+  const depositQuery = query(
+    collection(db, "deposits"),
+    where("uid", "==", uid),
+    where("status", "==", "success")
+  );
+  onSnapshot(depositQuery, (snapshot) => {
+    let total = 0;
+    snapshot.forEach(doc => {
+      total += doc.data().amount || 0;
+    });
+    document.getElementById("totalDeposit").innerText = `$${total.toFixed(2)}`;
+  });
+
+  // 🔹 LIVE Total Withdrawal
+  const withdrawalQuery = query(
+    collection(db, "withdrawals"),
+    where("uid", "==", uid),
+    where("status", "==", "success")
+  );
+  onSnapshot(withdrawalQuery, (snapshot) => {
+    let total = 0;
+    snapshot.forEach(doc => {
+      total += doc.data().amount || 0;
+    });
+    document.getElementById("totalWithdrawal").innerText = `$${total.toFixed(2)}`;
+  });
 });
 </script>
 </body>

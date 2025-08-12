@@ -1,66 +1,291 @@
   <!DOCTYPE html>
-<html lang="en">
-<head>
+ <html lang="en">
+ <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Network Error Popup</title>
+  <title>Referral History - Red Gold Theme</title>
   <style>
-    /* Popup container */
-    #networkPopup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #e74c3c; /* Red */
+    body {
+      background: linear-gradient(135deg, #8B0000, #FFD700);
       color: white;
-      padding: 18px 36px;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 20px;
-      box-shadow: 0 0 20px #e74c3caa;
-      z-index: 100000;
-      max-width: 90vw;
+      font-family: Arial, sans-serif;
       text-align: center;
-      user-select: none;
-      animation: popupFadeIn 0.3s ease forwards;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      letter-spacing: 0.04em;
+      margin: 0;
+      padding: 20px;
     }
-
-    @keyframes popupFadeIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -60%);
+    h2 {
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+    #searchInput {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid gold;
+      outline: none;
+      width: 200px;
+      color: black;
+      font-weight: 600;
+    }
+    #searchBtn {
+      padding: 10px 15px;
+      background: gold;
+      color: black;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-left: 10px;
+    }
+    #searchBtn:hover {
+      background: #B8860B;
+      color: white;
+    }
+    #referralHistory {
+      max-width: 700px;
+      margin: 20px auto;
+    }
+    .box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid gold;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+      text-align: left;
+      color: gold;
+      font-weight: 600;
+    }
+    .row-box {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .value-box {
+      flex: 1;
+      background: rgba(255, 215, 0, 0.15);
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      color: gold;
+    }
+    #loader {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+    }
+    #errorMsg {
+      margin-top: 20px;
+      color: red;
+      font-weight: 700;
+      text-shadow: 0 0 3px #ff0000cc;
+    }
+    .loader {
+      margin: 20px auto;
+      width: 60px;
+      height: 60px;
+      border: 8px solid #330800;
+      border-top: 8px solid #ffd700;
+      border-right: 8px solid #ff4500;
+      border-bottom: 8px solid #b8860b;
+      border-left: 8px solid #ff8c00;
+      border-radius: 50%;
+      animation: spinGlow 1.5s linear infinite;
+      box-shadow:
+      0 0 15px #ffd700,
+      0 0 30px #ff4500,
+      0 0 40px #b8860b,
+      0 0 60px #ff8c00;
+    }
+    @keyframes spinGlow {
+      0% {
+        transform: rotate(0deg);
+        box-shadow:
+        0 0 15px #ffd700,
+        0 0 30px #ff4500,
+        0 0 40px #b8860b,
+        0 0 60px #ff8c00;
       }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
+      50% {
+        box-shadow:
+        0 0 25px #ffd700,
+        0 0 45px #ff4500,
+        0 0 55px #b8860b,
+        0 0 80px #ff8c00;
       }
+      100% {
+        transform: rotate(360deg);
+        box-shadow:
+        0 0 15px #ffd700,
+        0 0 30px #ff4500,
+        0 0 40px #b8860b,
+        0 0 60px #ff8c00;
+      }
+    }
+    .locked {
+      pointer-events: none;
+      opacity: 0.6;
     }
   </style>
 </head>
 <body>
 
-  <div id="networkPopup">Check your internet connection</div>
+  <div style="text-align:center; margin-bottom: 20px;">
+    <input id="searchInput" type="text" placeholder="Search username..." />
+    <button id="searchBtn">Search</button>
+  </div>
 
-  <script>
-    const popup = document.getElementById('networkPopup');
 
-    function showPopup() {
-      popup.style.display = 'block';
+  <div id="loader" class="loader" style="display:none;"></div>
+  <div id="errorMsg"></div>
 
-      setTimeout(() => {
-        popup.style.display = 'none';
-      }, 2500);
+  <div id="referralHistory"></div>
+
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, collection, query, where, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+      authDomain: "trustdollar-f72f4.firebaseapp.com",
+      projectId: "trustdollar-f72f4",
+      storageBucket: "trustdollar-f72f4.appspot.com",
+      messagingSenderId: "217643658538",
+      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const referralHistoryContainer = document.getElementById("referralHistory");
+    const loader = document.getElementById("loader");
+    const errorMsg = document.getElementById("errorMsg");
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+
+    let allReferrals = [];
+
+    async function loadReferrals(filter = "") {
+      referralHistoryContainer.innerHTML = "";
+      loader.style.display = "block";
+      errorMsg.style.display = "none";
+
+      const user = auth.currentUser;
+      if (!user) return location.href = "auth.html";
+
+      try {
+        const uid = user.uid;
+        const userSnap = await getDoc(doc(db, "users", uid));
+        const userData = userSnap.data();
+        const code = userData.refCode;
+
+        const q1 = query(collection(db, "users"), where("referredBy", "==", code));
+        const referredSnap = await getDocs(q1);
+
+        allReferrals = [];
+
+        referredSnap.forEach(docSnap => {
+          const refData = docSnap.data();
+          allReferrals.push({ id: docSnap.id, ...refData });
+        });
+
+        await displayReferrals(filter);
+
+      } catch (error) {
+        loader.style.display = "none";
+        errorMsg.style.display = "block";
+        errorMsg.innerText = "Error loading data: " + error.message;
+      }
     }
 
-    // Show popup every 5 seconds repeatedly
-    setInterval(showPopup, 5000);
+    async function displayReferrals(filter) {
+      referralHistoryContainer.innerHTML = "";
+      loader.style.display = "none";
 
-    // Show first time immediately
-    showPopup();
+      const filtered = allReferrals.filter(r =>
+        r.username?.toLowerCase().includes(filter.toLowerCase())
+        );
+
+      if (filtered.length === 0) {
+        referralHistoryContainer.innerHTML = "<p>No referrals found.</p>";
+        return;
+      }
+
+      for (let ref of filtered) {
+        if (ref.rewardGiven) {
+        // const depositAmount = ref.reward || 0;  // Removed this line
+          const status = "Success";
+          const reward = ref.reward || 0;
+
+          const boxHTML = `
+          <div class="box locked">
+          <div>👤 <b>${ref.username || "N/A"}</b></div>
+          <div class="row-box">
+          <div class="value-box">💰 20%</div>  <!-- Fixed 20% here -->
+
+          <div class="value-box" style="color:#0f0">${status}</div>
+          <div class="value-box">🎁 $${reward.toFixed(2)}</div>
+          </div>
+          </div>`;
+          referralHistoryContainer.insertAdjacentHTML("beforeend", boxHTML);
+          continue;
+        }
+
+        let depositAmount = 0;
+        let status = "Pending";
+        let reward = 0;
+
+        const depositQuery = query(collection(db, "deposits"), where("uid", "==", ref.id));
+        const depositSnap = await getDocs(depositQuery);
+
+        depositSnap.forEach(d => {
+          const depData = d.data();
+          if (depData.status === "Success") {
+            depositAmount += depData.amount || 0;
+          }
+        });
+
+        if (depositAmount > 0) {
+          status = "Success";
+          reward = depositAmount * 0.2;
+
+          await setDoc(doc(db, "users", ref.id), {
+            reward: reward,
+            rewardGiven: true
+          }, { merge: true });
+        }
+
+        const lockedClass = reward > 0 ? "locked" : "";
+
+        const boxHTML = `
+        <div class="box ${lockedClass}">
+        <div>👤 <b>${ref.username || "N/A"}</b></div>
+        <div class="row-box">
+        <div class="value-box">💰 20%</div>  <!-- Fixed 20% here -->
+
+        <div class="value-box" style="color:${status === "Success" ? "#0f0" : "#ff0"}">${status}</div>
+        <div class="value-box">🎁 $${reward.toFixed(2)}</div>
+        </div>
+        </div>`;
+        referralHistoryContainer.insertAdjacentHTML("beforeend", boxHTML);
+      }
+    }
+
+    onAuthStateChanged(auth, () => loadReferrals());
+
+    searchBtn.addEventListener("click", () => {
+      const filter = searchInput.value.trim();
+      displayReferrals(filter);
+    });
+
+    
   </script>
+
 
 </body>
 </html>

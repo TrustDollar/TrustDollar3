@@ -1,217 +1,291 @@
- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Referral History</title>
-  <style>
-    body {
-      background: linear-gradient(135deg, #8B0000, #FFD700);
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-    }
-    .back-btn {
-      background: #B22222;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 8px;
-      display: inline-block;
-      margin-bottom: 20px;
-      border: 1px solid gold;
-      transition: 0.3s;
-    }
-    .back-btn:hover {
-      background: gold;
-      color: black;
-    }
-    .search-bar {
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .search-bar input {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid gold;
-      outline: none;
-      width: 200px;
-    }
-    .search-bar button {
-      padding: 10px 15px;
-      background: gold;
-      color: black;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .search-bar button:hover {
-      background: #B8860B;
-      color: white;
-    }
-    .box {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid gold;
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 12px;
-      text-align: left;
-    }
-    .row-box {
-      display: flex;
-      gap: 10px;
-      margin-top: 8px;
-      flex-wrap: wrap;
-    }
-    .value-box {
-      flex: 1;
-      background: rgba(255, 215, 0, 0.15);
-      padding: 8px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: bold;
-      color: gold;
-    }
-    #loader {
-      margin-top: 20px;
-      font-size: 18px;
-    }
-    #errorMsg {
-      margin-top: 20px;
-      color: red;
-    }
-  </style>
-</head>
-<body>
+   <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Referral History</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #8B0000, #FFD700);
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+      }
+      h1 {
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      }
+      .back-btn {
+        background: #B22222;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 8px;
+        display: inline-block;
+        margin-bottom: 20px;
+        border: 1px solid gold;
+        transition: 0.3s;
+      }
+      .back-btn:hover {
+        background: gold;
+        color: black;
+      }
+      .search-bar {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .search-bar input {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid gold;
+        outline: none;
+        width: 200px;
+      }
+      .search-bar button {
+        padding: 10px 15px;
+        background: gold;
+        color: black;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .search-bar button:hover {
+        background: #B8860B;
+        color: white;
+      }
+      .box {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid gold;
+        border-radius: 10px;
+        padding: 14px;
+        margin-bottom: 12px;
+        text-align: left;
+      }
+      .row-box {
+        display: flex;
+        gap: 10px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+      }
+      .value-box {
+        flex: 1;
+        background: rgba(255, 215, 0, 0.15);
+        padding: 8px;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: bold;
+        color: gold;
+      }
+      #loader {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+      #errorMsg {
+        margin-top: 20px;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
 
-<a href="promotion.html" class="back-btn">← Back</a>
+    <a href="promotion.html" class="back-btn">← Back</a>
 
 
-<div class="search-bar">
-  <input type="text" id="searchInput" placeholder="Search by username...">
-  <button id="searchBtn">Search</button>
-</div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by username...">
+      <button id="searchBtn">Search</button>
+    </div>
 
-<div id="loader">Loading...</div>
-<div id="errorMsg" style="display:none;"></div>
-<div id="referralHistory" style="margin-top: 20px;"></div>
+    <div id="loader" class="loader-container">
+      <div class="gold-spinner"></div>
+      <p>Loading...</p>
+    </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-  import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    <div id="errorMsg" style="display:none;"></div>
+    <div id="referralHistory" style="margin-top: 20px;"></div>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-    authDomain: "trustdollar-f72f4.firebaseapp.com",
-    projectId: "trustdollar-f72f4",
-    storageBucket: "trustdollar-f72f4.appspot.com",
-    messagingSenderId: "217643658538",
-    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  const referralHistoryContainer = document.getElementById("referralHistory");
-  const loader = document.getElementById("loader");
-  const errorMsg = document.getElementById("errorMsg");
-  const searchInput = document.getElementById("searchInput");
-  const searchBtn = document.getElementById("searchBtn");
-
-  let allReferrals = [];
-
-  async function loadReferrals(filter = "") {
-    referralHistoryContainer.innerHTML = "";
-    loader.style.display = "block";
-
-    const user = auth.currentUser;
-    if (!user) return location.href = "auth.html";
-
-    try {
-      const uid = user.uid;
-      const userSnap = await getDoc(doc(db, "users", uid));
-      const userData = userSnap.data();
-      const code = userData.refCode;
-
-      const q1 = query(collection(db, "users"), where("referredBy", "==", code));
-      const referredSnap = await getDocs(q1);
-
-      allReferrals = [];
-
-      referredSnap.forEach(docSnap => {
-        const refData = docSnap.data();
-        allReferrals.push({ id: docSnap.id, ...refData });
-      });
-
-      displayReferrals(filter);
-
-    } catch (error) {
-      loader.style.display = "none";
-      errorMsg.style.display = "block";
-      errorMsg.innerText = "Error loading data: " + error.message;
-    }
-  }
-
-  async function displayReferrals(filter) {
-    referralHistoryContainer.innerHTML = "";
-    loader.style.display = "none";
-
-    const filtered = allReferrals.filter(r =>
-      r.username?.toLowerCase().includes(filter.toLowerCase())
-    );
-
-    if (filtered.length === 0) {
-      referralHistoryContainer.innerHTML = "<p>No referrals found.</p>";
-      return;
-    }
-
-    for (let ref of filtered) {
-      let depositAmount = 0;
-      let status = "Pending";
-      let reward = 0;
-
-      const depositQuery = query(collection(db, "deposits"), where("uid", "==", ref.id));
-      const depositSnap = await getDocs(depositQuery);
-      depositSnap.forEach(d => depositAmount += d.data().amount || 0);
-
-      if (depositAmount > 0) {
-        status = "Success";
-        reward = depositAmount * 0.2;
+    <style>
+      .loader-container {
+        display: none; /* default hidden */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 30px;
       }
 
-      const boxHTML = `
-        <div class="box">
+      .gold-spinner {
+        width: 60px;
+        height: 60px;
+        border: 6px solid rgba(255, 215, 0, 0.2); /* light gold border */
+        border-top: 6px solid #FFD700; /* gold top */
+        border-right: 6px solid #FF0000; /* red */
+        border-radius: 50%;
+        animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
+        margin-bottom: 10px;
+      }
+
+      .loader-container p {
+        font-size: 15px;
+        font-weight: bold;
+        color: #FFD700;
+        text-shadow: 0 0 5px #FF0000;
+        letter-spacing: 1px;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      @keyframes glow {
+        0% { box-shadow: 0 0 5px #FFD700, 0 0 10px #FF0000; }
+        100% { box-shadow: 0 0 20px #FFD700, 0 0 40px #FF0000; }
+      }
+    </style>
+
+
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+      import { getFirestore, doc, getDoc, collection, query, where, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+        authDomain: "trustdollar-f72f4.firebaseapp.com",
+        projectId: "trustdollar-f72f4",
+        storageBucket: "trustdollar-f72f4.appspot.com",
+        messagingSenderId: "217643658538",
+        appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      const referralHistoryContainer = document.getElementById("referralHistory");
+      const loader = document.getElementById("loader");
+      const errorMsg = document.getElementById("errorMsg");
+      const searchInput = document.getElementById("searchInput");
+      const searchBtn = document.getElementById("searchBtn");
+
+      let allReferrals = [];
+
+      async function loadReferrals(filter = "") {
+        referralHistoryContainer.innerHTML = "";
+        loader.style.display = "block";
+
+        const user = auth.currentUser;
+        if (!user) return location.href = "auth.html";
+
+        try {
+          const uid = user.uid;
+          const userSnap = await getDoc(doc(db, "users", uid));
+          const userData = userSnap.data();
+          const code = userData.refCode;
+
+          const q1 = query(collection(db, "users"), where("referredBy", "==", code));
+          const referredSnap = await getDocs(q1);
+
+          allReferrals = [];
+
+          referredSnap.forEach(docSnap => {
+            const refData = docSnap.data();
+            allReferrals.push({ id: docSnap.id, ...refData });
+          });
+
+          displayReferrals(filter);
+
+        } catch (error) {
+          loader.style.display = "none";
+          errorMsg.style.display = "block";
+          errorMsg.innerText = "Error loading data: " + error.message;
+        }
+      }
+
+      async function displayReferrals(filter) {
+        referralHistoryContainer.innerHTML = "";
+        loader.style.display = "none";
+
+        const filtered = allReferrals.filter(r =>
+          r.username?.toLowerCase().includes(filter.toLowerCase())
+          );
+
+        if (filtered.length === 0) {
+          referralHistoryContainer.innerHTML = "<p>No referrals found.</p>";
+          return;
+        }
+
+        for (let ref of filtered) {
+          let depositAmount = 0;
+          let status = "Pending";
+          let reward = 0;
+          let rewardGivenFlag = ref.rewardGiven || false;
+
+      // Fetch all deposits for this referral
+          const depositQuery = query(collection(db, "deposits"), where("uid", "==", ref.id));
+          const depositSnap = await getDocs(depositQuery);
+
+          depositSnap.forEach(d => {
+            const depData = d.data();
+        if (depData.status === "Success") { // ✅ Status check
+          depositAmount += depData.amount || 0;
+        }
+      });
+
+          if (rewardGivenFlag) {
+        // Already rewarded
+            status = "Success";
+            reward = ref.reward || 0;
+          } else if (depositAmount > 0) {
+        // First time reward
+            status = "Success";
+            reward = depositAmount * 0.2;
+
+        // Save in Firestore with lock
+            await setDoc(doc(db, "users", ref.id), {
+              reward: reward,
+              rewardGiven: true
+            }, { merge: true });
+
+            rewardGivenFlag = true;
+          }
+
+          const lockedClass = rewardGivenFlag ? "locked" : "";
+
+          const boxHTML = `
+          <div class="box ${lockedClass}">
           <div>👤 <b>${ref.username || "N/A"}</b></div>
           <div class="row-box">
-            <div class="value-box">💰 $${depositAmount.toFixed(2)}</div>
-            <div class="value-box" style="color:${status === 'Success' ? '#0f0' : '#ff0'}">${status}</div>
-            <div class="value-box">🎁 $${reward.toFixed(2)}</div>
+          <div class="value-box">💰 $${depositAmount.toFixed(2)}</div>
+          <div class="value-box" style="color:${status === 'Success' ? '#0f0' : '#ff0'}">${status}</div>
+          <div class="value-box">🎁 $${reward.toFixed(2)}</div>
           </div>
-        </div>`;
-      referralHistoryContainer.insertAdjacentHTML("beforeend", boxHTML);
-    }
-  }
+          </div>`;
+          referralHistoryContainer.insertAdjacentHTML("beforeend", boxHTML);
+        }
+      }
 
-  onAuthStateChanged(auth, () => loadReferrals());
+      onAuthStateChanged(auth, () => loadReferrals());
 
-  searchBtn.addEventListener("click", () => {
-    const filter = searchInput.value.trim();
-    displayReferrals(filter);
-  });
+      searchBtn.addEventListener("click", () => {
+        const filter = searchInput.value.trim();
+        displayReferrals(filter);
+      });
+    </script>
 
-</script>
-
-</body>
-</html>
+    <style>
+      .locked {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+    </style>
+  </body>
+  </html>

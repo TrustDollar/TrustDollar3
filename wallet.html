@@ -1,6 +1,6 @@
-  <!DOCTYPE html>
-<html lang="en">
-<head>
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wallet</title>
@@ -167,11 +167,44 @@
       color: crimson;
       transform: translateY(-3px);
     }
+
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;         /* 👉 columns ke beech zyada horizontal gap */
+      margin: 20px 0;
+    }
+
+    .btn-group {
+      flex: 1;                 /* dono column equal width lenge */
+      display: flex;
+      flex-direction: column;  /* ek ke niche ek */
+      gap: 15px;               /* vertical gap between Deposit aur History */
+    }
+
+    .btn-group .btn {
+      width: 100%;
+      text-align: center;
+      padding: 14px;           /* thoda bada button */
+      font-weight: bold;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      color: #ffcc00;
+      box-shadow: 0 0 10px #ffcc00aa;
+      border: 1px solid #ffcc00;
+      transition: 0.3s;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-group .btn:hover {
+      background-color: rgba(255,255,255,0.1);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
-
-  <h2>Wallet</h2>
 
   <div class="row">
     <div class="box">
@@ -195,88 +228,89 @@
     </div>
 
     <div class="button-row">
-      <a href="deposit.html" class="btn">Deposit</a>
-      <a href="withdrawal.html" class="btn">Withdraw</a>
+      <div class="btn-group">
+        <a href="deposit.html" class="btn">Deposit</a>
+        <a href="deposit-history.html" class="btn">Depo.. History</a>
+      </div>
+
+      <div class="btn-group">
+        <a href="withdrawal.html" class="btn">Withdraw</a>
+        <a href="withdrawal-history.html" class="btn">Wit..   History</a>
+      </div>
     </div>
 
-    <div class="button-row">
-      <button class="btn" onclick="window.location.href='deposit-history.html'">Deposit History</button>
-      <button class="btn" onclick="window.location.href='withdrawal-history.html'">Withdrawal History</button>
+      <div class="photo-box">
+      <img src="photo/c3145790-1ba1-404b-90eb-0453c9a62415.png" alt="Deposit Image" />
     </div>
-  </div>
 
-  <div class="photo-box">
-    <img src="photo/c3145790-1ba1-404b-90eb-0453c9a62415.png" alt="Deposit Image" />
-  </div>
+    <div class="live-activity-box" id="activityText">KODQIAH deposited $700</div>
 
-  <div class="live-activity-box" id="activityText">KODQIAH deposited $700</div>
+    <!-- ✅ Nav Bar -->
+    <div class="nav-bar">
+      <a href="index.html"><i class="fas fa-home"></i>Home</a>
+      <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
+      <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+      <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
+      <a href="account.html"><i class="fas fa-user"></i>Account</a>
+    </div>
 
-  <!-- ✅ Nav Bar -->
-  <div class="nav-bar">
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
-    <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
-    <a href="account.html"><i class="fas fa-user"></i>Account</a>
-  </div>
+    <!-- ✅ Firebase Wallet Sync -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+      import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-  <!-- ✅ Firebase Wallet Sync -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+        authDomain: "trustdollar-f72f4.firebaseapp.com",
+        projectId: "trustdollar-f72f4",
+        storageBucket: "trustdollar-f72f4.appspot.com",
+        messagingSenderId: "217643658538",
+        appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+      };
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-      authDomain: "trustdollar-f72f4.firebaseapp.com",
-      projectId: "trustdollar-f72f4",
-      storageBucket: "trustdollar-f72f4.appspot.com",
-      messagingSenderId: "217643658538",
-      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-    };
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+      const walletEl = document.getElementById("walletBalance");
+      const userName = document.getElementById("userName");
+      const userEmail = document.getElementById("userEmail");
+      const userId = document.getElementById("userId");
 
-    const walletEl = document.getElementById("walletBalance");
-    const userName = document.getElementById("userName");
-    const userEmail = document.getElementById("userEmail");
-    const userId = document.getElementById("userId");
+      onAuthStateChanged(auth, (user) => {
+        if (!user) return window.location.href = "auth.html";
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user) return window.location.href = "auth.html";
+        const uid = user.uid;
+        const userRef = doc(db, "users", uid);
 
-      const uid = user.uid;
-      const userRef = doc(db, "users", uid);
-
-      onSnapshot(userRef, (docSnap) => {
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          walletEl.innerText = `$${(data.wallet || 0).toFixed(2)}`;
-          userName.textContent = data.name || "Unnamed";
-          userEmail.textContent = user.email;
-          userId.textContent = data.userID || uid;
-        }
+        onSnapshot(userRef, (docSnap) => {
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            walletEl.innerText = `$${(data.wallet || 0).toFixed(2)}`;
+            userName.textContent = data.name || "Unnamed";
+            userEmail.textContent = user.email;
+            userId.textContent = data.userID || uid;
+          }
+        });
       });
-    });
-  </script>
+    </script>
 
-  <!-- 🔁 Activity Auto Update -->
-  <script>
-    const names = ["KODQIAH", "YIDASB", "GHT4AD", "26GHDF", "GASJ345"];
-    const actions = ["deposited", "withdrew"];
-    function getRandomActivity() {
-      const name = names[Math.floor(Math.random() * names.length)];
-      const action = actions[Math.floor(Math.random() * actions.length)];
-      const amount = Math.floor(Math.random() * 900 + 100);
-      return `${name} ${action} $${amount}`;
-    }
-    function updateActivity() {
-      document.getElementById("activityText").innerText = getRandomActivity();
-    }
-    setInterval(updateActivity, 4000);
-  </script>
+    <!-- 🔁 Activity Auto Update -->
+    <script>
+      const names = ["KODQIAH", "YIDASB", "GHT4AD", "26GHDF", "GASJ345"];
+      const actions = ["deposited", "withdrew"];
+      function getRandomActivity() {
+        const name = names[Math.floor(Math.random() * names.length)];
+        const action = actions[Math.floor(Math.random() * actions.length)];
+        const amount = Math.floor(Math.random() * 900 + 100);
+        return `${name} ${action} $${amount}`;
+      }
+      function updateActivity() {
+        document.getElementById("activityText").innerText = getRandomActivity();
+      }
+      setInterval(updateActivity, 4000);
+    </script>
 
-</body>
-</html>
+  </body>
+  </html>

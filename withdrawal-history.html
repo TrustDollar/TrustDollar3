@@ -1,6 +1,6 @@
- <!DOCTYPE html>
-<html lang="en">
-<head>
+  <!DOCTYPE html>
+ <html lang="en">
+ <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
@@ -184,64 +184,109 @@
       margin-left: 6px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.4), inset 0 -1px 4px rgba(0,0,0,0.5);
     }
-  </style>
+    
+
+    .amount {
+      color: #ffffff;          /* ✅ White text */
+      font-weight: bold;       /* ✅ Bold */
+      font-size: 14px;         /* Compact size */
+      padding: 4px 10px;       /* Chhota box */
+      border-radius: 8px;
+      background: #111;        /* Solid inner background */
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+
+      /* ✅ 3D box effect without blur */
+      box-shadow: 
+      0 2px 0 #660000,       /* bottom red shadow */
+      0 4px 0 #330000;       /* darker base for 3D */
+    }
+
+/* 🔥 Animated solid red–gold border */
+.amount::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, red, gold, red);
+  background-size: 200% 200%;
+  animation: borderMove 4s linear infinite;
+  z-index: -1;
+}
+
+/* 🌟 Shimmer effect jaise parchhai nikalti hai */
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; opacity: 0.6; }
+  20%  { background-position: 100% 50%; opacity: 1; }
+  40%  { background-position: 0% 50%; opacity: 0.6; }
+  100% { background-position: 0% 50%; opacity: 0.6; }
+}
+
+
+
+
+</style>
 </head>
 <body>
 
-<div id="historyList">
+  <div id="historyList">
     <div class="spinner"></div>
-</div>
+  </div>
 
-<!-- ✅ Bottom Nav Bar -->
-<div class="nav-bar">
-  <a href="index.html"><i class="fas fa-home"></i>Home</a>
-  <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
-  <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-  <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
-  <a href="account.html"><i class="fas fa-user"></i>Account</a>
-</div>
+  <!-- ✅ Bottom Nav Bar -->
+  <div class="nav-bar">
+    <a href="index.html"><i class="fas fa-home"></i>Home</a>
+    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
+    <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
+    <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
+    <a href="account.html"><i class="fas fa-user"></i>Account</a>
+  </div>
 
-<div class="popup" id="popupMsg"></div>
+  <div class="popup" id="popupMsg"></div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-  import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-    authDomain: "trustdollar-f72f4.firebaseapp.com",
-    projectId: "trustdollar-f72f4",
-    storageBucket: "trustdollar-f72f4.appspot.com",
-    messagingSenderId: "217643658538",
-    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+      authDomain: "trustdollar-f72f4.firebaseapp.com",
+      projectId: "trustdollar-f72f4",
+      storageBucket: "trustdollar-f72f4.appspot.com",
+      messagingSenderId: "217643658538",
+      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+    };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const historyList = document.getElementById("historyList");
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const historyList = document.getElementById("historyList");
 
-  onAuthStateChanged(auth, user => {
-    if (!user) return window.location.href = "auth.html";
-    const uid = user.uid;
+    onAuthStateChanged(auth, user => {
+      if (!user) return window.location.href = "auth.html";
+      const uid = user.uid;
 
-    const q = query(
-      collection(db, "withdrawals"),
-      where("uid", "==", uid),
-      orderBy("timestamp", "desc")
-    );
+      const q = query(
+        collection(db, "withdrawals"),
+        where("uid", "==", uid),
+        orderBy("timestamp", "desc")
+        );
 
-    onSnapshot(q, (snapshot) => {
-      if (snapshot.empty) {
-        historyList.innerHTML = "<p style='text-align:center'>No withdrawal history found.</p>";
-        return;
-      }
+      onSnapshot(q, (snapshot) => {
+        if (snapshot.empty) {
+          historyList.innerHTML = "<p style='text-align:center'>No withdrawal history found.</p>";
+          return;
+        }
 
-      historyList.innerHTML = "";
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const createdAt = data.timestamp?.seconds ? data.timestamp.seconds * 1000 : Date.now();
+        historyList.innerHTML = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const createdAt = data.timestamp?.seconds ? data.timestamp.seconds * 1000 : Date.now();
         const expireTime = createdAt + (8 * 60 * 60 * 1000); // 8 hours later
 
         const status = data.status || "Pending";
@@ -256,27 +301,27 @@
 
         // ✅ Card Structure with countdown near Balance
         box.innerHTML = `
-          <div class="label">Withdraw</div>
-          <div class="status ${statusClass}">${status}</div>
-          
-          <div class="row balance-row">
-            <strong>Balance</strong> 
-            <span style="display:flex; align-items:center; gap:8px;">
-              <span class="amount">$${data.amount?.toFixed(2) || '0.00'}</span>
-              ${status.toLowerCase() === "pending" 
-                ? `<span class="countdown-timer" id="timer-${doc.id}"></span>` 
-                : ""}
-            </span>
-          </div>
+        <div class="label">Withdraw</div>
+        <div class="status ${statusClass}">${status}</div>
+        
+        <div class="row balance-row">
+        <strong>Balance</strong> 
+        <span style="display:flex; align-items:center; gap:8px;">
+        <span class="amount">$${data.amount?.toFixed(2) || '0.00'}</span>
+        ${status.toLowerCase() === "pending" 
+        ? `<span class="countdown-timer" id="timer-${doc.id}"></span>` 
+        : ""}
+        </span>
+        </div>
 
-          <div class="row"><strong>Type</strong> <span>${data.type || 'USDT'}</span></div>
-          <div class="row"><strong>Time</strong> <span>${new Date(createdAt).toLocaleString()}</span></div>
+        <div class="row"><strong>Type</strong> <span>${data.type || 'USDT'}</span></div>
+        <div class="row"><strong>Time</strong> <span>${new Date(createdAt).toLocaleString()}</span></div>
 
-          <div class="row"><strong>Order number</strong> 
-            <span>${orderId}
-            <button class="copy-btn" onclick="copyOrderId('${orderId}')">Copy</button></span>
-          </div>
-          <div class="copy-popup" id="copy-${orderId}">Order ID Copied!</div>
+        <div class="row"><strong>Order number</strong> 
+        <span>${orderId}
+        <button class="copy-btn" onclick="copyOrderId('${orderId}')">Copy</button></span>
+        </div>
+        <div class="copy-popup" id="copy-${orderId}">Order ID Copied!</div>
         `;
 
         historyList.appendChild(box);
@@ -286,45 +331,45 @@
           startCountdown(expireTime, `timer-${doc.id}`);
         }
       });
+      });
     });
-  });
 
   // ⏳ Countdown Function
-  function startCountdown(expireTime, elementId) {
-    function updateTimer() {
-      const now = Date.now();
-      const diff = expireTime - now;
+    function startCountdown(expireTime, elementId) {
+      function updateTimer() {
+        const now = Date.now();
+        const diff = expireTime - now;
 
-      const el = document.getElementById(elementId);
-      if (!el) return;
+        const el = document.getElementById(elementId);
+        if (!el) return;
 
-      if (diff <= 0) {
-        el.textContent = "Waiting Over";
-        clearInterval(interval);
-        return;
+        if (diff <= 0) {
+          el.textContent = "Waiting Over";
+          clearInterval(interval);
+          return;
+        }
+
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        el.textContent = `${hours}h ${minutes}m ${seconds}s`;
       }
 
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      el.textContent = `${hours}h ${minutes}m ${seconds}s`;
+      updateTimer();
+      const interval = setInterval(updateTimer, 1000);
     }
 
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-  }
-
   // 📋 Copy orderId
-  window.copyOrderId = function(id) {
-    navigator.clipboard.writeText(id).then(() => {
-      const popup = document.getElementById("copy-" + id);
-      if (popup) {
-        popup.style.display = "block";
-        setTimeout(() => { popup.style.display = "none"; }, 1500);
-      }
-    });
-  };
-</script>
+    window.copyOrderId = function(id) {
+      navigator.clipboard.writeText(id).then(() => {
+        const popup = document.getElementById("copy-" + id);
+        if (popup) {
+          popup.style.display = "block";
+          setTimeout(() => { popup.style.display = "none"; }, 1500);
+        }
+      });
+    };
+  </script>
 </body>
 </html>

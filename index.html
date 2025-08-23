@@ -252,24 +252,96 @@
 </head>
 <body>
 
-    <!-- ✅ POPUP GLASS OVERLAY -->
+  <!-- ✅ POPUP GLASS OVERLAY -->
+<style>
+  .popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  .popup-box {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,0,0,0.6);
+    border-radius: 15px;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(255,0,0,0.6), 0 0 40px gold;
+  }
+  .popup-box h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  .countdown {
+    margin: 20px auto;
+    font-size: 28px;
+    font-weight: bold;
+    background: linear-gradient(90deg, red, gold);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 5px rgba(255,0,0,0.8), 2px 2px 10px gold;
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid gold;
+    border-radius: 10px;
+  }
+</style>
+
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup-box">
-    <h1>𝐁𝐢𝐠<span style="color:gold;">𝐀𝐧𝐧𝐨𝐮𝐧𝐜𝐞𝐦𝐞𝐧𝐭</span> </h1>
+    <h1>𝐁𝐢𝐠<span style="color:gold;">𝐀𝐧𝐧𝐨𝐮𝐧𝐜𝐞𝐦𝐞𝐧𝐭</span></h1>
+    <div class="countdown" id="countdown">00:00:00</div>
     <p>
-     𝗦𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝟭𝟰 𝗔𝘂𝗴𝘂𝘀𝘁 𝟮𝟬𝟮𝟱, 𝘆𝗼𝘂 𝗵𝗮𝘃𝗲 𝟭𝟬 𝗱𝗮𝘆𝘀 𝘁𝗼 𝗶𝗻𝘃𝗶𝘁𝗲 𝟭𝟬𝟬 𝗻𝗲𝘄 𝗺𝗲𝗺𝗯𝗲𝗿𝘀 𝘁𝗼 𝘁𝗵𝗲 𝗽𝗹𝗮𝘁𝗳𝗼𝗿𝗺.
-    𝗖𝗼𝗺𝗽𝗹𝗲𝘁𝗲 𝘁𝗵𝗶𝘀 𝘁𝗮𝗿𝗴𝗲𝘁 𝗯𝗲𝗳𝗼𝗿𝗲 𝟮𝟰 𝗔𝘂𝗴𝘂𝘀𝘁 𝟮𝟬𝟮𝟱 𝗮𝗻𝗱 𝘄𝗶𝗻 𝗮𝗻 𝗶𝗻𝗰𝗿𝗲𝗱𝗶𝗯𝗹𝗲 ₹𝟱,𝟬𝟬,𝟬𝟬𝟬 𝗰𝗮𝘀𝗵 𝗿𝗲𝘄𝗮𝗿𝗱!
-     𝗗𝗼𝗻’𝘁 𝗺𝗶𝘀𝘀 𝘁𝗵𝗶𝘀 𝗴𝗼𝗹𝗱𝗲𝗻 𝗼𝗽𝗽𝗼𝗿𝘁𝘂𝗻𝗶𝘁𝘆 — 𝘀𝘁𝗮𝗿𝘁 𝗶𝗻𝘃𝗶𝘁𝗶𝗻𝗴 𝘁𝗼𝗱𝗮𝘆 𝗮𝗻𝗱 𝘀𝗲𝗰𝘂𝗿𝗲 𝘆𝗼𝘂𝗿 𝗽𝗿𝗶𝘇𝗲!<br><br>
+     𝗦𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝟭𝟰 𝗔𝘂𝗴𝘂𝘀𝘁 𝟮𝟬𝟮𝟱, 𝘆𝗼𝘂 𝗵𝗮𝘃𝗲 𝟭𝟬 𝗱𝗮𝘆𝘀 𝘁𝗼 𝗶𝗻𝘃𝗶𝘁𝗲 𝟭𝟬𝟬 𝗻𝗲𝘄 𝗺𝗲𝗺𝗯𝗲𝗿𝘀.<br>
+     𝗖𝗼𝗺𝗽𝗹𝗲𝘁𝗲 𝘁𝗵𝗶𝘀 𝘁𝗮𝗿𝗴𝗲𝘁 𝗯𝗲𝗳𝗼𝗿𝗲 𝟮𝟰 𝗔𝘂𝗴𝘂𝘀𝘁 𝟮𝟬𝟮𝟱 𝗮𝗻𝗱 𝘄𝗶𝗻 ₹𝟱,𝟬𝟬,𝟬𝟬𝟬!<br><br>
 
-      🔹<h3> <strong>𝐎𝐮𝐫 𝐁𝐓𝐂 𝐌𝐢𝐧𝐢𝐧𝐠 𝐀𝐝𝐯𝐚𝐧𝐭𝐚𝐠𝐞</strong><br></h3>
-      🔹 <b>50%</b> 𝐨𝐟 𝐦𝐢𝐧𝐢𝐧𝐠 𝐩𝐫𝐨𝐟𝐢𝐭𝐬 𝐚𝐫𝐞 𝐬𝐡𝐚𝐫𝐞𝐝 𝐚𝐬 𝐨𝐮𝐫 𝐬𝐞𝐫𝐯𝐢𝐜𝐞 𝐟𝐞𝐞 𝐟𝐨𝐫 𝐬𝐦𝐨𝐨𝐭𝐡 𝐨𝐩𝐞𝐫𝐚𝐭𝐢𝐨𝐧𝐬<br>
-      🔹 <b>50%</b> 𝐨𝐟 𝐦𝐢𝐧𝐢𝐧𝐠 𝐩𝐫𝐨𝐟𝐢𝐭𝐬 𝐠𝐨 𝐝𝐢𝐫𝐞𝐜𝐭𝐥𝐲 𝐭𝐨 𝐲𝐨𝐮𝐫 𝐰𝐚𝐥𝐥𝐞𝐭 — 𝐢𝐧𝐬𝐭𝐚𝐧𝐭𝐥𝐲 𝐚𝐧𝐝 𝐰𝐢𝐭𝐡𝐨𝐮𝐭 𝐡𝐢𝐝𝐝𝐞𝐧 𝐜𝐮𝐭𝐬<br><br>
+      🔹<h3><strong>𝐎𝐮𝐫 𝐁𝐓𝐂 𝐌𝐢𝐧𝐢𝐧𝐠 𝐀𝐝𝐯𝐚𝐧𝐭𝐚𝐠𝐞</strong></h3>
+      🔹 <b>50%</b> 𝐨𝐟 𝐦𝐢𝐧𝐢𝐧𝐠 𝐩𝐫𝐨𝐟𝐢𝐭𝐬 𝐚𝐫𝐞 𝐬𝐡𝐚𝐫𝐞𝐝<br>
+      🔹 <b>50%</b> 𝐠𝐨𝐞𝐬 𝐭𝐨 𝐲𝐨𝐮𝐫 𝐰𝐚𝐥𝐥𝐞𝐭 — 𝐢𝐧𝐬𝐭𝐚𝐧𝐭𝐥𝐲<br><br>
 
-      🌟 <em>𝚆𝚒𝚝𝚑 𝚃𝚛𝚞𝚜𝚝𝙳𝚘𝚕𝚕𝚊𝚛, 𝚢𝚘𝚞’𝚛𝚎 𝚗𝚘𝚝 𝚓𝚞𝚜𝚝 𝚊 𝚞𝚜𝚎𝚛 — 𝚢𝚘𝚞’𝚛𝚎 𝚊 𝚟𝚊𝚕𝚞𝚎𝚍 𝚙𝚊𝚛𝚝𝚗𝚎𝚛 𝚒𝚗 𝚊        𝚏𝚞𝚝𝚞𝚛𝚎 𝚘𝚏 𝚏𝚒𝚗𝚊𝚗𝚌𝚒𝚊𝚕 𝚐𝚛𝚘𝚠𝚝𝚑 𝚊𝚗𝚍 𝚜𝚎𝚌𝚞𝚛𝚒𝚝𝚢.</em><br>
-      𝑳𝒆𝒕’𝒔 𝒃𝒖𝒊𝒍𝒅 𝒘𝒆𝒂𝒍𝒕𝒉, 𝒕𝒐𝒈𝒆𝒕𝒉𝒆𝒓. 🤝
+      🌟 <em>𝚆𝚒𝚝𝚑 𝚃𝚛𝚞𝚜𝚝𝙳𝚘𝚕𝚕𝚊𝚛, 𝚢𝚘𝚞’𝚛𝚎 𝚊 𝚟𝚊𝚕𝚞𝚎𝚍 𝚙𝚊𝚛𝚝𝚗𝚎𝚛.</em>
     </p>
   </div>
 </div>
+
+<script>
+  // Target date = Tomorrow 11:59 PM
+  const now = new Date();
+  const target = new Date();
+  target.setDate(now.getDate() + 1);
+  target.setHours(23,59,59,999);
+
+  function updateCountdown() {
+    const currentTime = new Date();
+    const diff = target - currentTime;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").textContent = "00:00:00";
+      clearInterval(timer);
+      return;
+    }
+
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 48);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").textContent =
+      `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+  }
+
+  updateCountdown();
+  const timer = setInterval(updateCountdown, 1000);
+</script>
+
 
 <!-- ✅ DRAGGABLE FIXED CHAT ICON -->
 <div id="chatIcon">

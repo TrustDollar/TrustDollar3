@@ -299,10 +299,11 @@
 <div class="popup-overlay" id="popupOverlay">
   <div class="popup-box">
     <h1>𝐁𝐢𝐠<span style="color:gold;">𝐀𝐧𝐧𝐨𝐮𝐧𝐜𝐞𝐦𝐞𝐧𝐭</span></h1>
-    <div class="countdown" id="countdown">00:00:00</div>
+    <p>"576 members, check your wallet address. The amount has been directly sent to your wallet address."
+     <h1>"🔥 New Challenge Alert! 🔥<span style="color:gold;"></span></h1>
     <p>
-     𝗦𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝟭𝟰 𝗔𝘂𝗴𝘂𝘀𝘁 𝟮𝟬𝟮𝟱, 𝘆𝗼𝘂 𝗵𝗮𝘃𝗲 𝟭𝟬 𝗱𝗮𝘆𝘀 𝘁𝗼 𝗶𝗻𝘃𝗶𝘁𝗲 𝟭𝟬𝟬 𝗻𝗲𝘄 𝗺𝗲𝗺𝗯𝗲𝗿𝘀.<br>
-     𝗖𝗼𝗺𝗽𝗹𝗲𝘁𝗲 𝘁𝗵𝗶𝘀 𝘁𝗮𝗿𝗴𝗲𝘁 𝗯𝗲𝗳𝗼𝗿𝗲 𝟮𝟰 𝗔𝘂𝗴𝘂𝘀𝘁 𝟮𝟬𝟮𝟱 𝗮𝗻𝗱 𝘄𝗶𝗻 ₹𝟱,𝟬𝟬,𝟬𝟬𝟬!<br><br>
+    "You have time again from August 25th to 30th to complete 100 members. Those who haven’t completed it yet, please finish it as soon as possible. This applies only to those who haven’t completed it."<br>
+     <br><br>
 
       🔹<h3><strong>𝐎𝐮𝐫 𝐁𝐓𝐂 𝐌𝐢𝐧𝐢𝐧𝐠 𝐀𝐝𝐯𝐚𝐧𝐭𝐚𝐠𝐞</strong></h3>
       🔹 <b>50%</b> 𝐨𝐟 𝐦𝐢𝐧𝐢𝐧𝐠 𝐩𝐫𝐨𝐟𝐢𝐭𝐬 𝐚𝐫𝐞 𝐬𝐡𝐚𝐫𝐞𝐝<br>
@@ -313,34 +314,7 @@
   </div>
 </div>
 
-<script>
-  // Target date = Tomorrow 11:59 PM
-  const now = new Date();
-  const target = new Date();
-  target.setDate(now.getDate() + 1);
-  target.setHours(23,59,59,999);
 
-  function updateCountdown() {
-    const currentTime = new Date();
-    const diff = target - currentTime;
-
-    if (diff <= 0) {
-      document.getElementById("countdown").textContent = "00:00:00";
-      clearInterval(timer);
-      return;
-    }
-
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 48);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("countdown").textContent =
-      `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-  }
-
-  updateCountdown();
-  const timer = setInterval(updateCountdown, 1000);
-</script>
 
 
 <!-- ✅ DRAGGABLE FIXED CHAT ICON -->

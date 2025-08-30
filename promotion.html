@@ -1,127 +1,165 @@
-   <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Promotion – TrustDollar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-    body {
-      background: linear-gradient(145deg, #8b0000, #ffd700);
-      font-family: 'Segoe UI', sans-serif;
-      padding: 20px 14px 120px;
-      max-width: 420px;
-      margin: 0 auto;
-      color: #fff;
-    }
-    h2, h3, h4 {
-      color: #ffd700;
-      text-align: center;
-      margin-bottom: 12px;
-      text-shadow: 0 0 8px #ff0000;
-      font-size: 18px;
-    }
-    .box {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid #ffd70099;
-      border-radius: 14px;
-      padding: 14px;
-      box-shadow: 0 0 14px rgba(255, 0, 0, 0.4);
-      backdrop-filter: blur(6px);
-      margin-bottom: 12px;
-    }
-    .value-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #ffd700aa;
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-      color: #ffd700;
-      padding: 8px 10px;
-      font-size: 14px;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: bold;
-      word-break: break-word;
-      flex: 1;
-    }
-    .row-box {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-    .btn {
-      background: #ffd700;
-      color: #8b0000;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 14px;
-      margin: 5px;
-      font-weight: bold;
-      box-shadow: 0 0 10px #ffd700aa;
-    }
-    .nav-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #111;
-      border-radius: 20px;
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      width: 90%;
-      max-width: 320px;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
-      z-index: 999;
-    }
-    .nav-bar a {
-      flex: 1;
-      text-align: center;
-      text-decoration: none;
-      color: gold;
-      font-size: 10px;
-    }
-    .nav-bar a i {
-      font-size: 16px;
-      margin-bottom: 2px;
-      display: block;
-      color: crimson;
-    }
-    .nav-bar a.active {
-      color: crimson;
-    }
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <title>Promotion – TrustDollar</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          scroll-behavior: smooth;
+        }
+        body {
+          background: linear-gradient(145deg, #8b0000, #ffd700);
+          font-family: 'Segoe UI', sans-serif;
+          padding: 20px 14px 120px;
+          max-width: 420px;
+          margin: 0 auto;
+          color: #fff;
+        }
+        h2, h3, h4 {
+          color: #ffd700;
+          text-align: center;
+          margin-bottom: 12px;
+          text-shadow: 0 0 8px #ff0000;
+          font-size: 18px;
+        }
+        .box {
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid #ffd70099;
+          border-radius: 14px;
+          padding: 14px;
+          box-shadow: 0 0 14px rgba(255, 0, 0, 0.4);
+          backdrop-filter: blur(6px);
+          margin-bottom: 12px;
+        }
+        .value-box {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid #ffd700aa;
+          box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+          color: #ffd700;
+          padding: 8px 10px;
+          font-size: 14px;
+          border-radius: 10px;
+          text-align: center;
+          font-weight: bold;
+          word-break: break-word;
+          flex: 1;
+        }
+        .row-box {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          margin-top: 10px;
+        }
+        .btn {
+          background: #ffd700;
+          color: #8b0000;
+          padding: 10px 16px;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 14px;
+          margin: 5px;
+          font-weight: bold;
+          box-shadow: 0 0 10px #ffd700aa;
+        }
+        .nav-bar {
+          position: fixed;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #000;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          max-width: 480px;
+          padding: 6px 0;   /* 👈 compact */
+          box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+          z-index: 999;
 
-    /* Glass popup */
-    #popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255,255,255,0.1);
-      border: 1px solid #ffd700aa;
-      backdrop-filter: blur(10px);
-      padding: 15px 20px;
-      border-radius: 14px;
-      box-shadow: 0 0 20px #ff0000;
-      z-index: 9999;
-      color: #fff;
-      display: none;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-  </style>
+          /* 🔥 Gradient top border */
+          border-top: 2px solid transparent;
+          border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
+        }
+
+        .nav-bar a {
+          flex: 1;
+          text-align: center;
+          text-decoration: none;
+          font-size: 11px;
+          color: #ccc;
+          position: relative;
+          padding: 4px 0;
+          transition: 0.3s ease;
+        }
+
+        .nav-bar a i {
+          display: block;
+          font-size: 18px;
+          margin-bottom: 3px;
+          color: #ccc;
+        }
+
+/* 👇 Active / Click / Focus Highlight */
+.nav-bar a.active,
+.nav-bar a:focus,
+.nav-bar a:active {
+  background: linear-gradient(to top, rgba(255,0,0,0.15), transparent);
+  border-radius: 6px;
+}
+
+.nav-bar a.active i,
+.nav-bar a:focus i,
+.nav-bar a:active i {
+  color: red;
+}
+
+.nav-bar a.active span,
+.nav-bar a:focus span,
+.nav-bar a:active span {
+  color: yellow;
+  font-weight: bold;
+}
+
+/* Vertical separator */
+.nav-bar a:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, yellow, red);
+}
+
+
+/* Glass popup */
+#popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid #ffd700aa;
+  backdrop-filter: blur(10px);
+  padding: 15px 20px;
+  border-radius: 14px;
+  box-shadow: 0 0 20px #ff0000;
+  z-index: 9999;
+  color: #fff;
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
 </head>
 <body>
 
@@ -139,314 +177,335 @@
     <div class="box"><h4>Total Joined</h4><div class="value-box" id="refCount">0</div></div>
     <div class="box"><h4>Total Referral</h4><div class="value-box" id="refIncome">$0</div></div>
     <div class="box"><h4>Today Income</h4><div class="value-box" id="todayIncome">$0</div></div>
-     <div class="box"><h4>Total deposit</h4><div class="value-box" id="totalDeposit">$0</div></div>
-      <div class="box"><h4>Total Withdrawals</h4><div class="value-box" id="totalWithdrawal">$0</div></div>
+    <div class="box"><h4>Total deposit</h4><div class="value-box" id="totalDeposit">$0</div></div>
+    <div class="box"><h4>Total Withdrawals</h4><div class="value-box" id="totalWithdrawal">$0</div></div>
   </div>
 
-    <!-- Referral Button -->
-<div class="referral-btn-container">
-  <a href="referral.html" class="referral-btn">See Your Referral</a>
-</div>
-<style>
-  .referral-btn-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    width: 100%;
-  }
+  <!-- Referral Button -->
+  <div class="referral-btn-container">
+    <a href="referral.html" class="referral-btn">See Your Referral</a>
+  </div>
+  <style>
+    .referral-btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+      width: 100%;
+    }
 
-  .referral-btn {
-    padding: 12px 30px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff5d7;
-    background: linear-gradient(145deg, #b30000, #ffcc00);
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
-    cursor: pointer;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    transition: all 0.2s ease;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-  }
-
-  .referral-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 #7a0000, 0 6px 12px rgba(0,0,0,0.4);
-  }
-
-  .referral-btn:hover {
-    background: linear-gradient(145deg, #ffcc00, #b30000);
-  }
-
-  /* Mobile-friendly */
-  @media (max-width: 500px) {
     .referral-btn {
-      padding: 10px 20px;
-      font-size: 14px;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff5d7;
+      background: linear-gradient(145deg, #b30000, #ffcc00);
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
+      cursor: pointer;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
     }
-  }
-</style>
-          
+
+    .referral-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #7a0000, 0 6px 12px rgba(0,0,0,0.4);
+    }
+
+    .referral-btn:hover {
+      background: linear-gradient(145deg, #ffcc00, #b30000);
+    }
+
+    /* Mobile-friendly */
+    @media (max-width: 500px) {
+      .referral-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+  </style>
+  
   <div class="info-box-container">
-  <div class="info-box">
-    <div class="info-text">
-      Welcome to our platform! Here, you can explore exciting features, earn rewards,
-      and connect with friends. Invite others to join, share your unique referral link,
-      and start collecting bonuses today.
+    <div class="info-box">
+      <div class="info-text">
+        Welcome to our platform! Here, you can explore exciting features, earn rewards,
+        and connect with friends. Invite others to join, share your unique referral link,
+        and start collecting bonuses today.
+      </div>
     </div>
-  </div>
 
-        <style>
-  .info-box-container{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:20px 0;
-    width:100%;
-  }
+    <style>
+      .info-box-container{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        margin:20px 0;
+        width:100%;
+      }
 
-  .info-box{
-    --radius: 12px;      /* corner radius */
-    --border-thickness: 4px; /* border thickness (change to make ring thicker/thinner) */
-    --rotation-speed: 11000s; /* animation speed (lower = faster) */
+      .info-box{
+        --radius: 12px;      /* corner radius */
+        --border-thickness: 4px; /* border thickness (change to make ring thicker/thinner) */
+        --rotation-speed: 11000s; /* animation speed (lower = faster) */
 
-    position: relative;
-    padding: 16px 24px;
-    width: min(700px, 92%);
-    border-radius: var(--radius);
-    /* inner stable background (same look as earlier) */
-    background: linear-gradient(145deg, #b30000, #ffcc00);
-    color: #fff5d7;
-    font-weight:500;
-    text-align:center;
-    box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
-    line-height:1.5;
-    z-index: 2; /* above the masking layer */
-    overflow: visible;
-  }
+        position: relative;
+        padding: 16px 24px;
+        width: min(700px, 92%);
+        border-radius: var(--radius);
+        /* inner stable background (same look as earlier) */
+        background: linear-gradient(145deg, #b30000, #ffcc00);
+        color: #fff5d7;
+        font-weight:500;
+        text-align:center;
+        box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
+        line-height:1.5;
+        z-index: 2; /* above the masking layer */
+        overflow: visible;
+      }
 
-  /* rotating gradient ring behind the box */
-  .info-box::before{
-    content: "";
-    position: absolute;
-    inset: calc(-1 * var(--border-thickness)); /* extend outward by border thickness */
-    border-radius: calc(var(--radius) + var(--border-thickness));
-    padding: 0;
-    background: conic-gradient(
-      from 0deg,
-      #ff3d00,
-      #ffcf00,
-      #00d4ff,
-      #8b00ff,
-      #ff3d00
-    );
-    z-index: 0;
-    filter: blur(0px); /* remove blur; keep crisp ring */
-    animation: rotateRing linear infinite;
-    animation-duration: var(--rotation-speed);
-  }
+      /* rotating gradient ring behind the box */
+      .info-box::before{
+        content: "";
+        position: absolute;
+        inset: calc(-1 * var(--border-thickness)); /* extend outward by border thickness */
+        border-radius: calc(var(--radius) + var(--border-thickness));
+        padding: 0;
+        background: conic-gradient(
+          from 0deg,
+          #ff3d00,
+          #ffcf00,
+          #00d4ff,
+          #8b00ff,
+          #ff3d00
+        );
+        z-index: 0;
+        filter: blur(0px); /* remove blur; keep crisp ring */
+        animation: rotateRing linear infinite;
+        animation-duration: var(--rotation-speed);
+      }
 
-  /* mask the center so only the ring (border) remains visible */
-  .info-box::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius);
-    background: linear-gradient(145deg, #b30000, #ffcc00); /* same as inner so center looks solid */
-    z-index: 1;
-    /* create the hollow effect by shrinking the ::after inset by border-thickness */
-    /* we do that by using clip-path to cut out the inner rectangle */
-    clip-path: inset(var(--border-thickness) round var(--radius));
-  }
+      /* mask the center so only the ring (border) remains visible */
+      .info-box::after{
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: var(--radius);
+        background: linear-gradient(145deg, #b30000, #ffcc00); /* same as inner so center looks solid */
+        z-index: 1;
+        /* create the hollow effect by shrinking the ::after inset by border-thickness */
+        /* we do that by using clip-path to cut out the inner rectangle */
+        clip-path: inset(var(--border-thickness) round var(--radius));
+      }
 
-  .info-text{
-    position: relative;
-    z-index: 3; /* top of everything so text stays clickable/selectable */
-    font-size: 15px;
-    color: #fff5d7;
-    word-break: break-word;
-  }
+      .info-text{
+        position: relative;
+        z-index: 3; /* top of everything so text stays clickable/selectable */
+        font-size: 15px;
+        color: #fff5d7;
+        word-break: break-word;
+      }
 
-  @keyframes rotateRing {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+      @keyframes rotateRing {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
 
-  /* Hover: slight speed up (optional) */
-  .info-box:hover::before{
-    animation-duration: 2s;
-  }
+      /* Hover: slight speed up (optional) */
+      .info-box:hover::before{
+        animation-duration: 2s;
+      }
 
-  /* Mobile adjustments */
-  @media (max-width:500px){
-    .info-box{
-      padding: 12px 16px;
-      font-size: 14px;
-    }
-  }
-  .info-box-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 60px 0 20px 0; /* Pehle 20px tha, ab 60px top space */
-  width: 100%;
-}
-
-</style>
-    <div class="nav-bar">
-    <a href="index.html"><i class="fas fa-home"></i>Home</a>
-    <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
-    <a href="promotion.html" class="active"><i class="fas fa-bullhorn"></i>Promotion</a>
-    <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
-    <a href="account.html"><i class="fas fa-user"></i>Account</a>
-  </div>
-<!-- Center Popup -->
-<div id="popup">Referral Code Copied!</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import {
-  getFirestore, doc, getDoc, collection, query,
-  where, onSnapshot
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
-// 🔹 Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-  authDomain: "trustdollar-f72f4.firebaseapp.com",
-  projectId: "trustdollar-f72f4",
-  storageBucket: "trustdollar-f72f4.appspot.com",
-  messagingSenderId: "217643658538",
-  appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-};
-
-// 🔹 Init Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// 🔹 DOM Elements
-const refCodeEl = document.getElementById("refCode");
-const refCountEl = document.getElementById("refCount");
-const refIncomeEl = document.getElementById("refIncome");
-const todayIncomeEl = document.getElementById("todayIncome");
-const totalIncomeEl = document.getElementById("totalIncome");
-const popup = document.getElementById("popup");
-
-onAuthStateChanged(auth, async (user) => {
-  if (!user) return location.href = "auth.html";
-  const uid = user.uid;
-
-  // 🔹 Get user data
-  const userSnap = await getDoc(doc(db, "users", uid));
-  const userData = userSnap.data();
-  const code = userData.refCode || "N/A";
-  refCodeEl.innerText = code;
-
-  // 🔹 Referral count live
-  const referredQuery = query(
-    collection(db, "users"),
-    where("referredBy", "==", code)
-  );
-  onSnapshot(referredQuery, (snap) => {
-    refCountEl.innerText = snap.size;
-  });
-
-  // 🔹 Referral total income live
-  const incomeQuery = query(
-    collection(db, "referral_income"),
-    where("toUpline", "==", uid)
-  );
-  onSnapshot(incomeQuery, (snapshot) => {
-    let totalReferral = 0;
-    snapshot.forEach((docSnap) => {
-      totalReferral += docSnap.data().amount || 0;
-    });
-    refIncomeEl.innerText = `$${totalReferral.toFixed(2)}`;
-    totalIncomeEl.innerText = `$${((userData.wallet || 0) + totalReferral).toFixed(2)}`;
-  });
-
-  // 🔹 User's own today mining income
-  const todayDateOnly = new Date().toISOString().split("T")[0];
-  const miningQuery = collection(db, "users", uid, "miningHistory");
-
-  onSnapshot(miningQuery, (snap) => {
-    let miningToday = 0;
-    snap.forEach((docSnap) => {
-      const mData = docSnap.data();
-      if (mData.date) {
-        let mineDate;
-        if (typeof mData.date.toDate === "function") {
-          mineDate = mData.date.toDate().toISOString().split("T")[0];
-        } else {
-          mineDate = new Date(mData.date).toISOString().split("T")[0];
-        }
-        if (mineDate === todayDateOnly) {
-          miningToday += mData.amount || 0;
+      /* Mobile adjustments */
+      @media (max-width:500px){
+        .info-box{
+          padding: 12px 16px;
+          font-size: 14px;
         }
       }
-    });
-    todayIncomeEl.innerText = `$${miningToday.toFixed(2)}`;
-  });
+      .info-box-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 60px 0 20px 0; /* Pehle 20px tha, ab 60px top space */
+        width: 100%;
+      }
+
+    </style>
+    <!-- NAV BAR -->
+    <div class="nav-bar">
+      <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+      <a href="start.html"><i class="fas fa-industry"></i><span>Mining</span></a>
+      <a href="promotion.html"><i class="fas fa-bullhorn"></i><span>Promotion</span></a>
+      <a href="wallet.html"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+      <a href="account.html"><i class="fas fa-user"></i><span>Account</span></a>
+    </div>
+
+    <script>
+  // ✅ Active nav highlight based on current page
+      const currentPage = window.location.pathname.split("/").pop(); 
+      document.querySelectorAll(".nav-bar a").forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    </script>
+
+    <!-- Center Popup -->
+    <div id="popup">Referral Code Copied!</div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+      import {
+        getFirestore, doc, getDoc, collection, query,
+        where, onSnapshot
+      } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+// 🔹 Firebase Config
+      const firebaseConfig = {
+        apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+        authDomain: "trustdollar-f72f4.firebaseapp.com",
+        projectId: "trustdollar-f72f4",
+        storageBucket: "trustdollar-f72f4.appspot.com",
+        messagingSenderId: "217643658538",
+        appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+      };
+
+// 🔹 Init Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+// 🔹 DOM Elements
+      const refCodeEl = document.getElementById("refCode");
+      const refCountEl = document.getElementById("refCount");
+      const refIncomeEl = document.getElementById("refIncome");
+      const todayIncomeEl = document.getElementById("todayIncome");
+      const totalIncomeEl = document.getElementById("totalIncome");
+      const popup = document.getElementById("popup");
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) return location.href = "auth.html";
+        const uid = user.uid;
+
+  // 🔹 Get user data
+        const userSnap = await getDoc(doc(db, "users", uid));
+        const userData = userSnap.data();
+        const code = userData.refCode || "N/A";
+        refCodeEl.innerText = code;
+
+  // 🔹 Referral count live
+        const referredQuery = query(
+          collection(db, "users"),
+          where("referredBy", "==", code)
+          );
+        onSnapshot(referredQuery, (snap) => {
+          refCountEl.innerText = snap.size;
+        });
+
+  // 🔹 Referral total income live
+        const incomeQuery = query(
+          collection(db, "referral_income"),
+          where("toUpline", "==", uid)
+          );
+        onSnapshot(incomeQuery, (snapshot) => {
+          let totalReferral = 0;
+          snapshot.forEach((docSnap) => {
+            totalReferral += docSnap.data().amount || 0;
+          });
+          refIncomeEl.innerText = `$${totalReferral.toFixed(2)}`;
+          totalIncomeEl.innerText = `$${((userData.wallet || 0) + totalReferral).toFixed(2)}`;
+        });
+
+  // 🔹 User's own today mining income
+        const todayDateOnly = new Date().toISOString().split("T")[0];
+        const miningQuery = collection(db, "users", uid, "miningHistory");
+
+        onSnapshot(miningQuery, (snap) => {
+          let miningToday = 0;
+          snap.forEach((docSnap) => {
+            const mData = docSnap.data();
+            if (mData.date) {
+              let mineDate;
+              if (typeof mData.date.toDate === "function") {
+                mineDate = mData.date.toDate().toISOString().split("T")[0];
+              } else {
+                mineDate = new Date(mData.date).toISOString().split("T")[0];
+              }
+              if (mineDate === todayDateOnly) {
+                miningToday += mData.amount || 0;
+              }
+            }
+          });
+          todayIncomeEl.innerText = `$${miningToday.toFixed(2)}`;
+        });
 
   // 🔹 Copy referral code
-  window.copyReferral = function () {
-    navigator.clipboard.writeText(refCodeEl.innerText);
-    popup.style.display = "block";
-    setTimeout(() => (popup.style.display = "none"), 1000);
-  };
+        window.copyReferral = function () {
+          navigator.clipboard.writeText(refCodeEl.innerText);
+          popup.style.display = "block";
+          setTimeout(() => (popup.style.display = "none"), 1000);
+        };
 
   // 🔹 Share WhatsApp
-  window.shareWhatsApp = function () {
-    const link = `https://www.trustdollar.in/?ref=${code}`;
-    window.open(`https://wa.me/?text=Join%20TrustDollar%20and%20earn!%20Use%20my%20referral%20code:%20${link}`);
-  };
+        window.shareWhatsApp = function () {
+          const link = `https://www.trustdollar.in/?ref=${code}`;
+          window.open(`https://wa.me/?text=Join%20TrustDollar%20and%20earn!%20Use%20my%20referral%20code:%20${link}`);
+        };
 
   // 🔹 Share Telegram
-  window.shareTelegram = function () {
-    const link = `https://www.trustdollar.in/?ref=${code}`;
-    window.open(`https://t.me/share/url?url=${link}&text=Join%20TrustDollar%20and%20earn%20daily%20income!`);
-  };
-});
-  
-onAuthStateChanged(auth, (user) => {
-  if (!user) return window.location.href = "auth.html";
+        window.shareTelegram = function () {
+          const link = `https://www.trustdollar.in/?ref=${code}`;
+          window.open(`https://t.me/share/url?url=${link}&text=Join%20TrustDollar%20and%20earn%20daily%20income!`);
+        };
+      });
+      
+      onAuthStateChanged(auth, (user) => {
+        if (!user) return window.location.href = "auth.html";
 
-  const uid = user.uid;
+        const uid = user.uid;
 
   // 🔹 LIVE Total Deposit
-  const depositQuery = query(
-    collection(db, "deposits"),
-    where("uid", "==", uid),
-    where("status", "==", "success")
-  );
-  onSnapshot(depositQuery, (snapshot) => {
-    let total = 0;
-    snapshot.forEach(doc => {
-      total += doc.data().amount || 0;
-    });
-    document.getElementById("totalDeposit").innerText = `$${total.toFixed(2)}`;
-  });
+        const depositQuery = query(
+          collection(db, "deposits"),
+          where("uid", "==", uid),
+          where("status", "==", "success")
+          );
+        onSnapshot(depositQuery, (snapshot) => {
+          let total = 0;
+          snapshot.forEach(doc => {
+            total += doc.data().amount || 0;
+          });
+          document.getElementById("totalDeposit").innerText = `$${total.toFixed(2)}`;
+        });
 
   // 🔹 LIVE Total Withdrawal
-  const withdrawalQuery = query(
-    collection(db, "withdrawals"),
-    where("uid", "==", uid),
-    where("status", "==", "success")
-  );
-  onSnapshot(withdrawalQuery, (snapshot) => {
-    let total = 0;
-    snapshot.forEach(doc => {
-      total += doc.data().amount || 0;
-    });
-    document.getElementById("totalWithdrawal").innerText = `$${total.toFixed(2)}`;
-  });
-});
-</script>
-</body>
-</html>
+        const withdrawalQuery = query(
+          collection(db, "withdrawals"),
+          where("uid", "==", uid),
+          where("status", "==", "success")
+          );
+        onSnapshot(withdrawalQuery, (snapshot) => {
+          let total = 0;
+          snapshot.forEach(doc => {
+            total += doc.data().amount || 0;
+          });
+          document.getElementById("totalWithdrawal").innerText = `$${total.toFixed(2)}`;
+        });
+      });
+// ✅ Active nav highlight on click
+      document.querySelectorAll(".nav-bar a").forEach(link => {
+        link.addEventListener("click", function () {
+          document.querySelectorAll(".nav-bar a").forEach(a => a.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+    </script>
+  </body>
+  </html>

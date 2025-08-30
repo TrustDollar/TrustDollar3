@@ -1,0 +1,182 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Change PIN</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+body{
+  background: linear-gradient(145deg,#8b0000,#ffd700);
+  font-family: 'Segoe UI', sans-serif;
+  display:flex; justify-content:center; align-items:center;
+  min-height:100vh; margin:0; padding:10px;
+}
+.container{
+  background:linear-gradient(145deg,#8b0000,#ffd700);
+  padding:25px 20px;
+  border-radius:12px;
+  box-shadow:0 0 20px red,0 0 15px gold inset;
+  width:100%; max-width:360px;
+  color:#fff;
+  text-align:center;
+}
+h2{
+  color:gold;
+  text-shadow:0 0 8px red;
+  margin-bottom:20px;
+}
+.input-group{
+  position:relative;
+  margin:10px 0;
+}
+input{
+  width:100%;
+  padding:12px 40px 12px 12px;
+  border-radius:8px;
+  border:1px solid gold;
+  background:#000;
+  color: gold;
+  font-size: 16px;
+  box-sizing: border-box;   /* ✅ FIX overflow */
+}
+input::placeholder{color:#ffd700aa;}
+.eye-toggle{
+  position:absolute;
+  top:50%; right:12px;
+  transform:translateY(-50%);
+  cursor:pointer;
+  color:gold;
+}
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  margin-top:15px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
+  box-shadow:0 4px 12px rgba(255,0,0,0.6),0 -2px 10px rgba(255,215,0,0.6);
+  transition:.3s ease;
+  box-sizing: border-box;   /* ✅ FIX overflow */
+}
+button.save{
+  background:linear-gradient(145deg,red,gold);
+  color:#000;
+}
+button.save:hover{
+  background:linear-gradient(145deg,gold,red);
+  transform:scale(1.05);
+}
+button.back{
+  background:#ff4d4d;
+  color:#fff;
+  margin-top:10px;
+}
+.popup{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:#8b0000;color:#ffd700;padding:14px 24px;border-radius:10px;
+  box-shadow:0 0 20px #ff0000aa;font-size:16px;display:none;
+  z-index:9999;text-align:center;animation:fadeInOut 2.5s ease forwards;
+}
+.popup i{margin-right:8px;color:gold;}
+@keyframes fadeInOut{0%{opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{opacity:0;}}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Change PIN</h2>
+  <div class="input-group">
+    <input type="password" id="prevPin" placeholder="Enter Previous PIN"/>
+    <i class="fa-solid fa-eye eye-toggle" onclick="toggleEye(this,'prevPin')"></i>
+  </div>
+  <div class="input-group">
+    <input type="password" id="newPin" placeholder="Enter New PIN"/>
+    <i class="fa-solid fa-eye eye-toggle" onclick="toggleEye(this,'newPin')"></i>
+  </div>
+  <div class="input-group">
+    <input type="password" id="confirmPin" placeholder="Confirm New PIN"/>
+    <i class="fa-solid fa-eye eye-toggle" onclick="toggleEye(this,'confirmPin')"></i>
+  </div>
+  <button class="save" onclick="savePin()">Save</button>
+  <button class="back" onclick="goBack()">Back</button>
+</div>
+
+<div class="popup" id="popupMsg"><i class="fa-solid fa-triangle-exclamation"></i><span></span></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:"AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+  authDomain:"trustdollar-f72f4.firebaseapp.com",
+  projectId:"trustdollar-f72f4",
+  storageBucket:"trustdollar-f72f4.appspot.com",
+  messagingSenderId:"217643658538",
+  appId:"1:217643658538:web:c8a9cd78467e0818aa0253"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+let currentUID, savedPin = null;
+
+onAuthStateChanged(auth, async (user) => {
+  if(!user) return window.location.href="auth.html";
+  currentUID = user.uid;
+  const userRef = doc(db,"users",currentUID);
+  const docSnap = await getDoc(userRef);
+  if(docSnap.exists()){
+    savedPin = docSnap.data().pin || null;
+  }
+});
+
+function showPopup(msg, redirect=false){
+  const popup = document.getElementById("popupMsg");
+  popup.querySelector("span").innerText = msg;
+  popup.style.display="block";
+  setTimeout(()=>{
+    popup.style.display="none";
+    if(redirect){ window.location.href="account.html"; }  // ✅ Auto redirect after success
+  },2000);
+}
+
+window.toggleEye = function(el,id){
+  const input = document.getElementById(id);
+  if(input.type==="password"){
+    input.type="text";
+    el.classList.replace("fa-eye","fa-eye-slash");
+  }else{
+    input.type="password";
+    el.classList.replace("fa-eye-slash","fa-eye");
+  }
+}
+
+window.savePin = async function(){
+  const prev = document.getElementById("prevPin").value.trim();
+  const newP = document.getElementById("newPin").value.trim();
+  const confirmP = document.getElementById("confirmPin").value.trim();
+
+  if(!prev || !newP || !confirmP) return showPopup("All fields are required");
+  if(prev !== savedPin) return showPopup("Previous PIN is wrong");
+  if(newP.length !== 4) return showPopup("PIN must be 4 digits");
+  if(newP !== confirmP) return showPopup("New PIN and Confirm PIN do not match");
+
+  try{
+    await updateDoc(doc(db,"users",currentUID),{pin:newP});
+    savedPin = newP;
+    showPopup("PIN updated successfully!", true);  // ✅ Redirect after success
+  }catch(err){
+    console.error(err);
+    showPopup("Error updating PIN");
+  }
+}
+
+window.goBack = function(){ window.location.href="test.html"; }
+</script>
+</body>
+</html>

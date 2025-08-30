@@ -1,573 +1,602 @@
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TrustDollar Home</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
- 
+          <!DOCTYPE html>
+         <html lang="en">
+         <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <title>TrustDollar Home</title>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+          
+          <style>
+            * {
+              box-sizing: border-box;
+            }
+            html, body {
+              margin: 0;
+              padding: 0;
+              background: radial-gradient(ellipse at center, #0f2027, #203a43, #2c5364);
+              font-family: 'Segoe UI', sans-serif;
+              scroll-behavior: smooth;
+              overflow-x: hidden;
+              overflow-y: auto;
+            }
 
-  
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(ellipse at center, #0f2027, #203a43, #2c5364);
-      font-family: 'Segoe UI', sans-serif;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
+            body {
+              padding-bottom: 120px;
+            }
 
-    body {
-      padding-bottom: 120px;
-    }
+            .container {
+              max-width: 400px;
+              margin: 0 auto;
+              padding: 16px;
+            }
 
-    .container {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 16px;
-    }
+            .row {
+              display: flex;
+              justify-content: space-between;
+              gap: 10px;
+              margin-bottom: 15px;
+            }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
+            .box {
+              flex: 0 0 48%;
+              background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
+              border-radius: 14px;
+              box-shadow: 0 0 10px #00ffff99;
+              color: #0ff;
+              padding: 12px;
+              text-align: center;
+              font-size: 13px;
+            }
 
-    .box {
-      flex: 0 0 48%;
-      background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
-      border-radius: 14px;
-      box-shadow: 0 0 10px #00ffff99;
-      color: #0ff;
-      padding: 12px;
-      text-align: center;
-      font-size: 13px;
-    }
+            .large-box {
+              width: 100%;
+              background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
+              border-radius: 14px;
+              box-shadow: 0 0 10px #00ffff99;
+              color: #0ff;
+              padding: 14px;
+              text-align: center;
+              font-size: 14px;
+              margin-bottom: 20px;
+            }
 
-    .large-box {
-      width: 100%;
-      background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
-      border-radius: 14px;
-      box-shadow: 0 0 10px #00ffff99;
-      color: #0ff;
-      padding: 14px;
-      text-align: center;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
+            .typing-box {
+              width: 100%;
+              background: rgba(255,255,255,0.1);
+              border-radius: 12px;
+              padding: 10px;
+              text-align: center;
+              margin: 15px 0;
+              color: #fff;
+              font-size: 13px;
+              min-height: 32px;
+              white-space: nowrap;
+              overflow: hidden;
+            }
 
-    .typing-box {
-      width: 100%;
-      background: rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-      margin: 15px 0;
-      color: #fff;
-      font-size: 13px;
-      min-height: 32px;
-      white-space: nowrap;
-      overflow: hidden;
-    }
+            .wave-section {
+              height: 80px;
+              background: linear-gradient(to right, #ff416c, #ff4b2b);
+              border-radius: 20px;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 0 15px #ff4d4d88;
+              display: flex;
+              align-items: flex-end;
+              justify-content: center;
+            }
 
-    .wave-section {
-      height: 80px;
-      background: linear-gradient(to right, #ff416c, #ff4b2b);
-      border-radius: 20px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 15px #ff4d4d88;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
+            .wave-svg {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              width: 200%;
+              height: 100%;
+              animation: waveMove 6s linear infinite;
+            }
 
-    .wave-svg {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 200%;
-      height: 100%;
-      animation: waveMove 6s linear infinite;
-    }
+            @keyframes waveMove {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
 
-    @keyframes waveMove {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+            .glass-btc-box {
+              background: rgba(255, 255, 255, 0.08);
+              backdrop-filter: blur(5px);
+              border-radius: 16px;
+              box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 120px;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              margin-bottom: 20px;
+            }
 
-    .glass-btc-box {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(5px);
-      border-radius: 16px;
-      box-shadow: 0 0 12px rgba(0, 255, 255, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 120px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 20px;
-    }
+            .btc-icon {
+              font-size: 48px;
+              color: #ffcc00;
+              text-shadow: 0 0 10px rgba(255, 204, 0, 0.6), 0 0 20px rgba(255, 204, 0, 0.4);
+              animation: floatBTC 2s ease-in-out infinite;
+            }
 
-    .btc-icon {
-      font-size: 48px;
-      color: #ffcc00;
-      text-shadow: 0 0 10px rgba(255, 204, 0, 0.6), 0 0 20px rgba(255, 204, 0, 0.4);
-      animation: floatBTC 2s ease-in-out infinite;
-    }
+            @keyframes floatBTC {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-10px); }
+            }
 
-    @keyframes floatBTC {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+            .info-banner {
+              background: linear-gradient(to right, #2c3e50, #2980b9);
+              border-radius: 18px;
+              color: white;
+              font-weight: bold;
+              font-size: 14px;
+              padding: 16px;
+              text-align: center;
+              margin: 20px 0;
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            }
 
-    .info-banner {
-      background: linear-gradient(to right, #2c3e50, #2980b9);
-      border-radius: 18px;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
-      padding: 16px;
-      text-align: center;
-      margin: 20px 0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
+            h3 {
+              text-align: center;
+              color: #ffd700;
+              font-size: 16px;
+              margin-top: 10px;
+            }
+            /* Popup Overlay */
+            .popup-overlay {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100vw;
+              height: 100vh;
+              backdrop-filter: blur(15px) saturate(150%);
+              -webkit-backdrop-filter: blur(15px) saturate(150%);
+              background: rgba(255, 255, 255, 0.08);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              z-index: 9999;
+              transition: opacity 0.5s ease;
+              opacity: 1;
+            }
 
-    h3 {
-      text-align: center;
-      color: #ffd700;
-      font-size: 16px;
-      margin-top: 10px;
-    }
+            .popup-overlay.hide {
+              opacity: 0;
+              pointer-events: none;
+            }
 
-    /* ✅ YOUR FINAL NAV BAR */
-    .nav-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #111;
-      border-radius: 20px;
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      width: 90%;
-      max-width: 320px;
-      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
-      z-index: 999;
-    }
+            .popup-box {
+              width: 90%;
+              max-width: 380px;
+              max-height: 80vh;
+              padding: 24px;
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 20px;
+              border: 1.8px solid rgba(255, 255, 255, 0.15);
+              box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+              color: #fff;
+              font-size: 15px;
+              overflow-y: auto;
+              text-align: center;
+            }
 
-    .nav-bar a {
-      flex: 1;
-      text-align: center;
-      text-decoration: none;
-      color: gold;
-      font-size: 10px;
-      transition: 0.3s ease;
-    }
+            .popup-box::-webkit-scrollbar {
+              width: 6px;
+            }
 
-    .nav-bar a i {
-      font-size: 16px;
-      margin-bottom: 2px;
-      display: block;
-      color: crimson;
-    }
+            .popup-box::-webkit-scrollbar-thumb {
+              background: rgba(255, 255, 255, 0.2);
+              border-radius: 10px;
+            }
+            .nav-bar {
+              position: fixed;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              background: #000;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 100%;
+              max-width: 480px;
+              padding: 6px 0;   /* 👈 compact */
+              box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+              z-index: 999;
 
-    .nav-bar a:hover,
-    .nav-bar a.active {
-      color: crimson;
-      transform: translateY(-3px);
-    }
+              /* 🔥 Gradient top border */
+              border-top: 2px solid transparent;
+              border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
+            }
 
-    /* Popup Overlay */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      backdrop-filter: blur(15px) saturate(150%);
-      -webkit-backdrop-filter: blur(15px) saturate(150%);
-      background: rgba(255, 255, 255, 0.08);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-      opacity: 1;
-    }
+            .nav-bar a {
+              flex: 1;
+              text-align: center;
+              text-decoration: none;
+              font-size: 11px;
+              color: #ccc;
+              position: relative;
+              padding: 4px 0;
+              transition: 0.3s ease;
+            }
 
-    .popup-overlay.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
+            .nav-bar a i {
+              display: block;
+              font-size: 18px;
+              margin-bottom: 3px;
+              color: #ccc;
+            }
 
-    .popup-box {
-      width: 90%;
-      max-width: 380px;
-      max-height: 80vh;
-      padding: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      border: 1.8px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
-      color: #fff;
-      font-size: 15px;
-      overflow-y: auto;
-      text-align: center;
-    }
+/* 👇 Active / Click / Focus Highlight */
+.nav-bar a.active,
+.nav-bar a:focus,
+.nav-bar a:active {
+  background: linear-gradient(to top, rgba(255,0,0,0.15), transparent);
+  border-radius: 6px;
+}
 
-    .popup-box::-webkit-scrollbar {
-      width: 6px;
-    }
+.nav-bar a.active i,
+.nav-bar a:focus i,
+.nav-bar a:active i {
+  color: red;
+}
 
-    .popup-box::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-    }
+.nav-bar a.active span,
+.nav-bar a:focus span,
+.nav-bar a:active span {
+  color: yellow;
+  font-weight: bold;
+}
 
-  </style>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* Vertical separator */
+.nav-bar a:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, yellow, red);
+}
 
-  <title>TrustDollar - Secure Digital Earnings</title>
-  <meta name="description" content="TrustDollar is a crypto-earning platform offering mining, referrals, wallet services, and secure digital income.">
-  <meta name="keywords" content="TrustDollar, crypto mining, wallet, earn crypto, digital wallet, bitcoin, ethereum">
-  <meta name="robots" content="index, follow">
 
-  <!-- Open Graph for social sharing -->
-  <meta property="og:title" content="TrustDollar - Secure Digital Earnings">
-  <meta property="og:description" content="Start earning crypto daily with mining, referrals, and more.">
-  <meta property="og:url" content="https://www.trustdollar.in">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.trustdollar.in/images/preview.jpg"> <!-- optional -->
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TrustDollar - Secure Digital Earnings</title>
+<meta name="description" content="TrustDollar is a crypto-earning platform offering mining, referrals, wallet services, and secure digital income.">
+<meta name="keywords" content="TrustDollar, crypto mining, wallet, earn crypto, digital wallet, bitcoin, ethereum">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph for social sharing -->
+<meta property="og:title" content="TrustDollar - Secure Digital Earnings">
+<meta property="og:description" content="Start earning crypto daily with mining, referrals, and more.">
+<meta property="og:url" content="https://www.trustdollar.in">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.trustdollar.in/images/preview.jpg"> <!-- optional -->
 
 </head>
 <body>
 
   <!-- ✅ POPUP GLASS OVERLAY -->
-<style>
-  .popup-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  .popup-box {
-    background: rgba(255,255,255,0.1);
-    border: 2px solid rgba(255,0,0,0.6);
-    border-radius: 15px;
-    padding: 20px;
-    width: 90%;
-    max-width: 600px;
-    text-align: center;
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(255,0,0,0.6), 0 0 40px gold;
-  }
-  .popup-box h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
-  }
-  .countdown {
-    margin: 20px auto;
-    font-size: 28px;
-    font-weight: bold;
-    background: linear-gradient(90deg, red, gold);
-    -webkit-background-clip: text;
-    color: transparent;
-    text-shadow: 2px 2px 5px rgba(255,0,0,0.8), 2px 2px 10px gold;
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid gold;
-    border-radius: 10px;
-  }
-</style>
+  <style>
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .popup-box {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,0,0,0.6);
+      border-radius: 15px;
+      padding: 20px;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(255,0,0,0.6), 0 0 40px gold;
+    }
+    .popup-box h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .countdown {
+      margin: 20px auto;
+      font-size: 28px;
+      font-weight: bold;
+      background: linear-gradient(90deg, red, gold);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 5px rgba(255,0,0,0.8), 2px 2px 10px gold;
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid gold;
+      border-radius: 10px;
+    }
+  </style>
 
-<div class="popup-overlay" id="popupOverlay">
-  <div class="popup-box">
-    <h1>𝐁𝐢𝐠<span style="color:gold;">𝐀𝐧𝐧𝐨𝐮𝐧𝐜𝐞𝐦𝐞𝐧𝐭</span></h1>
-    <p>"576 members, check your wallet address. The amount has been directly sent to your wallet address."
-     <h1>"🔥 New Challenge Alert! 🔥<span style="color:gold;"></span></h1>
-    <p>
-    "You have time again from August 25th to 31th to complete 100 members. Those who haven’t completed it yet, please finish it as soon as possible. This applies only to those who haven’t completed it."<br>
-     <br><br>
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+      <h1>𝐁𝐢𝐠<span style="color:gold;">𝐀𝐧𝐧𝐨𝐮𝐧𝐜𝐞𝐦𝐞𝐧𝐭</span></h1>
+      <p>"576 members, check your wallet address. The amount has been directly sent to your wallet address."
+       <h1>"🔥 New Challenge Alert! 🔥<span style="color:gold;"></span></h1>
+       <p>
+        "You have time again from August 25th to 31th to complete 100 members. Those who haven’t completed it yet, please finish it as soon as possible. This applies only to those who haven’t completed it."<br>
+        <br><br>
 
-      🔹<h3><strong>𝐎𝐮𝐫 𝐁𝐓𝐂 𝐌𝐢𝐧𝐢𝐧𝐠 𝐀𝐝𝐯𝐚𝐧𝐭𝐚𝐠𝐞</strong></h3>
-      🔹 <b>50%</b> 𝐨𝐟 𝐦𝐢𝐧𝐢𝐧𝐠 𝐩𝐫𝐨𝐟𝐢𝐭𝐬 𝐚𝐫𝐞 𝐬𝐡𝐚𝐫𝐞𝐝<br>
-      🔹 <b>50%</b> 𝐠𝐨𝐞𝐬 𝐭𝐨 𝐲𝐨𝐮𝐫 𝐰𝐚𝐥𝐥𝐞𝐭 — 𝐢𝐧𝐬𝐭𝐚𝐧𝐭𝐥𝐲<br><br>
+        🔹<h3><strong>𝐎𝐮𝐫 𝐁𝐓𝐂 𝐌𝐢𝐧𝐢𝐧𝐠 𝐀𝐝𝐯𝐚𝐧𝐭𝐚𝐠𝐞</strong></h3>
+        🔹 <b>50%</b> 𝐨𝐟 𝐦𝐢𝐧𝐢𝐧𝐠 𝐩𝐫𝐨𝐟𝐢𝐭𝐬 𝐚𝐫𝐞 𝐬𝐡𝐚𝐫𝐞𝐝<br>
+        🔹 <b>50%</b> 𝐠𝐨𝐞𝐬 𝐭𝐨 𝐲𝐨𝐮𝐫 𝐰𝐚𝐥𝐥𝐞𝐭 — 𝐢𝐧𝐬𝐭𝐚𝐧𝐭𝐥𝐲<br><br>
 
-      🌟 <em>𝚆𝚒𝚝𝚑 𝚃𝚛𝚞𝚜𝚝𝙳𝚘𝚕𝚕𝚊𝚛, 𝚢𝚘𝚞’𝚛𝚎 𝚊 𝚟𝚊𝚕𝚞𝚎𝚍 𝚙𝚊𝚛𝚝𝚗𝚎𝚛.</em>
-    </p>
+        🌟 <em>𝚆𝚒𝚝𝚑 𝚃𝚛𝚞𝚜𝚝𝙳𝚘𝚕𝚕𝚊𝚛, 𝚢𝚘𝚞’𝚛𝚎 𝚊 𝚟𝚊𝚕𝚞𝚎𝚍 𝚙𝚊𝚛𝚝𝚗𝚎𝚛.</em>
+      </p>
+    </div>
   </div>
-</div>
 
-
-
-
-<!-- ✅ DRAGGABLE FIXED CHAT ICON -->
-<div id="chatIcon">
-  <div class="rotating-ring"></div>
-  <div class="chat-btn" onclick="openChat()">
-    <img src="photo/chatlogo.png" alt="Chat Icon" />
+  <!-- ✅ DRAGGABLE FIXED CHAT ICON -->
+  <div id="chatIcon">
+    <div class="rotating-ring"></div>
+    <div class="chat-btn" onclick="openChat()">
+      <img src="photo/chatlogo.png" alt="Chat Icon" />
+    </div>
   </div>
-</div>
 
-<style>
-  #chatIcon {
-    position: fixed;
-    left: 50%;
-    bottom: 80px;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: grab;
-  }
+  <style>
+    #chatIcon {
+      position: fixed;
+      left: 50%;
+      bottom: 80px;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+    }
 
-  .rotating-ring {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 4px solid transparent;
-    border-top: 4px solid red;
-    border-right: 4px solid gold;
-    animation: spinRing 2s linear infinite;
-    box-shadow: 0 0 8px red;
-    z-index: 1;
-  }
+    .rotating-ring {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 4px solid transparent;
+      border-top: 4px solid red;
+      border-right: 4px solid gold;
+      animation: spinRing 2s linear infinite;
+      box-shadow: 0 0 8px red;
+      z-index: 1;
+    }
 
-  .chat-btn {
-    position: absolute;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: white;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-  }
+    .chat-btn {
+      position: absolute;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: white;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
 
-  .chat-btn img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+    .chat-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
-  @keyframes spinRing {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-</style>
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 
-<script>
-  const chatIcon = document.getElementById('chatIcon');
-  let isDragging = false, offsetX = 0, offsetY = 0;
+  <script>
+    const chatIcon = document.getElementById('chatIcon');
+    let isDragging = false, offsetX = 0, offsetY = 0;
 
   // ✅ Set default center-bottom position
-  if (!localStorage.getItem('chatIconPos')) {
-    chatIcon.style.left = '50%';
-    chatIcon.style.bottom = '80px';
-    chatIcon.style.top = '';
-    chatIcon.style.transform = 'translateX(-50%)';
-  } else {
-    const saved = JSON.parse(localStorage.getItem('chatIconPos'));
-    chatIcon.style.left = saved.x + 'px';
-    chatIcon.style.top = saved.y + 'px';
-    chatIcon.style.bottom = '';
-    chatIcon.style.transform = 'none';
-  }
-
-  chatIcon.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    offsetX = e.clientX - chatIcon.offsetLeft;
-    offsetY = e.clientY - chatIcon.offsetTop;
-    chatIcon.style.cursor = 'grabbing';
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-      const x = e.clientX - offsetX;
-      const y = e.clientY - offsetY;
-      chatIcon.style.left = x + 'px';
-      chatIcon.style.top = y + 'px';
+    if (!localStorage.getItem('chatIconPos')) {
+      chatIcon.style.left = '50%';
+      chatIcon.style.bottom = '80px';
+      chatIcon.style.top = '';
+      chatIcon.style.transform = 'translateX(-50%)';
+    } else {
+      const saved = JSON.parse(localStorage.getItem('chatIconPos'));
+      chatIcon.style.left = saved.x + 'px';
+      chatIcon.style.top = saved.y + 'px';
       chatIcon.style.bottom = '';
       chatIcon.style.transform = 'none';
     }
-  });
 
-  document.addEventListener('mouseup', () => {
-    if (isDragging) {
-      isDragging = false;
-      chatIcon.style.cursor = 'grab';
-      localStorage.setItem('chatIconPos', JSON.stringify({
-        x: chatIcon.offsetLeft,
-        y: chatIcon.offsetTop
-      }));
-    }
-  });
+    chatIcon.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - chatIcon.offsetLeft;
+      offsetY = e.clientY - chatIcon.offsetTop;
+      chatIcon.style.cursor = 'grabbing';
+    });
 
-  
-  function openChat() {
-    const w = 400;
-    const h = 600;
-    const left = (screen.width / 2) - (w / 2);
-    const top = (screen.height / 2) - (h / 2);
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+        chatIcon.style.left = x + 'px';
+        chatIcon.style.top = y + 'px';
+        chatIcon.style.bottom = '';
+        chatIcon.style.transform = 'none';
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        chatIcon.style.cursor = 'grab';
+        localStorage.setItem('chatIconPos', JSON.stringify({
+          x: chatIcon.offsetLeft,
+          y: chatIcon.offsetTop
+        }));
+      }
+    });
+
+
+    function openChat() {
+      const w = 400;
+      const h = 600;
+      const left = (screen.width / 2) - (w / 2);
+      const top = (screen.height / 2) - (h / 2);
 
     // Open Telegram in a centered popup
-    window.open('https://trustdollar.github.io/trustdollarchait1sahaiuiuasdhhhatstysa/', '_blank', `width=${w},height=${h},left=${left},top=${top}`);
+      window.open('https://trustdollar.github.io/trustdollarchait1sahaiuiuasdhhhatstysa/', '_blank', `width=${w},height=${h},left=${left},top=${top}`);
 
     // Open SMS app on mobile with pre-filled message
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
-      window.location.href = "sms:?body=Hi, I just joined TrustDollar. Please help me with my problem.";
-    }
-  }
-</script>
-
-
-
-     
-
-<!-- ✅ MAIN CONTENT -->
-<div class="container">
-  <div class="row">
-    <div class="box">Secure System</div>
-    <div class="box">Fast Payouts</div>
-  </div>
-  <div class="row">
-    <div class="box">24/7 Mining</div>
-    <div class="box">Low Fees</div>
-  </div>
-  <div class="large-box">
-    Welcome to our BTC mining platform. Earn passive income with ease!
-  </div>
-
-  <div class="glass-btc-box">
-    <div class="btc-icon"><i class="fab fa-btc"></i></div>
-  </div>
-
-  <div class="typing-box" id="typingText"></div>
-
-  <h3>This platform is made for real users</h3>
-
-  <div class="wave-section">
-    <svg class="wave-svg" viewBox="0 0 1440 320">
-      <path fill="#ffffff44" fill-opacity="1" d="M0,160L60,165.3C120,171,240,181,360,165.3C480,149,600,107,720,101.3C840,96,960,128,1080,138.7C1200,149,1320,139,1380,133.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-    </svg>
-  </div>
-
-  <div class="info-banner">🛡️ You’re now connected to a secure, trusted system.</div>
-  <div class="info-banner">🍀 Green means growth. White means clarity.</div>
-  <div class="info-banner">💹 Profits grow in a system that’s pure and transparent.</div>
-  <div class="info-banner">✅ Verified & Trustworthy – Greenlighted for success 💚</div>
-  <div class="info-banner">🔐 Simplicity meets security — funds & faith respected.</div>
-  <div class="info-banner">🌿 Clarity + Reliability = Rewarding experience.</div>
-</div>
-
-
-<!-- ✅ NAV BAR -->
-<div class="nav-bar">
-  <a href="index.html" class="active"><i class="fas fa-home"></i>Home</a>
-  <a href="start.html"><i class="fas fa-industry"></i>Mining</a>
-  <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-  <a href="wallet.html"><i class="fas fa-wallet"></i>Wallet</a>
-  <a href="account.html"><i class="fas fa-user"></i>Account</a>
-</div>
-
-  
-
-
-
-<!-- ✅ SCRIPTS -->
-<script>
-  // Typing Text
-  const texts = ["Earn BTC Daily!", "Start mining in one click", "No hidden fees", "Withdraw anytime"];
-  let index = 0;
-  let typingBox = document.getElementById("typingText");
-
-  function typeText() {
-    let text = texts[index];
-    let i = 0;
-    typingBox.innerHTML = "";
-    let typingInterval = setInterval(() => {
-      if (i < text.length) {
-        typingBox.innerHTML += text[i];
-        i++;
-      } else {
-        clearInterval(typingInterval);
-        setTimeout(() => {
-          typingBox.innerHTML = "";
-          index = (index + 1) % texts.length;
-          typeText();
-        }, 2000);
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        window.location.href = "sms:?body=Hi, I just joined TrustDollar. Please help me with my problem.";
       }
-    }, 60);
-  }
+    }
+  </script>
 
-  typeText();
+
+
+
+  <!-- ✅ MAIN CONTENT -->
+  <div class="container">
+    <div class="row">
+      <div class="box">Secure System</div>
+      <div class="box">Fast Payouts</div>
+    </div>
+    <div class="row">
+      <div class="box">24/7 Mining</div>
+      <div class="box">Low Fees</div>
+    </div>
+    <div class="large-box">
+      Welcome to our BTC mining platform. Earn passive income with ease!
+    </div>
+
+    <div class="glass-btc-box">
+      <div class="btc-icon"><i class="fab fa-btc"></i></div>
+    </div>
+
+    <div class="typing-box" id="typingText"></div>
+
+    <h3>This platform is made for real users</h3>
+
+    <div class="wave-section">
+      <svg class="wave-svg" viewBox="0 0 1440 320">
+        <path fill="#ffffff44" fill-opacity="1" d="M0,160L60,165.3C120,171,240,181,360,165.3C480,149,600,107,720,101.3C840,96,960,128,1080,138.7C1200,149,1320,139,1380,133.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+      </svg>
+    </div>
+
+    <div class="info-banner">🛡️ You’re now connected to a secure, trusted system.</div>
+    <div class="info-banner">🍀 Green means growth. White means clarity.</div>
+    <div class="info-banner">💹 Profits grow in a system that’s pure and transparent.</div>
+    <div class="info-banner">✅ Verified & Trustworthy – Greenlighted for success 💚</div>
+    <div class="info-banner">🔐 Simplicity meets security — funds & faith respected.</div>
+    <div class="info-banner">🌿 Clarity + Reliability = Rewarding experience.</div>
+  </div>
+  <!-- NAV BAR -->
+  <div class="nav-bar">
+    <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="start.html"><i class="fas fa-industry"></i><span>Mining</span></a>
+    <a href="promotion.html"><i class="fas fa-bullhorn"></i><span>Promotion</span></a>
+    <a href="wallet.html"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+    <a href="account.html"><i class="fas fa-user"></i><span>Account</span></a>
+  </div>
+
+  <script>
+  // ✅ Active nav highlight based on current page
+    const currentPage = window.location.pathname.split("/").pop(); 
+    document.querySelectorAll(".nav-bar a").forEach(link => {
+      if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  </script>
+
+  <!-- ✅ SCRIPTS -->
+  <script>
+  // Typing Text
+    const texts = ["Earn BTC Daily!", "Start mining in one click", "No hidden fees", "Withdraw anytime"];
+    let index = 0;
+    let typingBox = document.getElementById("typingText");
+
+    function typeText() {
+      let text = texts[index];
+      let i = 0;
+      typingBox.innerHTML = "";
+      let typingInterval = setInterval(() => {
+        if (i < text.length) {
+          typingBox.innerHTML += text[i];
+          i++;
+        } else {
+          clearInterval(typingInterval);
+          setTimeout(() => {
+            typingBox.innerHTML = "";
+            index = (index + 1) % texts.length;
+            typeText();
+          }, 2000);
+        }
+      }, 60);
+    }
+
+    typeText();
 
   // Auto-hide popup
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const popup = document.getElementById("popupOverlay");
-      if (popup) popup.classList.add("hide");
-    }, 5000);
-  });
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const popup = document.getElementById("popupOverlay");
+        if (popup) popup.classList.add("hide");
+      }, 5000);
+    });
 
-  
-</script>
-<!-- ✅ Auth Check (Paste before </body>) -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-    authDomain: "trustdollar-f72f4.firebaseapp.com",
-    projectId: "trustdollar-f72f4",
-    storageBucket: "trustdollar-f72f4.appspot.com",
-    messagingSenderId: "217643658538",
-    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-  };
+  </script>
+  <!-- ✅ Auth Check (Paste before </body>) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+    const firebaseConfig = {
+      apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+      authDomain: "trustdollar-f72f4.firebaseapp.com",
+      projectId: "trustdollar-f72f4",
+      storageBucket: "trustdollar-f72f4.appspot.com",
+      messagingSenderId: "217643658538",
+      appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+    };
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      window.location.href = "auth.html";
-    } else {
-      document.body.style.display = "block";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "auth.html";
+      } else {
+        document.body.style.display = "block";
+      }
+    });
+  </script>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    if (ref) {
+      window.location.href = `https://www.trustdollar.in/auth.html?ref=${ref}`;
     }
-  });
-</script>
-
- <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const ref = urlParams.get('ref');
-  if (ref) {
-    window.location.href = `https://www.trustdollar.in/auth.html?ref=${ref}`;
-  }
-</script>
+  </script>
 
 
 </body>

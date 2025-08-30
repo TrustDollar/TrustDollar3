@@ -1,326 +1,362 @@
-   <!DOCTYPE html>
-<html lang="en">
-<head>
+  <!DOCTYPE html>
+ <html lang="en">
+ <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Deposit – TrustDollar</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
-  body {
-    background: linear-gradient(to bottom right, #8b0000, #ffd700);
-    font-family: 'Segoe UI', sans-serif;
-    padding: 60px 14px 120px;
-    max-width: 420px;
-    margin: 0 auto;
-    color: #fff;
-  }
+    body {
+      background: linear-gradient(to bottom right, #8b0000, #ffd700);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 60px 14px 120px;
+      max-width: 420px;
+      margin: 0 auto;
+      color: #fff;
+    }
 
-  h2 {
-    text-align: center;
-    color: gold;
-    font-size: 20px;
-    margin-bottom: 20px;
-    text-shadow: 0 0 8px red;
-  }
+    h2 {
+      text-align: center;
+      color: gold;
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px red;
+    }
 
-  .amount-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-bottom: 20px;
-  }
+    .amount-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
 
-  .amount-box {
-    background: #1a1a1a;
-    border: 2px solid gold;
-    border-radius: 12px;
-    padding: 18px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: gold;
-    box-shadow: 0 0 15px red;
-    cursor: pointer;
-    transition: 0.3s;
-  }
+    .amount-box {
+      background: #1a1a1a;
+      border: 2px solid gold;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: gold;
+      box-shadow: 0 0 15px red;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-  .amount-box:hover {
-    background: #ff000022;
-    transform: scale(1.05);
-  }
+    .amount-box:hover {
+      background: #ff000022;
+      transform: scale(1.05);
+    }
 
-  .custom-amount {
-    margin: 10px 0;
-    display: flex;
-    justify-content: center;
-  }
+    .custom-amount {
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+    }
 
-  .custom-amount input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid gold;
-    border-radius: 10px;
-    font-size: 16px;
-    background: #111;
-    color: gold;
-    text-align: center;
-    box-shadow: 0 0 10px red;
-  }
+    .custom-amount input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid gold;
+      border-radius: 10px;
+      font-size: 16px;
+      background: #111;
+      color: gold;
+      text-align: center;
+      box-shadow: 0 0 10px red;
+    }
 
-  #invoiceSection {
-    display: none;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 16px;
-    border-radius: 16px;
-    border: 2px solid red;
-    box-shadow: 0 0 20px gold;
-    margin-top: 20px;
-    text-align: center;
-  }
+    #invoiceSection {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 16px;
+      border-radius: 16px;
+      border: 2px solid red;
+      box-shadow: 0 0 20px gold;
+      margin-top: 20px;
+      text-align: center;
+    }
 
-  #walletAddress {
-    font-size: 15px;
-    font-weight: bold;
-    color: gold;
-    background: #111;
-    padding: 12px;
-    border-radius: 10px;
-    word-break: break-word;
-    margin: 10px 0;
-    box-shadow: 0 0 10px red;
-  }
+    #walletAddress {
+      font-size: 15px;
+      font-weight: bold;
+      color: gold;
+      background: #111;
+      padding: 12px;
+      border-radius: 10px;
+      word-break: break-word;
+      margin: 10px 0;
+      box-shadow: 0 0 10px red;
+    }
 
-  #copyBtn, #confirmBtn {
-    background: gold;
-    border: none;
-    padding: 10px 16px;
-    color: #000;
-    font-weight: bold;
-    font-size: 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 8px 4px;
-    box-shadow: 0 0 10px red;
-  }
+    #copyBtn, #confirmBtn {
+      background: gold;
+      border: none;
+      padding: 10px 16px;
+      color: #000;
+      font-weight: bold;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 8px 4px;
+      box-shadow: 0 0 10px red;
+    }
 
-  #qrCode {
-    margin: 10px auto;
-    max-width: 160px;
-  }
+    #qrCode {
+      margin: 10px auto;
+      max-width: 160px;
+    }
 
-  #popupMessage {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: gold;
-    color: #000;
-    padding: 14px 24px;
-    border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0 0 20px red;
-    display: none;
-    z-index: 9999;
-  }
+    #popupMessage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: gold;
+      color: #000;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 0 20px red;
+      display: none;
+      z-index: 9999;
+    }
 
-  #countdownTimer {
-    margin-top: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #ff4c4c;
-  }
+    #countdownTimer {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #ff4c4c;
+    }
+    /* Notice Box */
+    .info-box-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 60px 0 20px 0;
+      width: 100%;
+    }
 
-  .nav-bar {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #111;
-    border-radius: 20px;
-    padding: 10px 14px;
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 320px;
-    box-shadow: 0 6px 20px red;
-    z-index: 999;
-  }
+    .info-box {
+      --radius: 12px;
+      --border-thickness: 0px;
+      --rotation-speed: s;
 
-  .nav-bar a {
-    flex: 1;
-    text-align: center;
-    text-decoration: none;
-    color: gold;
-    font-size: 10px;
-  }
+      position: relative;
+      padding: 16px 24px;
+      width: min(700px, 92%);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #b30000, #ffcc00);
+      color: #fff5d7;
+      font-weight: 500;
+      text-align: center;
+      box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
+      line-height: 1.5;
+      z-index: 2;
+    }
 
-  .nav-bar a i {
-    font-size: 16px;
-    margin-bottom: 2px;
-    display: block;
-    color: crimson;
-  }
+    .info-box::before {
+      content: "";
+      position: absolute;
+      inset: calc(-1 * var(--border-thickness));
+      border-radius: calc(var(--radius) + var(--border-thickness));
+      background: conic-gradient(from 0deg, #ff3d00, #ffcf00, #00d4ff, #8b00ff, #ff3d00);
+      z-index: 0;
+      animation: rotateRing linear infinite;
+      animation-duration: var(--rotation-speed);
+    }
 
-  .nav-bar a:hover,
-  .nav-bar a.active {
-    color: crimson;
-    transform: translateY(-3px);
-  }
-</style>
+    .info-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #b30000, #ffcc00);
+      z-index: 1;
+      clip-path: inset(var(--border-thickness) round var(--radius));
+    }
 
+    .info-text {
+      position: relative;
+      z-index: 3;
+      font-size: 15px;
+      color: #fff5d7;
+      word-break: break-word;
+    }
+
+    .notice-heading {
+      background: linear-gradient(to right, #87fd28, #ffcc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 20px;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 3;
+    }
+
+    @keyframes rotateRing {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .info-box:hover::before { animation-duration: 2s; }
+
+    @media (max-width:500px){
+      .info-box { padding: 12px 16px; font-size: 14px; }
+      .notice-heading { font-size: 18px; }
+    }
+  </style>
 </head>
 <body>
 
-<h2>Select Deposit Amount</h2>
+  <h2>Select Deposit Amount</h2>
 
-<div class="amount-grid" id="amountGrid">
-  <div class="amount-box" data-amount="170">$170</div>
-  <div class="amount-box" data-amount="300">$300</div>
-  <div class="amount-box" data-amount="600">$600</div>
-  <div class="amount-box" data-amount="1200">$1200</div>
-</div>
+  <div class="amount-grid" id="amountGrid">
+    <div class="amount-box" data-amount="170">$170</div>
+    <div class="amount-box" data-amount="300">$300</div>
+    <div class="amount-box" data-amount="600">$600</div>
+    <div class="amount-box" data-amount="1200">$1200</div>
+  </div>
 
-<div class="custom-amount">
-  <input type="number" id="customAmountInput" placeholder="Type with speed...Mini. 170$" />
-</div>
-     
+  <div class="custom-amount">
+    <input type="number" id="customAmountInput" placeholder="Type with speed...Mini. 170$" />
+  </div>
+
   <div class="info-box-container">
-  <div class="info-box">
-    <h3 class="notice-heading">📢 Notice</h3>
-    <div class="info-text">
-      𝐈𝐦𝐩𝐨𝐫𝐭𝐚𝐧𝐭 𝐢𝐧𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧 == 𝐀𝐟𝐭𝐞𝐫 𝐬𝐞𝐧𝐝𝐢𝐧𝐠 𝐭𝐡𝐞 𝐚𝐦𝐨𝐮𝐧𝐭, 𝐝𝐨 𝐜𝐥𝐢𝐜𝐤 𝐨𝐧 𝐈 𝐡𝐚𝐯𝐞 𝐩𝐚𝐢𝐝, 
-      𝐢𝐟 𝐲𝐨𝐮 𝐝𝐨 𝐧𝐨𝐭 𝐝𝐨 𝐬𝐨, 𝐭𝐡𝐞 𝐚𝐦𝐨𝐮𝐧𝐭 𝐦𝐚𝐲 𝐛𝐞 𝐥𝐨𝐬𝐭
-      𝐈𝐟 𝐲𝐨𝐮 𝐧𝐞𝐞𝐝 𝐚𝐧𝐲 𝐨𝐭𝐡𝐞𝐫 𝐢𝐧𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧, 𝐩𝐥𝐞𝐚𝐬𝐞 𝐜𝐨𝐧𝐭𝐚𝐜𝐭 𝐲𝐨𝐮𝐫 𝐚𝐝𝐦𝐢𝐧
+    <div class="info-box">
+      <h3 class="notice-heading">📢 Notice</h3>
+      <div class="info-text">
+        𝐈𝐦𝐩𝐨𝐫𝐭𝐚𝐧𝐭 𝐢𝐧𝐟𝐨 == After sending the amount, click on "I Have Paid".
+        If you don’t do so, the amount may be lost.  
+        For more info, please contact your admin.
+      </div>
     </div>
   </div>
-</div>
 
-<style>
-  .info-box-container{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:60px 0 20px 0;
-    width:100%;
-  }
+  <div id="invoiceSection">
+    <h3 style="color: gold; text-shadow: 0 0 6px red;">Send QR/VS Address (BEP20)</h3>
+    <p>Send exactly <span id="selectedAmountDisplay"></span> to:</p>
+    <div id="qrCode"><img id="qrImage" src="" width="160" height="160" /></div>
+    <div id="walletAddress">0x5fffe41a6f9691869d791e8115fd28fea172fb9f</div>
+    <button id="copyBtn">Copy Address</button>
+    <div id="countdownTimer">Time Remaining: 3:00</div>
+    <button id="confirmBtn">I Have Paid</button>
+  </div>
 
-  .info-box{
-    --radius: 12px;
-    --border-thickness: 0px;
-    --rotation-speed: s;
+  <!-- FontAwesome CDN for icons -->
+  <link 
+  rel="stylesheet" 
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
 
-    position: relative;
-    padding: 16px 24px;
-    width: min(700px, 92%);
-    border-radius: var(--radius);
-    background: linear-gradient(145deg, #b30000, #ffcc00);
-    color: #fff5d7;
-    font-weight:500;
-    text-align:center;
-    box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
-    line-height:1.5;
-    z-index: 2;
-    overflow: visible;
-  }
+  <style>
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 480px;
+      padding: 6px 0; /* 👈 compact */
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+      z-index: 999;
 
-  /* Rotating gradient ring */
-  .info-box::before{
-    content: "";
-    position: absolute;
-    inset: calc(-1 * var(--border-thickness));
-    border-radius: calc(var(--radius) + var(--border-thickness));
-    padding: 0;
-    background: conic-gradient(
-      from 0deg,
-      #ff3d00,
-      #ffcf00,
-      #00d4ff,
-      #8b00ff,
-      #ff3d00
-    );
-    z-index: 0;
-    filter: blur(0px);
-    animation: rotateRing linear infinite;
-    animation-duration: var(--rotation-speed);
-  }
-
-  .info-box::after{
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius);
-    background: linear-gradient(145deg, #b30000, #ffcc00);
-    z-index: 1;
-    clip-path: inset(var(--border-thickness) round var(--radius));
-  }
-
-  .info-text{
-    position: relative;
-    z-index: 3;
-    font-size: 15px;
-    color: #fff5d7;
-    word-break: break-word;
-  }
-
-  .notice-heading {
-    background: linear-gradient(to right, #87fd28, #ffcc00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 20px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-    margin-bottom: 8px;
-    position: relative;
-    z-index: 3;
-  }
-
-  @keyframes rotateRing {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
-  .info-box:hover::before{
-    animation-duration: 2s;
-  }
-
-  @media (max-width:500px){
-    .info-box{
-      padding: 12px 16px;
-      font-size: 14px;
+      /* 🔥 Gradient top border */
+      border-top: 2px solid transparent;
+      border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
     }
-    .notice-heading {
+
+    .nav-bar a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      font-size: 11px;
+      color: #ccc;
+      position: relative;
+      padding: 4px 0;
+      transition: 0.3s ease;
+    }
+
+    .nav-bar a i {
+      display: block;
       font-size: 18px;
+      margin-bottom: 3px;
+      color: #ccc;
     }
-  }
+
+/* 👇 Active / Click / Focus Highlight */
+.nav-bar a.active,
+.nav-bar a:focus,
+.nav-bar a:active {
+  background: linear-gradient(to top, rgba(255,0,0,0.15), transparent);
+  border-radius: 6px;
+}
+
+.nav-bar a.active i,
+.nav-bar a:focus i,
+.nav-bar a:active i {
+  color: red;
+}
+
+.nav-bar a.active span,
+.nav-bar a:focus span,
+.nav-bar a:active span {
+  color: yellow;
+  font-weight: bold;
+}
+
+/* Vertical separator */
+.nav-bar a:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: linear-gradient(to bottom, yellow, red);
+}
 </style>
 
-
-<div id="invoiceSection">
-  <h3 style="color: gold; text-shadow: 0 0 6px red;">Send QR/VS Addresh(BEP20)</h3>
-  <p>Send exactly <span id="selectedAmountDisplay"></span> to:</p>
-  <div id="qrCode"><img id="qrImage" src="" width="160" height="160" /></div>
-  <div id="walletAddress">0x5fffe41a6f9691869d791e8115fd28fea172fb9f</div>
-  <button id="copyBtn">Copy Address</button>
-  <div id="countdownTimer">Time Remaining: 3:00</div>
-  <button id="confirmBtn">I Have Paid</button>
+<!-- NAV BAR -->
+<div class="nav-bar">
+  <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="start.html"><i class="fas fa-industry"></i><span>Mining</span></a>
+  <a href="promotion.html"><i class="fas fa-bullhorn"></i><span>Promotion</span></a>
+  <a href="wallet.html"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+  <a href="account.html"><i class="fas fa-user"></i><span>Account</span></a>
 </div>
+
+<script>
+  // ✅ Active nav highlight based on current page
+  const currentPage = window.location.pathname.split("/").pop();
+  document.querySelectorAll(".nav-bar a").forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+</script>
+
+
 
 <div id="popupMessage"></div>
 
-<div class="nav-bar">
-  <a href="index.html"><i class="fas fa-home"></i>Home</a>
-  <a href="start.html"><i class="fas fa-bolt"></i>Mining</a>
-  <a href="promotion.html"><i class="fas fa-bullhorn"></i>Promotion</a>
-  <a href="wallet.html" class="active"><i class="fas fa-wallet"></i>Wallet</a>
-  <a href="account.html"><i class="fas fa-user"></i>Account</a>
-</div>
+
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
@@ -342,6 +378,7 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+
   let currentUser;
   let selectedAmount = 0;
   const address = "0x87bfc11aff75eab1a4f560885a97dbeb70b11716";
@@ -376,8 +413,9 @@
     document.getElementById("amountGrid").style.display = "none";
     document.getElementById("customAmountInput").style.display = "none";
 
-    const qrImage = `https://api.qrserver.com/v1/create-qr-code/?data=${address}&size=160x160`;
-    document.getElementById("qrImage").src = qrImage;
+    document.getElementById("qrImage").src =
+    `https://api.qrserver.com/v1/create-qr-code/?data=${address}&size=160x160`;
+
     startCountdown();
   }
 
@@ -387,9 +425,7 @@
 
   document.getElementById("customAmountInput").oninput = function () {
     const val = parseInt(this.value);
-    if (val > 0) {
-      setTimeout(() => openInvoice(val), 1000);
-    }
+    if (val > 0) setTimeout(() => openInvoice(val), 1000);
   };
 
   document.getElementById("copyBtn").onclick = () => {
@@ -405,17 +441,17 @@
   function generateOrderId() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let id = 'ORD';
-    for (let i = 0; i < 10; i++) {
-      id += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return id;
+    for (let i = 0; i < 10; i++) id += chars[Math.floor(Math.random() * chars.length)];
+      return id;
   }
 
   confirmBtn.onclick = async () => {
     if (!currentUser || !selectedAmount) return;
+
     const depositsQuery = query(collection(db, "deposits"), where("uid", "==", currentUser.uid));
     const existing = await getDocs(depositsQuery);
     const isFirstDeposit = existing.empty;
+
     const userRef = doc(db, "users", currentUser.uid);
     const userSnap = await getDoc(userRef);
 

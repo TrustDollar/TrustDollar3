@@ -1,0 +1,172 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIN Verification</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #a00000, #ffb200);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .popup {
+        width: 100%;
+        max-width: 340px;
+        padding: 20px;
+        text-align: center;
+        border-radius: 16px;
+        background: #111;
+        color: #fff;
+        border: 3px solid #d4af37;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 35px rgba(212, 175, 55, 0.6);
+    }
+
+    .popup h2 {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        background: linear-gradient(90deg, #ff0000, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .popup p {
+        font-size: 15px;
+        margin-bottom: 18px;
+        color: #f8f8f8;
+    }
+
+    .pin-box {
+        width: 90%;
+        max-width: 220px;
+        padding: 12px;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 10px;
+        border: 2px solid #ff0000;
+        outline: none;
+        background: #fff;
+        color: #000;
+        font-weight: bold;
+        letter-spacing: 6px;
+    }
+
+    .verify-btn {
+        margin-top: 18px;
+        padding: 12px 24px;
+        width: 90%;
+        max-width: 220px;
+        background: linear-gradient(135deg, #ff0000, #d4af37);
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 28px;
+        cursor: pointer;
+    }
+    .wave-text {
+    display: inline-block;
+    font-size: 28px;
+    background: linear-gradient(90deg, #ff0000, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: wave 1.5s infinite;
+    transform-origin: 70% 70%;
+}
+
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}
+
+</style>
+</head>
+<body>
+
+ <div class="overlay" id="popupOverlay">
+    <div class="popup">
+        <h2 id="welcomeText" class="wave-text">👋 Hello!</h2>
+        <h2 id="userName">......</h2>
+        <p>“𝐖𝐢𝐭𝐡𝐝𝐫𝐚𝐰𝐚𝐥 𝐜𝐚𝐧𝐧𝐨𝐭 𝐛𝐞 𝐩𝐫𝐨𝐜𝐞𝐬𝐬𝐞𝐝 𝐰𝐢𝐭𝐡𝐨𝐮𝐭 𝐏𝐈𝐍 𝐯𝐞𝐫𝐢𝐟𝐢𝐜𝐚𝐭𝐢𝐨𝐧.”</p>
+        <input type="password" id="pinInput" class="pin-box" maxlength="4" placeholder="****">
+        <button class="verify-btn" onclick="verifyPIN()">Verify</button>
+    </div>
+</div>
+
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+        authDomain: "trustdollar-f72f4.firebaseapp.com",
+        projectId: "trustdollar-f72f4",
+        storageBucket: "trustdollar-f72f4.appspot.com",
+        messagingSenderId: "217643658538",
+        appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth();
+
+    let correctPIN = "";
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const userDocRef = doc(db, "users", user.uid);
+            const userSnap = await getDoc(userDocRef);
+            if (userSnap.exists()) {
+                const data = userSnap.data();
+                document.getElementById("userName").innerText = `${data.name}, Enter Your PIN`;
+                correctPIN = data.pin;
+            } else {
+                document.getElementById("userName").innerText = `User Not Found`;
+            }
+        } else {
+            document.getElementById("userName").innerText = `Please Login`;
+        }
+    });
+
+    window.verifyPIN = function() {
+        const enteredPIN = document.getElementById("pinInput").value.trim();
+
+        if (enteredPIN.length === 4) {
+            if (enteredPIN === correctPIN) {
+                window.location.href = "withdrawal.html"; // ✅ correct PIN
+            } else {
+                window.location.href = "wallet.html"; // ❌ wrong PIN
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

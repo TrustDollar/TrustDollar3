@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,11 +9,11 @@
       background: linear-gradient(135deg, #8B0000, #FFD700);
       color: white;
       font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
       padding: 20px;
     }
     h2 {
+      text-align: center;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
     }
     #searchInput {
@@ -41,33 +41,28 @@
       color: white;
     }
     #referralHistory {
-      max-width: 700px;
+      max-width: 1000px;
       margin: 20px auto;
+      overflow-x: auto;
     }
-    .box {
-      background: rgba(0, 0, 0, 0.4);
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+    th, td {
       border: 1px solid gold;
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 12px;
-      text-align: left;
+      padding: 12px;
+      text-align: center;
       color: gold;
       font-weight: 600;
+      background: rgba(0, 0, 0, 0.5);
     }
-    .row-box {
-      display: flex;
-      gap: 10px;
-      margin-top: 8px;
-      flex-wrap: wrap;
+    th {
+      background: rgba(255, 215, 0, 0.2);
     }
-    .value-box {
-      flex: 1;
-      background: rgba(255, 215, 0, 0.15);
-      padding: 8px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: bold;
-      color: gold;
+    tr:hover {
+      background: rgba(255, 215, 0, 0.1);
     }
     .loader {
       margin: 20px auto;
@@ -94,53 +89,63 @@
       margin-top: 20px;
       color: red;
       font-weight: 700;
+      text-align: center;
     }
-    <style>
-  /* Existing styles... */
-
-  /* Search button animation effect */
-  #searchBtn {
-    position: relative;
-    overflow: hidden;
-  }
-  #searchBtn:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.4);
-    transform: skewX(-25deg);
-    animation: none;
-  }
-  #searchBtn.animate:after {
-    animation: shine 0.8s forwards;
-  }
-  @keyframes shine {
-    100% {
-      left: 150%;
+    .active-status {
+      color: limegreen;
+      font-size: 18px;
+      font-weight: bold;
     }
-  }
 
-  /* Not found text */
-  #errorMsg {
-    margin-top: 20px;
-    color: red;
-    font-weight: 700;
-  }
-</style>
+    /* ✅ Checkmark animation */
+    .checkmark {
+      width: 28px;
+      height: 28px;
+      stroke: #4caf50;
+      stroke-width: 3;
+      stroke-miterlimit: 10;
+      fill: none;
+      display: inline-block;
+      animation: fadeIn 0.4s ease forwards;
+    }
 
+    .checkmark-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      animation: drawCircle 0.6s ease forwards;
+    }
+
+    .checkmark-check {
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: drawCheck 0.3s 0.6s ease forwards;
+    }
+
+    @keyframes drawCircle {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 <body>
   <h2>Referral History</h2>
-  <input type="text" id="searchInput" placeholder="Search username...">
-  <button id="searchBtn">Search</button>
-  <button id="backBtn" onclick="window.history.back()">Back</button>
+  <div style="text-align:center;">
+    <input type="text" id="searchInput" placeholder="Search username...">
+    <button id="searchBtn">Search</button>
+    <button id="backBtn" onclick="window.history.back()">Back</button>
+  </div>
   
   <div id="loader" class="loader" style="display:none;"></div>
   <div id="errorMsg"></div>
+  
   <div id="referralHistory"></div>
 
   <script type="module">
@@ -148,7 +153,6 @@
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import { getFirestore, collection, query, where, orderBy, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     
-
     const firebaseConfig = {
       apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
       authDomain: "trustdollar-f72f4.firebaseapp.com",
@@ -157,9 +161,7 @@
       messagingSenderId: "217643658538",
       appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
     };
-      
-      
-
+    
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
@@ -176,7 +178,6 @@
       errorMsg.textContent = "";
 
       try {
-        // Step 1: Get current user's refCode
         const userDoc = await getDoc(doc(db, "users", uid));
         if (!userDoc.exists()) {
           errorMsg.textContent = "User data not found.";
@@ -185,7 +186,6 @@
         }
         const myRefCode = userDoc.data().refCode;
 
-        // Step 2: Fetch all users who used this refCode
         const q = query(
           collection(db, "users"),
           where("referredBy", "==", myRefCode),
@@ -195,14 +195,15 @@
 
         referralData = snap.docs.map(docSnap => ({
           username: docSnap.data().username || "N/A",
-          wallet: docSnap.data().wallet ?? 0,
-          createdAt: docSnap.data().createdAt?.toDate().toLocaleString() || "Unknown"
+          createdAt: docSnap.data().createdAt?.toDate().toLocaleString() || "Unknown",
+          deposit: docSnap.data().wallet ?? 0,
+          bonus: docSnap.data().bonus ?? 0
         }));
 
         if (referralData.length === 0) {
           errorMsg.textContent = "No referrals found.";
         } else {
-          renderList(referralData);
+          renderTable(referralData);
         }
       } catch (err) {
         console.error(err);
@@ -212,41 +213,58 @@
       loader.style.display = "none";
     }
 
-    function renderList(data) {
-      referralHistory.innerHTML = "";
-      data.forEach(item => {
-        referralHistory.innerHTML += `
-          <div class="box">
-            <div><strong>User:</strong> ${item.username}</div>
-            <div class="row-box">
-              <div class="value-box">Deposit: ${item.wallet}</div>
-              <div class="value-box">Joined: ${item.createdAt}</div>
-            </div>
-          </div>
-        `;
-      });
+    function renderTable(data) {
+      referralHistory.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Joining Date</th>
+              <th>Deposited</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(item => `
+              <tr>
+                <td>${item.username}</td>
+                <td>${item.createdAt}</td>
+                <td>
+                  ${item.deposit > 0 
+                    ? `
+                      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark-check" fill="none" d="M14 27l7 7 16-16"/>
+                      </svg>
+                    `
+                    : "—"}
+                </td>
+                <td>
+                  ${item.deposit > 0 
+                    ? '<span class="active-status">✔ Active</span>' 
+                    : "$" + item.bonus}
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
     }
-     
-      document.getElementById("searchBtn").addEventListener("click", () => {
-  const btn = document.getElementById("searchBtn");
 
-  // 🔹 Animation start
-  btn.classList.add("animate");
-  setTimeout(() => btn.classList.remove("animate"), 800);
+    document.getElementById("searchBtn").addEventListener("click", () => {
+      const term = document.getElementById("searchInput").value.trim().toLowerCase();
+      const filtered = referralData.filter(item => item.username.toLowerCase().includes(term));
 
-  const term = document.getElementById("searchInput").value.trim().toLowerCase();
-  const filtered = referralData.filter(item => item.username.toLowerCase().includes(term));
+      if (filtered.length === 0) {
+        referralHistory.innerHTML = "";
+        errorMsg.textContent = "No matching result found.";
+      } else {
+        errorMsg.textContent = "";
+        renderTable(filtered);
+      }
+    });
 
-  if (filtered.length === 0) {
-    referralHistory.innerHTML = "";
-    errorMsg.textContent = "No matching result found.";
-  } else {
-    errorMsg.textContent = "";
-    renderList(filtered);
-  }
-});
-
-onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         fetchReferrals(user.uid);
       } else {
@@ -256,3 +274,4 @@ onAuthStateChanged(auth, (user) => {
   </script>
 </body>
 </html>
+

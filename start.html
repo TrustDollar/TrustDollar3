@@ -1,326 +1,243 @@
-       <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+         <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-        <style>
-          * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-          }
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+          <style>
+            * {
+              box-sizing: border-box;
+              margin: 0;
+              padding: 0;
+              scroll-behavior: smooth;
+            }
 
-          body {
-            background: linear-gradient(to bottom right, #ff0000, #ff9900);
-            font-family: 'Segoe UI', sans-serif;
-            padding: 60px 14px 140px;
-            max-width: 420px;
-            margin: 0 auto;
-            color: #fff;
-          }
+            body {
+              background: linear-gradient(to bottom right, #ff0000, #ff9900);
+              font-family: 'Segoe UI', sans-serif;
+              padding: 60px 14px 140px;
+              max-width: 420px;
+              margin: 0 auto;
+              color: #fff;
+            }
 
-          h2 {
-            text-align: center;
-            color: #ffd700;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #ffcc00;
-          }
+            h2 {
+              text-align: center;
+              color: #ffd700;
+              margin-bottom: 20px;
+              text-shadow: 0 0 10px #ffcc00;
+            }
 
-          .grid-boxes {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 16px;
-          }
+            .grid-boxes {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              gap: 10px;
+              margin-bottom: 16px;
+            }
 
-          .box {
-            background: linear-gradient(135deg, #e04e00, #a61700);
-            border-radius: 12px;
-            padding: 14px;
-            box-shadow: 0 0 12px #ffcc0055;
-            flex: 0 0 48%;
-            border: 1px solid #ffcc00;
-          }
+            .box {
+              background: linear-gradient(135deg, #e04e00, #a61700);
+              border-radius: 12px;
+              padding: 14px;
+              box-shadow: 0 0 12px #ffcc0055;
+              flex: 0 0 48%;
+              border: 1px solid #ffcc00;
+            }
 
-          .label {
-            color: #ffd700;
-            font-size: 12px;
-            margin-bottom: 5px;
-          }
+            .label {
+              color: #ffd700;
+              font-size: 12px;
+              margin-bottom: 5px;
+            }
 
-          .value {
-            font-size: 20px;
-            color: #fff;
-            font-weight: bold;
-          }
+            .value {
+              font-size: 20px;
+              color: #fff;
+              font-weight: bold;
+            }
 
-          .input-box {
-            background: linear-gradient(135deg, #e04e00, #a61700);
-            border: 1px solid #ffcc00;
-            border-radius: 12px;
-            padding: 14px;
-            box-shadow: 0 0 10px #ffcc0055;
-            margin-top: 16px;
-          }
-
-          input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            background: #111;
-            border: 1px solid #ffcc00;
-            border-radius: 10px;
-            color: #ffd700;
-            font-size: 16px;
-            margin-top: 8px;
-          }
-          button {
-            margin-top: 15px;
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 12px;
-            color: #fff; /* White text for contrast */
-            background: linear-gradient(145deg, #ff0000, #ffd700); /* 🔴 Red to Gold mix */
-            box-shadow: 0 4px 0 #aa0000, /* Bottom shadow for 3D depth */
-            0 0 15px rgba(255, 215, 0, 0.7); /* Glow effect */
-            cursor: pointer;
-            transition: all 0.2s ease;
-          }
-
-          button:hover {
-            transform: translateY(-2px) scale(1.03); /* Lift on hover */
-            box-shadow: 0 6px 0 #aa0000, 
-            0 0 20px rgba(255, 215, 0, 0.9);
-          }
-
-          button:active {
-            transform: translateY(2px) scale(0.98); /* Press down */
-            box-shadow: 0 2px 0 #aa0000, 
-            0 0 10px rgba(255, 215, 0, 0.5);
-          }
-
-          #popup {
-            display: none;
-            text-align: center;
-            color: red; /* 🔴 Text laal */
-            background: #fff9f9; /* 💡 Light background taaki laal text clear dikhe */
-            padding: 14px 18px;
-            border-radius: 14px;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 99999;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.8); /* 🔴 Red glow */
-            width: 85%;
-            max-width: 340px;
-            font-weight: bold;
-            white-space: pre-line;
-            font-size: 18px; /* 📏 Bigger text */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* 🖋 Better readability */
-          }
-
-
-          #timerBox {
-            display: none;
-            text-align: center;
-            margin-top: 10px;
-            background: #a61700;
-            border: 2px solid #ffd70066;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ffcc0055;
-          }
-
-          #miningTimer {
-            font-size: 20px;
-            color: #fff;
-            margin-top: 4px;
-            background: #111;
-            padding: 10px 20px;
-            border-radius: 12px;
-            display: inline-block;
-            box-shadow: 0 0 12px #ffcc00aa;
-            text-shadow: 0 0 8px #ffd700;
-          }
-
-          .mining-waves {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            margin-top: 20px;
-            height: 30px;
-          }
-
-          .wave {
-            width: 6px;
-            height: 100%;
-            background: #ffd700;
-            border-radius: 4px;
-            animation: waveFlow 1.2s ease-in-out infinite;
-            box-shadow: 0 0 8px #ffd70099;
-          }
-
-          .wave:nth-child(1) { animation-delay: 0s; }
-          .wave:nth-child(2) { animation-delay: 0.2s; }
-          .wave:nth-child(3) { animation-delay: 0.4s; }
-          .wave:nth-child(4) { animation-delay: 0.6s; }
-          .wave:nth-child(5) { animation-delay: 0.8s; }
-
-          @keyframes waveFlow {
-            0%, 100% { height: 10%; opacity: 0.3; }
-            50% { height: 100%; opacity: 1; }
-          }
-
-          #graphContainer {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            color: #ffd700;
-          }
-
-          .floating-box-3d {
-            margin-top: 20px;
-            padding: 14px 22px;
-            background: linear-gradient(145deg, #ff4b2b, #ff416c); /* 🔴 Pink-Red gradient */
-            border-radius: 14px;
-            text-align: center;
-            font-size: 17px;
-            color: #fff;
-            font-weight: bold;
-            letter-spacing: 1px;
-
-            /* 🔦 Torch light + shadow effect */
-            box-shadow: 
-            -5px -5px 15px rgba(255, 255, 255, 0.4), /* Light from top-left */
-            5px 5px 15px rgba(0, 0, 0, 0.4), /* Dark shadow bottom-right */
-            0 0 15px rgba(255, 65, 108, 0.6); /* Glow */
-
-            animation: float3d 3s ease-in-out infinite;
-            transition: all 0.2s ease;
-          }
-
-          .floating-box-3d:hover {
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 
-            -6px -6px 20px rgba(255, 255, 255, 0.5),
-            6px 6px 20px rgba(0, 0, 0, 0.45),
-            0 0 20px rgba(255, 65, 108, 0.9);
-          }
-
-          @media (max-width: 480px) {
-            .floating-box-3d {
+            .input-box {
+              background: linear-gradient(135deg, #e04e00, #a61700);
+              border: 1px solid #ffcc00;
+              border-radius: 12px;
+              padding: 14px;
+              box-shadow: 0 0 10px #ffcc0055;
               margin-top: 16px;
             }
-          }
 
-          @keyframes float3d {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-          }
+            input[type="number"] {
+              width: 100%;
+              padding: 10px;
+              background: #111;
+              border: 1px solid #ffcc00;
+              border-radius: 10px;
+              color: #ffd700;
+              font-size: 16px;
+              margin-top: 8px;
+            }
+            button {
+              margin-top: 15px;
+              width: 100%;
+              padding: 12px;
+              font-size: 16px;
+              font-weight: bold;
+              border: none;
+              border-radius: 12px;
+              color: #fff; /* White text for contrast */
+              background: linear-gradient(145deg, #ff0000, #ffd700); /* 🔴 Red to Gold mix */
+              box-shadow: 0 4px 0 #aa0000, /* Bottom shadow for 3D depth */
+              0 0 15px rgba(255, 215, 0, 0.7); /* Glow effect */
+              cursor: pointer;
+              transition: all 0.2s ease;
+            }
 
-          /* 🔥 Auto Video Box */
-          .video-box {
-            margin: 20px auto;
-            max-width: 90%;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 0 20px #ffd700;
-            border: 2px solid #ffcc00;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
-          }
+            button:hover {
+              transform: translateY(-2px) scale(1.03); /* Lift on hover */
+              box-shadow: 0 6px 0 #aa0000, 
+              0 0 20px rgba(255, 215, 0, 0.9);
+            }
+
+            button:active {
+              transform: translateY(2px) scale(0.98); /* Press down */
+              box-shadow: 0 2px 0 #aa0000, 
+              0 0 10px rgba(255, 215, 0, 0.5);
+            }
+
+            #popup {
+              display: none;
+              text-align: center;
+              color: red; /* 🔴 Text laal */
+              background: #fff9f9; /* 💡 Light background taaki laal text clear dikhe */
+              padding: 14px 18px;
+              border-radius: 14px;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              z-index: 99999;
+              box-shadow: 0 0 25px rgba(255, 0, 0, 0.8); /* 🔴 Red glow */
+              width: 85%;
+              max-width: 340px;
+              font-weight: bold;
+              white-space: pre-line;
+              font-size: 18px; /* 📏 Bigger text */
+              text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* 🖋 Better readability */
+            }
 
 
-          #liveEarnings {
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-          }
+            #timerBox {
+              display: none;
+              text-align: center;
+              margin-top: 10px;
+              background: #a61700;
+              border: 2px solid #ffd70066;
+              padding: 10px;
+              border-radius: 10px;
+              box-shadow: 0 0 10px #ffcc0055;
+            }
 
-          .earning-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 10px 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
-            font-weight: bold;
-            font-size: 14px;
-            color: #fff;
-          }
+            #miningTimer {
+              font-size: 20px;
+              color: #fff;
+              margin-top: 4px;
+              background: #111;
+              padding: 10px 20px;
+              border-radius: 12px;
+              display: inline-block;
+              box-shadow: 0 0 12px #ffcc00aa;
+              text-shadow: 0 0 8px #ffd700;
+            }
 
-          .user-box,
-          .text-box,
-          .amount-box {
-            padding: 6px 10px;
-            border-radius: 6px;
-          }
+            .mining-waves {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 6px;
+              margin-top: 20px;
+              height: 30px;
+            }
 
-          .user-box {
-            background: #ffffff22;
-          }
+            .wave {
+              width: 6px;
+              height: 100%;
+              background: #ffd700;
+              border-radius: 4px;
+              animation: waveFlow 1.2s ease-in-out infinite;
+              box-shadow: 0 0 8px #ffd70099;
+            }
 
-          .text-box {
-            background: #2196f3;
-            color: white;
-          }
+            .wave:nth-child(1) { animation-delay: 0s; }
+            .wave:nth-child(2) { animation-delay: 0.2s; }
+            .wave:nth-child(3) { animation-delay: 0.4s; }
+            .wave:nth-child(4) { animation-delay: 0.6s; }
+            .wave:nth-child(5) { animation-delay: 0.8s; }
 
-          .amount-box {
-            background: #ffcc00;
-            color: #000;
-            font-weight: bold;
-          }
-          .nav-bar {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 480px;
-            padding: 6px 0;   /* 👈 compact */
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
-            z-index: 999;
+            @keyframes waveFlow {
+              0%, 100% { height: 10%; opacity: 0.3; }
+              50% { height: 100%; opacity: 1; }
+            }
 
-            /* 🔥 Gradient top border */
-            border-top: 2px solid transparent;
-            border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
-          }
+            #graphContainer {
+              display: none;
+              text-align: center;
+              margin-top: 20px;
+              color: #ffd700;
+            }
 
-          .nav-bar a {
-            flex: 1;
-            text-align: center;
-            text-decoration: none;
-            font-size: 11px;
-            color: #ccc;
-            position: relative;
-            padding: 4px 0;
-            transition: 0.3s ease;
-          }
+            /* 🔥 Auto Video Box */
+            .video-box {
+              margin: 20px auto;
+              max-width: 90%;
+              border-radius: 20px;
+              overflow: hidden;
+              box-shadow: 0 0 20px #ffd700;
+              border: 2px solid #ffcc00;
+              background: rgba(0,0,0,0.4);
+              backdrop-filter: blur(10px);
+            }
 
-          .nav-bar a i {
-            display: block;
-            font-size: 18px;
-            margin-bottom: 3px;
-            color: #ccc;
-          }
+
+            .nav-bar {
+              position: fixed;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              background: #000;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              width: 100%;
+              max-width: 480px;
+              padding: 6px 0;   /* 👈 compact */
+              box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+              z-index: 999;
+
+              /* 🔥 Gradient top border */
+              border-top: 2px solid transparent;
+              border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
+            }
+
+            .nav-bar a {
+              flex: 1;
+              text-align: center;
+              text-decoration: none;
+              font-size: 11px;
+              color: #ccc;
+              position: relative;
+              padding: 4px 0;
+              transition: 0.3s ease;
+            }
+
+            .nav-bar a i {
+              display: block;
+              font-size: 18px;
+              margin-bottom: 3px;
+              color: #ccc;
+            }
+
+
 
 /* 👇 Active / Click / Focus Highlight */
 .nav-bar a.active,
@@ -354,11 +271,166 @@
   background: linear-gradient(to bottom, yellow, red);
 }
 
+.referral-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.referral-btn {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff5d7;
+  background: linear-gradient(145deg, #b30000, #ffcc00);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
+  cursor: pointer;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.referral-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #7a0000, 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.referral-btn:hover {
+  background: linear-gradient(145deg, #ffcc00, #b30000);
+}
+
+/* Mobile-friendly */
+@media (max-width: 500px) {
+  .referral-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+#graphContainer {
+  background: linear-gradient(135deg, #b22222, #ffd700);
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px 25px;
+  border-radius: 12px;
+  margin: 20px auto;
+  width: fit-content;
+  animation: glow 2s infinite alternate;
+}
+
+#graphContainer p {
+  margin: 0;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px #ff0000, 0 0 20px #ffd700; }
+  to   { box-shadow: 0 0 20px #ff0000, 0 0 40px #ffd700; }
+}
+{
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  /* Red-gold gradient background */
+  background: linear-gradient(135deg, #330000, #990000, #ff0000, #ffcc00);
+  background-size: 300% 300%;
+  animation: bgMove 10s infinite alternate;
+}
+
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+{
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  /* Red-gold gradient background */
+  background: linear-gradient(135deg, #330000, #990000, #ff0000, #ffcc00);
+  background-size: 300% 300%;
+  animation: bgMove 10s infinite alternate;
+}
+
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}  
+
+/* 🔥 Mining History Section */
+  #miningHistoryList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .history-card {
+    background: linear-gradient(135deg, #8B0000, #FFD700);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .history-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+  }
+
+  .history-values {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  .amount { color: #FFD700; }   /* Gold */
+  .earned { color: #00ff9d; }   /* Green */
+  .duration { color: #ffffff; }
+  .time { font-size: 12px; }
+
+    /* mining histry text */
+   .history-title {
+    background: linear-gradient(135deg, #ff0000, #ffd700);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    margin: 20px 0;   /* ✅ Upar aur niche spacing */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    font-size: 16px;
+    cursor: default;
+  }
+  .history-title i {
+    margin-right: 6px;
+  }
 </style>
 </head>
 <body>
-
-  <h2>Start Mining</h2>
 
   <div class="grid-boxes">
     <div class="box">
@@ -395,119 +467,17 @@
     <p>Received your amount</p>
   </div>
 
-  <!-- Floating Info Box -->
-  <div class="floating-box-3d">
-    You can do mining and trading 24/7!<br>
-    Scroll up to see your referral income ↑
-  </div>
-  <div id="liveEarnings"></div>
-
-
-  <script>
-    const maxEntries = 10;
-
-    function getRandomUsername() {
-      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-      let name = '';
-      const length = Math.floor(Math.random() * 5) + 5;
-      for (let i = 0; i < length; i++) {
-        name += chars[Math.floor(Math.random() * chars.length)];
-      }
-      return name;
-    }
-
-    function getRandomAmount() {
-      return (Math.random() * 1).toFixed(6);
-    }
-
-    function renderEntries(entries) {
-      const container = document.getElementById("liveEarnings");
-      container.innerHTML = "";
-
-      entries.forEach(entry => {
-        const box = document.createElement("div");
-        box.className = "earning-box";
-
-        box.innerHTML = `
-        <div class="user-box">${entry.username}</div>
-        <div class="text-box">earned</div>
-        <div class="amount-box">$${entry.amount}</div>
-        `;
-
-        container.appendChild(box);
-      });
-    }
-
-    function addNewEntry() {
-      const username = getRandomUsername();
-      const amount = getRandomAmount();
-
-      let entries = JSON.parse(localStorage.getItem("earningEntries")) || [];
-      entries.push({ username, amount });
-
-      if (entries.length > maxEntries) {
-        entries = entries.slice(entries.length - maxEntries);
-      }
-
-      localStorage.setItem("earningEntries", JSON.stringify(entries));
-      renderEntries(entries);
-    }
-
-    // Load on start
-    const savedEntries = JSON.parse(localStorage.getItem("earningEntries")) || [];
-    renderEntries(savedEntries);
-    setInterval(addNewEntry, 3000);
-  </script>
+<!-- ✅ Heading -->
+<div class="history-title">
+  Mining Income History
+</div>
+<!-- Mining Income History List -->
+<ul id="miningHistoryList" class="history-list"></ul>
 
   <!-- Referral Button -->
   <div class="referral-btn-container">
     <a href="miningincome.html" class="referral-btn">See Your Referral</a>
   </div>
-
-  <style>
-    .referral-btn-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 20px 0;
-      width: 100%;
-    }
-
-    .referral-btn {
-      padding: 12px 30px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff5d7;
-      background: linear-gradient(145deg, #b30000, #ffcc00);
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 6px 0 #7a0000, 0 10px 20px rgba(0,0,0,0.4);
-      cursor: pointer;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-      transition: all 0.2s ease;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .referral-btn:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px 0 #7a0000, 0 6px 12px rgba(0,0,0,0.4);
-    }
-
-    .referral-btn:hover {
-      background: linear-gradient(145deg, #ffcc00, #b30000);
-    }
-
-    /* Mobile-friendly */
-    @media (max-width: 500px) {
-      .referral-btn {
-        padding: 10px 20px;
-        font-size: 14px;
-      }
-    }
-  </style>
-
   <!-- Auto-Playing Video Box -->
   <div class="video-box">
     <video autoplay muted loop playsinline style="width: 100%; height: auto;">
@@ -525,6 +495,7 @@
     </div>
 
     <script>
+
   // ✅ Active nav highlight based on current page
       const currentPage = window.location.pathname.split("/").pop(); 
       document.querySelectorAll(".nav-bar a").forEach(link => {
@@ -534,182 +505,235 @@
           link.classList.remove("active");
         }
       });
-    </script>
 
-    <div class="popup" id="popupMsg"></div>
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-      import {
-        getFirestore, doc, getDoc, updateDoc, increment, deleteField, collection, query, where, getDocs, addDoc
-      } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+</script>
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-        authDomain: "trustdollar-f72f4.firebaseapp.com",
-        projectId: "trustdollar-f72f4",
-        storageBucket: "trustdollar-f72f4.appspot.com",
-        messagingSenderId: "217643658538",
-        appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-      };
+ <div class="popup" id="popupMsg"></div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, updateDoc, increment, deleteField,
+    collection, query, where, getDocs, addDoc, orderBy, onSnapshot
+  } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
 
-      const walletEl = document.getElementById("wallet");
-      const fundEl = document.getElementById("miningFund");
-      const amountInput = document.getElementById("amount");
-      const btn = document.getElementById("miningBtn");
-      const popup = document.getElementById("popup");
-      const graph = document.getElementById("graphContainer");
-      const timerBox = document.getElementById("timerBox");
-      const miningTimer = document.getElementById("miningTimer");
-      const inputSection = document.getElementById("inputSection");
-      let currentUser, mining = false, timerInterval;
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-      function showPopup(msg) {
-        popup.innerText = msg;
-        popup.style.display = 'block';
-        setTimeout(() => popup.style.display = 'none', 2500);
+  const walletEl = document.getElementById("wallet");
+  const fundEl = document.getElementById("miningFund");
+  const amountInput = document.getElementById("amount");
+  const btn = document.getElementById("miningBtn");
+  const popup = document.getElementById("popup");
+  const graph = document.getElementById("graphContainer");
+  const timerBox = document.getElementById("timerBox");
+  const miningTimer = document.getElementById("miningTimer");
+  const inputSection = document.getElementById("inputSection");
+  let currentUser, mining = false, timerInterval;
+
+  function showPopup(msg) {
+    popup.innerText = msg;
+    popup.style.display = 'block';
+    setTimeout(() => popup.style.display = 'none', 2500);
+  }
+
+  function toggleMiningSections(active) {
+    graph.style.display = active ? "block" : "none";
+    timerBox.style.display = active ? "block" : "none";
+    inputSection.style.display = active ? "none" : "block";
+  }
+
+  function startMiningTimer(startedAt) {
+    timerInterval = setInterval(() => {
+      const now = Date.now();
+      const diff = now - startedAt;
+      const h = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+      const m = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+      const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+      miningTimer.innerText = `${h}h : ${m}m : ${s}s`;
+    }, 1000);
+  }
+
+  function stopMiningTimer() {
+    clearInterval(timerInterval);
+    miningTimer.innerText = "--:--:--";
+  }
+
+  async function loadUserData() {
+    const docRef = doc(db, "users", currentUser.uid);
+    const snap = await getDoc(docRef);
+    const data = snap.data();
+    const wallet = parseFloat(data.wallet || 0);
+    const miningAmount = parseFloat(data.miningAmount || 0);
+    walletEl.innerText = `$${wallet.toFixed(2)}`;
+    fundEl.innerText = `$${miningAmount.toFixed(2)}`;
+    mining = !!data.miningStartedAt;
+    btn.innerText = mining ? "Stop Mining" : "Start Mining";
+    toggleMiningSections(mining);
+    if (mining) startMiningTimer(data.miningStartedAt);
+    else stopMiningTimer();
+  }
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return window.location.href = "auth.html";
+    currentUser = user;
+    await loadUserData();
+  });
+
+  btn.onclick = async () => {
+    const uid = currentUser.uid;
+    const userRef = doc(db, "users", uid);
+    const snap = await getDoc(userRef);
+    const data = snap.data();
+    const wallet = parseFloat(data.wallet || 0);
+    const miningAmount = parseFloat(data.miningAmount || 0);
+    const startedAt = data.miningStartedAt || 0;
+
+    if (!mining) {
+      const amount = parseFloat(amountInput.value);
+      if (isNaN(amount) || amount <= 0) return showPopup("Enter valid amount");
+      if (amount > wallet) return showPopup("Insufficient Balance");
+
+      // ✅ Minimum limit check
+      if (amount < 170) {
+        return showPopup("Minimum $170 required to start mining");
       }
 
-      function toggleMiningSections(active) {
-        graph.style.display = active ? "block" : "none";
-        timerBox.style.display = active ? "block" : "none";
-        inputSection.style.display = active ? "none" : "block";
-      }
-
-      function startMiningTimer(startedAt) {
-        timerInterval = setInterval(() => {
-          const now = Date.now();
-          const diff = now - startedAt;
-          const h = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
-          const m = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
-          const s = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
-          miningTimer.innerText = `${h}h : ${m}m : ${s}s`;
-        }, 1000);
-      }
-
-      function stopMiningTimer() {
-        clearInterval(timerInterval);
-        miningTimer.innerText = "--:--:--";
-      }
-
-      async function loadUserData() {
-        const docRef = doc(db, "users", currentUser.uid);
-        const snap = await getDoc(docRef);
-        const data = snap.data();
-        const wallet = parseFloat(data.wallet || 0);
-        const miningAmount = parseFloat(data.miningAmount || 0);
-        walletEl.innerText = `$${wallet.toFixed(2)}`;
-        fundEl.innerText = `$${miningAmount.toFixed(2)}`;
-        mining = !!data.miningStartedAt;
-        btn.innerText = mining ? "Stop Mining" : "Start Mining";
-        toggleMiningSections(mining);
-        if (mining) startMiningTimer(data.miningStartedAt);
-        else stopMiningTimer();
-      }
-
-      onAuthStateChanged(auth, async (user) => {
-        if (!user) return window.location.href = "auth.html";
-        currentUser = user;
-        await loadUserData();
+      await updateDoc(userRef, {
+        wallet: wallet - amount,
+        miningAmount: amount,
+        miningStartedAt: Date.now()
       });
 
-      btn.onclick = async () => {
-        const uid = currentUser.uid;
-        const userRef = doc(db, "users", uid);
-        const snap = await getDoc(userRef);
-        const data = snap.data();
-        const wallet = parseFloat(data.wallet || 0);
-        const miningAmount = parseFloat(data.miningAmount || 0);
-        const startedAt = data.miningStartedAt || 0;
+      showPopup("Mining Started");
+      btn.innerText = "Stop Mining";
+      mining = true;
+      toggleMiningSections(true);
+      fundEl.innerText = `$${amount.toFixed(2)}`;
+      walletEl.innerText = `$${(wallet - amount).toFixed(2)}`;
+      startMiningTimer(Date.now());
 
-        if (!mining) {
-          const amount = parseFloat(amountInput.value);
-          if (isNaN(amount) || amount <= 0) return showPopup("Enter valid amount");
-          if (amount > wallet) return showPopup("Insufficient Balance");
+    } else {
+      const now = Date.now();
+      const duration = now - startedAt;
+      const dayMs = 86400000;
+      let fraction = duration / dayMs;
+      if (fraction < 1 / 1440) fraction = 1 / 1440;
 
-               // ✅ नया मिनिमम लिमिट चेक
-          if (amount < 170) {
-           return showPopup("Minimum $170 required to start mining");
-         }
+      const earning = miningAmount * 0.01 * fraction;
+      const userEarn = earning * 0.9;
+      const uplineEarn = earning * 0.1;
+      const totalUser = miningAmount + userEarn;
 
+      btn.innerText = "Start Mining";
+      mining = false;
+      toggleMiningSections(false);
+      stopMiningTimer();
+      showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
+      walletEl.innerText = `$${(wallet + totalUser).toFixed(2)}`;
+      fundEl.innerText = `$0.00`;
 
-         await updateDoc(userRef, {
-          wallet: wallet - amount,
-          miningAmount: amount,
-          miningStartedAt: Date.now()
-        });
+      await updateDoc(userRef, {
+        wallet: increment(totalUser),
+        miningAmount: 0,
+        miningStartedAt: deleteField()
+      });
 
-         showPopup("Mining Started");
-         btn.innerText = "Stop Mining";
-         mining = true;
-         toggleMiningSections(true);
-         fundEl.innerText = `$${amount.toFixed(2)}`;
-         walletEl.innerText = `$${(wallet - amount).toFixed(2)}`;
-         startMiningTimer(Date.now());
-
-       } else {
-        const now = Date.now();
-        const duration = now - startedAt;
-        const dayMs = 86400000;
-        let fraction = duration / dayMs;
-        if (fraction < 1 / 1440) fraction = 1 / 1440;
-
-        const earning = miningAmount * 0.01 * fraction;
-        const userEarn = earning * 0.9;
-        const uplineEarn = earning * 0.1;
-        const totalUser = miningAmount + userEarn;
-
-        btn.innerText = "Start Mining";
-        mining = false;
-        toggleMiningSections(false);
-        stopMiningTimer();
-        showPopup(`Earned $${earning.toFixed(4)} added to wallet`);
-        walletEl.innerText = `$${(wallet + totalUser).toFixed(2)}`;
-        fundEl.innerText = `$0.00`;
-
-        await updateDoc(userRef, {
-          wallet: increment(totalUser),
-          miningAmount: 0,
-          miningStartedAt: deleteField()
-        });
+      // ✅ Save Mining History (inside user's subcollection)
+      await addDoc(collection(db, "users", currentUser.uid, "miningHistory"), {
+        uid: currentUser.uid,
+        amount: miningAmount,
+        earned: userEarn,
+        duration: duration,
+        time: now
+      });
 
       // ✅ Send 10% to upline
-        if (data.referredBy) {
-          try {
-            const q = query(collection(db, "users"), where("refCode", "==", data.referredBy));
-            const qSnap = await getDocs(q);
+      if (data.referredBy) {
+        try {
+          const q = query(collection(db, "users"), where("refCode", "==", data.referredBy));
+          const qSnap = await getDocs(q);
 
-            if (!qSnap.empty) {
-              const uplineUID = qSnap.docs[0].id;
+          if (!qSnap.empty) {
+            const uplineUID = qSnap.docs[0].id;
 
             // Add 10% to upline wallet
-              await updateDoc(doc(db, "users", uplineUID), {
-                wallet: increment(uplineEarn)
-              });
+            await updateDoc(doc(db, "users", uplineUID), {
+              wallet: increment(uplineEarn)
+            });
 
             // Save referral income
-              await addDoc(collection(db, "referral_income"), {
-                uid: currentUser.uid,
-                fromUser: currentUser.uid,
-                toUpline: uplineUID,
-                amount: uplineEarn,
-                time: Date.now()
-              });
-            } else {
-              console.warn("Upline not found: refCode mismatch");
-            }
-          } catch (e) {
-            console.error("Error sending to upline:", e);
+            await addDoc(collection(db, "referral_income"), {
+              uid: currentUser.uid,
+              fromUser: currentUser.uid,
+              toUpline: uplineUID,
+              amount: uplineEarn,
+              time: Date.now()
+            });
+          } else {
+            console.warn("Upline not found: refCode mismatch");
           }
+        } catch (e) {
+          console.error("Error sending to upline:", e);
         }
-
-        setTimeout(() => loadUserData(), 1000);
       }
-    };
-  </script>
+
+      setTimeout(() => loadUserData(), 1000);
+    }
+  };
+
+  // ✅ Mining history list element
+  const miningHistoryEl = document.getElementById("miningHistoryList");
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const q = query(
+        collection(db, "users", user.uid, "miningHistory"),
+        orderBy("time", "desc")
+      );
+
+      onSnapshot(q, (snapshot) => {
+      miningHistoryEl.innerHTML = "";
+      let count = 0;
+      snapshot.forEach((doc) => {
+        if (count < 5) {
+          const data = doc.data();
+          const li = document.createElement("li");
+          li.classList.add("history-card");
+          li.innerHTML = `
+            <div class="history-header">
+              <div>Amount</div>
+              <div>Duration</div>
+              <div>Earned</div>
+              <div>Date</div>
+            </div>
+            <div class="history-values">
+              <div class="amount">$${data.amount}</div>
+              <div class="duration">${(data.duration/1000/60).toFixed(1)} min</div>
+              <div class="earned">$${data.earned.toFixed(2)}</div>
+              <div class="time">${new Date(data.time).toLocaleString()}</div>
+            </div>
+          `;
+          miningHistoryEl.appendChild(li);
+          count++;
+        }
+      });   // ✅ ye forEach close ho gaya
+    });     // ✅ ye onSnapshot close ho gaya
+  }         // ✅ ye if(user) close ho gaya
+});         // ✅ ye onAuthStateChanged close ho gaya
+
+
+
+</script>
 </body>
 </html>

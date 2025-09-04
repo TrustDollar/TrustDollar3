@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -32,21 +32,42 @@
     transform: translateY(3px);
   }
   #history {
-    max-width: 650px;
+    max-width: 750px;
     margin: 0 auto;
     text-align: left;
   }
+  /* Table-like card header */
+  .card-header {
+    background: linear-gradient(to right, #ff4500, #ffd700);
+    padding: 12px 20px;
+    border-radius: 12px 12px 0 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    color: #fff;
+    margin-top: 20px;
+  }
+  /* Each card row */
   .card {
-    background: rgba(255, 255, 255, 0.95);
-    color: #a00;
-    padding: 15px;
-    margin: 10px 0;
+    background: linear-gradient(to right, #b22222, #ffcc00);
+    color: #fff;
+    padding: 12px 20px;
+    margin: 6px 0;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
   }
-  .card strong {
-    color: #000;
+  .card span {
+    flex: 1;
+    text-align: center;
   }
+  .name { color: #fff; }
+  .commission { color: gold; }
+  .date { color: #0f0; font-weight: normal; }
   .loader {
     border: 6px solid #f3f3f3;
     border-top: 6px solid gold;
@@ -196,13 +217,24 @@ function renderList(data) {
     container.innerHTML = "<p>No results found.</p>";
     return;
   }
-  container.innerHTML = data.map(d => `
+
+  let html = `
+    <div class="card-header">
+      <span>Name</span>
+      <span>Commission</span>
+      <span>Date</span>
+    </div>
+  `;
+
+  html += data.map(d => `
     <div class="card">
-      <strong>Name:</strong> ${d.name}<br>
-      <strong>Commission:</strong> $${d.commission.toFixed(6)}<br>
-      <strong>Date:</strong> ${d.date}
+      <span class="name">${d.name}</span>
+      <span class="commission">$${d.commission.toFixed(2)}</span>
+      <span class="date">${d.date}</span>
     </div>
   `).join("");
+
+  container.innerHTML = html;
 }
 
 document.getElementById("btnSearch").addEventListener("click", () => {

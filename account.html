@@ -1,10 +1,9 @@
-  <!-- 🔐 Account Page -->
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Account/ mining platfrom /btc  mining / usdt mining/ gernet / par day 1 % with yor invastment</title>
+<title>Account/ mining platform / btc mining / usdt mining / gernet / per day 1 % with your investment</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
 /* ========== Reset & Base ========== */
@@ -17,15 +16,37 @@ body{
 }
 h2{text-align:center;color:#ffd700;margin-bottom:20px;text-shadow:0 0 8px #ff0000;}
 
-/* ========== Glow Button ========== */
+/* ========== Main Glow Button (used in boxes, not for Change PIN) ========== */
 a.glow-box{
   display:block;padding:16px 24px;border-radius:10px;
   background:linear-gradient(145deg,#8b0000,#ff0000);
-  border:2px solid gold;box-shadow:0 0 15px rgba(255,215,0,0.6);
+  border:2px solid  #ff0000;box-shadow:0 0 15px rgba(255,215,0,0.6);
   text-align:center;font-size:16px;font-weight:bold;color:gold;
-  text-decoration:none;margin-bottom:20px;transition:.3s ease;
+  text-decoration:none;transition:.3s ease;
 }
 a.glow-box:hover{
+  background:linear-gradient(145deg,#ff0000,#ffd700);
+  color:#8b0000;box-shadow:0 0 20px rgba(255,215,0,0.9);
+}
+
+/* ========== NEW: Change PIN Button Style ========== */
+.pin-btn {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 10px;
+  background: linear-gradient(145deg,#8b0000,#ff0000);
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 15px rgba(255,215,0,0.6);
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: gold;
+  text-decoration: none;
+  transition: .3s ease;
+  margin-bottom: 20px; /* 👈 isse neeche gap aayega */
+}
+.pin-btn:hover {
   background:linear-gradient(145deg,#ff0000,#ffd700);
   color:#8b0000;box-shadow:0 0 20px rgba(255,215,0,0.9);
 }
@@ -43,19 +64,31 @@ a.glow-box:hover{
 .value-row input{background:transparent;border:none;color:#ffd700;font-size:14px;width:100%;}
 input::placeholder{color:#ccc;}input:focus{outline:none;}
 
-/* ========== Buttons ========== */
-.save-btn{
-  background:linear-gradient(145deg,red,gold);
-  color:#000;padding:10px 18px;border:none;border-radius:12px;
-  cursor:pointer;font-weight:bold;margin:25px 0;width:100%;
-  box-shadow:0 4px 12px rgba(255,0,0,0.6),0 -2px 10px rgba(255,215,0,0.6);
-  transition:.3s ease;
+/* ========== Save Button ========== */
+.save-btn {
+  display: block;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 10px;
+  background: linear-gradient(145deg,#8b0000,#ff0000);
+  border: 2px solid #ff0000;
+  box-shadow: 0 0 15px rgba(255,215,0,0.6);
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: gold;
+  text-decoration: none;
+  transition: .3s ease;
+  margin: 20px 0; /* 👈 neeche/uppar space */
+  cursor: pointer;
 }
-.save-btn:hover{
-  background:linear-gradient(145deg,gold,red);
-  transform:scale(1.05);
-  box-shadow:0 0 20px gold,0 0 30px red;
+.save-btn:hover {
+  background: linear-gradient(145deg,#ff0000,#ffd700);
+  color: #8b0000;
+  box-shadow: 0 0 20px rgba(255,215,0,0.9);
 }
+
+
 .logout-btn{
   display:block;background:#ff4d4d;color:white;padding:10px 20px;
   border:none;border-radius:10px;font-weight:bold;cursor:pointer;
@@ -71,7 +104,7 @@ input::placeholder{color:#ccc;}input:focus{outline:none;}
   box-shadow:0 4px 12px rgba(255,0,0,0.6),0 -2px 10px rgba(255,215,0,0.6),inset 0 0 8px rgba(255,215,0,0.4);
 }
 
-/* ========== Popup Message (always on top) ========== */
+/* ========== Popup Message ========== */
 .popup{
   position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
   background:#ffd700;color:#8b0000;padding:14px 24px;border-radius:10px;
@@ -101,7 +134,7 @@ input::placeholder{color:#ccc;}input:focus{outline:none;}
 .join-date-box{
   background:rgba(255,0,0,0.15);border:2px solid red;border-radius:0;
   padding:12px 20px;text-align:center;font-weight:bold;color:#ffd700;
-  font-size:14px;box-shadow:0 0 15px red;margin-bottom:20px;
+  font-size:14px;box-shadow:0 0 15px red;
 }
 
 /* ========== Bottom Nav Bar ========== */
@@ -123,13 +156,102 @@ input::placeholder{color:#ccc;}input:focus{outline:none;}
   content:"";position:absolute;right:0;top:25%;height:50%;width:1px;
   background:linear-gradient(to bottom,yellow,red);
 }
+
+/* ========== Profile Header ========== */
+.top-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.top-header img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid gold;
+  box-shadow: 0 0 12px gold;
+  margin-bottom: 10px;
+}
+
+/* ✅ FIXED Info Row (Wallet, Name, TrustDollar?, Join Date) */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 2px;
+  flex-wrap: wrap;
+}
+.glow-box, .join-date-box {
+  flex: 1;
+  min-width: calc(50% - 10px);
+  max-width: none;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center; 
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.3s ease;
+  min-height: 80px;
+    margin-bottom: 20px; /* 👈 space neeche */
+}
+
+/* 🔥 Mobile Responsive */
+@media (max-width: 600px) {
+  .glow-box, .join-date-box {
+    flex: 1;
+    min-width: calc(50% - 10px);
+    padding: 12px;
+    font-size: 12px;
+    min-height: 60px;
+  }
+}
+
+/* ========== Inner Box (inside info-row) ========== */
+.inner-box {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px solid red;
+  box-shadow: 0 0 10px rgba(255,0,0,0.6);
+  background: rgba(255,0,0,0.15);
+  font-size: 15px;
+  font-weight: bold;
+  color: gold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: yellow;
+}
 </style>
 </head>
 <body>
+ <div class="top-header">
+  <img src="https://picsum.photos/200?random=1" alt="NFT Profile">
+  <h2>TrustDollar </h2>
+</div>
 
 <!-- Info Section -->
-<a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="glow-box">💡 What is TrustDollar?</a>
-<div class="join-date-box" id="joinDateBox">👤 Joining Date: <span id="joinDate">Loading...</span></div>
+<div class="info-row">
+  <!-- TrustDollar Box -->
+  <a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="glow-box">
+    <div class="inner-box"><b>TrustDollar?</b></div>
+  </a>
+
+  <!-- Join Date Box -->
+  <div class="join-date-box" id="joinDateBox">
+    <div class="inner-box">👤 <span id="joinDate">01 October 2024</span></div>
+  </div>
+</div>
+</body>
+</html>
 
 <!-- Set / Change PIN Button -->
 <a href="" id="pinButton" class="glow-box">Loading...</a>

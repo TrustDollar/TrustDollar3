@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -57,7 +57,7 @@
       padding: 14px;
       text-align: center;
       font-weight: 600;
-      border-bottom: 1px solid rgba(255,255,255,0.3); /* ✅ Horizontal line */
+      border-bottom: 1px solid rgba(255,255,255,0.3);
     }
     thead tr {
       background: linear-gradient(90deg, #b22222, #ff8c00, #ffd700);
@@ -74,7 +74,6 @@
       font-weight: bold;
     }
     tbody tr td:nth-child(2) { /* Deposited */
-      color: #00FF7F;
       font-weight: bold;
     }
     tbody tr td:nth-child(3) { /* Status */
@@ -118,51 +117,39 @@
       color: #ff3333;
     }
 
-    /* ✅ Green Tick Animation */
+    /* ✅ Green Tick with Red Circle Background */
+    .checkmark-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #8B0000;   /* Dark red circle */
+      border-radius: 50%;
+      padding: 5px;
+    }
     .checkmark {
-      width: 22px;
-      height: 22px;
-      stroke: #4caf50;
+      width: 20px;
+      height: 20px;
+      stroke: #00FF00; /* Bright green tick */
       stroke-width: 3;
       stroke-miterlimit: 10;
       fill: none;
-      display: inline-block;
-      vertical-align: middle;
     }
-    /* ✅ Green Tick Background */
-.checkmark-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #8B0000;   /* Dark Red background */
-  border-radius: 50%;    /* Circle background */
-  padding: 4px;          /* Space around tick */
-}
-.checkmark {
-  width: 18px;
-  height: 18px;
-  stroke: #00FF7F; /* Green Tick */
-  stroke-width: 3;
-  stroke-miterlimit: 10;
-  fill: none;
-}
-.checkmark-circle {
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  animation: drawCircle 0.6s ease forwards;
-}
-.checkmark-check {
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: drawCheck 0.3s 0.6s ease forwards;
-}
-@keyframes drawCircle {
-  to { stroke-dashoffset: 0; }
-}
-@keyframes drawCheck {
-  to { stroke-dashoffset: 0; }
-}
-
+    .checkmark-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      animation: drawCircle 0.5s ease forwards;
+    }
+    .checkmark-check {
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: drawCheck 0.3s 0.5s ease forwards;
+    }
+    @keyframes drawCircle {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
 
     /* ✅ Responsive */
     @media (max-width: 768px) {
@@ -269,10 +256,12 @@
                 <td>${item.username}</td>
                 <td>
                   ${item.deposit > 0 
-                    ? `<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
-                        <path class="checkmark-check" fill="none" d="M14 27l7 7 16-16"/>
-                      </svg>` 
+                    ? `<div class="checkmark-wrapper">
+                         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                           <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                           <path class="checkmark-check" fill="none" d="M14 27l7 7 16-16"/>
+                         </svg>
+                       </div>` 
                     : "—"}
                 </td>
                 <td class="${item.status.includes('Active') ? 'active-status' : 'inactive-status'}">${item.status}</td>

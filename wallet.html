@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+    <!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -232,6 +232,50 @@
   background-color: rgba(255,255,255,0.1);
   color: #fff;
 }
+
+    .group-box {
+      background: linear-gradient(135deg, #e04e00, #a61700);
+      border: 1px solid #ffcc00;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 0 12px #ffcc0055;
+      margin: 20px 0;
+    }
+
+    .group-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffd700;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .inner-box-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .inner-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #ffcc00;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      color: #ffcc00;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 0 10px #ffcc00aa;
+      transition: 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+
+    .inner-box:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
 </style>
 </head>
 <body>
@@ -257,17 +301,16 @@
       <div class="value-row" id="userId">Loading...</div>
     </div>
 
-    <div class="button-row">
-      <div class="btn-group">
-        <a href="deposit.html" class="btn">Deposit</a>
-        <a href="deposit-history.html" class="btn">Depo.. History</a>
-      </div>
-
-      <div class="btn-group">
-        <a href="pin.html" class="btn">Withdraw</a>
-        <a href="withdrawal-history.html" class="btn">Wit..   History</a>
-      </div>
+    <!-- ✅ Group Box for Deposit/Withdraw -->
+  <div class="group-box">
+    <div class="group-title">Transactions</div>
+    <div class="inner-box-container">
+      <a href="deposit.html" class="inner-box">Deposit</a>
+      <a href="pin.html" class="inner-box">Withdraw</a>
+      <a href="deposit-history.html" class="inner-box">Deposit History</a>
+      <a href="withdrawal-history.html" class="inner-box">Withdraw History</a>
     </div>
+  </div>
 
     <div class="photo-box">
       <img src="photo/c3145790-1ba1-404b-90eb-0453c9a62415.png" alt="Deposit Image" />
@@ -362,6 +405,5 @@
 
   </body>
   </html>
-
 
 

@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -19,7 +19,7 @@ h2{text-align:center;color:#ffd700;margin-bottom:20px;text-shadow:0 0 8px #ff000
 /* ========== Main Glow Button (used in boxes, not for Change PIN) ========== */
 a.glow-box{
   display:block;padding:16px 24px;border-radius:10px;
-  background:linear-gradient(145deg,#8b0000,#ff0000);
+  background:linear-gradient(145deg,#f3151500,#e42c2c);
   border:2px solid  #ff0000;box-shadow:0 0 15px rgba(255,215,0,0.6);
   text-align:center;font-size:16px;font-weight:bold;color:gold;
   text-decoration:none;transition:.3s ease;
@@ -107,7 +107,7 @@ input::placeholder{color:#ccc;}input:focus{outline:none;}
 /* ========== Popup Message ========== */
 .popup{
   position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-  background:#ffd700;color:#8b0000;padding:14px 24px;border-radius:10px;
+  background:#ff0000;color:#8b0000;padding:14px 24px;border-radius:10px;
   box-shadow:0 0 20px #ff0000aa;font-size:16px;display:none;
   z-index:100000;text-align:center;animation:fadeInOut 2.5s ease forwards;
 }
@@ -117,7 +117,7 @@ input::placeholder{color:#ccc;}input:focus{outline:none;}
 .edit-popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.6);z-index:99999;justify-content:center;align-items:center;}
 .edit-popup-content{
-  background:linear-gradient(145deg,#8b0000,#ffd700);
+  background:linear-gradient(145deg,#f3151500,#ffd700);
   border:2px solid gold;border-radius:12px;padding:20px;
   box-shadow:0 0 25px red;text-align:center;width:90%;max-width:350px;color:#fff;
 }
@@ -230,6 +230,60 @@ input::placeholder{color:#ccc;}input:focus{outline:none;}
   width: 100%;
   color: yellow;
 }
+/* ✅ Common Style (all red-gold theme) */
+.common-box {
+  background: linear-gradient(145deg, rgba(139,0,0,0.7), rgba(255,0,0,0.3));
+  border: 2px solid gold;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,0,0,0.6), 0 0 12px rgba(255,215,0,0.6);
+  padding: 14px 18px;
+  text-align: center;
+  font-weight: bold;
+  color: gold;
+  transition: 0.3s ease;
+}
+.common-box:hover {
+  background: linear-gradient(145deg, red, gold);
+  color: #8b0000;
+  box-shadow: 0 0 20px rgba(255,215,0,0.9);
+}
+
+/* ✅ Apply same style to multiple items */
+a.glow-box,
+.join-date-box,
+.box,
+.save-btn,
+.pin-btn {
+  @apply common-box;
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ✅ Special inner box text */
+.inner-box {
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: yellow;
+  text-shadow: 0 0 6px red;
+}
+
+/* ✅ Input fields inside box */
+.value-row input {
+  background: transparent;
+  border: none;
+  color: gold;
+  font-size: 14px;
+  width: 100%;
+}
+.value-row input:focus {
+  outline: none;
+}
+
 </style>
 </head>
 <body>

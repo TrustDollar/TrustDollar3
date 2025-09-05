@@ -1,143 +1,151 @@
-   <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Account/ mining platform / btc mining / usdt mining / gernet / per day 1 % with your investment</title>
+<title>TrustDollar - Account</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
 /* ========== Reset & Base ========== */
 *{box-sizing:border-box;margin:0;padding:0;scroll-behavior:smooth;}
 body{
-  background:linear-gradient(145deg,#8b0000,#ffd700);
+  background:linear-gradient(145deg,#d35400,#ff6600);
   font-family:'Segoe UI',sans-serif;
   padding:60px 14px 120px;
   max-width:420px;margin:0 auto;color:#fff;
 }
-h2{text-align:center;color:#ffd700;margin-bottom:20px;text-shadow:0 0 8px #ff0000;}
+h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000;}
 
-/* ========== Main Glow Button (used in boxes, not for Change PIN) ========== */
-a.glow-box{
-  display:block;padding:16px 24px;border-radius:10px;
-  background:linear-gradient(145deg,#f3151500,#e42c2c);
-  border:2px solid  #ff0000;box-shadow:0 0 15px rgba(255,215,0,0.6);
-  text-align:center;font-size:16px;font-weight:bold;color:gold;
-  text-decoration:none;transition:.3s ease;
-}
-a.glow-box:hover{
-  background:linear-gradient(145deg,#ff0000,#ffd700);
-  color:#8b0000;box-shadow:0 0 20px rgba(255,215,0,0.9);
-}
-
-/* ========== NEW: Change PIN Button Style ========== */
-.pin-btn {
-  display: block;
-  width: 100%;
-  padding: 16px 24px;
-  border-radius: 10px;
-  background: linear-gradient(145deg,#8b0000,#ff0000);
-  border: 2px solid #ff0000;
-  box-shadow: 0 0 15px rgba(255,215,0,0.6);
+/* 🔥 Common Orange Box Style */
+.common-box {
+  background: linear-gradient(145deg,#ff6600,#cc3300);
+  border: 2px solid #ffcc00;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255,215,0,0.6), inset 0 0 6px rgba(255,0,0,0.5);
+  padding: 14px 18px;
   text-align: center;
-  font-size: 16px;
   font-weight: bold;
-  color: gold;
-  text-decoration: none;
-  transition: .3s ease;
-  margin-bottom: 20px; /* 👈 isse neeche gap aayega */
+  color: yellow;
+  transition: 0.3s ease;
+  margin-bottom: 15px;
 }
-.pin-btn:hover {
-  background:linear-gradient(145deg,#ff0000,#ffd700);
-  color:#8b0000;box-shadow:0 0 20px rgba(255,215,0,0.9);
-}
-
-/* ========== Info Boxes ========== */
-.row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;}
-.box{
-  background:rgba(255,255,255,0.08);border:1px solid #ffd70099;
-  border-radius:14px;padding:14px;box-shadow:0 0 14px rgba(255,0,0,0.4);
-  flex:0 0 48%;backdrop-filter:blur(6px);
-}
-.box-full{flex:0 0 100%;}
-.label{color:#ffd700;font-size:12px;margin-bottom:5px;}
-.value-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#fff;flex-wrap:wrap;}
-.value-row input{background:transparent;border:none;color:#ffd700;font-size:14px;width:100%;}
-input::placeholder{color:#ccc;}input:focus{outline:none;}
-
-/* ========== Save Button ========== */
-.save-btn {
-  display: block;
-  width: 100%;
-  padding: 16px 24px;
-  border-radius: 10px;
-  background: linear-gradient(145deg,#8b0000,#ff0000);
-  border: 2px solid #ff0000;
-  box-shadow: 0 0 15px rgba(255,215,0,0.6);
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  color: gold;
-  text-decoration: none;
-  transition: .3s ease;
-  margin: 20px 0; /* 👈 neeche/uppar space */
-  cursor: pointer;
-}
-.save-btn:hover {
-  background: linear-gradient(145deg,#ff0000,#ffd700);
+.common-box:hover {
+  background: linear-gradient(145deg,#ff3300,#ffcc00);
   color: #8b0000;
   box-shadow: 0 0 20px rgba(255,215,0,0.9);
 }
 
+/* Header */
+.top-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.top-header img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid gold;
+  box-shadow: 0 0 15px gold;
+  margin-bottom: 10px;
+}
 
+/* Info Row (TrustDollar? + Join Date) */
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.info-row .common-box {
+  flex: 1;
+  min-height: 70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+}
+
+/* PIN Button */
+.pin-btn{
+  display:block;
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  background:linear-gradient(145deg,#ff6600,#cc3300);
+  border:2px solid #ffcc00;
+  color:yellow;
+  font-weight:bold;
+  text-align:center;
+  margin-bottom:20px;
+  box-shadow:0 0 12px rgba(255,215,0,0.7);
+  text-decoration:none;
+}
+.pin-btn:hover{
+  background:linear-gradient(145deg,#ff3300,#ffcc00);
+  color:#8b0000;
+}
+
+/* Boxes (Wallet, Name, Gmail, etc) */
+.row{display:flex;flex-wrap:wrap;gap:12px;}
+.box{flex:0 0 48%;border-radius:12px;}
+.box-full{flex:0 0 100%;}
+.label{color:#ffd700;font-size:13px;margin-bottom:5px;text-align:left;}
+.value-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#fff;flex-wrap:wrap;}
+.value-row input{
+  background:transparent;
+  border:none;
+  color:yellow;
+  font-size:14px;
+  width:100%;
+}
+.value-row input:focus{outline:none;}
+
+/* Save + Logout Button */
+.save-btn,.logout-btn{
+  display:block;width:100%;padding:14px;border-radius:12px;
+  font-weight:bold;text-align:center;margin:15px 0;cursor:pointer;
+}
+.save-btn{
+  background:linear-gradient(145deg,#ff6600,#cc3300);
+  border:2px solid #ffcc00;color:yellow;
+}
+.save-btn:hover{
+  background:linear-gradient(145deg,#ff3300,#ffcc00);color:#8b0000;
+}
 .logout-btn{
-  display:block;background:#ff4d4d;color:white;padding:10px 20px;
-  border:none;border-radius:10px;font-weight:bold;cursor:pointer;
-  box-shadow:0 0 10px #ff4d4daa;margin:15px auto 10px;width:100%;
+  background:#ff3333;border:none;color:#fff;box-shadow:0 0 12px #ff4444;
 }
 
-/* 🔐 Set PIN Header inside Popup */
-.set-pin-header{
-  text-align:center;font-weight:bold;font-size:16px;color:#000;
-  padding:10px 15px;margin-bottom:15px;border-radius:12px;
-  background:linear-gradient(145deg,red,gold);
-  border:2px solid transparent;border-image:linear-gradient(45deg,red,gold) 1;
-  box-shadow:0 4px 12px rgba(255,0,0,0.6),0 -2px 10px rgba(255,215,0,0.6),inset 0 0 8px rgba(255,215,0,0.4);
-}
-
-/* ========== Popup Message ========== */
+/* Popup */
 .popup{
   position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-  background:#ff0000;color:#8b0000;padding:14px 24px;border-radius:10px;
+  background:#ff6600;color:#fff;padding:14px 24px;border-radius:10px;
   box-shadow:0 0 20px #ff0000aa;font-size:16px;display:none;
   z-index:100000;text-align:center;animation:fadeInOut 2.5s ease forwards;
 }
 @keyframes fadeInOut{0%{opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{opacity:0;}}
 
-/* ========== Edit Popup ========== */
+/* Edit Popup */
 .edit-popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
   background:rgba(0,0,0,0.6);z-index:99999;justify-content:center;align-items:center;}
 .edit-popup-content{
-  background:linear-gradient(145deg,#f3151500,#ffd700);
+  background:linear-gradient(145deg,#ff6600,#cc3300);
   border:2px solid gold;border-radius:12px;padding:20px;
   box-shadow:0 0 25px red;text-align:center;width:90%;max-width:350px;color:#fff;
 }
 .edit-popup-content input{
   width:100%;padding:10px;border:1px solid gold;border-radius:8px;
-  margin-bottom:15px;background:rgba(0,0,0,0.4);color:gold;font-size:14px;
+  margin-bottom:15px;background:rgba(0,0,0,0.4);color:yellow;font-size:14px;
 }
 .btn-row{display:flex;justify-content:space-between;gap:10px;}
 .popup-btn{flex:1;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
 .popup-btn.save{background:gold;color:#8b0000;}
 .popup-btn.cancel{background:#ff0000;color:white;}
 
-/* ========== Join Date Box ========== */
-.join-date-box{
-  background:rgba(255,0,0,0.15);border:2px solid red;border-radius:0;
-  padding:12px 20px;text-align:center;font-weight:bold;color:#ffd700;
-  font-size:14px;box-shadow:0 0 15px red;
-}
-
-/* ========== Bottom Nav Bar ========== */
+/* Bottom Nav Bar */
 .nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
   background:#000;display:flex;justify-content:space-between;align-items:center;
   width:100%;max-width:480px;padding:6px 0;box-shadow:0 -2px 10px rgba(0,0,0,0.4);
@@ -147,178 +155,50 @@ input::placeholder{color:#ccc;}input:focus{outline:none;}
 .nav-bar a{flex:1;text-align:center;text-decoration:none;font-size:11px;color:#ccc;
   position:relative;padding:4px 0;transition:.3s ease;}
 .nav-bar a i{display:block;font-size:18px;margin-bottom:3px;color:#ccc;}
-.nav-bar a.active,.nav-bar a:focus,.nav-bar a:active{
-  background:linear-gradient(to top,rgba(255,0,0,0.15),transparent);border-radius:6px;
-}
-.nav-bar a.active i,.nav-bar a:focus i,.nav-bar a:active i{color:red;}
-.nav-bar a.active span,.nav-bar a:focus span,.nav-bar a:active span{color:yellow;font-weight:bold;}
+.nav-bar a.active{background:linear-gradient(to top,rgba(255,0,0,0.15),transparent);border-radius:6px;}
+.nav-bar a.active i{color:red;}
+.nav-bar a.active span{color:yellow;font-weight:bold;}
 .nav-bar a:not(:last-child)::after{
   content:"";position:absolute;right:0;top:25%;height:50%;width:1px;
   background:linear-gradient(to bottom,yellow,red);
 }
-
-/* ========== Profile Header ========== */
-.top-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.top-header img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid gold;
-  box-shadow: 0 0 12px gold;
-  margin-bottom: 10px;
-}
-
-/* ✅ FIXED Info Row (Wallet, Name, TrustDollar?, Join Date) */
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 12px;
-  margin-bottom: 2px;
-  flex-wrap: wrap;
-}
-.glow-box, .join-date-box {
-  flex: 1;
-  min-width: calc(50% - 10px);
-  max-width: none;
-  padding: 16px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center; 
-  font-size: 15px;
-  font-weight: bold;
-  transition: 0.3s ease;
-  min-height: 80px;
-    margin-bottom: 20px; /* 👈 space neeche */
-}
-
-/* 🔥 Mobile Responsive */
-@media (max-width: 600px) {
-  .glow-box, .join-date-box {
-    flex: 1;
-    min-width: calc(50% - 10px);
-    padding: 12px;
-    font-size: 12px;
-    min-height: 60px;
-  }
-}
-
-/* ========== Inner Box (inside info-row) ========== */
-.inner-box {
-  padding: 10px 15px;
-  border-radius: 10px;
-  border: 2px solid red;
-  box-shadow: 0 0 10px rgba(255,0,0,0.6);
-  background: rgba(255,0,0,0.15);
-  font-size: 15px;
-  font-weight: bold;
-  color: gold;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  color: yellow;
-}
-/* ✅ Common Style (all red-gold theme) */
-.common-box {
-  background: linear-gradient(145deg, rgba(139,0,0,0.7), rgba(255,0,0,0.3));
-  border: 2px solid gold;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(255,0,0,0.6), 0 0 12px rgba(255,215,0,0.6);
-  padding: 14px 18px;
-  text-align: center;
-  font-weight: bold;
-  color: gold;
-  transition: 0.3s ease;
-}
-.common-box:hover {
-  background: linear-gradient(145deg, red, gold);
-  color: #8b0000;
-  box-shadow: 0 0 20px rgba(255,215,0,0.9);
-}
-
-/* ✅ Apply same style to multiple items */
-a.glow-box,
-.join-date-box,
-.box,
-.save-btn,
-.pin-btn {
-  @apply common-box;
-  display: block;
-  width: 100%;
-  margin-bottom: 15px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* ✅ Special inner box text */
-.inner-box {
-  background: rgba(0,0,0,0.3);
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 14px;
-  color: yellow;
-  text-shadow: 0 0 6px red;
-}
-
-/* ✅ Input fields inside box */
-.value-row input {
-  background: transparent;
-  border: none;
-  color: gold;
-  font-size: 14px;
-  width: 100%;
-}
-.value-row input:focus {
-  outline: none;
+#popupMsg {
+  transition: opacity 0.3s ease;
 }
 
 </style>
 </head>
 <body>
- <div class="top-header">
-  <img src="https://picsum.photos/200?random=1" alt="NFT Profile">
-  <h2>TrustDollar </h2>
+<div class="top-header">
+  <img src="https://picsum.photos/200?random=1" alt="Profile">
+  <h2>TrustDollar</h2>
 </div>
 
-<!-- Info Section -->
+<!-- Info Row -->
 <div class="info-row">
-  <!-- TrustDollar Box -->
-  <a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="glow-box">
-    <div class="inner-box"><b>TrustDollar?</b></div>
-  </a>
-
-  <!-- Join Date Box -->
-  <div class="join-date-box" id="joinDateBox">
-    <div class="inner-box">👤 <span id="joinDate">01 October 2024</span></div>
-  </div>
+    <a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="common-box">
+      <div class="inner-box"><b>TrustDollar?</b></div>
+    </a>
+  <div class="common-box">👤 <span id="joinDate">01 October 2024</span></div>
 </div>
-</body>
-</html>
 
-<!-- Set / Change PIN Button -->
-<a href="" id="pinButton" class="glow-box">Loading...</a>
+<!-- PIN Button -->
+<a href="#" id="pinButton" class="pin-btn">Loading...</a>
 
 <!-- User Info -->
 <div class="row">
-  <div class="box"><div class="label">Wallet Balance</div><div class="value-row"><span id="walletBalance">$0.00</span></div></div>
-  <div class="box"><div class="label">Name</div><div class="value-row"><input type="text" id="name" readonly /><span onclick="makeEditable('name')" style="cursor:pointer;">🖊️</span></div></div>
-  <div class="box box-full"><div class="label">Gmail ID</div><div class="value-row"><span id="email">Loading...</span><span id="toggleEmail" style="cursor:pointer;margin-left:8px;color:gold;">👁️</span></div></div>
-  <div class="box"><div class="label">User ID</div><div class="value-row"><span id="userId">Loading...</span></div></div>
-  <div class="box"><div class="label">USE BEP20 Address</div><div class="value-row"><input type="text" id="userAddress" readonly /><span onclick="makeEditable('userAddress')" style="cursor:pointer;">🖊️</span></div></div>
-  <div class="box box-full"><div class="label">Change Password</div><div class="value-row"><input type="password" id="newPassword" placeholder="Enter new password"/></div></div>
+  <div class="box common-box"><div class="label">Wallet Balance</div><div class="value-row"><span id="walletBalance">$0.00</span></div></div>
+  <div class="box common-box"><div class="label">Name</div><div class="value-row"><input type="text" id="name" readonly/><span onclick="makeEditable('name')" style="cursor:pointer;">🖊️</span></div></div>
+  <div class="box box-full common-box"><div class="label">Gmail ID</div><div class="value-row"><span id="email">Loading...</span><span id="toggleEmail" style="cursor:pointer;margin-left:8px;">👁️</span></div></div>
+  <div class="box common-box"><div class="label">User ID</div><div class="value-row"><span id="userId">Loading...</span></div></div>
+  <div class="box common-box"><div class="label">BEP20 Address</div><div class="value-row"><input type="text" id="userAddress" readonly/><span onclick="makeEditable('userAddress')" style="cursor:pointer;">🖊️</span></div></div>
+   <div class="box box-full common-box">
+  <div class="label">Change Password</div>
+  <div class="value-row">
+    <button onclick="openPasswordPopup()" class="save-btn">Change Password</button>
+  </div>
 </div>
+
 
 <button onclick="saveAddress()" class="save-btn">Save</button>
 <button onclick="logout()" class="logout-btn">Logout</button>
@@ -332,7 +212,7 @@ a.glow-box,
   <a href="account.html" class="active"><i class="fas fa-user"></i><span>Account</span></a>
 </div>
 
-<!-- Popup message -->
+<!-- Popup -->
 <div class="popup" id="popupMsg"></div>
 
 <!-- Edit Popup -->
@@ -359,11 +239,26 @@ a.glow-box,
     </div>
   </div>
 </div>
+ <!-- Password Popup -->
+<div id="passwordPopup" class="edit-popup">
+  <div class="edit-popup-content">
+    <h3>Change Password</h3>
+    <input type="password" id="currentPass" placeholder="Enter current password"/>
+    <input type="password" id="newPass" placeholder="Enter new password"/>
+    <div class="btn-row">
+      <button onclick="savePassword()" class="popup-btn save">Save</button>
+      <button onclick="closePopup('passwordPopup')" class="popup-btn cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { EmailAuthProvider, reauthenticateWithCredential } 
+from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey:"AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
@@ -389,7 +284,7 @@ const pinButton = document.getElementById("pinButton");
 
 let currentUID, isEmailVisible = true, currentField = null, savedPin = null;
 
-// Load user data
+// ✅ Auth state listener
 onAuthStateChanged(auth, async (user) => {
   if (!user) return window.location.href = "auth.html";
   currentUID = user.uid;
@@ -401,7 +296,8 @@ onAuthStateChanged(auth, async (user) => {
     const data = docSnap.data();
     if (data.createdAt) {
       const joinDate = data.createdAt.toDate();
-      document.getElementById("joinDate").textContent = joinDate.toLocaleDateString("en-IN", { day:"2-digit", month:"long", year:"numeric" });
+      document.getElementById("joinDate").textContent =
+        joinDate.toLocaleDateString("en-IN", { day:"2-digit", month:"long", year:"numeric" });
     }
     nameInput.value = data.name || "Unnamed";
     userIdEl.textContent = data.userID || "Not set";
@@ -409,10 +305,9 @@ onAuthStateChanged(auth, async (user) => {
     userAddressInput.value = data.userAddress || "";
     savedPin = data.pin || null;
 
-    // PIN button setup
     if (savedPin) {
       pinButton.textContent = "Change PIN";
-      pinButton.href = "pinset.html"; // redirect to separate page
+      pinButton.href = "pinset.html";
     } else {
       pinButton.textContent = "Set PIN";
       pinButton.href = "#";
@@ -421,113 +316,162 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-// Editable popup functions
+// ✅ Edit popup
 window.makeEditable = function(fieldId) {
   currentField = document.getElementById(fieldId);
   document.getElementById("popupTitle").innerText = "Edit " + fieldId;
   document.getElementById("popupInput").value = currentField.value;
   document.getElementById("editPopup").style.display = "flex";
 }
-window.closePopup = function(id) { document.getElementById(id).style.display = "none"; }
+window.closePopup = function(id){
+  document.getElementById(id).style.display="none";
+}
 
-// Save edits with PIN
 window.saveEdit = async function() {
-  const inputValue = document.getElementById("popupInput").value.trim();
-  const enteredPin = document.getElementById("popupPassword").value.trim();
-  if (!enteredPin) return showPopup("Please enter PIN to confirm");
-  if (enteredPin !== savedPin) return showPopup("❌ Wrong PIN");
-
-  try {
-    if (currentField) {
-      currentField.value = inputValue;
-      const userRef = doc(db, "users", currentUID);
-      const updateData = {};
-      if (currentField.id === "name") updateData.name = inputValue;
-      if (currentField.id === "userAddress") updateData.userAddress = inputValue;
-      if (Object.keys(updateData).length > 0) await updateDoc(userRef, updateData);
+  const inputValue=document.getElementById("popupInput").value.trim();
+  const enteredPin=document.getElementById("popupPassword").value.trim();
+  if(!enteredPin) return showPopup("Please enter PIN to confirm");
+  if(enteredPin!==savedPin) return showPopup("❌ Wrong PIN");
+  try{
+    if(currentField){
+      currentField.value=inputValue;
+      const userRef=doc(db,"users",currentUID);
+      const updateData={};
+      if(currentField.id==="name") updateData.name=inputValue;
+      if(currentField.id==="userAddress") updateData.userAddress=inputValue;
+      if(Object.keys(updateData).length>0) await updateDoc(userRef,updateData);
     }
     showPopup("✅ Data updated");
-    document.getElementById("popupPassword").value = "";
+    document.getElementById("popupPassword").value="";
     closePopup("editPopup");
-  } catch (error) {
+  }catch(error){
     console.error(error);
     showPopup("❌ Error updating data");
   }
 }
 
-// Save address and password
-window.saveAddress = async function() {
-  const nameValue = nameInput.value.trim();
-  const addressValue = userAddressInput.value.trim();
-  const passwordValue = document.getElementById("newPassword").value.trim();
-  const userRef = doc(db, "users", currentUID);
-  const updateData = {};
-  if (nameValue) updateData.name = nameValue;
-  if (addressValue) updateData.userAddress = addressValue;
-
-  try {
-    if (Object.keys(updateData).length > 0) await updateDoc(userRef, updateData);
-    if (passwordValue) await updatePassword(auth.currentUser, passwordValue);
-    showPopup("Updated successfully");
-  } catch (error) {
-    console.error("Update error:", error);
-    showPopup("Error: " + error.message);
+// ✅ Save name/address only (no password)
+window.saveAddress=async function(){
+  const nameValue=nameInput.value.trim();
+  const addressValue=userAddressInput.value.trim();
+  const userRef=doc(db,"users",currentUID);
+  const updateData={};
+  if(nameValue) updateData.name=nameValue;
+  if(addressValue) updateData.userAddress=addressValue;
+  try{
+    if(Object.keys(updateData).length>0) await updateDoc(userRef,updateData);
+    showPopup("✅ Profile updated");
+  }catch(error){
+    console.error("Update error:",error);
+    showPopup("❌ Error: "+error.message);
   }
 }
 
-// Logout
-window.logout = function() { signOut(auth).then(() => window.location.href = "auth.html"); }
-
-// Popup message
-function showPopup(message) {
-  popup.innerText = message;
-  popup.style.display = "none";
-  void popup.offsetWidth;
-  popup.style.display = "block";
-  setTimeout(() => popup.style.display = "none", 3000);
+// ✅ Logout
+window.logout=function(){
+  signOut(auth).then(()=>window.location.href="auth.html");
 }
 
-// Toggle email visibility
-if (toggleEmailBtn) {
-  toggleEmailBtn.addEventListener("click", () => {
-    if (isEmailVisible) {
-      const emailText = emailEl.textContent;
-      emailEl.dataset.fullEmail = emailText;
-      emailEl.textContent = emailText.replace(/(.{2}).+(@.+)/, "$1****$2");
-      toggleEmailBtn.textContent = "🙈";
-    } else {
-      emailEl.textContent = emailEl.dataset.fullEmail;
-      toggleEmailBtn.textContent = "👁️";
+// ✅ Show popup message (instant show + smooth fade out)
+function showPopup(message) {
+  popup.innerText = message;
+  popup.style.display = "block";
+  popup.style.opacity = "1";
+
+  // 3 sec ke baad fade out
+  setTimeout(() => {
+    popup.style.opacity = "0";
+    setTimeout(() => popup.style.display = "none", 300); // 0.3s = CSS transition time
+  }, 3000);
+}
+
+
+// ✅ Email hide/show
+if(toggleEmailBtn){
+  toggleEmailBtn.addEventListener("click",()=>{
+    if(isEmailVisible){
+      const emailText=emailEl.textContent;
+      emailEl.dataset.fullEmail=emailText;
+      emailEl.textContent=emailText.replace(/(.{2}).+(@.+)/,"$1****$2");
+      toggleEmailBtn.textContent="🙈";
+    }else{
+      emailEl.textContent=emailEl.dataset.fullEmail;
+      toggleEmailBtn.textContent="👁️";
     }
-    isEmailVisible = !isEmailVisible;
+    isEmailVisible=!isEmailVisible;
   });
 }
 
-// Nav active
-document.querySelectorAll(".nav-bar a").forEach(link => {
-  link.addEventListener("click", function() {
-    document.querySelectorAll(".nav-bar a").forEach(a => a.classList.remove("active"));
+// ✅ Navbar active state
+document.querySelectorAll(".nav-bar a").forEach(link=>{
+  link.addEventListener("click",function(){
+    document.querySelectorAll(".nav-bar a").forEach(a=>a.classList.remove("active"));
     this.classList.add("active");
   });
 });
 
-// PIN popup functions
-window.openPinPopup = function() { document.getElementById("pinPopup").style.display = "flex"; }
-window.savePin = async function() {
-  const newPin = document.getElementById("pinInput").value.trim();
-  if (newPin.length !== 4) return showPopup("❌ PIN must be 4 digits");
-  try {
-    await updateDoc(doc(db, "users", currentUID), { pin: newPin });
-    savedPin = newPin;
-    pinButton.textContent = "Change PIN";
-    pinButton.href = "set-pin.html";
+// ✅ PIN popup
+window.openPinPopup=function(){
+  document.getElementById("pinPopup").style.display="flex";
+}
+window.savePin=async function(){
+  const newPin=document.getElementById("pinInput").value.trim();
+  if(newPin.length!==4) return showPopup("❌ PIN must be 4 digits");
+  try{
+    await updateDoc(doc(db,"users",currentUID),{pin:newPin});
+    savedPin=newPin;
+    pinButton.textContent="Change PIN";
+    pinButton.href="set-pin.html";
     showPopup("✅ PIN saved successfully!");
     closePopup("pinPopup");
-  } catch (err) {
+  }catch(err){
     console.error(err);
     showPopup("❌ Error saving PIN");
   }
 }
+
+// ✅ Password popup
+window.openPasswordPopup = function() {
+  document.getElementById("passwordPopup").style.display = "flex";
+}
+
+window.savePassword = async function() {
+  const currentPassword = document.getElementById("currentPass").value.trim();
+  const newPassword = document.getElementById("newPass").value.trim();
+
+  if (!currentPassword || !newPassword) {
+    showPopup("❌ Please fill both fields");
+    return;
+  }
+
+  try {
+    const user = auth.currentUser;
+    const email = user.email;
+    const credential = EmailAuthProvider.credential(email, currentPassword);
+
+    await reauthenticateWithCredential(user, credential);
+    await updatePassword(user, newPassword);
+
+    showPopup(" Password updated successfully!");
+    closePopup("passwordPopup");
+    document.getElementById("currentPass").value = "";
+    document.getElementById("newPass").value = "";
+  } catch (err) {
+    console.error(err);
+
+    let message = " Error: " + err.message;
+    if (err.code === "auth/invalid-login-credentials" || err.code === "auth/wrong-password") {
+      message = " Invalid current password. Please try again.";
+    } else if (err.code === "auth/weak-password") {
+      message = " New password is too weak. Use at least 6 characters.";
+    }
+
+    showPopup(message);
+  }
+}
+
 </script>
+
+
 </body>
 </html>

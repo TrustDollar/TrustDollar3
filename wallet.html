@@ -1,282 +1,191 @@
-    <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Wallet</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wallet</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        scroll-behavior: smooth;
-      }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
 
-      body {
-        background: linear-gradient(to bottom right, #ff0000, #ff9900);
-        font-family: 'Segoe UI', sans-serif;
-        padding: 60px 14px 120px;
-        max-width: 420px;
-        margin: 0 auto;
-        color: #fff;
-      }
+    body {
+      background: linear-gradient(to bottom right, #ff0000, #ff9900);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 12px 100px;
+      max-width: 400px;
+      margin: 0 auto;
+      color: #fff;
+    }
 
-      h2 {
-        text-align: center;
-        color: #ffd700;
-        margin-bottom: 20px;
-      }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
 
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 10px;
-      }
-
-      .box {
-        background: linear-gradient(135deg, #e04e00, #a61700);
-        border-radius: 12px;
-        padding: 14px;
-        box-shadow: 0 0 12px #ffcc0055;
-        flex: 0 0 48%;
-        border: 1px solid #ffcc00;
-      }
-
-      .box-full {
-        flex: 0 0 100%;
-      }
-
-      .label {
-        color: #ffd700;
-        font-size: 12px;
-        margin-bottom: 5px;
-      }
-
-      .value-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 14px;
-        color: #fff;
-        flex-wrap: wrap;
-        word-break: break-word;
-      }
-
-      .wallet-amount {
-        font-size: 20px;
-        font-weight: bold;
-        color: #fff;
-      }
-
-      .button-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        margin: 20px 0;
-      }
-
-      .btn {
-        flex: 1;
-        text-align: center;
-        text-decoration: none;
-        padding: 12px;
-        font-weight: bold;
-        border-radius: 12px;
-        background: rgba(255,255,255,0.05);
-        color: #ffcc00;
-        box-shadow: 0 0 10px #ffcc00aa;
-        border: 1px solid #ffcc00;
-        transition: 0.3s;
-        font-size: 14px;
-        cursor: pointer;
-      }
-
-      .btn:hover {
-        background-color: rgba(255,255,255,0.1);
-        color: #fff;
-      }
-
-      .photo-box {
-        width: 100%;
-        margin: 20px auto 10px;
-        padding: 10px;
-        background: linear-gradient(to bottom right, #e04e00, #a61700);
-        border-radius: 15px;
-        box-shadow: 0 0 15px rgba(255,204,0,0.3);
-        text-align: center;
-        border: 1px solid #ffcc00;
-      }
-
-      .photo-box img {
-        width: 100%;
-        border-radius: 10px;
-      }
-
-      .live-activity-box {
-        width: 100%;
-        margin-top: 12px;
-        padding: 10px;
-        background: linear-gradient(to bottom right, #e04e00, #a61700);
-        border-radius: 15px;
-        box-shadow: 0 0 15px rgba(255,204,0,0.3);
-        color: #ffffff;
-        text-align: center;
-        font-size: 15px;
-        font-weight: bold;
-        border: 1px solid #ffcc00;
-      }
-
-      .nav-bar {
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        max-width: 480px;
-        padding: 6px 0;   /* 👈 compact */
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
-        z-index: 999;
-
-        /* 🔥 Gradient top border */
-        border-top: 2px solid transparent;
-        border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
-      }
-
-      .nav-bar a {
-        flex: 1;
-        text-align: center;
-        text-decoration: none;
-        font-size: 11px;
-        color: #ccc;
-        position: relative;
-        padding: 4px 0;
-        transition: 0.3s ease;
-      }
-
-      .nav-bar a i {
-        display: block;
-        font-size: 18px;
-        margin-bottom: 3px;
-        color: #ccc;
-      }
-
-/* 👇 Active / Click / Focus Highlight */
-.nav-bar a.active,
-.nav-bar a:focus,
-.nav-bar a:active {
-  background: linear-gradient(to top, rgba(255,0,0,0.15), transparent);
-  border-radius: 6px;
-}
-
-.nav-bar a.active i,
-.nav-bar a:focus i,
-.nav-bar a:active i {
-  color: red;
-}
-
-.nav-bar a.active span,
-.nav-bar a:focus span,
-.nav-bar a:active span {
-  color: yellow;
-  font-weight: bold;
-}
-
-/* Vertical separator */
-.nav-bar a:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 25%;
-  height: 50%;
-  width: 1px;
-  background: linear-gradient(to bottom, yellow, red);
-}
-
-.button-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 80px;         /* 👉 columns ke beech zyada horizontal gap */
-  margin: 20px 0;
-}
-
-.btn-group {
-  flex: 1;                 /* dono column equal width lenge */
-  display: flex;
-  flex-direction: column;  /* ek ke niche ek */
-  gap: 15px;               /* vertical gap between Deposit aur History */
-}
-
-.btn-group .btn {
-  width: 100%;
-  text-align: center;
-  padding: 14px;           /* thoda bada button */
-  font-weight: bold;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.05);
-  color: #ffcc00;
-  box-shadow: 0 0 10px #ffcc00aa;
-  border: 1px solid #ffcc00;
-  transition: 0.3s;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.btn-group .btn:hover {
-  background-color: rgba(255,255,255,0.1);
-  color: #fff;
-}
-
-    .group-box {
+    .box {
       background: linear-gradient(135deg, #e04e00, #a61700);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 0 10px #ffcc0055;
+      flex: 0 0 48%;
       border: 1px solid #ffcc00;
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 0 12px #ffcc0055;
-      margin: 20px 0;
     }
 
-    .group-title {
-      font-size: 16px;
-      font-weight: bold;
+    .box-full {
+      flex: 0 0 100%;
+    }
+
+    .label {
       color: #ffd700;
-      margin-bottom: 10px;
-      text-align: center;
+      font-size: 12px;
+      margin-bottom: 5px;
     }
 
-    .inner-box-container {
+    .wallet-amount {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .value-row {
+      font-size: 13px;
+      color: #fff;
+      word-break: break-word;
+    }
+
+    /* ✅ Wallet Actions side by side */
+    .inner-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 10px;
+      margin-top: 8px;
     }
 
-    .inner-box {
+    .action-link {
+      display: block;
+      padding: 10px;
+      text-align: center;
       background: rgba(255,255,255,0.05);
       border: 1px solid #ffcc00;
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
+      border-radius: 10px;
       color: #ffcc00;
       font-weight: bold;
-      font-size: 14px;
-      box-shadow: 0 0 10px #ffcc00aa;
-      transition: 0.3s;
-      cursor: pointer;
+      font-size: 13px;
       text-decoration: none;
-      display: block;
+      box-shadow: 0 0 6px #ffcc00aa;
+      transition: 0.3s;
     }
 
-    .inner-box:hover {
+    .action-link:hover {
       background: rgba(255,255,255,0.1);
       color: #fff;
     }
-</style>
+
+    .photo-box {
+      width: 100%;
+      margin: 15px auto 8px;
+      padding: 8px;
+      background: linear-gradient(to bottom right, #e04e00, #a61700);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255,204,0,0.3);
+      text-align: center;
+      border: 1px solid #ffcc00;
+    }
+
+    .photo-box img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .live-activity-box {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      background: linear-gradient(to bottom right, #e04e00, #a61700);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255,204,0,0.3);
+      color: #ffffff;
+      text-align: center;
+      font-size: 13px;
+      font-weight: bold;
+      border: 1px solid #ffcc00;
+    }
+
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 420px;
+      padding: 6px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+      z-index: 999;
+
+      border-top: 2px solid transparent;
+      border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
+    }
+
+    .nav-bar a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      font-size: 11px;
+      color: #ccc;
+      position: relative;
+      padding: 4px 0;
+      transition: 0.3s ease;
+    }
+
+    .nav-bar a i {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 2px;
+      color: #ccc;
+    }
+
+    .nav-bar a.active,
+    .nav-bar a:focus,
+    .nav-bar a:active {
+      background: linear-gradient(to top, rgba(255,0,0,0.15), transparent);
+      border-radius: 6px;
+    }
+
+    .nav-bar a.active i,
+    .nav-bar a:focus i,
+    .nav-bar a:active i {
+      color: red;
+    }
+
+    .nav-bar a.active span,
+    .nav-bar a:focus span,
+    .nav-bar a:active span {
+      color: yellow;
+      font-weight: bold;
+    }
+
+    .nav-bar a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 25%;
+      height: 50%;
+      width: 1px;
+      background: linear-gradient(to bottom, yellow, red);
+    }
+  </style>
 </head>
 <body>
 
@@ -301,22 +210,23 @@
       <div class="value-row" id="userId">Loading...</div>
     </div>
 
-    <!-- ✅ Group Box for Deposit/Withdraw -->
-  <div class="group-box">
-    <div class="group-title">Transactions</div>
-    <div class="inner-box-container">
-      <a href="deposit.html" class="inner-box">Deposit</a>
-      <a href="pin.html" class="inner-box">Withdraw</a>
-      <a href="deposit-history.html" class="inner-box">Deposit History</a>
-      <a href="withdrawal-history.html" class="inner-box">Withdraw History</a>
+    <!-- ✅ All wallet actions in one box, side by side -->
+    <div class="box box-full">
+      <div class="label">Wallet Actions</div>
+      <div class="inner-actions">
+        <a href="deposit.html" class="action-link"> Deposit</a>
+        <a href="deposit-history.html" class="action-link"> Depo. History</a>
+        <a href="pin.html" class="action-link"> Withdraw</a>
+        <a href="withdrawal-history.html" class="action-link"> Withr. History</a>
+      </div>
     </div>
-  </div>
 
     <div class="photo-box">
       <img src="photo/c3145790-1ba1-404b-90eb-0453c9a62415.png" alt="Deposit Image" />
     </div>
 
     <div class="live-activity-box" id="activityText">KODQIAH deposited $700</div>
+
     <!-- NAV BAR -->
     <div class="nav-bar">
       <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
@@ -327,7 +237,6 @@
     </div>
 
     <script>
-  // ✅ Active nav highlight based on current page
       const currentPage = window.location.pathname.split("/").pop(); 
       document.querySelectorAll(".nav-bar a").forEach(link => {
         if (link.getAttribute("href") === currentPage) {
@@ -394,7 +303,7 @@
         document.getElementById("activityText").innerText = getRandomActivity();
       }
       setInterval(updateActivity, 4000);
-      // ✅ Active nav highlight on click
+
       document.querySelectorAll(".nav-bar a").forEach(link => {
         link.addEventListener("click", function () {
           document.querySelectorAll(".nav-bar a").forEach(a => a.classList.remove("active"));
@@ -403,7 +312,5 @@
       });
     </script>
 
-  </body>
-  </html>
-
-
+</body>
+</html>

@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -19,7 +19,7 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
 /* 🔥 Common Orange Box Style */
 .common-box {
   background: linear-gradient(145deg,#ff6600,#cc3300);
-  border: 2px solid #ffcc00;
+  border: 1px solid #ffcc00;
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(255,215,0,0.6), inset 0 0 6px rgba(255,0,0,0.5);
   padding: 14px 18px;
@@ -165,6 +165,9 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
 #popupMsg {
   transition: opacity 0.3s ease;
 }
+a.common-box {
+  text-decoration: none;
+  color: inherit;
 
 </style>
 </head>
@@ -174,13 +177,25 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
   <h2>TrustDollar</h2>
 </div>
 
-<!-- Info Row -->
+ <!-- Info Row -->
 <div class="info-row">
-    <a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="common-box">
-      <div class="inner-box"><b>TrustDollar?</b></div>
-    </a>
-  <div class="common-box">👤 <span id="joinDate">01 October 2024</span></div>
+  <!-- TrustDollar Info -->
+  <a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="common-box">
+    <div class="inner-box">
+      <div class="label">TrustDollar?</div>
+      <div class="value">More Information</div>
+    </div>
+  </a>
+
+  <!-- Joining Date -->
+  <div class="common-box">
+    <div class="inner-box">
+      <div class="label">My Joining Date</div>
+      <div class="value" id="joinDate">01 October 2024</div>
+    </div>
+  </div>
 </div>
+
 
 <!-- PIN Button -->
 <a href="#" id="pinButton" class="pin-btn">Loading...</a>
@@ -331,7 +346,7 @@ window.saveEdit = async function() {
   const inputValue=document.getElementById("popupInput").value.trim();
   const enteredPin=document.getElementById("popupPassword").value.trim();
   if(!enteredPin) return showPopup("Please enter PIN to confirm");
-  if(enteredPin!==savedPin) return showPopup("❌ Wrong PIN");
+  if(enteredPin!==savedPin) return showPopup(" Wrong PIN");
   try{
     if(currentField){
       currentField.value=inputValue;
@@ -346,7 +361,7 @@ window.saveEdit = async function() {
     closePopup("editPopup");
   }catch(error){
     console.error(error);
-    showPopup("❌ Error updating data");
+    showPopup(" Error updating data");
   }
 }
 
@@ -360,10 +375,10 @@ window.saveAddress=async function(){
   if(addressValue) updateData.userAddress=addressValue;
   try{
     if(Object.keys(updateData).length>0) await updateDoc(userRef,updateData);
-    showPopup("✅ Profile updated");
+    showPopup(" Profile updated");
   }catch(error){
     console.error("Update error:",error);
-    showPopup("❌ Error: "+error.message);
+    showPopup(" Error: "+error.message);
   }
 }
 
@@ -416,17 +431,17 @@ window.openPinPopup=function(){
 }
 window.savePin=async function(){
   const newPin=document.getElementById("pinInput").value.trim();
-  if(newPin.length!==4) return showPopup("❌ PIN must be 4 digits");
+  if(newPin.length!==4) return showPopup(" PIN must be 4 digits");
   try{
     await updateDoc(doc(db,"users",currentUID),{pin:newPin});
     savedPin=newPin;
     pinButton.textContent="Change PIN";
     pinButton.href="set-pin.html";
-    showPopup("✅ PIN saved successfully!");
+    showPopup(" PIN saved successfully!");
     closePopup("pinPopup");
   }catch(err){
     console.error(err);
-    showPopup("❌ Error saving PIN");
+    showPopup(" Error saving PIN");
   }
 }
 
@@ -440,7 +455,7 @@ window.savePassword = async function() {
   const newPassword = document.getElementById("newPass").value.trim();
 
   if (!currentPassword || !newPassword) {
-    showPopup("❌ Please fill both fields");
+    showPopup(" Please fill both fields");
     return;
   }
 

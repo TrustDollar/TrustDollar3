@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+   <!DOCTYPE html>
  <html lang="en">
  <head>
   <meta charset="UTF-8" />
@@ -351,12 +351,7 @@
     }
   });
 </script>
-
-
-
 <div id="popupMessage"></div>
-
-
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
@@ -445,49 +440,62 @@
       return id;
   }
 
+  // ✅ Updated confirmBtn onclick
   confirmBtn.onclick = async () => {
     if (!currentUser || !selectedAmount) return;
 
-    const depositsQuery = query(collection(db, "deposits"), where("uid", "==", currentUser.uid));
-    const existing = await getDocs(depositsQuery);
-    const isFirstDeposit = existing.empty;
+    // button disable + wait popup
+    confirmBtn.disabled = true;
+    confirmBtn.style.opacity = "0.6";
+    confirmBtn.style.cursor = "not-allowed";
+    popup.innerText = " Please wait...";
+    popup.style.display = "block";
 
-    const userRef = doc(db, "users", currentUser.uid);
-    const userSnap = await getDoc(userRef);
+    setTimeout(async () => {
+      const depositsQuery = query(collection(db, "deposits"), where("uid", "==", currentUser.uid));
+      const existing = await getDocs(depositsQuery);
+      const isFirstDeposit = existing.empty;
 
-    let walletBal = 0, referredBy = null;
-    if (userSnap.exists()) {
-      const data = userSnap.data();
-      walletBal = data.wallet || 0;
-      referredBy = data.referredBy || null;
-    }
+      const userRef = doc(db, "users", currentUser.uid);
+      const userSnap = await getDoc(userRef);
 
-    const newDepositRef = await addDoc(collection(db, "deposits"), {
-      uid: currentUser.uid,
-      email: currentUser.email,
-      amount: selectedAmount,
-      orderId: generateOrderId(),
-      status: "pending",
-      timestamp: serverTimestamp(),
-      walletAtDeposit: walletBal
-    });
-
-    if (isFirstDeposit && referredBy) {
-      const uplineSnap = await getDocs(query(collection(db, "users"), where("refCode", "==", referredBy)));
-      if (!uplineSnap.empty) {
-        const upline = uplineSnap.docs[0].id;
-        await addDoc(collection(db, "referral_pending"), {
-          upline,
-          downline: currentUser.uid,
-          depositId: newDepositRef.id,
-          amount: selectedAmount * 0.2,
-          timestamp: serverTimestamp()
-        });
+      let walletBal = 0, referredBy = null;
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        walletBal = data.wallet || 0;
+        referredBy = data.referredBy || null;
       }
-    }
 
-    showPopup("Processing...");
-    setTimeout(() => location.href = "deposit-history.html", 2000);
+      const newDepositRef = await addDoc(collection(db, "deposits"), {
+        uid: currentUser.uid,
+        email: currentUser.email,
+        amount: selectedAmount,
+        orderId: generateOrderId(),
+        status: "pending",
+        timestamp: serverTimestamp(),
+        walletAtDeposit: walletBal
+      });
+
+      if (isFirstDeposit && referredBy) {
+        const uplineSnap = await getDocs(query(collection(db, "users"), where("refCode", "==", referredBy)));
+        if (!uplineSnap.empty) {
+          const upline = uplineSnap.docs[0].id;
+          await addDoc(collection(db, "referral_pending"), {
+            upline,
+            downline: currentUser.uid,
+            depositId: newDepositRef.id,
+            amount: selectedAmount * 0.2,
+            timestamp: serverTimestamp()
+          });
+        }
+      }
+
+      popup.innerText = " Processing done!";
+      setTimeout(() => {
+        location.href = "deposit-history.html";
+      }, 1000);
+
+    }, 2000);
   };
 </script>
 </body>

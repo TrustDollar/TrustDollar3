@@ -1,0 +1,159 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invest in BTC – Coming Soon</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: #000;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ff0000, #ffd700, #ff0000);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 5s linear infinite, glow 2s ease-in-out infinite alternate;
+      z-index: 10;
+    }
+
+    @keyframes shine {
+      0% { background-position: 0%; }
+      100% { background-position: 300%; }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff0000, 0 0 20px #ffd700; }
+      to   { text-shadow: 0 0 20px #ffd700, 0 0 40px #ff0000; }
+    }
+
+    /* 🚀 Rocket */
+    .rocket {
+      position: absolute;
+      bottom: -100px;
+      font-size: 3rem;
+      color: #fff;
+      animation: rocketUp 3s ease-in forwards;
+      z-index: 20;
+    }
+
+    @keyframes rocketUp {
+      0%   { bottom: -100px; }
+      100% { bottom: 50%; }
+    }
+
+    /* 💥 Explosion Particles */
+    .particle {
+      position: absolute;
+      color: #ffd700;
+      font-size: 1rem;
+      opacity: 0;
+      animation: explode 2s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.5); }
+    }
+
+    /* Falling BTC */
+    .falling {
+      position: absolute;
+      top: -50px;
+      font-size: 2rem;
+      color: #ffd700;
+      opacity: 1;
+      animation: fall linear forwards;
+      z-index: 5;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+
+    /* Waves */
+    .wave {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 200px;
+      background: rgba(255, 0, 0, 0.3);
+      border-radius: 43%;
+      animation: waveAnim 8s linear infinite;
+      z-index: 1;
+    }
+
+    .wave:nth-child(2) {
+      background: rgba(255, 215, 0, 0.3);
+      animation-duration: 12s;
+      animation-direction: reverse;
+    }
+
+    @keyframes waveAnim {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 768px) { h1 { font-size: 2rem; } }
+    @media (max-width: 480px) { h1 { font-size: 1.5rem; } }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</head>
+<body>
+
+  <h1> Invest in BTC Comming Soon </h1>
+
+  <!-- Waves -->
+  <div class="wave"></div>
+  <div class="wave"></div>
+
+  <!-- Rocket -->
+  <i class="fas fa-rocket rocket" id="rocket"></i>
+
+  <script>
+    // BTC Falling
+    function createBTC() {
+      const btc = document.createElement("i");
+      btc.classList.add("fab", "fa-bitcoin", "falling");
+      btc.style.left = Math.random() * 100 + "vw";
+      btc.style.fontSize = Math.random() * 25 + 20 + "px";
+      btc.style.animationDuration = Math.random() * 3 + 3 + "s";
+      document.body.appendChild(btc);
+      setTimeout(() => btc.remove(), 6000);
+    }
+    setInterval(createBTC, 500);
+
+    // 🚀 Rocket Explosion
+    const rocket = document.getElementById("rocket");
+    rocket.addEventListener("animationend", () => {
+      rocket.style.display = "none"; // hide rocket
+      for (let i = 0; i < 30; i++) {
+        const part = document.createElement("div");
+        part.classList.add("particle");
+        part.textContent = "Coming Soon";
+        part.style.left = "50%";
+        part.style.top = "50%";
+        part.style.setProperty("--x", (Math.random() * 400 - 200) + "px");
+        part.style.setProperty("--y", (Math.random() * 400 - 200) + "px");
+        document.body.appendChild(part);
+        setTimeout(() => part.remove(), 2000);
+      }
+    });
+  </script>
+
+</body>
+</html>

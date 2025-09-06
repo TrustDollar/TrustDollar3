@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+       <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8" />
@@ -177,7 +177,7 @@
     <div class="box"><h4>Total Joined</h4><div class="value-box" id="refCount">0</div></div>
     <div class="box"><h4>Total Referral</h4><div class="value-box" id="refIncome">$0</div></div>
     <div class="box"><h4>Today Income</h4><div class="value-box" id="todayIncome">$0</div></div>
-    <div class="box"><h4>Total deposit</h4><div class="value-box" id="totalDeposit">$0</div></div>
+    <div class="box"><h4>Total Deposit Ammount </h4><div class="value-box" id="totalDeposit">$0</div></div>
     <div class="box"><h4>Total Withdrawals</h4><div class="value-box" id="totalWithdrawal">$0</div></div>
   </div>
 
@@ -382,6 +382,8 @@
       const auth = getAuth(app);
       const db = getFirestore(app);
 
+
+
 // 🔹 DOM Elements
       const refCodeEl = document.getElementById("refCode");
       const refCountEl = document.getElementById("refCount");
@@ -424,27 +426,33 @@
         });
 
   // 🔹 User's own today mining income
-        const todayDateOnly = new Date().toISOString().split("T")[0];
-        const miningQuery = collection(db, "users", uid, "miningHistory");
+        
+  function getTodayRange() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    return { start: start.getTime(), end: end.getTime() };
+  }
 
-        onSnapshot(miningQuery, (snap) => {
-          let miningToday = 0;
-          snap.forEach((docSnap) => {
-            const mData = docSnap.data();
-            if (mData.date) {
-              let mineDate;
-              if (typeof mData.date.toDate === "function") {
-                mineDate = mData.date.toDate().toISOString().split("T")[0];
-              } else {
-                mineDate = new Date(mData.date).toISOString().split("T")[0];
-              }
-              if (mineDate === todayDateOnly) {
-                miningToday += mData.amount || 0;
-              }
-            }
-          });
-          todayIncomeEl.innerText = `$${miningToday.toFixed(2)}`;
-        });
+  const miningQuery = collection(db, "users", uid, "miningHistory");
+
+  onSnapshot(miningQuery, (snap) => {
+    let todayIncome = 0;
+    const { start, end } = getTodayRange();
+
+    snap.forEach((docSnap) => {
+      const mData = docSnap.data();
+      if (mData.time) {
+        const entryTime = Number(mData.time); // epoch ms
+        if (entryTime >= start && entryTime < end) {
+          todayIncome += Number(mData.earned) || 0;
+        }
+      }
+    });
+
+    todayIncomeEl.innerText = `$${todayIncome.toFixed(2)}`;
+  });
+
 
   // 🔹 Copy referral code
         window.copyReferral = function () {

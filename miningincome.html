@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -128,9 +128,7 @@
 </div>
 
 <div id="history"></div>
-
-<div id="popup" class="popup"></div>
-
+<div class="popup" id="popupMsg"></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -162,6 +160,28 @@ function showPopup(message) {
 
 function showLoader() {
   container.innerHTML = '<div class="loader"></div>';
+}
+
+// ✅ Safe date converter
+function convertToDate(timeField) {
+  if (!timeField) return null;
+
+  // Firestore Timestamp object
+  if (timeField.seconds) {
+    return new Date(timeField.seconds * 1000);
+  }
+
+  // Milliseconds
+  if (timeField > 1000000000000) {
+    return new Date(timeField);
+  }
+
+  // Seconds
+  if (timeField > 1000000000) {
+    return new Date(timeField * 1000);
+  }
+
+  return null;
 }
 
 async function loadReferralIncome() {
@@ -196,13 +216,18 @@ async function loadReferralIncome() {
       userNameMap[uid] = userDoc.exists() ? (userDoc.data().name || "N/A") : "N/A";
     }));
 
-    referralData = rawData.map(item => ({
-      name: userNameMap[item.fromUser] || "N/A",
-      commission: item.amount || 0,
-      date: item.time ? new Date(item.time * 1000).toLocaleDateString() : "N/A"
-    }));
+    referralData = rawData.map(item => {
+      const dateObj = convertToDate(item.time);
+      return {
+        name: userNameMap[item.fromUser] || "N/A",
+        commission: item.amount || 0,
+        date: dateObj ? dateObj.toLocaleString() : "N/A",
+        timestamp: dateObj ? dateObj.getTime() : 0
+      };
+    });
 
-    referralData.sort((a, b) => b.commission - a.commission);
+    // 🔹 Latest sabse upar (by time)
+    referralData.sort((a, b) => b.timestamp - a.timestamp);
 
     renderList(referralData);
 
@@ -259,3 +284,4 @@ onAuthStateChanged(auth, (user) => {
 
 </body>
 </html>
+

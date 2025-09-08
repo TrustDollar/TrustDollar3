@@ -1,0 +1,336 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ID to ID Transfer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg, #8B0000, #FFD700); /* Red → Gold */
+  font-family: 'Segoe UI', sans-serif;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+
+    .box {
+      background: rgba(255, 0, 0, 0.1);
+      border: 2px solid rgba(255, 215, 0, 0.4);
+      border-radius: 18px;
+      padding: 25px 20px;
+      width: 100%;
+      max-width: 360px;   /* ✅ limit for all devices */
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.4), inset 0 0 10px rgba(255,215,0,0.3);
+      animation: glow 3s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 25px rgba(255, 0, 0, 0.5), inset 0 0 10px rgba(255,215,0,0.3); }
+      to   { box-shadow: 0 0 35px rgba(255, 215, 0, 0.6), inset 0 0 15px rgba(255,0,0,0.4); }
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 22px;
+      color: gold;
+      text-shadow: 0 0 8px red;
+    }
+
+    p {
+      margin: 5px 0;
+      color: #fff;
+      font-size: 14px;
+      word-wrap: break-word;
+    }
+
+    #currentWallet {
+      margin: 10px auto 20px auto;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255,215,0,0.5);
+      color: gold;
+      font-weight: bold;
+      font-size: 16px;
+      text-shadow: 0 0 6px red;
+      width: 90%;
+      max-width: 300px;
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.5), inset 0 0 6px rgba(255,215,0,0.3);
+    }
+
+    input, button {
+      width: 90%;
+      max-width: 300px;
+      padding: 12px;
+      margin: 10px auto;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      outline: none;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    input {
+      background: rgba(0, 0, 0, 0.7);
+      color: gold;
+      border: 1px solid rgba(255,215,0,0.4);
+      text-align: center;
+    }
+
+    input::placeholder { color: rgba(255,215,0,0.6); }
+
+    button {
+      background: linear-gradient(90deg, red, gold);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,215,0,0.7);
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      padding: 15px 25px;
+      border-radius: 12px;
+      display: none;
+      font-size: 15px;
+      z-index: 9999;
+      text-align:center;
+      color:#fff;
+      border: 2px solid gold;
+      box-shadow: 0 0 20px red;
+      max-width: 90%;
+      word-wrap: break-word;
+    }
+
+    .popup.success { background: rgba(0,128,0,0.85); }
+    .popup.error { background: rgba(139,0,0,0.85); }
+
+    /* ✅ Mobile Optimization */
+    @media (max-width: 420px) {
+      .box { max-width: 95%; padding: 20px 15px; }
+      input, button { width: 100%; max-width: 100%; font-size: 13px; padding: 10px; }
+      #currentWallet { font-size: 14px; }
+    }
+     /* 🔄 Spinner inside button */
+.spinner {
+  border: 3px solid rgba(255,215,0,0.3);
+  border-top: 3px solid gold;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 8px;
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>ID to ID Transfer</h2>
+    <p id="currentUserEmail"></p>
+    <p id="currentWallet"></p>
+    <input type="email" id="receiverEmail" placeholder="Receiver Gmail ID"/>
+    <button id="checkBtn">Check Receiver</button>
+    <input type="number" id="amount" placeholder="Enter Amount"/>
+    <button id="sendBtn">Send Money</button>
+  </div>
+
+  <div id="popup" class="popup"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { 
+    getFirestore, doc, getDocs, collection, query, where, 
+    runTransaction, onSnapshot, addDoc, serverTimestamp 
+  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  // 🔥 Firebase Config
+  const firebaseConfig = {
+    apiKey:"AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain:"trustdollar-f72f4.firebaseapp.com",
+    projectId:"trustdollar-f72f4",
+    storageBucket:"trustdollar-f72f4.appspot.com",
+    messagingSenderId:"217643658538",
+    appId:"1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  let currentUser = null;
+  let receiverRef = null;
+  let receiverEmailGlobal = "";
+
+  const currentUserEmailEl = document.getElementById("currentUserEmail");
+  const currentWalletEl = document.getElementById("currentWallet");
+  const receiverEmailEl = document.getElementById("receiverEmail");
+  const amountEl = document.getElementById("amount");
+  const checkBtn = document.getElementById("checkBtn");
+  const sendBtn = document.getElementById("sendBtn");
+  const popup = document.getElementById("popup");
+
+  // ✅ Popup Function
+  function showPopup(message, success=true) {
+    popup.innerText = message;
+    popup.className = success ? "popup success" : "popup error";
+    popup.style.display = "block";
+    setTimeout(()=> popup.style.display="none", 2000);
+  }
+
+  // ✅ Auth State
+  onAuthStateChanged(auth, async (user) => {
+    if(user){
+      currentUser = user;
+      currentUserEmailEl.innerText = `Your Email: ${user.email}`;
+
+      // Live Wallet Sync
+      const senderRef = doc(db, "users", currentUser.uid);
+      onSnapshot(senderRef, (snap)=>{
+        if(snap.exists()){
+          currentWalletEl.innerText = `Your Balance: $${snap.data().wallet.toFixed(2)}`;
+        }
+      });
+    } else {
+      currentUserEmailEl.innerText = "Not Logged In!";
+      currentWalletEl.innerText = "";
+    }
+  });
+
+  // ✅ Check Receiver
+  checkBtn.addEventListener("click", async () => {
+    const receiverEmail = receiverEmailEl.value.trim();
+    receiverRef = null;
+    receiverEmailGlobal = "";
+
+    if(!receiverEmail){
+      showPopup("⚠ Please enter a Gmail ID", false);
+      return;
+    }
+
+    try {
+      const q = query(collection(db, "users"), where("email", "==", receiverEmail));
+      const querySnapshot = await getDocs(q);
+
+      if(querySnapshot.empty){
+        showPopup("❌ Receiver not found!", false);
+        return;
+      }
+
+      const receiverDoc = querySnapshot.docs[0];
+      const receiverData = receiverDoc.data();
+
+      receiverRef = doc(db, "users", receiverDoc.id);
+      receiverEmailGlobal = receiverData.email;
+
+      if(receiverData.name){
+        showPopup(`✅ Receiver Found (Name: ${receiverData.name})`, true);
+      } else {
+        showPopup("⚠ Receiver found but name missing!", false);
+      }
+    } catch (err) {
+      showPopup("❌ Error: " + err.message, false);
+    }
+  });
+
+  // ✅ Send Money with 10% Fee + Save Transaction
+ // ✅ Send Money with 10% Fee + Save Transaction + Loading Spinner
+sendBtn.addEventListener("click", async () => {
+  const amount = parseFloat(amountEl.value);
+
+  if(!receiverRef){
+    showPopup("⚠ Please check receiver first!", false);
+    return;
+  }
+  if(!amount || amount <= 0){
+    showPopup("⚠ Enter valid amount!", false);
+    return;
+  }
+  if(amount < 170){
+    showPopup("⚠ Minimum transfer is $170 (10% fee will apply)", false);
+    return;
+  }
+
+  // 🔒 Disable buttons + show loading spinner
+  sendBtn.disabled = true;
+  checkBtn.disabled = true;
+  sendBtn.innerHTML = `<span class="spinner"></span> Please wait...`;
+
+  try {
+    await runTransaction(db, async (transaction) => {
+      const senderRef = doc(db, "users", currentUser.uid);
+      const senderSnap = await transaction.get(senderRef);
+      const receiverSnap = await transaction.get(receiverRef);
+
+      if(!senderSnap.exists()) throw "Sender not found!";
+      if(!receiverSnap.exists()) throw "Receiver not found!";
+
+      const senderData = senderSnap.data();
+      const receiverData = receiverSnap.data();
+
+      if(senderData.wallet < amount){
+        throw "Insufficient Balance!";
+      }
+
+      const fee = amount * 0.10;   // 10% cut
+      const netAmount = amount - fee;
+
+      // Update wallets
+      transaction.update(senderRef, { wallet: senderData.wallet - amount });
+      transaction.update(receiverRef, { wallet: receiverData.wallet + netAmount });
+
+      // ✅ Save Transaction History
+      await addDoc(collection(db, "transactions"), {
+        sender: senderData.email,
+        receiver: receiverData.email,
+        amount: amount,
+        fee: fee,
+        netAmount: netAmount,
+        timestamp: serverTimestamp()
+      });
+    });
+
+    showPopup(`✅ Transfer Successful! (10% Fee Cut)`, true);
+    amountEl.value = "";
+
+    // ✅ Redirect to wallet.html after 1s
+    setTimeout(() => {
+      window.location.href = "wallet.html";
+    }, 1000);
+
+  } catch (err) {
+    showPopup("❌ " + err, false);
+    sendBtn.disabled = false;
+    checkBtn.disabled = false;
+    sendBtn.innerText = "Send Money";
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -213,6 +213,10 @@
     <!-- ✅ All wallet actions in one box, side by side -->
     <div class="box box-full">
       <div class="label">Wallet Actions</div>
+        <!-- 🆕 New Button (Full Width, with link) -->
+       <a href="idtoidtransfertrustdollarin.html" class="action-link" style="width:100%;margin-bottom:10px;display:block;">
+      ID to ID Transfer
+      </a>
       <div class="inner-actions">
         <a href="deposit.html" class="action-link"> Deposit</a>
         <a href="deposit-history.html" class="action-link"> Depo. History</a>
@@ -220,6 +224,20 @@
         <a href="withdrawal-history.html" class="action-link"> Withr. History</a>
       </div>
     </div>
+    <!-- 👇 Balance aur User Info ke neeche ye add karo -->
+  <div class="box box-full">
+  <div class="label">Transaction History</div>
+  <div id="txHistory" style="
+    max-height:250px;
+    overflow-y:auto;
+    font-size:13px;
+    margin-top:5px;
+    line-height:1.4;
+  ">
+    <p style="color:#aaa;">Loading history...</p>
+  </div>
+  </div>
+
 
     <div class="photo-box">
       <img src="photo/c3145790-1ba1-404b-90eb-0453c9a62415.png" alt="Deposit Image" />
@@ -247,70 +265,138 @@
       });
     </script>
 
-    <!-- ✅ Firebase Wallet Sync -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-      import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  <!-- ✅ Firebase Wallet Sync -->
+    
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { 
+    getFirestore, doc, onSnapshot, collection, query, where, orderBy 
+  } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-        authDomain: "trustdollar-f72f4.firebaseapp.com",
-        projectId: "trustdollar-f72f4",
-        storageBucket: "trustdollar-f72f4.appspot.com",
-        messagingSenderId: "217643658538",
-        appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
-      };
+  // 🔑 Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+    authDomain: "trustdollar-f72f4.firebaseapp.com",
+    projectId: "trustdollar-f72f4",
+    storageBucket: "trustdollar-f72f4.appspot.com",
+    messagingSenderId: "217643658538",
+    appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
+  };
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
+  // 🚀 Init
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-      const walletEl = document.getElementById("walletBalance");
-      const userName = document.getElementById("userName");
-      const userEmail = document.getElementById("userEmail");
-      const userId = document.getElementById("userId");
+  const walletEl = document.getElementById("walletBalance");
+  const userName = document.getElementById("userName");
+  const userEmail = document.getElementById("userEmail");
+  const userId = document.getElementById("userId");
+  const txHistoryEl = document.getElementById("txHistory");
 
-      onAuthStateChanged(auth, (user) => {
-        if (!user) return window.location.href = "auth.html";
+  // ✅ User Auth + Data + History
+  onAuthStateChanged(auth, (user) => {
+    if (!user) return window.location.href = "auth.html";
 
-        const uid = user.uid;
-        const userRef = doc(db, "users", uid);
+    const uid = user.uid;
+    const userRef = doc(db, "users", uid);
 
-        onSnapshot(userRef, (docSnap) => {
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            walletEl.innerText = `$${(data.wallet || 0).toFixed(2)}`;
-            userName.textContent = data.name || "Unnamed";
-            userEmail.textContent = user.email;
-            userId.textContent = data.userID || uid;
-          }
+    // 🟢 Wallet Auto Update
+    onSnapshot(userRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        walletEl.innerText = `$${(data.wallet || 0).toFixed(2)}`;
+        userName.textContent = data.name || "Unnamed";
+        userEmail.textContent = user.email;
+        userId.textContent = data.userID || uid;
+      }
+    });
+
+    // 🟢 Transaction History (sender + receiver)
+    const txRef = collection(db, "transactions");
+
+    const sentQ = query(
+      txRef,
+      where("sender", "==", user.email),
+      orderBy("timestamp", "desc")
+    );
+
+    const recvQ = query(
+      txRef,
+      where("receiver", "==", user.email),
+      orderBy("timestamp", "desc")
+    );
+
+    let allTx = [];
+
+    // Sent
+    onSnapshot(sentQ, (snap) => {
+      allTx = [];
+      snap.forEach((doc) => {
+        const tx = doc.data();
+        allTx.push({
+          type: "sent",
+          amount: tx.amount,
+          fee: tx.fee,
+          to: tx.receiver,
+          time: tx.timestamp?.toDate ? tx.timestamp.toDate() : new Date()
         });
       });
-    </script>
+      renderHistory();
+    });
 
-    <!-- 🔁 Activity Auto Update -->
-    <script>
-      const names = ["KODQIAH", "YIDASB", "GHT4AD", "26GHDF", "GASJ345"];
-      const actions = ["deposited", "withdrew"];
-      function getRandomActivity() {
-        const name = names[Math.floor(Math.random() * names.length)];
-        const action = actions[Math.floor(Math.random() * actions.length)];
-        const amount = Math.floor(Math.random() * 900 + 100);
-        return `${name} ${action} $${amount}`;
-      }
-      function updateActivity() {
-        document.getElementById("activityText").innerText = getRandomActivity();
-      }
-      setInterval(updateActivity, 4000);
-
-      document.querySelectorAll(".nav-bar a").forEach(link => {
-        link.addEventListener("click", function () {
-          document.querySelectorAll(".nav-bar a").forEach(a => a.classList.remove("active"));
-          this.classList.add("active");
+    // Received
+    onSnapshot(recvQ, (snap) => {
+      snap.forEach((doc) => {
+        const tx = doc.data();
+        allTx.push({
+          type: "recv",
+          amount: tx.netAmount,
+          from: tx.sender,
+          original: tx.amount,
+          fee: tx.fee,
+          time: tx.timestamp?.toDate ? tx.timestamp.toDate() : new Date()
         });
       });
-    </script>
+      renderHistory();
+    });
+
+    function renderHistory() {
+      // sort latest first
+      allTx.sort((a, b) => b.time - a.time);
+
+      let html = "";
+      allTx.forEach(tx => {
+        if (tx.type === "sent") {
+          html += `
+            <div style="background:#330000;border:1px solid red;border-radius:10px;padding:8px;margin-bottom:8px;color:#fff;">
+              <strong style="color:red;"> Sent $${tx.amount}</strong><br/>
+              To: ${tx.to}<br/>
+              Fee: $${tx.fee}<br/>
+              Net Sent: $${tx.amount - tx.fee}<br/>
+              <small style="color:#aaa;">${tx.time.toLocaleString()}</small>
+            </div>
+          `;
+        } else {
+          html += `
+            <div style="background:#003300;border:1px solid lime;border-radius:10px;padding:8px;margin-bottom:8px;color:#fff;">
+              <strong style="color:lightgreen;"> Received $${tx.amount}</strong><br/>
+              From: ${tx.from}<br/>
+              Original Amount: $${tx.original}<br/>
+              Fee Deducted: $${tx.fee}<br/>
+              <small style="color:#aaa;">${tx.time.toLocaleString()}</small>
+            </div>
+          `;
+        }
+      });
+
+      txHistoryEl.innerHTML = html || "<p style='color:#aaa;'>No history yet</p>";
+    }
+  });
+</script>
+
+
 
 </body>
 </html>

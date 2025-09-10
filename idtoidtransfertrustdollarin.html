@@ -319,14 +319,14 @@
       receiverRef = null;
       receiverEmailGlobal = "";
       if(!receiverEmail){
-        showPopup("⚠ Please enter a Gmail ID", false);
+        showPopup(" Please enter a Gmail ID", false);
         return;
       }
       try {
         const q = query(collection(db, "users"), where("email", "==", receiverEmail));
         const querySnapshot = await getDocs(q);
         if(querySnapshot.empty){
-          showPopup("❌ Receiver not found!", false);
+          showPopup(" Receiver not found!", false);
           return;
         }
         const receiverDoc = querySnapshot.docs[0];
@@ -334,12 +334,12 @@
         receiverRef = doc(db, "users", receiverDoc.id);
         receiverEmailGlobal = receiverData.email;
         if(receiverData.name){
-          showPopup(`✅ Receiver Found (Name: ${receiverData.name})`, true);
+          showPopup(` Receiver Found (Name: ${receiverData.name})`, true);
         } else {
-          showPopup("⚠ Receiver found but name missing!", false);
+          showPopup(" Receiver found but name missing!", false);
         }
       } catch (err) {
-        showPopup("❌ Error: " + err.message, false);
+        showPopup(" Error: " + err.message, false);
       }
     });
 
@@ -347,15 +347,15 @@
     sendBtn.addEventListener("click", async () => {
       const amount = parseFloat(amountEl.value);
       if(!receiverRef){
-        showPopup("⚠ Please check receiver first!", false);
+        showPopup(" Please check receiver first!", false);
         return;
       }
       if(!amount || amount <= 0){
-        showPopup("⚠ Enter valid amount!", false);
+        showPopup(" Enter valid amount!", false);
         return;
       }
       if(amount < 170){
-        showPopup("⚠ Minimum transfer is $170 (10% fee will apply)", false);
+        showPopup(" Minimum transfer is $170 (10% fee will apply)", false);
         return;
       }
       sendBtn.disabled = true;
@@ -386,7 +386,7 @@
             timestamp: serverTimestamp()
           });
         });
-        showPopup(`✅ Transfer Successful! (10% Fee Cut)`, true);
+        showPopup(` Transfer Successful! (10% Fee Cut)`, true);
         amountEl.value = "";
         setTimeout(() => { window.location.href = "wallet.html"; }, 1000);
       } catch (err) {
@@ -411,11 +411,11 @@
         { fps: 10, qrbox: 250 },
         qrCodeMessage => {
           receiverEmailEl.value = qrCodeMessage;
-          showPopup("✅ QR Scanned! Email filled", true);
+          showPopup(" QR Scanned! Email filled", true);
           stopScanner();
         },
         errorMessage => {}
-      ).catch(err => { showPopup("❌ Camera Error: " + err, false); });
+      ).catch(err => { showPopup(" Camera Error: " + err, false); });
     });
 
     closeScannerBtn.addEventListener("click", stopScanner);

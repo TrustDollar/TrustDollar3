@@ -735,21 +735,30 @@ btn.onclick = async () => {
       time: now
     });
 
-      // ✅ Send 20% to upline
-    if (data.referredBy) {
-      try {
-        const q = query(collection(db, "users"), where("refCode", "==", data.referredBy));
-        const qSnap = await getDocs(q);
+  // ✅ Send 20% to upline
+if (data.referredBy) {
+  try {
+    const q = query(collection(db, "users"), where("refCode", "==", data.referredBy));
+    const qSnap = await getDocs(q);
 
-        if (!qSnap.empty) {
-          const uplineUID = qSnap.docs[0].id;
+    if (!qSnap.empty) {
+      const uplineUID = qSnap.docs[0].id;
+      const uplineRef = doc(db, "users", uplineUID);
+      const uplineSnap = await getDoc(uplineRef);
 
-            // Add 10% to upline wallet
-          await updateDoc(doc(db, "users", uplineUID), {
+      if (uplineSnap.exists()) {
+        const uplineData = uplineSnap.data();
+        const uplineWallet = parseFloat(uplineData.wallet || 0);
+        const uplineMining = parseFloat(uplineData.miningAmount || 0);
+        const uplineTotal = uplineWallet + uplineMining;
+
+        // ✅ Commission only if upline has ≥ $170 total fund
+        if (uplineTotal >= 170) {
+          await updateDoc(uplineRef, {
             wallet: increment(uplineEarn)
           });
 
-            // Save referral income
+          // Save referral income
           await addDoc(collection(db, "referral_income"), {
             uid: currentUser.uid,
             fromUser: currentUser.uid,
@@ -758,12 +767,17 @@ btn.onclick = async () => {
             time: Date.now()
           });
         } else {
-          console.warn("Upline not found: refCode mismatch");
+          console.warn("Upline does not qualify (needs $170+ fund). No commission given.");
         }
-      } catch (e) {
-        console.error("Error sending to upline:", e);
       }
+    } else {
+      console.warn("Upline not found: refCode mismatch");
     }
+  } catch (e) {
+    console.error("Error sending to upline:", e);
+  }
+}
+
 
     setTimeout(() => loadUserData(), 1000);
   }
@@ -866,8 +880,6 @@ confirmBtn.addEventListener("click", async () => {
     smsBox.style.display = "none";
   }
 });
-
-
 
 </script>
 </body>

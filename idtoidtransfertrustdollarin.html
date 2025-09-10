@@ -1,435 +1,464 @@
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>ID to ID Transfer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <style>
-    body {
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background: linear-gradient(135deg, #8B0000, #FFD700);
-      font-family: 'Segoe UI', sans-serif;
-      padding: 15px;
-      box-sizing: border-box;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-    }
-    body.loaded { opacity: 1; }
+    <!DOCTYPE html>
+   <html lang="en">
+   <head>
+    <meta charset="UTF-8">
+    <title>ID to ID Transfer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+      body {
+        margin:0;
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background: linear-gradient(135deg, #8B0000, #FFD700);
+        font-family: 'Segoe UI', sans-serif;
+        padding: 15px;
+        box-sizing: border-box;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+      }
+      body.loaded { opacity: 1; }
 
-    /* Loader */
-    #loader {
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: linear-gradient(135deg, #8B0000, #FFD700);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index: 10000;
-    }
-    .loader-spinner {
-      border: 6px solid rgba(255,215,0,0.3);
-      border-top: 6px solid gold;
-      border-right: 6px solid red;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+      /* Loader */
+      #loader {
+        position: fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background: linear-gradient(135deg, #8B0000, #FFD700);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        z-index: 10000;
+      }
+      .loader-spinner {
+        border: 6px solid rgba(255,215,0,0.3);
+        border-top: 6px solid gold;
+        border-right: 6px solid red;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
 
-    .box {
-      background: rgba(255, 0, 0, 0.1);
-      border: 2px solid rgba(255, 215, 0, 0.4);
-      border-radius: 18px;
-      padding: 25px 20px;
-      width: 100%;
-      max-width: 360px;
-      text-align: center;
-    }
-    h2 { margin-bottom: 15px; font-size: 22px; color: gold; }
-    p { margin: 5px 0; color: #fff; font-size: 14px; word-wrap: break-word; }
+      .box {
+        background: rgba(255, 0, 0, 0.1);
+        border: 2px solid rgba(255, 215, 0, 0.4);
+        border-radius: 18px;
+        padding: 25px 20px;
+        width: 100%;
+        max-width: 360px;
+        text-align: center;
+      }
+      h2 { margin-bottom: 15px; font-size: 22px; color: gold; }
+      p { margin: 5px 0; color: #fff; font-size: 14px; word-wrap: break-word; }
 
-    .innerEmailBox {
-      margin: 10px auto;
-      padding: 12px;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255,215,0,0.5);
-      color: #FFD700;
-      font-weight: bold;
-      font-size: 15px;
-      width: 90%;
-      max-width: 300px;
-      text-align: center;
-    }
+      .innerEmailBox {
+        margin: 10px auto;
+        padding: 12px;
+        border-radius: 12px;
+        background: rgb(243 13 13 / 60%);
+        border: 1px solid rgba(255,215,0,0.5);
+        color: #FFD700;
+        font-weight: bold;
+        font-size: 15px;
+        width: 90%;
+        max-width: 300px;
+        text-align: center;
+      }
 
-    #currentWallet {
-      margin: 10px auto 20px auto;
-      padding: 12px;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255,215,0,0.5);
-      color: gold;
-      font-weight: bold;
-      font-size: 16px;
-      width: 90%;
-      max-width: 300px;
-    }
+      #currentWallet {
+        margin: 10px auto 20px auto;
+        padding: 12px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255,215,0,0.5);
+        color: gold;
+        font-weight: bold;
+        font-size: 16px;
+        width: 90%;
+        max-width: 300px;
+      }
 
-    input, button {
-      width: 90%;
-      max-width: 300px;
-      padding: 12px;
-      margin: 10px auto;
-      border-radius: 10px;
-      border: none;
-      font-size: 14px;
-      outline: none;
-      display: block;
-      box-sizing: border-box;
-    }
-    input {
-      background: rgba(0, 0, 0, 0.7);
-      color: gold;
-      border: 1px solid rgba(255,215,0,0.4);
-      text-align: center;
-    }
-    input::placeholder { color: rgba(255,215,0,0.6); }
+      input, button {
+        width: 90%;
+        max-width: 300px;
+        padding: 12px;
+        margin: 10px auto;
+        border-radius: 10px;
+        border: none;
+        font-size: 14px;
+        outline: none;
+        display: block;
+        box-sizing: border-box;
+      }
+      input {
+        background: rgba(0, 0, 0, 0.7);
+        color: gold;
+        border: 1px solid rgba(255,215,0,0.4);
+        text-align: center;
+      }
+      input::placeholder { color: rgba(255,215,0,0.6); }
 
-    button {
-      background: linear-gradient(90deg, red, gold);
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover { transform: scale(1.05); }
+      button {
+        background: linear-gradient(90deg, red, gold);
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      button:hover { transform: scale(1.05); }
 
-    .popup {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.85);
-      padding: 15px 25px;
-      border-radius: 12px;
-      display: none;
-      font-size: 15px;
-      z-index: 9999;
-      text-align:center;
-      color:#fff;
-      border: 2px solid gold;
-      max-width: 90%;
-      word-wrap: break-word;
-    }
-    .popup.success { background: rgba(0,128,0,0.85); }
-    .popup.error { background: rgba(139,0,0,0.85); }
+      .popup {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.85);
+        padding: 15px 25px;
+        border-radius: 12px;
+        display: none;
+        font-size: 15px;
+        z-index: 9999;
+        text-align:center;
+        color:#fff;
+        border: 2px solid gold;
+        max-width: 90%;
+        word-wrap: break-word;
+      }
+      .popup.success { background: rgba(0,128,0,0.85); }
+      .popup.error { background: rgba(139,0,0,0.85); }
 
-    /* Scanner */
-    .scanner-popup {
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background: rgba(0,0,0,0.85);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:10001;
-      flex-direction:column;
-    }
-    .scanner-box {
-      width:280px;
-      height:280px;
-      border:3px solid gold;
-      border-radius:12px;
-      position:relative;
-      overflow:hidden;
-    }
-    #scan-line {
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:3px;
-      background: linear-gradient(90deg, red, gold, red);
-      box-shadow: 0 0 15px red, 0 0 25px gold;
-      animation: scanMove 2s linear infinite;
-    }
-    @keyframes scanMove {
-      0% { top:0; }
-      50% { top: calc(100% - 3px); }
-      100% { top:0; }
-    }
-    .close-scan {
-      margin-top:15px;
-      padding:8px 20px;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      background:red;
-      color:#fff;
-      font-weight:bold;
-    }
+      /* Scanner */
+      .scanner-popup {
+        position: fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background: rgba(0,0,0,0.85);
+        display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:10001;
+        flex-direction:column;
+      }
+      .scanner-box {
+        width:280px;
+        height:280px;
+        border:3px solid gold;
+        border-radius:12px;
+        position:relative;
+        overflow:hidden;
+      }
+      #scan-line {
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:3px;
+        background: linear-gradient(90deg, red, gold, red);
+        box-shadow: 0 0 15px red, 0 0 25px gold;
+        animation: scanMove 2s linear infinite;
+      }
+      @keyframes scanMove {
+        0% { top:0; }
+        50% { top: calc(100% - 3px); }
+        100% { top:0; }
+      }
+      .close-scan {
+        margin-top:15px;
+        padding:8px 20px;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        background:red;
+        color:#fff;
+        font-weight:bold;
+      }
 
-    /* QR Code Box */
-    #qrBox {
-      margin-top: 20px;
-      padding: 12px;
-      border: 2px dashed rgba(255,215,0,0.6);
-      border-radius: 12px;
-      background: rgba(0,0,0,0.5);
-    }
-    .qr-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 10px auto;
-      width: 160px;
-      height: 160px;
-      background: #fff;
-      border-radius: 10px;
-      padding: 10px;
-    }
+      /* QR Code Box */
+      #qrBox {
+        margin-top: 20px;
+        padding: 12px;
+        border: 2px dashed rgba(255,215,0,0.6);
+        border-radius: 12px;
+        background: rgba(0,0,0,0.5);
+      }
+      .qr-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px auto;
+        width: 160px;
+        height: 160px;
+        background: #fff;
+        border-radius: 10px;
+        padding: 10px;
+      }
 
-    @media (max-width: 420px) {
-      .box { max-width: 95%; padding: 20px 15px; }
-      input, button { width: 100%; max-width: 100%; font-size: 16px; padding: 12px; }
-      #currentWallet { font-size: 14px; }
-    }
-  </style>
-</head>
-<body>
-  <!-- Loader -->
-  <div id="loader"><div class="loader-spinner"></div></div>
+      @media (max-width: 420px) {
+        .box { max-width: 95%; padding: 20px 15px; }
+        input, button { width: 100%; max-width: 100%; font-size: 16px; padding: 12px; }
+        #currentWallet { font-size: 14px; }
+      }
+      .innerEmailBox {
+        margin: 15px auto;
+        padding: 14px;
+        border-radius: 12px;
+        background: rgb(255 8 65 / 60%);
+        border: 1px solid gold;
+        width: 90%;
+        max-width: 320px;
+        text-align: center;
+        font-size: 15px;
+      }
 
-  <div class="box">
-    <h2>ID to ID Transfer</h2>
-    <p id="currentUserEmail" class="innerEmailBox"></p>
-    <p id="currentWallet"></p>
-    <input type="email" id="receiverEmail" placeholder="Receiver Gmail ID"/>
-    <button id="checkBtn">Check Receiver</button>
-    <input type="number" id="amount" placeholder="Enter Amount"/>
-    <button id="sendBtn">Send Money</button>
+      .innerEmailBox .label {
+        display: block;
+        font-weight: bold;
+        color: #FFD700;   /* Golden "Your Email:" */
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
 
-    <div id="qrBox">
-      <h3 style="color:gold; margin:10px 0;">Your QR Code</h3>
-      <div class="qr-wrapper">
-        <div id="qrcode"></div>
+      .innerEmailBox .value {
+        display: block;
+        color: #fff;      /* White email address */
+        font-weight: bold;
+        font-size: 15px;
+        word-wrap: break-word;
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- Loader -->
+    <div id="loader"><div class="loader-spinner"></div></div>
+
+    <div class="box">
+      <h2>ID to ID Transfer</h2>
+      <p id="currentUserEmail" class="innerEmailBox"></p>
+      <p id="currentWallet"></p>
+      <input type="email" id="receiverEmail" placeholder="Receiver Gmail ID"/>
+      <button id="checkBtn">Check Receiver</button>
+      <input type="number" id="amount" placeholder="Enter Amount"/>
+      <button id="sendBtn">Send Money</button>
+
+      <div id="qrBox">
+        <h3 style="color:gold; margin:10px 0;">Your QR Code</h3>
+        <div class="qr-wrapper">
+          <div id="qrcode"></div>
+        </div>
+        <p style="font-size:12px; color:#fff;">Scan this QR to auto-fill your Email</p>
       </div>
-      <p style="font-size:12px; color:#fff;">Scan this QR to auto-fill your Email</p>
+
+      <!-- Button for scanner -->
+      <button id="openScannerBtn">Scan QR</button>
     </div>
 
-    <!-- Button for scanner -->
-    <button id="openScannerBtn">Scan QR</button>
-  </div>
+    <div id="popup" class="popup"></div>
 
-  <div id="popup" class="popup"></div>
-
-  <!-- Scanner Popup -->
-  <div id="scannerPopup" class="scanner-popup">
-    <div class="scanner-box" id="reader">
-      <div id="scan-line"></div>
+    <!-- Scanner Popup -->
+    <div id="scannerPopup" class="scanner-popup">
+      <div class="scanner-box" id="reader">
+        <div id="scan-line"></div>
+      </div>
+      <button class="close-scan" id="closeScannerBtn">Close</button>
     </div>
-    <button class="close-scan" id="closeScannerBtn">Close</button>
-  </div>
 
-  <!-- Scanner Library -->
-  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <!-- Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import { 
-      getFirestore, doc, getDocs, collection, query, where, 
-      runTransaction, onSnapshot, addDoc, serverTimestamp 
-    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+      import { 
+        getFirestore, doc, getDocs, collection, query, where, 
+        runTransaction, onSnapshot, addDoc, serverTimestamp 
+      } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey:"AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
-      authDomain:"trustdollar-f72f4.firebaseapp.com",
-      projectId:"trustdollar-f72f4",
-      storageBucket:"trustdollar-f72f4.appspot.com",
-      messagingSenderId:"217643658538",
-      appId:"1:217643658538:web:c8a9cd78467e0818aa0253"
-    };
+      const firebaseConfig = {
+        apiKey:"AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
+        authDomain:"trustdollar-f72f4.firebaseapp.com",
+        projectId:"trustdollar-f72f4",
+        storageBucket:"trustdollar-f72f4.appspot.com",
+        messagingSenderId:"217643658538",
+        appId:"1:217643658538:web:c8a9cd78467e0818aa0253"
+      };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
 
-    let currentUser = null;
-    let receiverRef = null;
-    let receiverEmailGlobal = "";
+      let currentUser = null;
+      let receiverRef = null;
+      let receiverEmailGlobal = "";
 
-    const currentUserEmailEl = document.getElementById("currentUserEmail");
-    const currentWalletEl = document.getElementById("currentWallet");
-    const receiverEmailEl = document.getElementById("receiverEmail");
-    const amountEl = document.getElementById("amount");
-    const checkBtn = document.getElementById("checkBtn");
-    const sendBtn = document.getElementById("sendBtn");
-    const popup = document.getElementById("popup");
+      const currentUserEmailEl = document.getElementById("currentUserEmail");
+      const currentWalletEl = document.getElementById("currentWallet");
+      const receiverEmailEl = document.getElementById("receiverEmail");
+      const amountEl = document.getElementById("amount");
+      const checkBtn = document.getElementById("checkBtn");
+      const sendBtn = document.getElementById("sendBtn");
+      const popup = document.getElementById("popup");
 
-    function showPopup(message, success=true) {
-      popup.innerText = message;
-      popup.className = success ? "popup success" : "popup error";
-      popup.style.display = "block";
-      setTimeout(()=> popup.style.display="none", 2000);
-    }
+      function showPopup(message, success=true) {
+        popup.innerText = message;
+        popup.className = success ? "popup success" : "popup error";
+        popup.style.display = "block";
+        setTimeout(()=> popup.style.display="none", 2000);
+      }
 
     // Loader
-    window.addEventListener("load", () => {
-      document.getElementById("loader").style.display = "none";
-      document.body.classList.add("loaded");
-    });
+      window.addEventListener("load", () => {
+        document.getElementById("loader").style.display = "none";
+        document.body.classList.add("loaded");
+      });
 
     // Auth
-    onAuthStateChanged(auth, async (user) => {
-      if(user){
-        currentUser = user;
-        currentUserEmailEl.innerText = `Your Email: ${user.email}`;
-        const senderRef = doc(db, "users", currentUser.uid);
-        onSnapshot(senderRef, (snap)=>{
-          if(snap.exists()){
-            currentWalletEl.innerText = `Your Balance: $${snap.data().wallet.toFixed(2)}`;
-          }
-        });
-        document.getElementById("qrcode").innerHTML = "";
-        new QRCode(document.getElementById("qrcode"), {
-          text: user.email,
-          width: 140,
-          height: 140,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H
-        });
-      } else {
-        currentUserEmailEl.innerText = "Not Logged In!";
-        currentWalletEl.innerText = "";
-      }
-    });
+      onAuthStateChanged(auth, async (user) => {
+        if(user){
+          currentUser = user;
+          currentUserEmailEl.innerHTML = `<span class="label">Your Email:</span> <span class="value">${user.email}</span>`;
+
+          const senderRef = doc(db, "users", currentUser.uid);
+          onSnapshot(senderRef, (snap)=>{
+            if(snap.exists()){
+              currentWalletEl.innerText = `Your Balance: $${snap.data().wallet.toFixed(2)}`;
+            }
+          });
+          document.getElementById("qrcode").innerHTML = "";
+          new QRCode(document.getElementById("qrcode"), {
+            text: user.email,
+            width: 140,
+            height: 140,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+          });
+        } else {
+          currentUserEmailEl.innerText = "Not Logged In!";
+          currentWalletEl.innerText = "";
+        }
+      });
 
     // Receiver check
-    checkBtn.addEventListener("click", async () => {
-      const receiverEmail = receiverEmailEl.value.trim();
-      receiverRef = null;
-      receiverEmailGlobal = "";
-      if(!receiverEmail){
-        showPopup(" Please enter a Gmail ID", false);
-        return;
-      }
-      try {
-        const q = query(collection(db, "users"), where("email", "==", receiverEmail));
-        const querySnapshot = await getDocs(q);
-        if(querySnapshot.empty){
-          showPopup(" Receiver not found!", false);
+      checkBtn.addEventListener("click", async () => {
+        const receiverEmail = receiverEmailEl.value.trim();
+        receiverRef = null;
+        receiverEmailGlobal = "";
+        if(!receiverEmail){
+          showPopup(" Please enter a Gmail ID", false);
           return;
         }
-        const receiverDoc = querySnapshot.docs[0];
-        const receiverData = receiverDoc.data();
-        receiverRef = doc(db, "users", receiverDoc.id);
-        receiverEmailGlobal = receiverData.email;
-        if(receiverData.name){
-          showPopup(` Receiver Found (Name: ${receiverData.name})`, true);
-        } else {
-          showPopup(" Receiver found but name missing!", false);
+        try {
+          const q = query(collection(db, "users"), where("email", "==", receiverEmail));
+          const querySnapshot = await getDocs(q);
+          if(querySnapshot.empty){
+            showPopup(" Receiver not found!", false);
+            return;
+          }
+          const receiverDoc = querySnapshot.docs[0];
+          const receiverData = receiverDoc.data();
+          receiverRef = doc(db, "users", receiverDoc.id);
+          receiverEmailGlobal = receiverData.email;
+          if(receiverData.name){
+            showPopup(` Receiver Found (Name: ${receiverData.name})`, true);
+          } else {
+            showPopup(" Receiver found but name missing!", false);
+          }
+        } catch (err) {
+          showPopup(" Error: " + err.message, false);
         }
-      } catch (err) {
-        showPopup(" Error: " + err.message, false);
-      }
-    });
+      });
 
     // Send
-    sendBtn.addEventListener("click", async () => {
-      const amount = parseFloat(amountEl.value);
-      if(!receiverRef){
-        showPopup(" Please check receiver first!", false);
-        return;
-      }
-      if(!amount || amount <= 0){
-        showPopup(" Enter valid amount!", false);
-        return;
-      }
-      if(amount < 170){
-        showPopup(" Minimum transfer is $170 (10% fee will apply)", false);
-        return;
-      }
-      sendBtn.disabled = true;
-      checkBtn.disabled = true;
-      sendBtn.innerHTML = `<span class="spinner"></span> Please wait...`;
-      try {
-        await runTransaction(db, async (transaction) => {
-          const senderRef = doc(db, "users", currentUser.uid);
-          const senderSnap = await transaction.get(senderRef);
-          const receiverSnap = await transaction.get(receiverRef);
-          if(!senderSnap.exists()) throw "Sender not found!";
-          if(!receiverSnap.exists()) throw "Receiver not found!";
-          const senderData = senderSnap.data();
-          const receiverData = receiverSnap.data();
-          if(senderData.wallet < amount){
-            throw "Insufficient Balance!";
-          }
-          const fee = amount * 0.10;
-          const netAmount = amount - fee;
-          transaction.update(senderRef, { wallet: senderData.wallet - amount });
-          transaction.update(receiverRef, { wallet: receiverData.wallet + netAmount });
-          await addDoc(collection(db, "transactions"), {
-            sender: senderData.email,
-            receiver: receiverData.email,
-            amount: amount,
-            fee: fee,
-            netAmount: netAmount,
-            timestamp: serverTimestamp()
+      sendBtn.addEventListener("click", async () => {
+        const amount = parseFloat(amountEl.value);
+        if(!receiverRef){
+          showPopup(" Please check receiver first!", false);
+          return;
+        }
+        if(!amount || amount <= 0){
+          showPopup(" Enter valid amount!", false);
+          return;
+        }
+        if(amount < 170){
+          showPopup(" Minimum transfer is $170 (10% fee will apply)", false);
+          return;
+        }
+        sendBtn.disabled = true;
+        checkBtn.disabled = true;
+        sendBtn.innerHTML = `<span class="spinner"></span> Please wait...`;
+        try {
+          await runTransaction(db, async (transaction) => {
+            const senderRef = doc(db, "users", currentUser.uid);
+            const senderSnap = await transaction.get(senderRef);
+            const receiverSnap = await transaction.get(receiverRef);
+            if(!senderSnap.exists()) throw "Sender not found!";
+            if(!receiverSnap.exists()) throw "Receiver not found!";
+            const senderData = senderSnap.data();
+            const receiverData = receiverSnap.data();
+            if(senderData.wallet < amount){
+              throw "Insufficient Balance!";
+            }
+            const fee = amount * 0.10;
+            const netAmount = amount - fee;
+            transaction.update(senderRef, { wallet: senderData.wallet - amount });
+            transaction.update(receiverRef, { wallet: receiverData.wallet + netAmount });
+            await addDoc(collection(db, "transactions"), {
+              sender: senderData.email,
+              receiver: receiverData.email,
+              amount: amount,
+              fee: fee,
+              netAmount: netAmount,
+              timestamp: serverTimestamp()
+            });
           });
-        });
-        showPopup(` Transfer Successful! (10% Fee Cut)`, true);
-        amountEl.value = "";
-        setTimeout(() => { window.location.href = "wallet.html"; }, 1000);
-      } catch (err) {
-        showPopup("❌ " + err, false);
-        sendBtn.disabled = false;
-        checkBtn.disabled = false;
-        sendBtn.innerText = "Send Money";
-      }
-    });
+          showPopup(` Transfer Successful! (10% Fee Cut)`, true);
+          amountEl.value = "";
+          setTimeout(() => { window.location.href = "wallet.html"; }, 1000);
+        } catch (err) {
+          showPopup("❌ " + err, false);
+          sendBtn.disabled = false;
+          checkBtn.disabled = false;
+          sendBtn.innerText = "Send Money";
+        }
+      });
 
     // Scanner popup
-    const openScannerBtn = document.getElementById("openScannerBtn");
-    const scannerPopup = document.getElementById("scannerPopup");
-    const closeScannerBtn = document.getElementById("closeScannerBtn");
-    let html5QrCode;
+      const openScannerBtn = document.getElementById("openScannerBtn");
+      const scannerPopup = document.getElementById("scannerPopup");
+      const closeScannerBtn = document.getElementById("closeScannerBtn");
+      let html5QrCode;
 
-    openScannerBtn.addEventListener("click", () => {
-      scannerPopup.style.display = "flex";
-      html5QrCode = new Html5Qrcode("reader");
-      html5QrCode.start(
-        { facingMode: "environment" }, 
-        { fps: 10, qrbox: 250 },
-        qrCodeMessage => {
-          receiverEmailEl.value = qrCodeMessage;
-          showPopup(" QR Scanned! Email filled", true);
-          stopScanner();
-        },
-        errorMessage => {}
-      ).catch(err => { showPopup(" Camera Error: " + err, false); });
-    });
+      openScannerBtn.addEventListener("click", () => {
+        scannerPopup.style.display = "flex";
+        html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start(
+          { facingMode: "environment" }, 
+          { fps: 10, qrbox: 250 },
+          qrCodeMessage => {
+            receiverEmailEl.value = qrCodeMessage;
+            showPopup(" QR Scanned! Email filled", true);
+            stopScanner();
+          },
+          errorMessage => {}
+          ).catch(err => { showPopup(" Camera Error: " + err, false); });
+      });
 
-    closeScannerBtn.addEventListener("click", stopScanner);
+      closeScannerBtn.addEventListener("click", stopScanner);
 
-    function stopScanner(){
-      if(html5QrCode){
-        html5QrCode.stop().then(() => {
-          html5QrCode.clear();
+      function stopScanner(){
+        if(html5QrCode){
+          html5QrCode.stop().then(() => {
+            html5QrCode.clear();
+            scannerPopup.style.display = "none";
+          }).catch(err => { console.log("Stop failed", err); });
+        } else {
           scannerPopup.style.display = "none";
-        }).catch(err => { console.log("Stop failed", err); });
-      } else {
-        scannerPopup.style.display = "none";
+        }
       }
-    }
-  </script>
-</body>
-</html>
+    </script>
+  </body>
+  </html>

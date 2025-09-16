@@ -1,109 +1,109 @@
-       <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <title>Promotion – TrustDollar</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-      <style>
-        * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
-          scroll-behavior: smooth;
-        }
-        body {
-          background: linear-gradient(145deg, #8b0000, #ffd700);
-          font-family: 'Segoe UI', sans-serif;
-          padding: 20px 14px 120px;
-          max-width: 420px;
-          margin: 0 auto;
-          color: #fff;
-        }
-        h2, h3, h4 {
-          color: #ffd700;
-          text-align: center;
-          margin-bottom: 12px;
-          text-shadow: 0 0 8px #ff0000;
-          font-size: 18px;
-        }
-        .box {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid #ffd70099;
-          border-radius: 14px;
-          padding: 14px;
-          box-shadow: 0 0 14px rgba(255, 0, 0, 0.4);
-          backdrop-filter: blur(6px);
-          margin-bottom: 12px;
-        }
-        .value-box {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid #ffd700aa;
-          box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-          color: #ffd700;
-          padding: 8px 10px;
-          font-size: 14px;
-          border-radius: 10px;
-          text-align: center;
-          font-weight: bold;
-          word-break: break-word;
-          flex: 1;
-        }
-        .row-box {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-          margin-top: 10px;
-        }
-        .btn {
-          background: #ffd700;
-          color: #8b0000;
-          padding: 10px 16px;
-          border: none;
-          border-radius: 10px;
-          cursor: pointer;
-          font-size: 14px;
-          margin: 5px;
-          font-weight: bold;
-          box-shadow: 0 0 10px #ffd700aa;
-        }
-        .nav-bar {
-          position: fixed;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          background: #000;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-          max-width: 480px;
-          padding: 6px 0;   /* 👈 compact */
-          box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
-          z-index: 999;
+           <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <title>Promotion – TrustDollar</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+            <style>
+              * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                scroll-behavior: smooth;
+              }
+              body {
+                background: linear-gradient(145deg, #8b0000, #ffd700);
+                font-family: 'Segoe UI', sans-serif;
+                padding: 20px 14px 120px;
+                max-width: 420px;
+                margin: 0 auto;
+                color: #fff;
+              }
+              h2, h3, h4 {
+                color: #ffd700;
+                text-align: center;
+                margin-bottom: 12px;
+                text-shadow: 0 0 8px #ff0000;
+                font-size: 18px;
+              }
+              .box {
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid #ffd70099;
+                border-radius: 14px;
+                padding: 14px;
+                box-shadow: 0 0 14px rgba(255, 0, 0, 0.4);
+                backdrop-filter: blur(6px);
+                margin-bottom: 12px;
+              }
+              .value-box {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid #ffd700aa;
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+                color: #ffd700;
+                padding: 8px 10px;
+                font-size: 14px;
+                border-radius: 10px;
+                text-align: center;
+                font-weight: bold;
+                word-break: break-word;
+                flex: 1;
+              }
+              .row-box {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-top: 10px;
+              }
+              .btn {
+                background: #ffd700;
+                color: #8b0000;
+                padding: 10px 16px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                font-size: 14px;
+                margin: 5px;
+                font-weight: bold;
+                box-shadow: 0 0 10px #ffd700aa;
+              }
+              .nav-bar {
+                position: fixed;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #000;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                max-width: 480px;
+                padding: 6px 0;   /* 👈 compact */
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+                z-index: 999;
 
-          /* 🔥 Gradient top border */
-          border-top: 2px solid transparent;
-          border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
-        }
+                /* 🔥 Gradient top border */
+                border-top: 2px solid transparent;
+                border-image: linear-gradient(to right, red, gold, lime, cyan, violet) 1;
+              }
 
-        .nav-bar a {
-          flex: 1;
-          text-align: center;
-          text-decoration: none;
-          font-size: 11px;
-          color: #ccc;
-          position: relative;
-          padding: 4px 0;
-          transition: 0.3s ease;
-        }
+              .nav-bar a {
+                flex: 1;
+                text-align: center;
+                text-decoration: none;
+                font-size: 11px;
+                color: #ccc;
+                position: relative;
+                padding: 4px 0;
+                transition: 0.3s ease;
+              }
 
-        .nav-bar a i {
-          display: block;
-          font-size: 18px;
-          margin-bottom: 3px;
-          color: #ccc;
-        }
+              .nav-bar a i {
+                display: block;
+                font-size: 18px;
+                margin-bottom: 3px;
+                color: #ccc;
+              }
 
 /* 👇 Active / Click / Focus Highlight */
 .nav-bar a.active,
@@ -159,6 +159,13 @@
   from {opacity: 0;}
   to {opacity: 1;}
 }
+
+.green-box {
+  color: #00ff00; /* ✅ Green text */
+  border: 1px solid #00ff00aa;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+}
+
 </style>
 </head>
 <body>
@@ -169,10 +176,16 @@
     <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
       <button class="btn" onclick="shareWhatsApp()">WhatsApp</button>
       <button class="btn" onclick="shareTelegram()">Telegram</button>
+      <div class="box">
+        <h4>Your Active Members</h4>
+        <div class="value-box green-box" id="activeMembers">0</div>
+      </div>  
     </div>
   </div>
 
   <div class="grid-boxes" style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:20px;">
+
+
     <div class="box"><h4>Total Wallet</h4><div class="value-box" id="totalIncome">$0</div></div>
     <div class="box"><h4>Total Joined</h4><div class="value-box" id="refCount">0</div></div>
     <div class="box"><h4>Total Referral</h4><div class="value-box" id="refIncome">$0</div></div>
@@ -364,10 +377,10 @@
       import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
       import {
         getFirestore, doc, getDoc, collection, query,
-        where, onSnapshot
+        where, onSnapshot, getDocs
       } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-// 🔹 Firebase Config
+  // 🔹 Firebase Config
       const firebaseConfig = {
         apiKey: "AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
         authDomain: "trustdollar-f72f4.firebaseapp.com",
@@ -377,14 +390,12 @@
         appId: "1:217643658538:web:c8a9cd78467e0818aa0253"
       };
 
-// 🔹 Init Firebase
+  // 🔹 Init Firebase
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
       const db = getFirestore(app);
 
-
-
-// 🔹 DOM Elements
+  // 🔹 DOM Elements
       const refCodeEl = document.getElementById("refCode");
       const refCountEl = document.getElementById("refCount");
       const refIncomeEl = document.getElementById("refIncome");
@@ -396,13 +407,16 @@
         if (!user) return location.href = "auth.html";
         const uid = user.uid;
 
-  // 🔹 Get user data
+    // 🔹 Get user data
         const userSnap = await getDoc(doc(db, "users", uid));
         const userData = userSnap.data();
         const code = userData.refCode || "N/A";
         refCodeEl.innerText = code;
 
-  // 🔹 Referral count live
+    // ✅ Yahi pe Active Members ka function call karo
+        loadActiveMembers(code);
+
+    // 🔹 Referral count live
         const referredQuery = query(
           collection(db, "users"),
           where("referredBy", "==", code)
@@ -411,7 +425,7 @@
           refCountEl.innerText = snap.size;
         });
 
-  // 🔹 Referral total income live
+    // 🔹 Referral total income live
         const incomeQuery = query(
           collection(db, "referral_income"),
           where("toUpline", "==", uid)
@@ -425,61 +439,59 @@
           totalIncomeEl.innerText = `$${((userData.wallet || 0) + totalReferral).toFixed(2)}`;
         });
 
-  // 🔹 User's own today mining income
-        
-  function getTodayRange() {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-    return { start: start.getTime(), end: end.getTime() };
-  }
-
-  const miningQuery = collection(db, "users", uid, "miningHistory");
-
-  onSnapshot(miningQuery, (snap) => {
-    let todayIncome = 0;
-    const { start, end } = getTodayRange();
-
-    snap.forEach((docSnap) => {
-      const mData = docSnap.data();
-      if (mData.time) {
-        const entryTime = Number(mData.time); // epoch ms
-        if (entryTime >= start && entryTime < end) {
-          todayIncome += Number(mData.earned) || 0;
+    // 🔹 User's own today mining income
+        function getTodayRange() {
+          const now = new Date();
+          const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+          return { start: start.getTime(), end: end.getTime() };
         }
-      }
-    });
 
-    todayIncomeEl.innerText = `$${todayIncome.toFixed(2)}`;
-  });
+        const miningQuery = collection(db, "users", uid, "miningHistory");
 
+        onSnapshot(miningQuery, (snap) => {
+          let todayIncome = 0;
+          const { start, end } = getTodayRange();
 
-  // 🔹 Copy referral code
+          snap.forEach((docSnap) => {
+            const mData = docSnap.data();
+            if (mData.time) {
+          const entryTime = Number(mData.time); // epoch ms
+          if (entryTime >= start && entryTime < end) {
+            todayIncome += Number(mData.earned) || 0;
+          }
+        }
+      });
+
+          todayIncomeEl.innerText = `$${todayIncome.toFixed(2)}`;
+        });
+
+    // 🔹 Copy referral code
         window.copyReferral = function () {
           navigator.clipboard.writeText(refCodeEl.innerText);
           popup.style.display = "block";
           setTimeout(() => (popup.style.display = "none"), 1000);
         };
 
-  // 🔹 Share WhatsApp
+    // 🔹 Share WhatsApp
         window.shareWhatsApp = function () {
           const link = `https://www.trustdollar.in/?ref=${code}`;
           window.open(`https://wa.me/?text=Join%20TrustDollar%20and%20earn!%20Use%20my%20referral%20code:%20${link}`);
         };
 
-  // 🔹 Share Telegram
+    // 🔹 Share Telegram
         window.shareTelegram = function () {
           const link = `https://www.trustdollar.in/?ref=${code}`;
           window.open(`https://t.me/share/url?url=${link}&text=Join%20TrustDollar%20and%20earn%20daily%20income!`);
         };
       });
-      
+
       onAuthStateChanged(auth, (user) => {
         if (!user) return window.location.href = "auth.html";
 
         const uid = user.uid;
 
-  // 🔹 LIVE Total Deposit
+    // 🔹 LIVE Total Deposit
         const depositQuery = query(
           collection(db, "deposits"),
           where("uid", "==", uid),
@@ -493,7 +505,7 @@
           document.getElementById("totalDeposit").innerText = `$${total.toFixed(2)}`;
         });
 
-  // 🔹 LIVE Total Withdrawal
+    // 🔹 LIVE Total Withdrawal
         const withdrawalQuery = query(
           collection(db, "withdrawals"),
           where("uid", "==", uid),
@@ -507,13 +519,55 @@
           document.getElementById("totalWithdrawal").innerText = `$${total.toFixed(2)}`;
         });
       });
-// ✅ Active nav highlight on click
+
+  // ✅ Active nav highlight on click
       document.querySelectorAll(".nav-bar a").forEach(link => {
         link.addEventListener("click", function () {
           document.querySelectorAll(".nav-bar a").forEach(a => a.classList.remove("active"));
           this.classList.add("active");
         });
       });
+
+  // ✅ Active referrals count karne ka function
+      function calculateActiveReferrals(allUsers, depositUsers) {
+        const activeReferralCount = {};
+        allUsers.forEach(u => {
+          if (u.referredBy && depositUsers.has(u.uid)) {
+            activeReferralCount[u.referredBy] =
+            (activeReferralCount[u.referredBy] || 0) + 1;
+          }
+        });
+        return activeReferralCount;
+      }
+
+  // ✅ Active members load function
+      async function loadActiveMembers(currentUserCode) {
+        const activeMembersEl = document.getElementById("activeMembers");
+
+        try {
+      // 🔹 Saare users le lo
+          const usersSnap = await getDocs(collection(db, "users"));
+          const allUsers = usersSnap.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
+
+      // 🔹 Saare deposits le lo (jisme status = success hai)
+          const depositsSnap = await getDocs(collection(db, "deposits"));
+          const depositUsers = new Set(
+            depositsSnap.docs
+            .filter(d => d.data().status === "success")
+            .map(d => d.data().uid)
+            );
+
+      // 🔹 Active referrals calculate karo
+          const activeReferralCount = calculateActiveReferrals(allUsers, depositUsers);
+
+      // 🔹 Apne referral code ke hisaab se count dikhao
+          activeMembersEl.innerText = activeReferralCount[currentUserCode] || 0;
+        } catch (err) {
+          console.error("Error loading active members:", err);
+          activeMembersEl.innerText = "0";
+        }
+      }
     </script>
+
   </body>
   </html>

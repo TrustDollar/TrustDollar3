@@ -1,4 +1,4 @@
-     <!DOCTYPE html>
+       <!DOCTYPE html>
    <html lang="en">
    <head>
     <meta charset="UTF-8" />
@@ -25,7 +25,7 @@
       }
 
       .withdraw-box {
-        background: #1a1a1a;
+        background: #f51111;
         border: 2px solid gold;
         border-radius: 15px;
         padding: 20px;
@@ -172,12 +172,44 @@
         box-shadow: 0px 5px 20px rgba(0,0,0,0.5);
         animation: popIn 0.3s ease-in-out;
       }
+          .inner-balance {
+  background: #f51111;
+  border: 1.5px solid gold;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 8px red;
+}
+
+.inner-balance span {
+  color: #ffcc00;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.inner-balance strong {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 6px gold;
+}
+
 
     </style>
   </head>
   <body>
 
     <h2>Withdraw Funds</h2>
+   
+     <!-- Inner Balance Box -->
+  <div class="inner-balance">
+    <span>Available Balance</span>
+    <strong id="userBalance">$0.00</strong>
+  </div>
+
     <div class="withdraw-box">
       <label for="amount">Enter Amount ($)</label>
       <input type="number" id="amount" placeholder="Minimum $20" />
@@ -392,6 +424,20 @@
       popup.style.display = "none";
     }, 1000);
   }
+
+
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const uid = user.uid;
+    const userRef = doc(db, "users", uid);
+    const snap = await getDoc(userRef);
+    if (snap.exists()) {
+      const balance = snap.data().wallet || 0;
+      document.getElementById("userBalance").innerText = `$${balance.toFixed(2)}`;
+    }
+  }
+});
+
 </script>
 
 </body>

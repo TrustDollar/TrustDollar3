@@ -1,4 +1,4 @@
-      <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -6,7 +6,6 @@
 <title>TrustDollar - Account</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 <style>
-/* ========== Reset & Base ========== */
 *{box-sizing:border-box;margin:0;padding:0;scroll-behavior:smooth;}
 body{
   background:linear-gradient(145deg,#d35400,#ff6600);
@@ -15,8 +14,6 @@ body{
   max-width:420px;margin:0 auto;color:#fff;
 }
 h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000;}
-
-/* 🔥 Common Orange Box Style */
 .common-box {
   background: linear-gradient(145deg,#ff6600,#cc3300);
   border: 1px solid #ffcc00;
@@ -34,144 +31,137 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
   color: #8b0000;
   box-shadow: 0 0 20px rgba(255,215,0,0.9);
 }
-
-/* Header */
-.top-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-.top-header img {
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid gold;
-  box-shadow: 0 0 15px gold;
-  margin-bottom: 10px;
-}
-
-/* Info Row (TrustDollar? + Join Date) */
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-.info-row .common-box {
-  flex: 1;
-  min-height: 70px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:15px;
-}
-
-/* PIN Button */
-.pin-btn{
-  display:block;
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  background:linear-gradient(145deg,#ff6600,#cc3300);
-  border:2px solid #ffcc00;
-  color:yellow;
-  font-weight:bold;
-  text-align:center;
-  margin-bottom:20px;
-  box-shadow:0 0 12px rgba(255,215,0,0.7);
-  text-decoration:none;
-}
-.pin-btn:hover{
-  background:linear-gradient(145deg,#ff3300,#ffcc00);
-  color:#8b0000;
-}
-
-/* Boxes (Wallet, Name, Gmail, etc) */
+.top-header { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.top-header img { width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 3px solid gold; box-shadow: 0 0 15px gold; margin-bottom: 10px; }
+.info-row { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.info-row .common-box { flex: 1; min-height: 70px; display:flex; align-items:center; justify-content:center; font-size:15px; }
+.pin-btn{ display:block; width:100%; padding:14px; border-radius:12px; background:linear-gradient(145deg,#ff6600,#cc3300); border:2px solid #ffcc00; color:yellow; font-weight:bold; text-align:center; margin-bottom:20px; box-shadow:0 0 12px rgba(255,215,0,0.7); text-decoration:none; }
+.pin-btn:hover{ background:linear-gradient(145deg,#ff3300,#ffcc00); color:#8b0000; }
 .row{display:flex;flex-wrap:wrap;gap:12px;}
 .box{flex:0 0 48%;border-radius:12px;}
 .box-full{flex:0 0 100%;}
 .label{color:#ffd700;font-size:13px;margin-bottom:5px;text-align:left;}
 .value-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#fff;flex-wrap:wrap;}
-.value-row input{
-  background:transparent;
-  border:none;
-  color:yellow;
-  font-size:14px;
-  width:100%;
-}
+.value-row input{ background:transparent; border:none; color:yellow; font-size:14px; width:100%; }
 .value-row input:focus{outline:none;}
-
-/* Save + Logout Button */
-.save-btn,.logout-btn{
-  display:block;width:100%;padding:14px;border-radius:12px;
-  font-weight:bold;text-align:center;margin:15px 0;cursor:pointer;
-}
-.save-btn{
-  background:linear-gradient(145deg,#ff6600,#cc3300);
-  border:2px solid #ffcc00;color:yellow;
-}
-.save-btn:hover{
-  background:linear-gradient(145deg,#ff3300,#ffcc00);color:#8b0000;
-}
-.logout-btn{
-  background:#ff3333;border:none;color:#fff;box-shadow:0 0 12px #ff4444;
-}
-
-/* Popup */
-.popup{
-  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-  background:#ff6600;color:#fff;padding:14px 24px;border-radius:10px;
-  box-shadow:0 0 20px #ff0000aa;font-size:16px;display:none;
-  z-index:100000;text-align:center;animation:fadeInOut 2.5s ease forwards;
-}
+.save-btn,.logout-btn{ display:block;width:100%;padding:14px;border-radius:12px; font-weight:bold;text-align:center;margin:15px 0;cursor:pointer; }
+.save-btn{ background:linear-gradient(145deg,#ff6600,#cc3300); border:2px solid #ffcc00;color:yellow; }
+.save-btn:hover{ background:linear-gradient(145deg,#ff3300,#ffcc00);color:#8b0000; }
+.logout-btn{ background:#ff3333;border:none;color:#fff;box-shadow:0 0 12px #ff4444; }
+.popup{ position:fixed;top:50%;left:50%;transform:translate(-50%,-50%); background:#ff6600;color:#fff;padding:14px 24px;border-radius:10px; box-shadow:0 0 20px #ff0000aa;font-size:16px;display:none; z-index:100000;text-align:center;animation:fadeInOut 2.5s ease forwards; }
 @keyframes fadeInOut{0%{opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{opacity:0;}}
-
-/* Edit Popup */
-.edit-popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.6);z-index:99999;justify-content:center;align-items:center;}
-.edit-popup-content{
-  background:linear-gradient(145deg,#ff6600,#cc3300);
-  border:2px solid gold;border-radius:12px;padding:20px;
-  box-shadow:0 0 25px red;text-align:center;width:90%;max-width:350px;color:#fff;
-}
-.edit-popup-content input{
-  width:100%;padding:10px;border:1px solid gold;border-radius:8px;
-  margin-bottom:15px;background:rgba(0,0,0,0.4);color:yellow;font-size:14px;
-}
+.edit-popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%; background:rgba(0,0,0,0.6);z-index:99999;justify-content:center;align-items:center;}
+.edit-popup-content{ background:linear-gradient(145deg,#ff6600,#cc3300); border:2px solid gold;border-radius:12px;padding:20px; box-shadow:0 0 25px red;text-align:center;width:90%;max-width:350px;color:#fff; }
+.edit-popup-content input{ width:100%;padding:10px;border:1px solid gold;border-radius:8px; margin-bottom:15px;background:rgba(0,0,0,0.4);color:yellow;font-size:14px; }
 .btn-row{display:flex;justify-content:space-between;gap:10px;}
 .popup-btn{flex:1;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
 .popup-btn.save{background:gold;color:#8b0000;}
 .popup-btn.cancel{background:#ff0000;color:white;}
-
-/* Bottom Nav Bar */
-.nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  background:#000;display:flex;justify-content:space-between;align-items:center;
-  width:100%;max-width:480px;padding:6px 0;box-shadow:0 -2px 10px rgba(0,0,0,0.4);
-  z-index:999;border-top:2px solid transparent;
-  border-image:linear-gradient(to right,red,gold,lime,cyan,violet) 1;
-}
-.nav-bar a{flex:1;text-align:center;text-decoration:none;font-size:11px;color:#ccc;
-  position:relative;padding:4px 0;transition:.3s ease;}
+.nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%); background:#000;display:flex;justify-content:space-between;align-items:center; width:100%;max-width:480px;padding:6px 0;box-shadow:0 -2px 10px rgba(0,0,0,0.4); z-index:999;border-top:2px solid transparent; border-image:linear-gradient(to right,red,gold,lime,cyan,violet) 1;}
+.nav-bar a{flex:1;text-align:center;text-decoration:none;font-size:11px;color:#ccc; position:relative;padding:4px 0;transition:.3s ease;}
 .nav-bar a i{display:block;font-size:18px;margin-bottom:3px;color:#ccc;}
 .nav-bar a.active{background:linear-gradient(to top,rgba(255,0,0,0.15),transparent);border-radius:6px;}
 .nav-bar a.active i{color:red;}
 .nav-bar a.active span{color:yellow;font-weight:bold;}
-.nav-bar a:not(:last-child)::after{
-  content:"";position:absolute;right:0;top:25%;height:50%;width:1px;
-  background:linear-gradient(to bottom,yellow,red);
-}
-#popupMsg {
-  transition: opacity 0.3s ease;
-}
-a.common-box {
-  text-decoration: none;
-  color: inherit;
+.nav-bar a:not(:last-child)::after{ content:"";position:absolute;right:0;top:25%;height:50%;width:1px; background:linear-gradient(to bottom,yellow,red); }
+#popupMsg { transition: opacity 0.3s ease; }
+#email, #userAddress { user-select:none; -webkit-user-select:none; -moz-user-select:none; }
+/* Responsive for ultra small devices (220px width) */
+@media only screen and (max-width: 220px) {
+  body {
+    padding: 40px 6px 100px; /* thoda kam padding */
+  }
 
-#userId {
-  cursor: pointer;
-  text-decoration: underline;
+  .row {
+    gap: 6px;
+  }
+
+  .box, .box-full {
+    flex: 0 0 100%; /* sab boxes ek column me aa jaye */
+  }
+
+  .common-box, .pin-btn, .save-btn, .logout-btn {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  .value-row input {
+    font-size: 12px;
+  }
+
+  .nav-bar a {
+    font-size: 9px;
+  }
+
+  .nav-bar a i {
+    font-size: 14px;
+  }
+
+  .edit-popup-content {
+    width: 90%;
+    padding: 15px;
+  }
+}
+/* Extra responsiveness for 300px+ screens */
+@media only screen and (max-width: 300px) {
+  body {
+    padding: 30px 6px 100px;
+  }
+
+  .row {
+    gap: 4px;
+  }
+
+  .box, .box-full {
+    flex: 0 0 100%; /* boxes full width */
+  }
+
+  .common-box, .pin-btn, .save-btn, .logout-btn {
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+
+  h2 {
+    font-size: 14px;
+  }
+
+  .value-row input {
+    font-size: 11px;
+  }
+
+  .nav-bar a {
+    font-size: 8px;
+  }
+
+  .nav-bar a i {
+    font-size: 14px;
+  }
+
+  .edit-popup-content {
+    width: 95%;
+    padding: 12px;
+  }
+}
+
+/* Disable selection and copy for UserID & popup input */
+#userId, #popupInput {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none; /* user click select prevent */
+}
+
+/* Popup input extra prevention */
+#popupInput {
+  oncopy: none;
+  oncut: none;
+  onpaste: none;
+  oncontextmenu: none;
 }
 
 </style>
@@ -182,48 +172,43 @@ a.common-box {
   <h2>TrustDollar</h2>
 </div>
 
- <!-- Info Row -->
 <div class="info-row">
-  <!-- TrustDollar Info -->
   <a href="https://trustdollar.github.io/TrustDollarPPT/" target="_blank" class="common-box">
-    <div class="inner-box">
-      <div class="label">TrustDollar?</div>
-      <div class="value">More Information</div>
-    </div>
+    <div class="inner-box"><div class="label"></div><div class="value">More Information</div></div>
   </a>
-
-  <!-- Joining Date -->
   <div class="common-box">
-    <div class="inner-box">
-      <div class="label">My Joining Date</div>
-      <div class="value" id="joinDate">01 October 2024</div>
-    </div>
+    <div class="inner-box"><div class="label">My Joining Date</div><div class="value" id="joinDate">01 October 2024</div></div>
   </div>
 </div>
 
-
-<!-- PIN Button -->
 <a href="#" id="pinButton" class="pin-btn">Loading...</a>
 
-<!-- User Info -->
 <div class="row">
   <div class="box common-box"><div class="label">Wallet Balance</div><div class="value-row"><span id="walletBalance">$0.00</span></div></div>
   <div class="box common-box"><div class="label">Name</div><div class="value-row"><input type="text" id="name" readonly/><span onclick="makeEditable('name')" style="cursor:pointer;">🖊️</span></div></div>
-  <div class="box box-full common-box"><div class="label">Gmail ID</div><div class="value-row"><span id="email">Loading...</span><span id="toggleEmail" style="cursor:pointer;margin-left:8px;">👁️</span></div></div>
+  <!-- Gmail -->
+  <div class="box box-full common-box">
+    <div class="label">Gmail ID</div>
+    <div class="value-row">
+      <span id="email" title="Click to copy Gmail" style="cursor:pointer;">Loading...</span>
+      <span id="toggleEmail" style="cursor:pointer;margin-left:8px;">👁️</span>
+    </div>
+  </div>
+  <!-- User ID -->
   <div class="box common-box"><div class="label">User ID</div><div class="value-row"><span id="userId">Loading...</span></div></div>
-  <div class="box common-box"><div class="label">BEP20 Address</div><div class="value-row"><input type="text" id="userAddress" readonly/><span onclick="makeEditable('userAddress')" style="cursor:pointer;">🖊️</span></div></div>
-   <div class="box box-full common-box">
-  <div class="label">Change Password</div>
-  <div class="value-row">
-    <button onclick="openPasswordPopup()" class="save-btn">Change Password</button>
+  <!-- Wallet Address (no copy allowed) -->
+  <div class="box common-box"><div class="label">BEP20 Address</div>
+    <div class="value-row"><input type="text" id="userAddress" readonly/><span onclick="makeEditable('userAddress')" style="cursor:pointer;">🖊️</span></div>
+  </div>
+  <div class="box box-full common-box">
+    <div class="label">Change Password</div>
+    <div class="value-row"><button onclick="openPasswordPopup()" class="save-btn">Change Password</button></div>
   </div>
 </div>
-
 
 <button onclick="saveAddress()" class="save-btn">Save</button>
 <button onclick="logout()" class="logout-btn">Logout</button>
 
-<!-- NAV BAR -->
 <div class="nav-bar">
   <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
   <a href="start.html"><i class="fas fa-industry"></i><span>Mining</span></a>
@@ -232,14 +217,20 @@ a.common-box {
   <a href="account.html" class="active"><i class="fas fa-user"></i><span>Account</span></a>
 </div>
 
-<!-- Popup -->
 <div class="popup" id="popupMsg"></div>
 
-<!-- Edit Popup -->
 <div id="editPopup" class="edit-popup">
   <div class="edit-popup-content">
     <h3 id="popupTitle">Edit</h3>
-    <input type="text" id="popupInput"/>
+      <input type="text" id="popupInput"
+        oncopy="return false"
+        oncut="return false"
+         onpaste="return false"
+       oncontextmenu="return false"
+       onmousedown="return false"
+      onselectstart="return false"
+      style="-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;"/>
+
     <input type="password" id="popupPassword" placeholder="Enter your PIN"/>
     <div class="btn-row">
       <button onclick="saveEdit()" class="popup-btn save">Save</button>
@@ -248,7 +239,6 @@ a.common-box {
   </div>
 </div>
 
-<!-- PIN Popup -->
 <div id="pinPopup" class="edit-popup">
   <div class="edit-popup-content">
     <h3 class="set-pin-header" id="pinPopupTitle">PIN</h3>
@@ -259,7 +249,7 @@ a.common-box {
     </div>
   </div>
 </div>
- <!-- Password Popup -->
+
 <div id="passwordPopup" class="edit-popup">
   <div class="edit-popup-content">
     <h3>Change Password</h3>
@@ -272,13 +262,11 @@ a.common-box {
   </div>
 </div>
 
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-import { EmailAuthProvider, reauthenticateWithCredential } 
-from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { EmailAuthProvider, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey:"AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",
@@ -296,19 +284,19 @@ const db = getFirestore(app);
 const walletBalance = document.getElementById("walletBalance");
 const nameInput = document.getElementById("name");
 const emailEl = document.getElementById("email");
+const toggleEmailBtn = document.getElementById("toggleEmail");
 const userIdEl = document.getElementById("userId");
 const userAddressInput = document.getElementById("userAddress");
 const popup = document.getElementById("popupMsg");
-const toggleEmailBtn = document.getElementById("toggleEmail");
 const pinButton = document.getElementById("pinButton");
 
 let currentUID, isEmailVisible = true, currentField = null, savedPin = null;
 
-// ✅ Auth state listener
 onAuthStateChanged(auth, async (user) => {
   if (!user) return window.location.href = "auth.html";
   currentUID = user.uid;
-  emailEl.textContent = user.email;
+  emailEl.dataset.fullEmail = user.email;
+  emailEl.textContent = user.email.replace(/(.{2}).+(@.+)/,"$1****$2");
 
   const userRef = doc(db, "users", currentUID);
   const docSnap = await getDoc(userRef);
@@ -336,17 +324,14 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-// ✅ Edit popup
+// Popup / Edit
 window.makeEditable = function(fieldId) {
   currentField = document.getElementById(fieldId);
   document.getElementById("popupTitle").innerText = "Edit " + fieldId;
   document.getElementById("popupInput").value = currentField.value;
   document.getElementById("editPopup").style.display = "flex";
 }
-window.closePopup = function(id){
-  document.getElementById(id).style.display="none";
-}
-
+window.closePopup = function(id){ document.getElementById(id).style.display="none"; }
 window.saveEdit = async function() {
   const inputValue=document.getElementById("popupInput").value.trim();
   const enteredPin=document.getElementById("popupPassword").value.trim();
@@ -364,13 +349,10 @@ window.saveEdit = async function() {
     showPopup("✅ Data updated");
     document.getElementById("popupPassword").value="";
     closePopup("editPopup");
-  }catch(error){
-    console.error(error);
-    showPopup(" Error updating data");
-  }
+  }catch(error){ console.error(error); showPopup(" Error updating data"); }
 }
 
-// ✅ Save name/address only (no password)
+// Save profile
 window.saveAddress=async function(){
   const nameValue=nameInput.value.trim();
   const addressValue=userAddressInput.value.trim();
@@ -381,137 +363,80 @@ window.saveAddress=async function(){
   try{
     if(Object.keys(updateData).length>0) await updateDoc(userRef,updateData);
     showPopup(" Profile updated");
-  }catch(error){
-    console.error("Update error:",error);
-    showPopup(" Error: "+error.message);
-  }
+  }catch(error){ console.error("Update error:",error); showPopup(" Error: "+error.message); }
 }
 
-// ✅ Logout
-window.logout=function(){
-  signOut(auth).then(()=>window.location.href="auth.html");
-}
+// Logout
+window.logout=function(){ signOut(auth).then(()=>window.location.href="auth.html"); }
 
-// ✅ Show popup message (instant show + smooth fade out)
+// Popup function
 function showPopup(message) {
   popup.innerText = message;
   popup.style.display = "block";
   popup.style.opacity = "1";
-
-  // 3 sec ke baad fade out
-  setTimeout(() => {
-    popup.style.opacity = "0";
-    setTimeout(() => popup.style.display = "none", 300); // 0.3s = CSS transition time
-  }, 3000);
+  setTimeout(() => { popup.style.opacity = "0"; setTimeout(() => popup.style.display = "none", 300); }, 3000);
 }
 
-
-// ✅ Email hide/show
-if(toggleEmailBtn){
-  toggleEmailBtn.addEventListener("click",()=>{
+// Email toggle & copy
+if(toggleEmailBtn && emailEl){
+  toggleEmailBtn.addEventListener("click", () => {
     if(isEmailVisible){
-      const emailText=emailEl.textContent;
-      emailEl.dataset.fullEmail=emailText;
-      emailEl.textContent=emailText.replace(/(.{2}).+(@.+)/,"$1****$2");
-      toggleEmailBtn.textContent="🙈";
-    }else{
-      emailEl.textContent=emailEl.dataset.fullEmail;
-      toggleEmailBtn.textContent="👁️";
+      emailEl.textContent = emailEl.dataset.fullEmail.replace(/(.{2}).+(@.+)/,"$1****$2");
+      toggleEmailBtn.textContent = "🙈";
+    } else {
+      emailEl.textContent = emailEl.dataset.fullEmail;
+      toggleEmailBtn.textContent = "👁️";
     }
-    isEmailVisible=!isEmailVisible;
+    isEmailVisible = !isEmailVisible;
+  });
+  emailEl.addEventListener("click", async () => {
+    try{
+      await navigator.clipboard.writeText(emailEl.dataset.fullEmail);
+      showPopup("✅ Gmail copied!");
+    }catch(err){ showPopup("❌ Copy failed"); }
   });
 }
 
-// ✅ Navbar active state
-document.querySelectorAll(".nav-bar a").forEach(link=>{
-  link.addEventListener("click",function(){
-    document.querySelectorAll(".nav-bar a").forEach(a=>a.classList.remove("active"));
-    this.classList.add("active");
-  });
-});
+// Wallet address: prevent selection & copy
+userAddressInput.addEventListener("keydown", e => e.preventDefault());
+userAddressInput.addEventListener("copy", e => e.preventDefault());
+userAddressInput.addEventListener("cut", e => e.preventDefault());
+userAddressInput.addEventListener("contextmenu", e => e.preventDefault());
 
-// ✅ PIN popup
-window.openPinPopup=function(){
-  document.getElementById("pinPopup").style.display="flex";
+// PIN popup
+function openPinPopup(){ document.getElementById("pinPopup").style.display="flex"; }
+function savePin(){ 
+  const val=document.getElementById("pinInput").value.trim();
+  if(val.length!==4){ showPopup("PIN must be 4 digits"); return; }
+  updateDoc(doc(db,"users",currentUID),{pin:val}).then(()=>{ savedPin=val; closePopup("pinPopup"); showPopup("✅ PIN saved"); });
 }
-window.savePin=async function(){
-  const newPin=document.getElementById("pinInput").value.trim();
-  if(newPin.length!==4) return showPopup(" PIN must be 4 digits");
+
+// Password popup
+window.openPasswordPopup=function(){ document.getElementById("passwordPopup").style.display="flex"; }
+window.savePassword=async function(){
+  const current=document.getElementById("currentPass").value.trim();
+  const newP=document.getElementById("newPass").value.trim();
+  if(!current||!newP) return showPopup("Enter all fields");
+  const user = auth.currentUser;
   try{
-    await updateDoc(doc(db,"users",currentUID),{pin:newPin});
-    savedPin=newPin;
-    pinButton.textContent="Change PIN";
-    pinButton.href="set-pin.html";
-    showPopup(" PIN saved successfully!");
-    closePopup("pinPopup");
-  }catch(err){
-    console.error(err);
-    showPopup(" Error saving PIN");
-  }
-}
-
-// ✅ Password popup
-window.openPasswordPopup = function() {
-  document.getElementById("passwordPopup").style.display = "flex";
-}
-
-window.savePassword = async function() {
-  const currentPassword = document.getElementById("currentPass").value.trim();
-  const newPassword = document.getElementById("newPass").value.trim();
-
-  if (!currentPassword || !newPassword) {
-    showPopup(" Please fill both fields");
-    return;
-  }
-
-  try {
-    const user = auth.currentUser;
-    const email = user.email;
-    const credential = EmailAuthProvider.credential(email, currentPassword);
-
-    await reauthenticateWithCredential(user, credential);
-    await updatePassword(user, newPassword);
-
-    showPopup(" Password updated successfully!");
+    const cred = EmailAuthProvider.credential(user.email,current);
+    await reauthenticateWithCredential(user,cred);
+    await updatePassword(user,newP);
+    showPopup("✅ Password changed");
     closePopup("passwordPopup");
-    document.getElementById("currentPass").value = "";
-    document.getElementById("newPass").value = "";
-  } catch (err) {
-    console.error(err);
-
-    let message = " Error: " + err.message;
-    if (err.code === "auth/invalid-login-credentials" || err.code === "auth/wrong-password") {
-      message = " Invalid current password. Please try again.";
-    } else if (err.code === "auth/weak-password") {
-      message = " New password is too weak. Use at least 6 characters.";
-    }
-
-    showPopup(message);
-  }
+    document.getElementById("currentPass").value="";
+    document.getElementById("newPass").value="";
+  }catch(err){ console.error(err); showPopup("❌ Wrong current password"); }
 }
-// ✅ Copy User ID on click
-if (userIdEl) {
-  userIdEl.style.cursor = "pointer"; // hand cursor
-  userIdEl.title = "Click to copy User ID"; // hover text
 
-  userIdEl.addEventListener("click", async () => {
-    try {
-      const userId = userIdEl.textContent.trim();
-      if (!userId || userId === "Loading..." || userId === "Not set") {
-        showPopup("❌ User ID not available");
-        return;
-      }
-      await navigator.clipboard.writeText(userId);
-      showPopup("✅ User ID copied!");
-    } catch (err) {
-      console.error("Copy failed:", err);
-      showPopup("❌ Failed to copy");
-    }
-  });
-}
+popupInput.addEventListener("keydown", e => e.preventDefault());
+popupInput.addEventListener("copy", e => e.preventDefault());
+popupInput.addEventListener("cut", e => e.preventDefault());
+popupInput.addEventListener("paste", e => e.preventDefault());
+popupInput.addEventListener("contextmenu", e => e.preventDefault());
+popupInput.addEventListener("mousedown", e => e.preventDefault());
+popupInput.addEventListener("selectstart", e => e.preventDefault());
 
 </script>
-
-
 </body>
 </html>

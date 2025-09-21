@@ -1,4 +1,4 @@
-     <!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -168,6 +168,11 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
 a.common-box {
   text-decoration: none;
   color: inherit;
+
+#userId {
+  cursor: pointer;
+  text-decoration: underline;
+}
 
 </style>
 </head>
@@ -483,6 +488,26 @@ window.savePassword = async function() {
 
     showPopup(message);
   }
+}
+// ✅ Copy User ID on click
+if (userIdEl) {
+  userIdEl.style.cursor = "pointer"; // hand cursor
+  userIdEl.title = "Click to copy User ID"; // hover text
+
+  userIdEl.addEventListener("click", async () => {
+    try {
+      const userId = userIdEl.textContent.trim();
+      if (!userId || userId === "Loading..." || userId === "Not set") {
+        showPopup("❌ User ID not available");
+        return;
+      }
+      await navigator.clipboard.writeText(userId);
+      showPopup("✅ User ID copied!");
+    } catch (err) {
+      console.error("Copy failed:", err);
+      showPopup("❌ Failed to copy");
+    }
+  });
 }
 
 </script>

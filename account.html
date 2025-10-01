@@ -404,11 +404,33 @@ userAddressInput.addEventListener("cut", e => e.preventDefault());
 userAddressInput.addEventListener("contextmenu", e => e.preventDefault());
 
 // PIN popup
-function openPinPopup(){ document.getElementById("pinPopup").style.display="flex"; }
-function savePin(){ 
-  const val=document.getElementById("pinInput").value.trim();
-  if(val.length!==4){ showPopup("PIN must be 4 digits"); return; }
-  updateDoc(doc(db,"users",currentUID),{pin:val}).then(()=>{ savedPin=val; closePopup("pinPopup"); showPopup("✅ PIN saved"); });
+window.openPinPopup = function(){ 
+  document.getElementById("pinPopup").style.display = "flex"; 
+}
+
+window.savePin = async function(){ 
+  const val = document.getElementById("pinInput").value.trim();
+
+  // Validation
+  if(val.length !== 4 || isNaN(val)){ 
+    showPopup("❌ PIN must be 4 numeric digits"); 
+    return; 
+  }
+
+  try {
+    await updateDoc(doc(db,"users",currentUID), { pin: val });
+    savedPin = val;
+
+    // Update button text
+    pinButton.textContent = "Change PIN";
+
+    closePopup("pinPopup"); 
+    showPopup("✅ PIN saved successfully");
+    document.getElementById("pinInput").value = "";
+  } catch(err) {
+    console.error("PIN Save Error:", err);
+    showPopup("❌ Failed to save PIN");
+  }
 }
 
 // Password popup

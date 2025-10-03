@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Details Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .form-group input:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .submit-btn:hover {
+      background: #45a049;
+    }
+
+    .thankyou-message {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: green;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>User Details Form</h2>
+    <form id="userForm">
+      
+      <div class="form-group">
+        <label for="userid">User ID</label>
+        <input type="text" id="userid" name="userid" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="mobile">Mobile Number</label>
+        <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" maxlength="10" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="gmail">Gmail ID</label>
+        <input type="email" id="gmail" name="gmail" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="deposit">Deposit Amount</label>
+        <input type="number" id="deposit" name="deposit" min="1" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="aadhaar">Aadhaar Number</label>
+        <input type="text" id="aadhaar" name="aadhaar" pattern="[0-9]{12}" maxlength="12" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="balance">Current Balance</label>
+        <input type="number" id="balance" name="balance" min="0" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="withdrawal">Today Withdrawal Amount</label>
+        <input type="number" id="withdrawal" name="withdrawal" min="0" required>
+      </div>
+      
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+    
+    <p class="thankyou-message" id="thankyouMessage">✅ Thank you for submit!</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('userForm');
+    const thankyou = document.getElementById('thankyouMessage');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // form reload na ho
+      form.style.display = "none"; // form hide
+      thankyou.style.display = "block"; // thankyou message show
+
+      // 2 second baad index.html pe redirect
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

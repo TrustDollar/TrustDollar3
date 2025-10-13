@@ -231,22 +231,51 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
 <div id="editPopup" class="edit-popup">
   <div class="edit-popup-content">
     <h3 id="popupTitle">Edit</h3>
-      <input type="text" id="popupInput"
-        oncopy="return false"
-        oncut="return false"
-         onpaste="return false"
-       oncontextmenu="return false"
-       onmousedown="return false"
-      onselectstart="return false"
-      style="-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;"/>
 
-    <input type="password" id="popupPassword" placeholder="Enter your PIN"/>
+    <!-- 🟢 Editable input: typing allowed, copy/paste blocked -->
+    <input
+      type="text"
+      id="popupInput"
+      oncopy="return false"
+      oncut="return false"
+      onpaste="return false"
+      oncontextmenu="return false"
+      style="
+        width: 100%;
+        padding: 10px;
+        border: 1px solid gold;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        background: rgba(0, 0, 0, 0.4);
+        color: yellow;
+        font-size: 14px;
+      "
+    />
+
+    <!-- 🔒 PIN confirmation -->
+    <input
+      type="password"
+      id="popupPassword"
+      placeholder="Enter your PIN"
+      style="
+        width: 100%;
+        padding: 10px;
+        border: 1px solid gold;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        background: rgba(0, 0, 0, 0.4);
+        color: yellow;
+        font-size: 14px;
+      "
+    />
+
     <div class="btn-row">
       <button onclick="saveEdit()" class="popup-btn save">Save</button>
       <button onclick="closePopup('editPopup')" class="popup-btn cancel">Cancel</button>
     </div>
   </div>
 </div>
+
 
 <div id="pinPopup" class="edit-popup">
   <div class="edit-popup-content">

@@ -148,12 +148,21 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
 }
 
 /* Disable selection and copy for UserID & popup input */
-#userId, #popupInput {
+/* ✅ Correct version */
+#userId {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  pointer-events: none; /* user click select prevent */
+  pointer-events: none; /* userID non-editable rahe */
+}
+
+#popupInput {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  pointer-events: auto; /* ✅ ab user likh sakta hai */
 }
 
 /* Popup input extra prevention */
@@ -451,13 +460,12 @@ window.savePassword=async function(){
   }catch(err){ console.error(err); showPopup("❌ Wrong current password"); }
 }
 
-popupInput.addEventListener("keydown", e => e.preventDefault());
+// ✅ Only prevent copy/cut/paste/contextmenu (so user can type but not copy sensitive data)
 popupInput.addEventListener("copy", e => e.preventDefault());
 popupInput.addEventListener("cut", e => e.preventDefault());
 popupInput.addEventListener("paste", e => e.preventDefault());
 popupInput.addEventListener("contextmenu", e => e.preventDefault());
-popupInput.addEventListener("mousedown", e => e.preventDefault());
-popupInput.addEventListener("selectstart", e => e.preventDefault());
+
 
 </script>
 </body>

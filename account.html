@@ -148,21 +148,12 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
 }
 
 /* Disable selection and copy for UserID & popup input */
-/* ✅ Correct version */
-#userId {
+#userId, #popupInput {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  pointer-events: none; /* userID non-editable rahe */
-}
-
-#popupInput {
-  user-select: text;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  pointer-events: auto; /* ✅ ab user likh sakta hai */
+  pointer-events: none; /* user click select prevent */
 }
 
 /* Popup input extra prevention */
@@ -231,51 +222,22 @@ h2{text-align:center;color:yellow;margin-bottom:20px;text-shadow:0 0 8px #ff0000
 <div id="editPopup" class="edit-popup">
   <div class="edit-popup-content">
     <h3 id="popupTitle">Edit</h3>
+      <input type="text" id="popupInput"
+        oncopy="return false"
+        oncut="return false"
+         onpaste="return false"
+       oncontextmenu="return false"
+       onmousedown="return false"
+      onselectstart="return false"
+      style="-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;"/>
 
-    <!-- 🟢 Editable input: typing allowed, copy/paste blocked -->
-    <input
-      type="text"
-      id="popupInput"
-      oncopy="return false"
-      oncut="return false"
-      onpaste="return false"
-      oncontextmenu="return false"
-      style="
-        width: 100%;
-        padding: 10px;
-        border: 1px solid gold;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        background: rgba(0, 0, 0, 0.4);
-        color: yellow;
-        font-size: 14px;
-      "
-    />
-
-    <!-- 🔒 PIN confirmation -->
-    <input
-      type="password"
-      id="popupPassword"
-      placeholder="Enter your PIN"
-      style="
-        width: 100%;
-        padding: 10px;
-        border: 1px solid gold;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        background: rgba(0, 0, 0, 0.4);
-        color: yellow;
-        font-size: 14px;
-      "
-    />
-
+    <input type="password" id="popupPassword" placeholder="Enter your PIN"/>
     <div class="btn-row">
       <button onclick="saveEdit()" class="popup-btn save">Save</button>
       <button onclick="closePopup('editPopup')" class="popup-btn cancel">Cancel</button>
     </div>
   </div>
 </div>
-
 
 <div id="pinPopup" class="edit-popup">
   <div class="edit-popup-content">
@@ -442,33 +404,11 @@ userAddressInput.addEventListener("cut", e => e.preventDefault());
 userAddressInput.addEventListener("contextmenu", e => e.preventDefault());
 
 // PIN popup
-window.openPinPopup = function(){ 
-  document.getElementById("pinPopup").style.display = "flex"; 
-}
-
-window.savePin = async function(){ 
-  const val = document.getElementById("pinInput").value.trim();
-
-  // Validation
-  if(val.length !== 4 || isNaN(val)){ 
-    showPopup("❌ PIN must be 4 numeric digits"); 
-    return; 
-  }
-
-  try {
-    await updateDoc(doc(db,"users",currentUID), { pin: val });
-    savedPin = val;
-
-    // Update button text
-    pinButton.textContent = "Change PIN";
-
-    closePopup("pinPopup"); 
-    showPopup("✅ PIN saved successfully");
-    document.getElementById("pinInput").value = "";
-  } catch(err) {
-    console.error("PIN Save Error:", err);
-    showPopup("❌ Failed to save PIN");
-  }
+function openPinPopup(){ document.getElementById("pinPopup").style.display="flex"; }
+function savePin(){ 
+  const val=document.getElementById("pinInput").value.trim();
+  if(val.length!==4){ showPopup("PIN must be 4 digits"); return; }
+  updateDoc(doc(db,"users",currentUID),{pin:val}).then(()=>{ savedPin=val; closePopup("pinPopup"); showPopup("✅ PIN saved"); });
 }
 
 // Password popup
@@ -489,12 +429,13 @@ window.savePassword=async function(){
   }catch(err){ console.error(err); showPopup("❌ Wrong current password"); }
 }
 
-// ✅ Only prevent copy/cut/paste/contextmenu (so user can type but not copy sensitive data)
+popupInput.addEventListener("keydown", e => e.preventDefault());
 popupInput.addEventListener("copy", e => e.preventDefault());
 popupInput.addEventListener("cut", e => e.preventDefault());
 popupInput.addEventListener("paste", e => e.preventDefault());
 popupInput.addEventListener("contextmenu", e => e.preventDefault());
-
+popupInput.addEventListener("mousedown", e => e.preventDefault());
+popupInput.addEventListener("selectstart", e => e.preventDefault());
 
 </script>
 </body>

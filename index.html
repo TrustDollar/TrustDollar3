@@ -93,31 +93,174 @@
     .nav-bar a.active i{color:red;}
     .nav-bar a.active span{color:yellow;font-weight:bold;}
     .nav-bar a:not(:last-child)::after{content:"";position:absolute;right:0;top:25%;height:50%;width:1px;background:linear-gradient(to bottom,yellow,red);}
+
+/* === Responsive Diwali Popup (All Devices Fixed) === */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.92), rgba(0,0,0,0.95));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+  padding: 15px;
+  animation: fadeIn 0.8s ease;
+}
+
+.popup-overlay.hide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+/* Main popup box */
+.popup-diwali {
+  position: relative;
+  background: linear-gradient(160deg, #1a0f00, #3b2500, #1f1400);
+  border: 2px solid gold;
+  border-radius: 20px;
+  padding: 25px 20px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  color: #fff8dc;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 0 25px gold, 0 0 45px rgba(255,215,0,0.4);
+  animation: popupGlow 1s ease;
+  overflow: hidden;
+}
+
+/* Title */
+.popup-diwali h1 {
+  font-size: 2rem;
+  color: gold;
+  text-shadow: 0 0 14px #ffb400, 0 0 28px gold;
+  margin-bottom: 16px;
+  animation: flickerText 2s infinite alternate;
+  line-height: 1.3;
+}
+
+/* Content */
+.popup-diwali p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #fff5cc;
+  text-shadow: 0 0 10px gold;
+  animation: fadeSlide 2s ease-in-out;
+  margin: 0 auto;
+  max-width: 90%;
+  word-break: break-word;
+}
+
+/* Glowing diya base */
+.diya-glow {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle at 50% 50%, gold, transparent 70%);
+  filter: blur(55px);
+  opacity: 0.7;
+  animation: flickerGlow 2s infinite ease-in-out alternate;
+}
+
+/* Floating sparkles */
+.popup-diwali::before, .popup-diwali::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: gold;
+  box-shadow:
+    40px 100px 2px gold,
+    120px 60px 3px #ffdd44,
+    240px 140px 2px #ffaa00,
+    360px 80px 3px #ffe066,
+    420px 160px 3px #ffb300;
+  border-radius: 50%;
+  animation: sparkle 4s infinite linear;
+  opacity: 0.8;
+}
+
+/* --- Keyframes --- */
+@keyframes sparkle {
+  0% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(-8px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.8; }
+}
+@keyframes flickerGlow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+@keyframes flickerText {
+  0%, 100% { text-shadow: 0 0 8px gold, 0 0 25px #ffb400; }
+  50% { text-shadow: 0 0 20px gold, 0 0 40px orange; }
+}
+@keyframes popupGlow {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* === 📱 Mobile Optimization === */
+@media (max-width: 480px) {
+  .popup-diwali {
+    padding: 20px 14px;
+    border-radius: 16px;
+  }
+  .popup-diwali h1 {
+    font-size: 1.5rem;
+  }
+  .popup-diwali p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .diya-glow {
+    width: 140px;
+    height: 140px;
+    bottom: -20px;
+  }
+}
+
+/* === 💻 Tablet Optimization === */
+@media (min-width: 481px) and (max-width: 900px) {
+  .popup-diwali h1 {
+    font-size: 1.8rem;
+  }
+  .popup-diwali p {
+    font-size: 1rem;
+  }
+}
+
+
   </style>
 </head>
 <body>
 
-  <!-- Loader -->
-  <div id="loader"><span>Loading...</span></div>
-
-   <!-- Popup Image -->
-<div class="popup-overlay" id="popupOverlay" style="
-  position: fixed; 
-  top: 0; left: 0; 
-  width: 100%; height: 100%; 
-  background: rgba(0,0,0,0.8); 
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  z-index: 9999;
-">
-  <img src="photo/0000000000.png" alt="Announcement" style="
-    width: 90%;
-    max-width: 600px;
-    border-radius: 16px;
-    box-shadow: 0 0 30px gold;
-    border: 2px solid #fff;
-  ">
+<!-- 🪔 TrustDollar V2 — Diwali Special Popup -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-diwali">
+    <div class="diya-glow"></div>
+    <h1>🪔 Happy Diwali from <span style="color:#ffb400;">TrustDollar</span> 🪔</h1>
+    <p>
+      🎆 The light of prosperity never fades — it only shines brighter!<br>
+      💛 Believe in your efforts, and success will follow like a shadow.<br><br>
+      🌟 <b style="color:gold;font-size:18px;">12:12 AM — TrustDollar V2 Live Soon 🚀</b><br><br>
+      ⚡ A new beginning, a golden era of earning & trust starts soon! 💰<br>
+      🌠 Keep the faith, stay positive, and let your dreams glow brighter than any Diya tonight! ✨
+    </p>
+  </div>
 </div>
 
 
@@ -206,7 +349,6 @@
   </script>
 </body>
 </html>
-
 
 
 

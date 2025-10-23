@@ -1,343 +1,345 @@
-<!doctype html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>TrustDollar Voting — India Office?</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrustDollar Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    *{box-sizing:border-box;}
+    html,body{
+      margin:0;padding:0;
+      background:radial-gradient(ellipse at center,#0f2027,#203a43,#2c5364);
+      font-family:'Segoe UI',sans-serif;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
 
-<style>
-:root {
-  --green1: #22c55e;
-  --green2: #16a34a;
-  --red1: #ef4444;
-  --red2: #dc2626;
-  --text-dark: #0f172a;
-  --text-muted: #64748b;
-  --bg-light: #f1f5f9;
-}
-body {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
-  padding: 20px;
-}
-.card {
-  background: rgba(255,255,255,0.96);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  padding: 28px;
-  width: 100%;
-  max-width: 420px;
-  transition: all .3s ease;
-}
-h1 {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 12px;
-  text-align:center;
-}
-.muted {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-bottom: 16px;
-  text-align:center;
-}
-button {
-  flex: 1;
-  padding: 14px;
-  font-weight: 700;
-  font-size: 15px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all .2s ease;
-  color: white;
-}
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-.yes {
-  background: linear-gradient(145deg, var(--green1), var(--green2));
-}
-.no {
-  background: linear-gradient(145deg, var(--red1), var(--red2));
-}
-button:hover:not(:disabled) {
-  transform: scale(1.03);
-}
-.vote-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-.bar {
-  height: 28px;
-  background: var(--bg-light);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-top: 20px;
-  position: relative;
-}
-.bar-inner-yes, .bar-inner-no {
-  height: 100%;
-  border-radius: 12px;
-  transition: width .3s ease;
-}
-.bar-inner-yes {
-  background: linear-gradient(90deg, var(--green2), var(--green1));
-  width: 0;
-}
-.bar-inner-no {
-  background: linear-gradient(90deg, var(--red1), var(--red2));
-  width: 0;
-}
-.stats {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  font-weight: 600;
-  color: #1e293b;
-}
-.status-text {
-  margin-top: 12px;
-  font-size: 14px;
-  color: var(--text-muted);
-  text-align:center;
-}
-canvas {
-  margin-top: 22px;
-  width: 100% !important;
-  height: 260px !important;
-  position: relative;
-}
-.chart-container {
-  position: relative;
-}
-.chart-center-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: #1e293b;
-}
-.share-section {
-  margin-top: 16px;
-  text-align: center;
-}
-.share-btn {
-  background:#f1f5f9;
-  border:none;
-  border-radius:8px;
-  padding:8px 14px;
-  margin:4px;
-  cursor:pointer;
-  font-size:13px;
-  color:#0f172a;
-  transition:all .2s ease;
-}
-.share-btn:hover {
-  background:#e2e8f0;
-}
-footer {
-  margin-top: 12px;
-  font-size: 12px;
-  color: var(--text-muted);
-  text-align: center;
-}
-@media (max-width: 500px) {
-  .card { padding: 20px; border-radius: 16px; }
-  h1 { font-size: 18px; }
-  button { font-size: 14px; padding: 12px; }
-}
-</style>
+    /* Loader */
+    #loader{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:radial-gradient(circle,#0f2027,#203a43,#2c5364);
+      display:flex;align-items:center;justify-content:center;
+      z-index:10000;color:#0ff;font-size:22px;font-weight:bold;
+    }
+    #loader span{animation:blink 1.2s infinite;}
+    @keyframes blink{50%{opacity:0.4;}}
+
+    .container{max-width:400px;margin:0 auto;padding:16px;}
+    .row{display:flex;justify-content:space-between;gap:10px;margin-bottom:15px;}
+    .box,.large-box{
+      background:linear-gradient(135deg,#1a1a1a,#2e2e2e);
+      border-radius:14px;box-shadow:0 0 10px #00ffff99;
+      color:#0ff;text-align:center;
+    }
+    .box{flex:0 0 48%;padding:12px;font-size:13px;}
+    .large-box{width:100%;padding:14px;font-size:14px;margin-bottom:20px;}
+    .typing-box{
+      width:100%;background:rgba(255,255,255,0.1);
+      border-radius:12px;padding:10px;text-align:center;
+      margin:15px 0;color:#fff;font-size:13px;
+      min-height:32px;white-space:nowrap;overflow:hidden;
+    }
+    .wave-section{
+      height:80px;background:linear-gradient(to right,#ff416c,#ff4b2b);
+      border-radius:20px;position:relative;overflow:hidden;
+      box-shadow:0 0 15px #ff4d4d88;display:flex;align-items:flex-end;justify-content:center;
+    }
+    .wave-svg{position:absolute;bottom:0;left:0;width:200%;height:100%;animation:waveMove 6s linear infinite;}
+    @keyframes waveMove{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+    .glass-btc-box{
+      background:rgba(255,255,255,0.08);backdrop-filter:blur(5px);
+      border-radius:16px;box-shadow:0 0 12px rgba(0,255,255,0.2);
+      display:flex;align-items:center;justify-content:center;
+      height:120px;border:1px solid rgba(255,255,255,0.1);margin-bottom:20px;
+    }
+    .btc-icon{font-size:48px;color:#ffcc00;text-shadow:0 0 20px rgba(255,204,0,.5);animation:floatBTC 2s ease-in-out infinite;}
+    @keyframes floatBTC{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+    .info-banner{
+      background:linear-gradient(to right,#2c3e50,#2980b9);
+      border-radius:18px;color:white;font-weight:bold;
+      font-size:14px;padding:16px;text-align:center;margin:20px 0;
+      box-shadow:0 4px 15px rgba(0,0,0,.3);
+    }
+    h3{text-align:center;color:#ffd700;font-size:16px;margin-top:10px;}
+    .popup-overlay{position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:center;
+      z-index:9999;transition:opacity .5s ease;}
+    .popup-overlay.hide{opacity:0;pointer-events:none;}
+    .popup-box{background:rgba(255,255,255,0.1);border:2px solid rgba(255,0,0,0.6);
+      border-radius:15px;padding:20px;width:90%;max-width:600px;text-align:center;
+      color:white;font-family:'Poppins',sans-serif;backdrop-filter:blur(10px);
+      box-shadow:0 0 20px rgba(255,0,0,0.6),0 0 40px gold;}
+    .popup-box h1{font-size:28px;margin-bottom:10px;}
+    #chatIcon{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);
+      width:60px;height:60px;border-radius:50%;z-index:99999;display:flex;
+      align-items:center;justify-content:center;cursor:grab;}
+    .rotating-ring{position:absolute;width:60px;height:60px;border-radius:50%;
+      border:4px solid transparent;border-top:4px solid red;border-right:4px solid gold;
+      animation:spinRing 2s linear infinite;box-shadow:0 0 8px red;}
+    .chat-btn{position:absolute;width:46px;height:46px;border-radius:50%;
+      background:white;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .chat-btn img{width:100%;height:100%;object-fit:contain;}
+    @keyframes spinRing{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+    .nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+      background:#000;display:flex;justify-content:space-between;align-items:center;
+      width:100%;max-width:480px;padding:6px 0;box-shadow:0 -2px 10px rgba(0,0,0,.4);z-index:999;
+      border-top:2px solid transparent;border-image:linear-gradient(to right,red,gold,lime,cyan,violet) 1;}
+    .nav-bar a{flex:1;text-align:center;text-decoration:none;font-size:11px;color:#ccc;
+      padding:4px 0;transition:.3s;position:relative;}
+    .nav-bar a i{display:block;font-size:18px;margin-bottom:3px;color:#ccc;}
+    .nav-bar a.active,.nav-bar a:focus{background:linear-gradient(to top,rgba(255,0,0,.15),transparent);border-radius:6px;}
+    .nav-bar a.active i{color:red;}
+    .nav-bar a.active span{color:yellow;font-weight:bold;}
+    .nav-bar a:not(:last-child)::after{content:"";position:absolute;right:0;top:25%;height:50%;width:1px;background:linear-gradient(to bottom,yellow,red);}
+  </style>
 </head>
 <body>
 
-<div class="card">
-  <h1>Should we open the TrustDollar office in India?</h1>
-  <p class="muted">
-    When we reach <strong>2 million votes</strong>, we’ll start planning our India office. 
-    Support us — ask your friends to vote!
-  </p>
+  <!-- Loader -->
+  <div id="loader"><span>Loading...</span></div>
 
-  <div class="vote-buttons">
-    <button class="yes" id="yesBtn">YES</button>
-    <button class="no" id="noBtn">NO</button>
+<!-- 🌟 TrustDollar V2 Popup 🌟 -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-box">
+    <button class="close-btn" onclick="document.getElementById('popupOverlay').style.display='none'">×</button>
+
+    <h1 class="title">🚀 TrustDollar V2 Has Officially Launched!</h1>
+
+    <p class="intro">
+      We are thrilled to announce that <b>TrustDollar V2</b> is now live!  
+      This is your moment — join the movement, grow your income,  
+      and experience the strength of our upgraded platform.
+    </p>
+
+    <p class="motivation">
+      💡 <i>Success doesn’t come to those who wait — it comes to those who take action!</i><br>
+      Stay active, stay consistent, and multiply your income with <b>TrustDollar V2</b>.
+    </p>
+
+    <hr class="divider">
+
+    <h3 class="section-title">📢 Payout Update 📢</h3>
+    <p class="content">
+      This month alone, a total of 
+      <span class="highlight">₹1,337,000,000</span> 
+      has been successfully distributed to our members.  
+      We sincerely appreciate your trust and continued participation.
+    </p>
+
+    <p class="footer">
+      🌟 <b>TrustDollar — Building Financial Freedom, One Step at a Time</b> 🌟
+    </p>
   </div>
-
-  <div class="bar">
-    <div class="bar-inner-yes" id="barYes"></div>
-    <div class="bar-inner-no" id="barNo"></div>
-  </div>
-  <div class="stats">
-    <div>YES: <span id="yesPct">0%</span></div>
-    <div>NO: <span id="noPct">0%</span></div>
-  </div>
-
-  <p class="status-text">Status: <strong id="statusText">Loading...</strong></p>
-
-  <div class="chart-container">
-    <canvas id="chart"></canvas>
-    <div class="chart-center-text" id="centerText">Total: 0</div>
-  </div>
-
-  <div class="share-section">
-    <p style="font-size:13px;color:#475569;">Share this poll:</p>
-    <button class="share-btn" onclick="shareVote('whatsapp')">WhatsApp</button>
-    <button class="share-btn" onclick="shareVote('telegram')">Telegram</button>
-    <button class="share-btn" onclick="shareVote('twitter')">Twitter</button>
-    <button class="share-btn" onclick="shareVote('facebook')">Facebook</button>
-  </div>
-
-  <footer>Data stored in Firestore → <code>users</code> collection (per IP)</footer>
 </div>
 
-<script type="module">
-const firebaseConfig = {
-  apiKey: "AIzaSyDEQYPJFxQv8yFHptrTqoLHOn2L0PpgVhc",
-  authDomain: "btcinvest-c0e25.firebaseapp.com",
-  projectId: "btcinvest-c0e25",
-  storageBucket: "btcinvest-c0e25.appspot.com",
-  messagingSenderId: "204937458487",
-  appId: "1:204937458487:web:cc27ece1249999279f60b2",
-  measurementId: "G-HG0Q8ZHT6G"
-};
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import {
-  getFirestore, doc, getDoc, setDoc, runTransaction, onSnapshot
-} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const statusEl = document.getElementById("statusText");
-const barYes = document.getElementById("barYes");
-const barNo = document.getElementById("barNo");
-const yesPct = document.getElementById("yesPct");
-const noPct = document.getElementById("noPct");
-const centerText = document.getElementById("centerText");
-const ctx = document.getElementById("chart").getContext("2d");
-
-const chart = new Chart(ctx, {
-  type: "doughnut",
-  data: {
-    labels: ["YES", "NO"],
-    datasets: [{
-      data: [0, 0],
-      backgroundColor: ["#3b82f6","#f87171"],
-      borderWidth: 0
-    }]
-  },
-  options: {
-    rotation: 0,
-    circumference: 360,
-    cutout: "65%",
-    animation: { animateRotate: true, duration: 800 },
-    plugins: { legend: { position: "bottom" } }
+<!-- ✨ Styling -->
+<style>
+  /* Overlay full screen + center */
+  .popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 15px;
+    animation: fadeIn 0.6s ease-in-out;
   }
-});
 
-function encodeIp(ip){return ip.replace(/\./g,"_").replace(/:/g,"_");}
-async function getIp(){
-  try{const r=await fetch("https://api.ipify.org?format=json");const j=await r.json();return j.ip;}
-  catch(e){return "unknown";}
-}
-function updateUI(yes,no){
-  const total = yes+no;
-  const yp = total?Math.round((yes/total)*100):0;
-  const np = total?Math.round((no/total)*100):0;
-  yesPct.textContent=yp+"%";
-  noPct.textContent=np+"%";
-  barYes.style.width=yp+"%";
-  barNo.style.width=np+"%";
-  chart.data.datasets[0].data=[yes,no];
-  chart.update();
-  centerText.textContent = "Total: " + total.toLocaleString();
-}
+  /* Popup box with scrollable area */
+  .popup-box {
+    background: linear-gradient(135deg, #004d00, #ffd700);
+    color: #fff;
+    padding: 25px 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;        /* Scrollable content area */
+    overflow-y: auto;        /* Enable vertical scroll */
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+    text-align: center;
+    animation: zoomIn 0.5s ease;
+    position: relative;
+    scrollbar-width: thin;       /* Firefox scrollbar */
+    scrollbar-color: gold #004d00;
+  }
 
-let liveYes=0, liveNo=0;
-onSnapshot(doc(db,"votes","totals"),(snap)=>{
-  const d=snap.exists()?snap.data():{yes:0,no:0};
-  liveYes=d.yes||0; liveNo=d.no||0;
-  updateUI(liveYes,liveNo);
-});
+  /* Chrome scrollbar style */
+  .popup-box::-webkit-scrollbar {
+    width: 8px;
+  }
+  .popup-box::-webkit-scrollbar-thumb {
+    background-color: gold;
+    border-radius: 10px;
+  }
+  .popup-box::-webkit-scrollbar-track {
+    background: #004d00;
+  }
 
-async function hasVoted(ip){
-  const ref=doc(db,"users",encodeIp(ip));
-  const snap=await getDoc(ref);
-  return snap.exists();
-}
-async function castVote(ip,choice){
-  const userRef=doc(db,"users",encodeIp(ip));
-  const votesRef=doc(db,"votes","totals");
-  if(choice==="yes"){liveYes++;}else{liveNo++;}
-  updateUI(liveYes,liveNo);
-  confetti({particleCount:60,spread:70,origin:{y:0.6}});
-  statusEl.textContent="Vote submitted ✅";
-  yesBtn.disabled=true;noBtn.disabled=true;
+  /* Close button */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s;
+  }
+  .close-btn:hover { color: gold; }
 
-  try{
-    await runTransaction(db,async(tx)=>{
-      const vSnap=await tx.get(votesRef);
-      let data=vSnap.exists()?vSnap.data():{yes:0,no:0};
-      data[choice]=(data[choice]||0)+1;
-      tx.set(votesRef,data,{merge:true});
-      tx.set(userRef,{vote:choice,timestamp:Date.now()});
+  /* Headings and texts */
+  .title {
+    color: gold;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .intro, .content {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #fff;
+  }
+  .motivation {
+    font-size: 15px;
+    color: #0ff;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .divider {
+    border: 1px solid gold;
+    width: 80%;
+    margin: 20px auto;
+  }
+  .section-title {
+    color: gold;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .highlight {
+    color: gold;
+    font-weight: bold;
+  }
+  .footer {
+    color: #0ff;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 25px;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes zoomIn {
+    from { transform: scale(0.85); opacity: 0; } 
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  /* 📱 Responsive Design */
+  @media (max-width: 600px) {
+    .popup-box {
+      padding: 20px;
+      font-size: 14px;
+      max-height: 90vh;
+    }
+    .title {
+      font-size: 18px;
+    }
+  }
+</style>
+
+  <!-- Chat Icon -->
+  <div id="chatIcon">
+    <div class="rotating-ring"></div>
+    <div class="chat-btn" onclick="openChat()">
+      <img src="photo/chatlogo.png" alt="Chat Icon"/>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row"><div class="box">Secure System</div><div class="box">Fast Payouts</div></div>
+    <div class="row"><div class="box">24/7 Mining</div><div class="box">Low Fees</div></div>
+    <div class="large-box">Welcome to our BTC mining platform. Earn passive income with ease!</div>
+    <div class="glass-btc-box"><div class="btc-icon"><i class="fab fa-btc"></i></div></div>
+    <div class="typing-box" id="typingText"></div>
+    <h3>This platform is made for real users</h3>
+    <div class="wave-section">
+      <svg class="wave-svg" viewBox="0 0 1440 320">
+        <path fill="#ffffff44" d="M0,160L60,165.3C120,171,240,181,360,165.3C480,149,600,107,720,101.3C840,96,960,128,1080,138.7C1200,149,1320,139,1380,133.3L1440,128L1440,320H0Z"></path>
+      </svg>
+    </div>
+    <div class="info-banner">You’re now connected to a secure, trusted system.</div>
+    <div class="info-banner">Green means growth. White means clarity.</div>
+    <div class="info-banner">Profits grow in a system that’s pure and transparent.</div>
+    <div class="info-banner">Verified & Trustworthy – Greenlighted for success</div>
+    <div class="info-banner">Simplicity meets security — funds & faith respected.</div>
+    <div class="info-banner">Clarity + Reliability = Rewarding experience.</div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="nav-bar">
+    <a href="index.html"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="start.html"><i class="fas fa-industry"></i><span>Mining</span></a>
+    <a href="promotion.html"><i class="fas fa-bullhorn"></i><span>Promotion</span></a>
+    <a href="wallet.html"><i class="fas fa-wallet"></i><span>Wallet</span></a>
+    <a href="account.html"><i class="fas fa-user"></i><span>Account</span></a>
+  </div>
+
+  <script>
+    // Typing Effect
+    const texts=["Earn BTC Daily!","Start mining in one click","No hidden fees","Withdraw anytime"];
+    let index=0;let typingBox=document.getElementById("typingText");
+    function typeText(){
+      let text=texts[index],i=0;typingBox.innerHTML="";
+      let typingInterval=setInterval(()=>{
+        if(i<text.length){typingBox.innerHTML+=text[i];i++;}
+        else{clearInterval(typingInterval);setTimeout(()=>{typingBox.innerHTML="";index=(index+1)%texts.length;typeText();},2000);}
+      },60);
+    } typeText();
+
+    // Auto-hide Popup
+    window.addEventListener("load",()=>{setTimeout(()=>{document.getElementById("popupOverlay")?.classList.add("hide");},5000);});
+
+    // Chat Icon Drag + Save Position
+    const chatIcon=document.getElementById('chatIcon');let isDragging=false,offsetX=0,offsetY=0;
+    if(!localStorage.getItem('chatIconPos')){chatIcon.style.left='50%';chatIcon.style.bottom='80px';chatIcon.style.top='';chatIcon.style.transform='translateX(-50%)';}
+    else{const saved=JSON.parse(localStorage.getItem('chatIconPos'));chatIcon.style.left=saved.x+'px';chatIcon.style.top=saved.y+'px';chatIcon.style.bottom='';chatIcon.style.transform='none';}
+    chatIcon.addEventListener('mousedown',e=>{isDragging=true;offsetX=e.clientX-chatIcon.offsetLeft;offsetY=e.clientY-chatIcon.offsetTop;chatIcon.style.cursor='grabbing';});
+    document.addEventListener('mousemove',e=>{if(isDragging){chatIcon.style.left=(e.clientX-offsetX)+'px';chatIcon.style.top=(e.clientY-offsetY)+'px';chatIcon.style.bottom='';chatIcon.style.transform='none';}});
+    document.addEventListener('mouseup',()=>{if(isDragging){isDragging=false;chatIcon.style.cursor='grab';localStorage.setItem('chatIconPos',JSON.stringify({x:chatIcon.offsetLeft,y:chatIcon.offsetTop}));}});
+    function openChat(){const w=400,h=600,left=(screen.width/2)-(w/2),top=(screen.height/2)-(h/2);window.open('https://trustdollar.github.io/trustdollarchait1sahaiuiuasdhhhatstysa/','_blank',`width=${w},height=${h},left=${left},top=${top}`);if(/Mobi|Android/i.test(navigator.userAgent)){window.location.href="sms:?body=Hi, I just joined TrustDollar. Please help me with my problem.";}}
+
+    // Active Nav Highlight
+    const currentPage=window.location.pathname.split("/").pop();
+    document.querySelectorAll(".nav-bar a").forEach(link=>{if(link.getAttribute("href")===currentPage){link.classList.add("active");}});
+    // Referral Redirect
+    const ref=new URLSearchParams(window.location.search).get('ref');if(ref){window.location.href=`https://www.trustdollar.in/auth.html?ref=${ref}`;}
+  </script>
+
+  <!-- Firebase Auth Check -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    const firebaseConfig={apiKey:"AIzaSyAswnjTVT4I_vrIShF4PDMluvWWcIwygTA",authDomain:"trustdollar-f72f4.firebaseapp.com",projectId:"trustdollar-f72f4",storageBucket:"trustdollar-f72f4.appspot.com",messagingSenderId:"217643658538",appId:"1:217643658538:web:c8a9cd78467e0818aa0253"};
+    const app=initializeApp(firebaseConfig);const auth=getAuth(app);
+    onAuthStateChanged(auth,(user)=>{
+      if(!user){window.location.href="auth.html";}
+      else{
+        // ✅ Only hide loader, body is always visible
+        document.getElementById("loader").style.display="none";
+      }
     });
-  }catch(e){console.error("Vote save failed:",e);}
-}
-
-(async()=>{
-  const ip=await getIp();
-  const voted=await hasVoted(ip);
-  if(voted){
-    statusEl.textContent="You’ve already submitted your vote ✅";
-    yesBtn.disabled=true;noBtn.disabled=true;
-  }else{
-    statusEl.textContent="You can vote now.";
-    yesBtn.disabled=false;noBtn.disabled=false;
-  }
-  yesBtn.onclick=async()=>{
-    if(await hasVoted(ip)){alert("Duplicate vote not allowed.");return;}
-    await castVote(ip,"yes");
-  };
-  noBtn.onclick=async()=>{
-    if(await hasVoted(ip)){alert("Duplicate vote not allowed.");return;}
-    await castVote(ip,"no");
-  };
-})();
-
-
-
-// 🔗 Fixed Share buttons — fully working on WhatsApp desktop + mobile
-window.shareVote = function(platform) {
-  const url = encodeURIComponent("https://www.trustdollar.in/");
-  const text = encodeURIComponent("🇮🇳 Vote now on TrustDollar — Should we open our office in India? 💬");
-  const shareLinks = {
-    whatsapp: `https://api.whatsapp.com/send?text=${text}%20${url}`,
-    telegram: `https://t.me/share/url?url=${url}&text=${text}`,
-    twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`
-  };
-  window.open(shareLinks[platform], "_blank");
-};
-
-</script>
+  </script>
 </body>
 </html>
+
+

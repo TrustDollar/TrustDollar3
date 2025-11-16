@@ -1,806 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>TrustDollar  - Earn  Daily | Instant Withdrawals</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Competition Entry Form</title>
 
-  <!-- ✅ Favicon -->
-<link rel="icon" type="image/png" sizes="32x32" href="https://www.smartfundad.com/myphoto/trustlogo.png">
-<link rel="shortcut icon" type="image/png" href="https://www.smartfundad.com/myphoto/trustlogo.png">
-
-
-  <!-- ✅ Open Graph (Social Media Preview) -->
-  <meta property="og:title" content="TrustDollar v2 - Secure Your Funds">
-  <meta property="og:description" content="Blockchain-powered platform designed to keep your investments safe and transparent. Start today and earn referral income up to 3 levels.">
-  <meta property="og:image" content="https://www.smartfundad.com/myphoto/trustlogo.png">
-  <meta property="og:url" content="https://www.smartfundad.com">
-  <meta property="og:type" content="website">
-  <meta name="google-site-verification" content="XnH-u4vK_wLDx0tTg2QhWlRHtzlZpCOVztUWcPzXHYo" />
-
-  <!-- ✅ Logo Schema for Google -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "url": "https://www.smartfundad.com",
-    "logo": "https://www.smartfundad.com/myphoto/trustlogo.png"
-  }
-  </script>
-<!-- ✅ PWA / App Install Setup -->
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#00c853" />
-
-<!-- iOS ke liye (Apple Support) -->
-<link rel="apple-touch-icon" href="https://smartfundad.com/myphoto/trustlogo.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="TrustDollar">
-
-<!-- ✅ Service Worker Registration -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('/service-worker.js')
-        .then(reg => console.log('✅ Service Worker Registered:', reg.scope))
-        .catch(err => console.log('❌ SW Registration Failed:', err));
-    });
-  }
-</script>
-
-
-  <style>
+<style>
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f9f9f9;
-      color: #333;
-      overflow-x: hidden;
+        font-family: Poppins, Arial;
+        background: linear-gradient(135deg, #00ff99, #00995c);
+        padding: 20px;
+        color: white;
+    }
+    .form-box {
+        max-width: 450px;
+        background: white;
+        color: black;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px #00000050;
+        margin: auto;
+        margin-top: 40px;
+        animation: fadein 0.5s ease-in-out;
+    }
+    @keyframes fadein {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin-top: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+    }
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 18px;
+        background: #00aa55;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 17px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:hover {
+        opacity: 0.8;
     }
 
 
-/* HEADER STYLE */
-.header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fff;
-  color: #000;
-  padding: 10px 30px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+/* ---------------------- */
+/* ⭐ ULTRA PROFESSIONAL POPUP */
+/* ---------------------- */
 
-.logo-img {
-  height: 60px;
-  width: auto;
-}
-
-.brand-name {
-  font-size: 18px;
-  font-weight: 600;
-  color: #111;
-}
-
-.nav-links {
-  display: flex;
-  gap: 25px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  font-weight: 600;
-  color: #111;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.header-right a {
-  text-decoration: none;
-  color: #111;
-  font-weight: 500;
-}
-
-.header-right .icon {
-  height: 28px;
-  width: 28px;
-}
-
-.menu-toggle {
-  font-size: 22px;
-  cursor: pointer;
-  display: none;
-}
-
-/* ✅ Mobile style */
-@media(max-width: 768px){
-  .nav-links {
+/* 🌟 FIXED RESPONSIVE CENTER POPUP */
+.pro-popup-bg {
     display: none;
-    position: absolute;
-    top: 60px; left: 0; right: 0;
-    background: #fff;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-
-  .nav-links.show {
-    display: flex;
-  }
-
-  .nav-links a {
-    padding: 10px 0;
-    width: 100%;
-    border-bottom: 1px solid #eee;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-}
-
-/* Desktop */
-.header-right { display: none; } /* ❌ remove old header-right */
-
-/* Mobile Menu Items */
-.nav-links a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-links a img.icon {
-  height: 20px;
-  width: 20px;
-}
-
-
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 120px 20px 60px;
-      background: #e8f5e9;
-    }
-
-    /* ✅ Slider Box */
-    .slider {
-      position: relative;
-      max-width: 400px;
-      margin: 0 auto 30px;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 0px solid orange;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    }
-
-    .slides {
-      display: flex;
-      transition: transform 0.6s ease-in-out;
-    }
-
-    .slide-card {
-      flex: 0 0 100%;
-    }
-
-    .slide-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 16px;
-      object-fit: cover; /* ✅ image fit karega */
-    }
-
-    /* HERO TEXT */
-    .hero h1 {
-      font-size: 28px;
-      color: #2c7;
-      margin-bottom: 15px;
-    }
-    .hero p {
-      font-size: 16px;
-      max-width: 600px;
-      margin: auto;
-      color: #444;
-    }
-
-    /* HERO BUTTONS */
-    .hero-buttons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-    .hero-buttons a {
-      text-decoration: none;
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .hero-buttons a.login {
-      background: #fff;
-      color: #2c7;
-      border: 2px solid #2c7;
-    }
-    .hero-buttons a.login:hover { background: #eaeaea; }
-    .hero-buttons a.register {
-      background: #ff9800;
-      color: #fff;
-    }
-    .hero-buttons a.register:hover { background: #e68900; }
-
-    /* FEATURES */
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      padding: 50px 20px;
-    }
-    .feature {
-      background: #fff;
-      border-radius: 16px;
-      padding: 28px 22px;
-      width: 280px;
-      text-align: center;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .feature::before {
-      content: "";
-      position: absolute;
-      top: -2px; left: -2px; right: -2px; bottom: -2px;
-      border-radius: 18px;
-      background: linear-gradient(135deg,#4CAF50,#2c7,#66bb6a);
-      z-index: -1;
-      opacity: 0.4;
-      transition: opacity 0.4s;
-    }
-    .feature:hover::before { opacity: 1; }
-    .feature h3 {
-      color: #2c7;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .feature p {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #555;
-    }
-    .feature:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 28px rgba(76,175,80,0.25);
-    }
-
-    /* BLOCKCHAIN */
-    .blockchain-section {
-      text-align: center;
-      padding: 50px 15px;
-      background: #eef9f1;
-    }
-    .blockchain {
-      display: flex; justify-content: center; align-items: center; gap: 15px;
-      flex-wrap: wrap;
-    }
-    .block {
-      width: 90px; height: 90px; background: #fff;
-      border: 2px solid #2c7; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: bold;
-      animation: pulse 3s infinite;
-    }
-    .chain {
-      width: 40px; height: 3px;
-      background: linear-gradient(90deg,#2c7,#4CAF50);
-      position: relative; overflow: hidden;
-    }
-    .chain::before {
-      content: ""; position: absolute; left: -40px; top: 0;
-      height: 100%; width: 40px;
-      background: rgba(255,255,255,0.8);
-      animation: flow 2s linear infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    @keyframes flow {
-      0% { left: -40px; }
-      100% { left: 40px; }
-    }
-
-    /* FOOTER */
-    .footer {
-      background: #e8f5e9;
-      color: #333;
-      padding: 50px 20px 20px;
-    }
-    .footer-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 30px;
-      max-width: 1100px;
-      margin: auto;
-    }
-    .footer h2, .footer h3 { margin-bottom: 12px; color: #2c7; }
-    .footer p { font-size: 14px; line-height: 1.6; }
-    .footer ul { list-style: none; padding: 0; }
-    .footer ul li { margin: 6px 0; }
-    .footer ul li a {
-      color: #444; text-decoration: none; font-size: 14px;
-    }
-    .footer ul li a:hover { color: #2c7; font-weight: 600; }
-    .links { display: flex; gap: 40px; justify-content: flex-start; flex-wrap: wrap; }
-    .link-group { flex: 1; }
-    .subscribe-form {
-      display: flex; margin-top: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px; overflow: hidden;
-    }
-    .subscribe-form input {
-      flex: 1; padding: 10px; border: none; outline: none;
-      font-size: 14px; background: #fff; color: #333;
-    }
-    .subscribe-form button {
-      background: linear-gradient(90deg,#4CAF50,#2c7);
-      color: #fff; border: none; padding: 10px 16px;
-      cursor: pointer; font-weight: bold;
-    }
-    .subscribe-form button:hover { opacity: 0.9; }
-    .footer-bottom {
-      text-align: center;
-      border-top: 1px solid #ccc;
-      padding-top: 15px;
-      font-size: 13px;
-      margin-top: 30px;
-      color: #444;
-    }
-
-    /* Popup Style */
-    .popup {
-      display: none; 
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: #4CAF50;
-      color: #fff;
-      padding: 15px 25px;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      z-index: 2000;
-      animation: fadeIn 0.4s ease;
-    }
-    /* Mobile menu */
-    @media(max-width: 768px){
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
     position: fixed;
-    top: 0; left: 0;
-    width: 80%;   /* ✅ 80% width drawer */
-    height: 100%;
-    background: linear-gradient(135deg, #4CAF50, #2c7);
-    padding: 80px 25px;
-    z-index: 1000;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
-    transform: translateX(-100%);
-    transition: transform 0.4s ease-in-out;
-  }
+    inset: 0;                     /* Top, Right, Bottom, Left = 0 */
+    background: rgba(0,0,0,0.75);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 0;                  /* Remove padding */
+}
 
-  .nav-links.show {
-    display: flex;
-    transform: translateX(0); /* ✅ slide-in */
-  }
+.pro-popup-box {
+    width: 92%;
+    max-width: 420px;
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    text-align: center;
+    animation: proPop 0.25s ease-out;
+    box-shadow: 0 0 30px #00000050;
+    margin: 0;                   /* No shifting */
+}
 
-  .nav-links a {
-    opacity: 0;
-    transform: translateX(-20px);
+/* Success Icon */
+.success-icon {
+    font-size: 58px;
+    color: #00b66c;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Title */
+.pro-popup-box h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #00a85a;
+    font-weight: 700;
+}
+
+/* Line */
+.line {
+    width: 70px;
+    height: 3px;
+    background: #00a85a;
+    margin: 8px auto 15px auto;
+    border-radius: 3px;
+}
+
+/* Main Text */
+.pro-popup-box p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Extra info box */
+.sub-info {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f3fcf7;
+    border-left: 4px solid #00a85a;
+    color: #444;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+/* Close Button */
+.closeProBtn {
+    width: 100%;
+    padding: 13px;
+    margin-top: 20px;
+    background: #00a85a;
+    border-radius: 10px;
+    color: white;
+    border: none;
     font-size: 18px;
-    font-weight: 600;
-    padding: 15px 0;
-    color: #fff;
-    text-decoration: none;
-    width: 100%;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    animation: fadeSlide 0.4s ease forwards;
-  }
-
-  /* ✅ Delay ek-ek karke */
-  .nav-links a:nth-child(1) { animation-delay: 0.1s; }
-  .nav-links a:nth-child(2) { animation-delay: 0.2s; }
-  .nav-links a:nth-child(3) { animation-delay: 0.3s; }
-  .nav-links a:nth-child(4) { animation-delay: 0.4s; }
-  .nav-links a:nth-child(5) { animation-delay: 0.5s; }
-  .nav-links a:nth-child(6) { animation-delay: 0.6s; }
-
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  .menu-toggle {
-    display: block;
-    font-size: 26px;
-    color: #000;
     cursor: pointer;
-    z-index: 1100;
-  }
-
-  /* ✅ Right side dim background */
-  .menu-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.3);
-    z-index: 900;
-  }
-
-  .menu-overlay.show {
-    display: block;
-  }
+    font-weight: 600;
 }
 
-/* ✅ Popup Center Style */
-.popup {
-  display: none;
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  background: #ff9800;
-  color: #fff;
-  padding: 18px 28px;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  z-index: 3000;
-  text-align: center;
-  animation: fadeIn 0.4s ease;
-}
-/* Referral popup */
-#referralPopup {
-  background: #ff9800;
+.closeProBtn:hover {
+    opacity: 0.8;
 }
 
-/* Subscribe popup */
-#successPopup {
-  background: #4CAF50;
-}
-/* Header layout */
-.header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #ffffffcc; /* light white bg */
-  color: #000;
-  padding: 6px 20px; /* 🔥 thinner padding */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  z-index: 1000;
-  height: 40px; /* 🔥 fixed compact height */
-}
-
-.logo-img {
-  height: 38px; /* 🔥 smaller logo */
-  width: auto;
-}
-
-.brand-name {
-  font-size: 20px; /* 🔥 slightly smaller font */
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  display: flex;
-  gap: 3px;
+/* Animation */
+@keyframes proPop {
+    from { transform: scale(0.6); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
 }
 
 
-.multi-color {
-  background: linear-gradient(90deg, #4CAF50, #00bcd4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* RESPONSIVE */
+@media(max-width:460px){
+    .pro-popup-box { padding: 5px; }
+    .pro-popup-box h2 { font-size: 22px; }
+    .success-icon { font-size: 50px; }
 }
-
-.multi-color-2 {
-  background: linear-gradient(90deg, #ff9800, #ff5722);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.brand-name span {
-  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
-}
-.nav-links a {
-  font-size: 15px;
-  padding: 5px 0;
-}
-
 
 </style>
+
 </head>
 <body>
-<!-- ✅ Referral Popup -->
-<div id="referralPopup" class="popup">
-  Referral detected. Please sign up.
+
+<div class="form-box">
+    <h2 style="text-align:center; margin-bottom:10px;">Competition Form</h2>
+    <p style="text-align:center; color:#555;">Fill the form to join the competition</p>
+
+    <input id="name" type="text" placeholder="Full Name" required>
+    <input id="email" type="email" placeholder="Email" required>
+
+    <select id="competition">
+        <option value="">Select Competition</option>
+        <option value="1000 Users">1000 Users Competition</option>
+        <option value="700 Users">700 Users Competition</option>
+        <option value="500 Users">500 Users Competition</option>
+        <option value="250 Users">250 Users Competition</option>
+        <option value="100 Users">100 Users Competition</option>
+    </select>
+
+    <button onclick="submitForm()">Submit</button>
 </div>
 
-  <!-- HEADER -->
-<header class="header">
-  <div class="header-left">
-    <img src="myphoto/trustlogo.png" alt="TrustDollar Logo" class="logo-img">
-    <h1 class="brand-name">
-      <span class="multi-color">Trust</span><span class="multi-color-2">Dollar </span>
-    </h1>
-  </div>
 
-<nav>
-<div class="menu-toggle" id="menuToggle">☰</div>
-<div class="menu-overlay" id="menuOverlay"></div>
-<nav class="nav-links" id="navLinks">
-  <a href="explore.html">Explore</a>
-  <a href="earn.html">Earn</a>
-  <a href="doc.html">doc</a>
-  <a href="terms.html">Term</a>
-  <a href="privacy.html">Privacy Policy</a>
-</nav>
+<!-- POPUP -->
+<div class="pro-popup-bg" id="proPopupBg">
+    <div class="pro-popup-box">
+        
+        <div class="success-icon">✔</div>
 
-</header>
-  <!-- HERO -->
-  <div class="hero">
-    <div class="slider" id="slider">
-      <div class="slides">
-        <div class="slide-card"><img src="myphoto/33.png" alt="slide1"></div>
-        <div class="slide-card"><img src="myphoto/11.png" alt="slide2"></div>
-        <div class="slide-card"><img src="myphoto/22.png" alt="slide3"></div>
-        <div class="slide-card"><img src="myphoto/22222222.png" alt="slide4"></div>
-      </div>
+        <h2 id="proPopupTitle"></h2>
+
+        <div class="line"></div>
+
+        <p id="proPopupText"></p>
+
+        <div class="sub-info" id="proPopupExtra"></div>
+
+        <button class="closeProBtn" onclick="closeProPopup()">Continue</button>
     </div>
+</div>
 
-    <h1>Secure Your Funds with TrustDollar V2</h1>
-    <p>Blockchain-powered platform designed to keep your investments safe and transparent. 
-    Start today and earn referral income up to 3 levels.</p>
 
-    <div class="hero-buttons">
-      <a href="login.html" class="login">Login</a>
-      <a href="register.html" class="register">Register</a>
-    </div>
-  </div>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
-  <!-- FEATURES -->
-  <div class="features">
-    <div class="feature">
-      <h3>Blockchain Security</h3>
-      <p>Your funds are protected with cutting-edge blockchain technology.</p>
-    </div>
-    <div class="feature">
-      <h3>3 Level Income</h3>
-      <p>Earn referral income up to 3 levels and grow your network easily.</p>
-    </div>
-    <div class="feature">
-      <h3>Safe Wallet</h3>
-      <p>Wallet balances stored safely in USDT with full transparency.</p>
-    </div>
-  </div>
-
-  <!-- BLOCKCHAIN -->
-  <div class="blockchain-section">
-    <h2>How Blockchain Works</h2>
-    <div class="blockchain">
-      <div class="block">Block 1</div>
-      <div class="chain"></div>
-      <div class="block">Block 2</div>
-      <div class="chain"></div>
-      <div class="block">Block 3</div>
-      <div class="chain"></div>
-      <div class="block">Block 4</div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-col about">
-        <h2>TrustDollar <span class="small">V2</span></h2>
-        <p>TrustDollar is a BTC Mining & Staking platform. 
-        Earn 1% daily and referral income up to 3 levels.</p>
-      </div>
-      <div class="footer-col links">
-        <div class="link-group">
-          <h3>Resources</h3>
-          <ul>
-            <li><a href="doc.html">Docs</a></li>
-            <li><a href="tutorial.html">Tutorials</a></li>
-            <li><a href="invite.html">Invite Friends</a></li>
-          </ul>
-        </div>
-        <div class="link-group">
-          <h3>Company</h3>
-          <ul>
-            <li><a href="terms.html">Terms of Service</a></li>
-            <li><a href="privacy.html">Privacy Policy</a></li>
-            <li><a href="about.html">About Us</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h3>Stay Updated</h3>
-        <p>Subscribe for updates, news & earning tips.</p>
-        <form id="subscribeForm" class="subscribe-form">
-          <input type="email" name="email" placeholder="Enter your email" required>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-      <div id="successPopup" class="popup">
-        Thank you for subscribing.
-      </div>
-    </div>
-    <div class="footer-bottom">
-      © 2025 TrustDollar V2 | All Rights Reserved
-    </div>
-  </footer>
-
-  <script>
-    // ✅ Auto + manual slider
-    let index = 0;
-    const slides = document.querySelector(".slides");
-    const totalSlides = document.querySelectorAll(".slide-card").length;
-
-    function showSlide(i) {
-      if (i < 0) index = totalSlides - 1;
-      else if (i >= totalSlides) index = 0;
-      else index = i;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    // ✅ First load me first slide show ho
-    showSlide(0);
-
-    setInterval(() => { showSlide(index + 1); }, 4000);
-
-    // ✅ Touch swipe
-    let startX = 0;
-    const slider = document.getElementById("slider");
-    slider.addEventListener("touchstart", e => {
-      startX = e.touches[0].clientX;
-    });
-    slider.addEventListener("touchend", e => {
-      let endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) showSlide(index + 1);
-      if (endX - startX > 50) showSlide(index - 1);
-    });
-
-    // ✅ Mouse drag
-    let isDown = false;
-    slider.addEventListener("mousedown", e => {
-      isDown = true; startX = e.clientX;
-    });
-    document.addEventListener("mouseup", e => {
-      if (!isDown) return;
-      isDown = false;
-      let endX = e.clientX;
-      if (startX - endX > 50) showSlide(index + 1);
-      if (endX - startX > 50) showSlide(index - 1);
-    });
-
-    // ✅ Subscribe form
-    document.getElementById("subscribeForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      const formData = new FormData(this);
-      fetch("https://formsubmit.co/trustdollarteam@gmail.com", {
-        method: "POST",
-        body: formData
-      })
-      .then(response => {
-        if(response.ok){
-          showPopup();
-          this.reset();
-        } else {
-          alert("❌ Something went wrong, try again!");
-        }
-      })
-      .catch(error => {
-        alert("⚠ Error: " + error.message);
-      });
-    });
-
-    function showPopup(){
-      const popup = document.getElementById("successPopup");
-      popup.style.display = "block";
-      setTimeout(() => { popup.style.display = "none"; }, 3000);
-    }
-
- function showReferralPopup() {
-  const popup = document.getElementById("referralPopup");
-  popup.style.display = "block";
-  setTimeout(() => {
-    popup.style.display = "none";
-  }, 3000);
-}
-
-// ✅ Referral logic
-const urlParams = new URLSearchParams(window.location.search);
-const referral = urlParams.get("ref");
-const loginBtn = document.querySelector(".login");
-const registerBtn = document.querySelector(".register");
-
-if (referral) {
-  loginBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    showReferralPopup(); // ✅ alert ki jagah yeh
-  });
-  registerBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.href = `register.html?ref=${referral}`;
-  });
-}
-  </script>
-    
-    <script>
-    const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
-const menuOverlay = document.getElementById("menuOverlay");
-
-menuToggle.addEventListener("click", () => {
-  navLinks.classList.toggle("show");
-  menuOverlay.classList.toggle("show");
-});
-
-// ✅ Overlay pe click karne se bhi menu close ho jaye
-menuOverlay.addEventListener("click", () => {
-  navLinks.classList.remove("show");
-  menuOverlay.classList.remove("show");
-});
-
-</script>
 <script>
-// ❌ Right-click disable
-  document.addEventListener("contextmenu", function(e) {
-    e.preventDefault();
-    
-  });
+    // 🔥 Your Firebase Config here
+const firebaseConfig = {
+  apiKey: "AIzaSyDEQYPJFxQv8yFHptrTqoLHOn2L0PpgVhc",
+  authDomain: "btcinvest-c0e25.firebaseapp.com",
+  projectId: "btcinvest-c0e25",
+  storageBucket: "btcinvest-c0e25.firebasestorage.app",
+  messagingSenderId: "204937458487",
+  appId: "1:204937458487:web:cc27ece1249999279f60b2",
+  measurementId: "G-HG0Q8ZHT6G"
+};
 
-// ❌ Disable text selection
-  document.addEventListener("selectstart", function(e) {
-    e.preventDefault();
-  });
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-// ❌ Disable copy (Ctrl+C), cut (Ctrl+X), paste (Ctrl+V), view-source (Ctrl+U)
-  document.addEventListener("keydown", function(e) {
-    if (
-      (e.ctrlKey && (e.key === "c" || e.key === "C")) || 
-      (e.ctrlKey && (e.key === "x" || e.key === "X")) || 
-      (e.ctrlKey && (e.key === "v" || e.key === "V")) || 
-      (e.ctrlKey && (e.key === "u" || e.key === "U")) || 
-    (e.key === "F12") // DevTools
-    ) {
-      e.preventDefault();
-    
-  }
-});
+    function submitForm() {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const competition = document.getElementById("competition").value;
+
+        if (name === "" || email === "" || competition === "") {
+            alert("Please fill all fields!");
+            return;
+        }
+
+        const id = Date.now();
+
+        db.ref("competition_entries/" + id).set({
+            name: name,
+            email: email,
+            competition: competition,
+            time: new Date().toString()
+        });
+
+        openProPopup(name, competition);
+
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("competition").value = "";
+    }
+
+
+/* ---------------------- */
+/* OPEN PREMIUM POPUP */
+/* ---------------------- */
+function openProPopup(username, competition) {
+
+    document.getElementById("proPopupTitle").innerHTML =
+        `Thank You, ${username}!`;
+
+    document.getElementById("proPopupText").innerHTML =
+        `Your entry for <b>${competition}</b> has been successfully submitted. We appreciate your participation and wish you the best of luck!`;
+
+    document.getElementById("proPopupExtra").innerHTML =
+        `Your details are safely stored in our system. You will receive an update once the next stage begins.`;
+
+    document.getElementById("proPopupBg").style.display = "flex";
+}
+
+/* CLOSE POPUP */
+function closeProPopup() {
+    document.getElementById("proPopupBg").style.display = "none";
+}
 </script>
 
 </body>

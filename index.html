@@ -52,21 +52,16 @@
     }
 
 
-
-/* ---------------------- */
-/* ⭐ ULTRA PROFESSIONAL POPUP */
-/* ---------------------- */
-
-/* 🌟 FIXED RESPONSIVE CENTER POPUP */
+/* ⭐ POPUP PROFESSIONALLY FIXED ⭐ */
 .pro-popup-bg {
     display: none;
     position: fixed;
-    inset: 0;                     /* Top, Right, Bottom, Left = 0 */
+    inset: 0;
     background: rgba(0,0,0,0.75);
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    padding: 0;                  /* Remove padding */
+    padding: 0;
 }
 
 .pro-popup-box {
@@ -78,10 +73,9 @@
     text-align: center;
     animation: proPop 0.25s ease-out;
     box-shadow: 0 0 30px #00000050;
-    margin: 0;                   /* No shifting */
+    margin: 0;
 }
 
-/* Success Icon */
 .success-icon {
     font-size: 58px;
     color: #00b66c;
@@ -89,7 +83,6 @@
     font-weight: bold;
 }
 
-/* Title */
 .pro-popup-box h2 {
     margin: 0;
     font-size: 24px;
@@ -97,7 +90,6 @@
     font-weight: 700;
 }
 
-/* Line */
 .line {
     width: 70px;
     height: 3px;
@@ -106,14 +98,12 @@
     border-radius: 3px;
 }
 
-/* Main Text */
 .pro-popup-box p {
     font-size: 16px;
     line-height: 1.6;
     color: #555;
 }
 
-/* Extra info box */
 .sub-info {
     margin-top: 12px;
     padding: 12px;
@@ -124,7 +114,6 @@
     border-radius: 10px;
 }
 
-/* Close Button */
 .closeProBtn {
     width: 100%;
     padding: 13px;
@@ -142,20 +131,15 @@
     opacity: 0.8;
 }
 
-/* Animation */
 @keyframes proPop {
     from { transform: scale(0.6); opacity: 0; }
-    to   { transform: scale(1);   opacity: 1; }
+    to   { transform: scale(1); opacity: 1; }
 }
 
-
-/* RESPONSIVE */
 @media(max-width:460px){
     .pro-popup-box { padding: 5px; }
     .pro-popup-box h2 { font-size: 22px; }
-    .success-icon { font-size: 50px; }
 }
-
 </style>
 
 </head>
@@ -202,10 +186,11 @@
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
 
 <script>
-    // 🔥 Your Firebase Config here
+/* 🔥 FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyDEQYPJFxQv8yFHptrTqoLHOn2L0PpgVhc",
   authDomain: "btcinvest-c0e25.firebaseapp.com",
@@ -216,39 +201,42 @@ const firebaseConfig = {
   measurementId: "G-HG0Q8ZHT6G"
 };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+firebase.initializeApp(firebaseConfig);
 
-    function submitForm() {
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const competition = document.getElementById("competition").value;
+const firestore = firebase.firestore();
 
-        if (name === "" || email === "" || competition === "") {
-            alert("Please fill all fields!");
-            return;
-        }
 
-        const id = Date.now();
+/* ⭐ SUBMIT FORM — SAVE TO FIRESTORE */
+function submitForm() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const competition = document.getElementById("competition").value;
 
-        db.ref("competition_entries/" + id).set({
-            name: name,
-            email: email,
-            competition: competition,
-            time: new Date().toString()
-        });
+    if (name === "" || email === "" || competition === "") {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    const uid = Date.now().toString();
+
+    firestore.collection("competition").doc(uid).set({
+        name: name,
+        email: email,
+        competition: competition,
+        timestamp: new Date(),
+        uid: uid
+    }).then(() => {
 
         openProPopup(name, competition);
 
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
         document.getElementById("competition").value = "";
-    }
+    });
+}
 
 
-/* ---------------------- */
-/* OPEN PREMIUM POPUP */
-/* ---------------------- */
+/* ⭐ POPUP OPEN */
 function openProPopup(username, competition) {
 
     document.getElementById("proPopupTitle").innerHTML =
@@ -263,7 +251,7 @@ function openProPopup(username, competition) {
     document.getElementById("proPopupBg").style.display = "flex";
 }
 
-/* CLOSE POPUP */
+/* ⭐ POPUP CLOSE */
 function closeProPopup() {
     document.getElementById("proPopupBg").style.display = "none";
 }

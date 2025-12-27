@@ -1,260 +1,1718 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Competition Entry Form</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<style>
+ <title>TrustDollar | Earn Money Online with Blockchain Mining & Digital Income</title>
+
+<meta name="description" content="
+TrustDollar is a trusted online earning platform.
+Earn money online with blockchain mining, automated crypto rewards,
+and secure digital income systems worldwide.
+">
+
+<meta name="keywords" content="
+TrustDollar,
+Trust dollar
+trust dollar
+trustdollar earn money,
+earn money online,
+earn money with mining,
+online earning website,
+crypto mining earning,
+blockchain earning platform,
+passive income online,
+secure earning system
+">
+
+
+  <!-- ✅ Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.smartfundad.com/myphoto/trustlogo.png">
+<link rel="shortcut icon" type="image/png" href="https://www.smartfundad.com/myphoto/trustlogo.png">
+
+
+  <!-- ✅ Open Graph (Social Media Preview) -->
+ <meta property="og:title" content="TrustDollar | Earn Money Online with Blockchain Mining">
+
+  <meta property="og:description"
+content="A global blockchain-based digital platform focused on secure systems,
+transparent processes, and structured participation worldwide." />
+
+  <meta property="og:image" content="https://www.smartfundad.com/myphoto/trustlogo.png">
+  <meta property="og:url" content="https://www.smartfundad.com">
+  <meta property="og:type" content="website">
+  <meta name="google-site-verification" content="XnH-u4vK_wLDx0tTg2QhWlRHtzlZpCOVztUWcPzXHYo" />
+
+  <!-- ✅ Logo Schema for Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "TrustDollar",
+  "url": "https://www.smartfundad.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.smartfundad.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- ✅ PWA / App Install Setup -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#00c853" />
+
+<!-- iOS ke liye (Apple Support) -->
+<link rel="apple-touch-icon" href="https://smartfundad.com/myphoto/trustlogo.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="TrustDollar">
+
+<!-- ✅ Service Worker Registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then(reg => console.log('✅ Service Worker Registered:', reg.scope))
+        .catch(err => console.log('❌ SW Registration Failed:', err));
+    });
+  }
+</script>
+
+
+  <style>
     body {
-        font-family: Poppins, Arial;
-        background: linear-gradient(135deg, #00ff99, #00995c);
-        padding: 20px;
-        color: white;
-    }
-    .form-box {
-        max-width: 450px;
-        background: white;
-        color: black;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 0 15px #00000050;
-        margin: auto;
-        margin-top: 40px;
-        animation: fadein 0.5s ease-in-out;
-    }
-    @keyframes fadein {
-        from {opacity: 0; transform: translateY(20px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
-    input, select {
-        width: 100%;
-        padding: 12px;
-        margin-top: 12px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 15px;
-    }
-    button {
-        width: 100%;
-        padding: 12px;
-        margin-top: 18px;
-        background: #00aa55;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 17px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-    button:hover {
-        opacity: 0.8;
+  touch-action: manipulation;
+}
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      overflow-x: hidden;
     }
 
 
-/* ⭐ POPUP PROFESSIONALLY FIXED ⭐ */
-.pro-popup-bg {
+
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 60px;
+  width: auto;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #111;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-right a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+}
+
+.header-right .icon {
+  height: 28px;
+  width: 28px;
+}
+
+.menu-toggle {
+  font-size: 22px;
+  cursor: pointer;
+  display: none;
+}
+
+/* ✅ Mobile style */
+@media(max-width: 768px){
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px; left: 0; right: 0;
+    background: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links a {
+    padding: 10px 0;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+/* Desktop */
+.header-right { display: none; } /* ❌ remove old header-right */
+
+/* Mobile Menu Items */
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links a img.icon {
+  height: 20px;
+  width: 20px;
+}
+
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 60px 10px 60px;
+      background: #e8f5e9;
+    }
+
+    /* ✅ Slider Box */
+    .slider {
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto 30px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 0px solid orange;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .slide-card {
+      flex: 0 0 100%;
+    }
+
+    .slide-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 5px;
+      object-fit: cover; /* ✅ image fit karega */
+    }
+
+    /* HERO TEXT */
+    .hero h1 {
+      font-size: 28px;
+      color: #2c7;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      font-size: 16px;
+      max-width: 600px;
+      margin: auto;
+      color: #444;
+    }
+
+    /* HERO BUTTONS */
+    .hero-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 55px;
+      flex-wrap: wrap;
+    }
+    .hero-buttons a {
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .hero-buttons a.login {
+      background: #fff;
+      color: #2c7;
+      border: 2px solid #2c7;
+    }
+    .hero-buttons a.login:hover { background: #eaeaea; }
+    .hero-buttons a.register {
+      background: #ff9800;
+      color: #fff;
+    }
+    .hero-buttons a.register:hover { background: #e68900; }
+    
+    /* 100% Working Responsive Features Grid */
+.features {
+  display: grid;
+  gap: 20px;
+  padding: 40px 20px;
+  
+  /* Desktop: 3 items per row */
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* For tablet – 2 per row */
+@media (max-width: 900px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* For small mobile – also 2 per row */
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Individual feature box */
+.feature {
+  background: #fff;
+  padding: 24px 12px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.feature h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #00c853;
+  margin-bottom: 8px;
+}
+
+.feature p {
+  font-size: 13px;
+  color: #555;
+}
+
+.feature:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.15);
+}
+
+    /* BLOCKCHAIN */
+    .blockchain-section {
+      text-align: center;
+      padding: 50px 15px;
+      background: #eef9f1;
+    }
+    .blockchain {
+      display: flex; justify-content: center; align-items: center; gap: 15px;
+      flex-wrap: wrap;
+    }
+    .block {
+      width: 90px; height: 90px; background: #fff;
+      border: 2px solid #2c7; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: bold;
+      animation: pulse 3s infinite;
+    }
+    .chain {
+      width: 40px; height: 3px;
+      background: linear-gradient(90deg,#2c7,#4CAF50);
+      position: relative; overflow: hidden;
+    }
+    .chain::before {
+      content: ""; position: absolute; left: -40px; top: 0;
+      height: 100%; width: 40px;
+      background: rgba(255,255,255,0.8);
+      animation: flow 2s linear infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    @keyframes flow {
+      0% { left: -40px; }
+      100% { left: 40px; }
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #e8f5e9;
+      color: #333;
+      padding: 50px 20px 20px;
+    }
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .footer h2, .footer h3 { margin-bottom: 12px; color: #2c7; }
+    .footer p { font-size: 14px; line-height: 1.6; }
+    .footer ul { list-style: none; padding: 0; }
+    .footer ul li { margin: 6px 0; }
+    .footer ul li a {
+      color: #444; text-decoration: none; font-size: 14px;
+    }
+    .footer ul li a:hover { color: #2c7; font-weight: 600; }
+    .links { display: flex; gap: 40px; justify-content: flex-start; flex-wrap: wrap; }
+    .link-group { flex: 1; }
+    .subscribe-form {
+      display: flex; margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px; overflow: hidden;
+    }
+    .subscribe-form input {
+      flex: 1; padding: 10px; border: none; outline: none;
+      font-size: 14px; background: #fff; color: #333;
+    }
+    .subscribe-form button {
+      background: linear-gradient(90deg,#4CAF50,#2c7);
+      color: #fff; border: none; padding: 10px 16px;
+      cursor: pointer; font-weight: bold;
+    }
+    .subscribe-form button:hover { opacity: 0.9; }
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid #ccc;
+      padding-top: 15px;
+      font-size: 13px;
+      margin-top: 30px;
+      color: #444;
+    }
+
+    /* Popup Style */
+
+    /* Mobile menu */
+    @media(max-width: 768px){
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    top: 0; left: 0;
+    width: 80%;   /* ✅ 80% width drawer */
+    height: 100%;
+    background: linear-gradient(135deg, #4CAF50, #2c7);
+    padding: 80px 25px;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .nav-links.show {
+    display: flex;
+    transform: translateX(0); /* ✅ slide-in */
+  }
+
+  .nav-links a {
+    opacity: 0;
+    transform: translateX(-20px);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 15px 0;
+    color: #fff;
+    text-decoration: none;
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    animation: fadeSlide 0.4s ease forwards;
+  }
+
+  /* ✅ Delay ek-ek karke */
+  .nav-links a:nth-child(1) { animation-delay: 0.1s; }
+  .nav-links a:nth-child(2) { animation-delay: 0.2s; }
+  .nav-links a:nth-child(3) { animation-delay: 0.3s; }
+  .nav-links a:nth-child(4) { animation-delay: 0.4s; }
+  .nav-links a:nth-child(5) { animation-delay: 0.5s; }
+  .nav-links a:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 26px;
+    color: #000;
+    cursor: pointer;
+    z-index: 1100;
+  }
+
+  /* ✅ Right side dim background */
+  .menu-overlay {
     display: none;
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    padding: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 900;
+  }
+
+  .menu-overlay.show {
+    display: block;
+  }
 }
 
-.pro-popup-box {
-    width: 92%;
-    max-width: 420px;
-    background: white;
-    border-radius: 18px;
-    padding: 28px;
-    text-align: center;
-    animation: proPop 0.25s ease-out;
-    box-shadow: 0 0 30px #00000050;
-    margin: 0;
+/* ✅ Popup Center Style */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ff9800;
+  color: #fff;
+  padding: 18px 28px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 3000;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+/* Referral popup */
+#referralPopup {
+  background: #ff9800;
 }
 
-.success-icon {
-    font-size: 58px;
-    color: #00b66c;
-    margin-bottom: 8px;
-    font-weight: bold;
+/* Subscribe popup */
+#successPopup {
+  background: #4CAF50;
+}
+/* Header layout */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffffcc; /* light white bg */
+  color: #000;
+  padding: 6px 20px; /* 🔥 thinner padding */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  z-index: 1000;
+  height: 40px; /* 🔥 fixed compact height */
 }
 
-.pro-popup-box h2 {
-    margin: 0;
-    font-size: 24px;
-    color: #00a85a;
-    font-weight: 700;
+.logo-img {
+  height: 38px; /* 🔥 smaller logo */
+  width: auto;
 }
 
-.line {
-    width: 70px;
-    height: 3px;
-    background: #00a85a;
-    margin: 8px auto 15px auto;
-    border-radius: 3px;
+.brand-name {
+  font-size: 20px; /* 🔥 slightly smaller font */
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  display: flex;
+  gap: 3px;
 }
 
-.pro-popup-box p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #555;
+
+.multi-color {
+  background: linear-gradient(90deg, #4CAF50, #00bcd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.sub-info {
-    margin-top: 12px;
-    padding: 12px;
-    background: #f3fcf7;
-    border-left: 4px solid #00a85a;
-    color: #444;
-    font-size: 15px;
-    border-radius: 10px;
+.multi-color-2 {
+  background: linear-gradient(90deg, #ff9800, #ff5722);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.closeProBtn {
-    width: 100%;
-    padding: 13px;
-    margin-top: 20px;
-    background: #00a85a;
-    border-radius: 10px;
-    color: white;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    font-weight: 600;
+.brand-name span {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.nav-links a {
+  font-size: 15px;
+  padding: 5px 0;
 }
 
-.closeProBtn:hover {
-    opacity: 0.8;
+
+.wave-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
 }
 
-@keyframes proPop {
-    from { transform: scale(0.6); opacity: 0; }
-    to   { transform: scale(1); opacity: 1; }
+.wave-bg::before,
+.wave-bg::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(0,255,150,0.3), transparent 60%);
+  animation: waveMove 8s linear infinite;
 }
 
-@media(max-width:460px){
-    .pro-popup-box { padding: 5px; }
-    .pro-popup-box h2 { font-size: 22px; }
+.wave-bg::after {
+  background: radial-gradient(circle at 20% 80%, rgba(0,255,200,0.25), transparent 70%);
+  animation-duration: 12s;
 }
+
+@keyframes waveMove {
+  0% { transform: translate(-30%, -30%) rotate(0deg); }
+  100% { transform: translate(-30%, -30%) rotate(360deg); }
+}
+
+
+
+
+.typing-text {
+  font-size: 26px;
+  font-weight: 600;
+  color: #ffd700;   /* Gold premium color */
+  text-align: center;
+  margin-top: 20px;
+}
+
+#typeWriter {
+  border-right: 3px solid #ffd700;
+  padding-right: 8px;
+  animation: blinkCursor 0.7s infinite;
+}
+
+@keyframes blinkCursor {
+  0% { border-color: transparent; }
+  50% { border-color: #ffd700; }
+  100% { border-color: transparent; }
+}
+
+
+
+
+/* CLEAN LEFT–RIGHT INFO TEXT */
+.info-clean {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.info-clean ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.info-clean li {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  list-style-type: "✔ ";
+  font-weight: 500;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .info-clean {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.video-box {
+  max-width: 420px;
+  margin: 40px auto;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+/* ⭐ SAME SIZE FOR THUMB + VIDEO */
+.video-thumb,
+.video-box video {
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* 🎥 exact video ratio */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Thumbnail image perfectly fit */
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* LIVE button container */
+.yt-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+}
+
+/* Pulse ring */
+.yt-play .pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255,0,0,0.35);
+  animation: livePulse 1.6s infinite;
+}
+
+/* Play triangle */
+.yt-play .triangle {
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-left: 26px solid white;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+}
+
+/* LIVE text */
+.yt-play .live-text {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: red;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.6px;
+}
+
+@keyframes livePulse {
+  0%   { transform: scale(0.8); opacity: 0.7; }
+  70%  { transform: scale(1.3); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Hide video initially */
+.video-box video {
+  width: 100%;
+  display: none;
+}
+
+.video-thumb img {
+  width: 100%;
+  display: block;   /* ⭐ VERY IMPORTANT */
+}
+
+/* 🌊 WATER RIPPLE EFFECT */
+.ripple {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 200, 83, 0.35); /* Trust green */
+  transform: translate(-50%, -50%) scale(0);
+  animation: rippleWave 0.6s ease-out;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes rippleWave {
+  to {
+    transform: translate(-50%, -50%) scale(6);
+    opacity: 0;
+  }
+}
+.video-title {
+  max-width: 420px;
+  margin: 14px auto 10px;
+  font-size: 17px;
+  font-weight: 600;        /* ⭐ clean bold */
+  color: #fbc02d;          /* pila */
+  text-align: center;
+  letter-spacing: 0.6px;
+  line-height: 1.4;
+}
+.value-strip{
+  margin-top:25px;
+ 
+  padding:14px 18px;
+  border-radius:6px;
+  font-size:14px;
+  font-weight:600;
+  color:#2c7;
+ 
+}
+.how-works{
+  text-align:center;
+  padding:40px 20px;
+}
+.steps{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.step{
+  background:#fff;
+  padding:16px 20px;
+  border-radius:6px;
+  font-weight:600;
+  font-size:14px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.1);
+}
+.trust-disclaimer{
+  background:#f1f5f9;
+  padding:16px 20px;
+  font-size:13px;
+  color:#475569;
+  text-align:center;
+}
+.status-bar{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-top:14px;
+  font-size:13px;
+  font-weight:600;
+  color:#2c7;
+  flex-wrap:wrap;
+}
+.why-trust{
+  text-align:center;
+  padding:40px 20px;
+  font-size:15px;
+  color:#444;
+}
+
+/* ================= MESSAGE BOX STYLE ================= */
+.td-msg-box{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:8px;
+  padding:16px;
+  margin-top:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+.td-msg-box h3{
+  margin:0 0 6px;
+  font-size:16px;
+  color:#2c7;
+  font-weight:700;
+}
+
+.td-msg-box p{
+  font-size:13px;
+  color:#555;
+  margin-bottom:10px;
+}
+
+#tdMessageForm{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+#tdMessageForm input,
+#tdMessageForm textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #d1d5db;
+  border-radius:5px;
+  box-sizing: border-box; /* 🔥 MAIN FIX */
+}
+
+
+#tdMessageForm button{
+  background:linear-gradient(90deg,#4CAF50,#2c7);
+  color:#fff;
+  border:none;
+  padding:10px;
+  font-weight:700;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+#tdMessageForm button:hover{
+  opacity:.9;
+}
+
+/* ================= POPUP ================= */
+.td-msg-popup{
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#4CAF50;
+  color:#fff;
+  padding:14px 22px;
+  border-radius:6px;
+  font-size:15px;
+  font-weight:700;
+  z-index:4000;
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+
 </style>
-
 </head>
 <body>
 
-<div class="form-box">
-    <h2 style="text-align:center; margin-bottom:10px;">Competition Form</h2>
-    <p style="text-align:center; color:#555;">Fill the form to join the competition</p>
 
-    <input id="name" type="text" placeholder="Full Name" required>
-    <input id="email" type="email" placeholder="Email" required>
-
-    <select id="competition">
-        <option value="">Select Competition</option>
-        <option value="1000 Users">1000 Users Competition</option>
-        <option value="700 Users">700 Users Competition</option>
-        <option value="500 Users">500 Users Competition</option>
-        <option value="250 Users">250 Users Competition</option>
-        <option value="100 Users">100 Users Competition</option>
-    </select>
-
-    <button onclick="submitForm()">Submit</button>
+<!-- ✅ Referral Popup -->
+<div id="referralPopup" class="popup">
+  Referral detected. Please sign up.
 </div>
 
 
-<!-- POPUP -->
-<div class="pro-popup-bg" id="proPopupBg">
-    <div class="pro-popup-box">
-        
-        <div class="success-icon">✔</div>
 
-        <h2 id="proPopupTitle"></h2>
+<div class="wave-bg"></div>
 
-        <div class="line"></div>
+  <!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <img src="myphoto/trustlogo.png" alt="TrustDollar Logo" class="logo-img">
+    <h2 class="brand-name">
+      <span class="multi-color">Trust</span><span class="multi-color-2">Dollar </span>
+    </h2>
+  </div>
 
-        <p id="proPopupText"></p>
+<nav>
+  <div class="menu-toggle" id="menuToggle">☰</div>
+  <div class="menu-overlay" id="menuOverlay"></div>
 
-        <div class="sub-info" id="proPopupExtra"></div>
+  <div class="nav-links" id="navLinks">
+    <a href="explore.html">Explore</a>
+    <a href="earn.html">Earn</a>
+    <a href="doc.html">Docs</a>
+    <a href="terms.html">Terms</a>
+    <a href="privacy.html">Privacy Policy</a>
+  </div>
+</nav>
 
-        <button class="closeProBtn" onclick="closeProPopup()">Continue</button>
+</header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="slider" id="slider">
+      <div class="slides">
+       <div class="slide-card">
+  <img src="myphoto/33.png" alt="Blockchain mining dashboard interface showing live system status">
+</div>
+
+<div class="slide-card">
+  <img src="myphoto/c.jpeg" alt="Digital finance platform overview with secure earning features">
+</div>
+
+<div class="slide-card">
+  <img src="myphoto/11.png" alt="Secure crypto wallet and mining earnings panel">
+</div>
+
+<div class="slide-card">
+  <img src="myphoto/cc.jpeg" alt="Global blockchain network and automated mining process">
+</div>
+
+<div class="slide-card">
+  <img src="myphoto/22.png" alt="Transparent blockchain mining rewards and balance overview">
+</div>
+
+<div class="slide-card">
+  <img src="myphoto/ccc.jpeg" alt="Team-based referral mining structure with level distribution">
+</div>
+
+<div class="slide-card">
+  <img src="myphoto/22222222.png" alt="User mining performance and real-time reward tracking">
+</div>
+
+<div class="slide-card">
+  <img src="myphoto/cccc.jpeg" alt="Secure blockchain technology interface for digital finance platform">
+</div>
+ </div> <!-- .slides END -->
+  </div>
+
+<section>
+  <h2>How to Earn Money Online with TrustDollar</h2>
+  <p>
+    TrustDollar is an online earning platform where users
+    can earn money through blockchain mining, automated rewards,
+    and secure digital income systems.
+  </p>
+</section>
+
+    <p style="font-size:14px; max-width:720px; margin:12px auto; color:#555;">
+
+TrustDollar provides a global blockchain mining system focused on
+digital finance, automated earnings, and transparent digital technology.
+Users worldwide can participate in secure mining activities and
+team-based reward distribution.
+
+</p>
+
+<div class="status-bar">
+  <span>✔ System Active</span>
+  <span>✔ Withdrawals Enabled</span>
+  <span>✔ Global Access</span>
+</div>
+
+<div class="value-strip">
+  <p>
+    Start mining instantly • Stop anytime • 70% earnings to you • 
+    Transparent team distribution • No hidden rules
+  </p>
+</div>
+
+<div class="video-title">
+  TrustDollar Live  | Earn Daily with Blockchain Security
+</div>
+
+<div class="video-box">
+  <div class="video-thumb" id="videoThumb">
+    <img
+      src="myphoto/WhatsApp Image 2025-12-13 at 11.55.30 PM.jpeg"
+      alt="Live Video"
+      loading="lazy"
+      decoding="async"
+    >
+
+    <div class="yt-play" id="playBtn">
+  <span class="pulse"></span>
+  <span class="triangle"></span>
+  <span class="live-text">LIVE</span>
+</div>
+
+  </div>
+</div>
+
+<p style="font-size:13px; letter-spacing:0.6px; color:#2c7; font-weight:600;">
+GLOBAL DIGITAL FINANCE PLATFORM
+</p>
+
+    
+  <h1>Earn Money Online with TrustDollar Blockchain Mining</h1>
+
+
+    <p>
+A blockchain-powered digital platform focused on secure operations
+and transparent reward distribution.
+Users can participate in system-based activities
+and benefit from multi-level referral structures.
+</p>
+
+
+    <section class="info-clean">
+  <div class="info-left">
+    <ul>
+      <li>We store all user data in encrypted format.</li>
+      <li>Your wallet access is protected with secure hashing.</li>
+      <li>No third-party can access your personal information.</li>
+    </ul>
+  </div>
+
+  <div class="info-right">
+    <ul>
+      <li>Real-time monitoring keeps your funds stable.</li>
+      <li>Our system auto-blocks any suspicious activity.</li>
+      <li>Regular audits ensure complete transparency.</li>
+    </ul>
+  </div>
+</section>
+
+<div id="expirePopup" style="
+  display:none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  padding: 20px 28px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #c20000;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+">
+</div>
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -48%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+</style>
+
+<script>
+  const msg = localStorage.getItem("logoutReason");
+
+  if (msg === "expired") {
+    const pop = document.getElementById("expirePopup");
+    pop.textContent = "Your login session expired for security reasons. Please login again.";
+    pop.style.display = "block";
+
+    // 3-5 sec baad popup automatically hide ho jaye
+    setTimeout(() => {
+      pop.style.display = "none";
+
+    }, 4000);
+
+    localStorage.removeItem("logoutReason");
+  }
+</script>
+
+ <h2>Access Your Secured Dashboard</h2>
+<p>
+Your account is protected with multi-layer blockchain security.  
+Please login to continue managing your earnings safely and transparently.
+</p>
+
+  <h2 class="typing-text">
+
+  <span id="typeWriter"></span>
+</h2>
+
+    <div class="hero-buttons">
+      <a href="https://www.smartfundad.com/login.html" class="login">Login</a>
+      <a href="https://www.smartfundad.com/register.html" class="register">Register</a>
     </div>
+  </div>
+
+<div class="trust-disclaimer">
+  <p>
+    TrustDollar is a technology-based earning platform.
+    Earnings depend on system activity and user participation.
+    We do not guarantee fixed profits and encourage responsible usage.
+  </p>
+</div>
+<section style="position:absolute;left:-9999px;">
+  Earn money online with TrustDollar blockchain mining platform.
+  Online earning system using secure crypto mining technology.
+  Trusted digital earning platform for global users.
+</section>
+
+<section style="
+  max-width:1100px;
+  margin:40px auto;
+  padding:20px;
+  font-size:14px;
+  color:#555;
+  line-height:1.7;
+">
+  <h2 style="font-size:18px;color:#2c7;">
+    Global Blockchain Mining & Digital Finance Platform
+  </h2>
+
+  <p>
+    TrustDollar is a global blockchain-based mining platform designed for
+    secure digital finance participation. Users can explore decentralized
+    earning systems, automated crypto rewards, and transparent referral
+    structures across multiple regions worldwide.
+  </p>
+
+  <p>
+    Our platform focuses on blockchain security, system-based mining activity,
+    and responsible participation. TrustDollar supports international users
+    looking for modern digital asset platforms powered by blockchain technology.
+  </p>
+</section>
+
+    
+  <!-- FEATURES -->
+  <div class="features">
+   <div class="feature">
+    <h3>Fast Transactions</h3>
+    <p>Experience lightning-speed deposits and withdrawals anytime.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Blockchain Security</h3>
+      <p>Your funds are protected with cutting-edge blockchain technology.</p>
+    </div>
+    <div class="feature">
+      <h3>3 Level Income</h3>
+      <p>Earn referral income up to 3 levels and grow your network easily.</p>
+    </div>
+    <div class="feature">
+      <h3>Safe Wallet</h3>
+      <p>Wallet balances stored safely in USDT with full transparency.</p>
+    </div>
+    <div class="feature">
+  <h3>Auto Earnings</h3>
+  <p>Your income is generated automatically without any manual work.</p>
 </div>
 
+    <div class="feature">
+  <h3>24/7 Support</h3>
+  <p>Get round-the-clock assistance with instant help whenever needed.</p>
+</div>
+</div>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<section class="how-works">
+  <h2>How TrustDollar Works</h2>
+  <div class="steps">
+    <div class="step">Create Account & Start Mining</div>
+    <div class="step">Earn Daily Rewards Automatically</div>
+    <div class="step">Withdraw Instantly or Grow Your Team</div>
+  </div>
+</section>
+
+
+<section class="why-trust">
+  <h2>Why TrustDollar</h2>
+  <p>
+    TrustDollar operates on automated systems with transparent rules.
+    All earnings, referrals, and distributions are processed digitally
+    without manual interference.
+  </p>
+</section>
+
+  <!-- BLOCKCHAIN -->
+  <div class="blockchain-section">
+    <h2>How Blockchain Works</h2>
+    <div class="blockchain">
+      <div class="block">Block 1</div>
+      <div class="chain"></div>
+      <div class="block">Block 2</div>
+      <div class="chain"></div>
+      <div class="block">Block 3</div>
+      <div class="chain"></div>
+      <div class="block">Block 4</div>
+    </div>
+  </div>
+<section style="
+  max-width:1100px;
+  margin:40px auto;
+  padding:20px;
+  font-size:14px;
+  color:#555;
+  line-height:1.7;
+">
+  <h2 style="font-size:18px;color:#2c7;">
+    Bitcoin Mining Overview & Blockchain Technology
+  </h2>
+
+  <p>
+    Bitcoin mining is a core component of blockchain technology.
+    This process involves validating transactions, maintaining network
+    security, and distributing block rewards based on system difficulty
+    and global mining activity.
+  </p>
+
+  <p>
+    Factors such as mining difficulty, electricity cost, hardware efficiency,
+    and network hash rate play a major role in bitcoin mining operations.
+    Understanding these concepts helps users learn how blockchain systems
+    function worldwide.
+  </p>
+</section>
+
+
+<!-- SEO helper block -->
+<section style="
+  position:absolute;
+  left:-9999px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+">
+  Global blockchain mining platform for digital finance and decentralized earning.
+  Secure crypto mining system with automated rewards and transparent distribution.
+  International web3 earning platform supporting team-based referral structure.
+  Trusted digital asset platform focused on blockchain technology and system-based participation.
+</section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col about">
+        <h2>TrustDollar <span class="small">V2</span></h2>
+        <p>TrustDollar is a BTC Mining & Staking platform. 
+        System-based daily rewards and referral participation up to 3 levels.
+        </p>
+      </div>
+      <div class="footer-col links">
+        <div class="link-group">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="doc.html">Docs</a></li>
+            <li><a href="tutorial.html">Tutorials</a></li>
+            <li><a href="invite.html">Invite Friends</a></li>
+            <li><a href="system-rules.html">System Rules</a></li>
+          </ul>
+        </div>
+        <div class="link-group">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="support.html">Support</a></li>
+          </ul>
+        </div>
+      </div>
+       
+
+<div class="footer-col">
+  <h3>Stay Updated</h3>
+  <p>Subscribe for updates, news & earning tips.</p>
+
+  <form id="subscribeForm" class="subscribe-form">
+
+    <input type="email" name="email" placeholder="Enter your email" required>
+
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="New TrustDollar Subscriber">
+    <input type="hidden" name="_replyto" value="%email">
+    <input type="hidden" name="_template" value="table">
+
+    <input type="hidden" name="_autoresponse" value="Hello,
+
+Thank you for subscribing to TrustDollar.
+
+You have successfully joined our official update list.
+From now on, you will receive important platform updates,
+system notices, and digital finance insights from TrustDollar.
+
+If you did not request this subscription, you may safely ignore this email.
+
+Regards,
+TrustDollar Team
+https://www.smartfundad.com">
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div id="successPopup" class="popup">
+  Thank you for subscribing.<br>
+  Please check your email for confirmation.
+</div>
+
+<!-- ================= USER MESSAGE BOX ================= -->
+<div class="td-msg-box">
+  <h3>Send Us a Message</h3>
+  <p>If you face any issue or have a question, write to us.</p>
+
+  <form id="tdMessageForm">
+    <input type="email" name="email" placeholder="Your email" required>
+
+     <textarea
+  id="tdMessageInput"
+  name="message"
+  rows="4"
+  placeholder=""
+  required></textarea>
+
+
+    <!-- FormSubmit settings -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="New Message from TrustDollar Website">
+    <input type="hidden" name="_template" value="table">
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+<div id="tdMsgPopup" class="td-msg-popup">
+  Message sent successfully ✔
+</div>
+
+    </div>
+    <div class="footer-bottom">
+      © 2025 TrustDollar V2 | All Rights Reserved
+    </div>
+  </footer>
+
+
+  <script>
+    // ✅ Auto + manual slider
+    let index = 0;
+    const slides = document.querySelector(".slides");
+    const totalSlides = document.querySelectorAll(".slide-card").length;
+
+    function showSlide(i) {
+      if (i < 0) index = totalSlides - 1;
+      else if (i >= totalSlides) index = 0;
+      else index = i;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    // ✅ First load me first slide show ho
+    showSlide(0);
+
+    setInterval(() => { showSlide(index + 1); }, 4000);
+
+    // ✅ Touch swipe
+    let startX = 0;
+    const slider = document.getElementById("slider");
+    slider.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
+    slider.addEventListener("touchend", e => {
+      let endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) showSlide(index + 1);
+      if (endX - startX > 50) showSlide(index - 1);
+    });
+
+    // ✅ Mouse drag
+    let isDown = false;
+    slider.addEventListener("mousedown", e => {
+      isDown = true; startX = e.clientX;
+    });
+    document.addEventListener("mouseup", e => {
+      if (!isDown) return;
+      isDown = false;
+      let endX = e.clientX;
+      if (startX - endX > 50) showSlide(index + 1);
+      if (endX - startX > 50) showSlide(index - 1);
+    });
+
+
+ function showReferralPopup() {
+  const popup = document.getElementById("referralPopup");
+  popup.style.display = "block";
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 3000);
+}
+
+// ✅ Referral logic
+const urlParams = new URLSearchParams(window.location.search);
+const referral = urlParams.get("ref");
+const loginBtn = document.querySelector(".login");
+const registerBtn = document.querySelector(".register");
+
+if (referral) {
+  loginBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    showReferralPopup(); // ✅ alert ki jagah yeh
+  });
+  registerBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = `register.html?ref=${referral}`;
+  });
+}
+  </script>
+    
+    <script>
+    const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+const menuOverlay = document.getElementById("menuOverlay");
+
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+  menuOverlay.classList.toggle("show");
+});
+
+// ✅ Overlay pe click karne se bhi menu close ho jaye
+menuOverlay.addEventListener("click", () => {
+  navLinks.classList.remove("show");
+  menuOverlay.classList.remove("show");
+});
+
+</script>
+
 
 
 <script>
-/* 🔥 FIREBASE CONFIG */
-const firebaseConfig = {
-  apiKey: "AIzaSyDEQYPJFxQv8yFHptrTqoLHOn2L0PpgVhc",
-  authDomain: "btcinvest-c0e25.firebaseapp.com",
-  projectId: "btcinvest-c0e25",
-  storageBucket: "btcinvest-c0e25.firebasestorage.app",
-  messagingSenderId: "204937458487",
-  appId: "1:204937458487:web:cc27ece1249999279f60b2",
-  measurementId: "G-HG0Q8ZHT6G"
-};
+const messages = [
+  "Secure Your Earnings...",
+  "Daily Income With Trust...",
+  "Blockchain Based Platform...",
+  "Instant Withdrawal Available...",
+  "Earn 3 Level Income..."
+];
 
-firebase.initializeApp(firebaseConfig);
+let messageIndex = 0;
+let charIndex = 0;
+let currentText = "";
+let isDeleting = false;
 
-const firestore = firebase.firestore();
+function typeEffect() {
+  currentText = messages[messageIndex];
+
+  if (!isDeleting) {
+    document.getElementById("typeWriter").textContent =
+      currentText.substring(0, charIndex + 1);
+    charIndex++;
+
+    if (charIndex === currentText.length) {
+      isDeleting = true;
+      setTimeout(typeEffect, 1000);
+      return;
+    }
+  } 
+  else {
+    document.getElementById("typeWriter").textContent =
+      currentText.substring(0, charIndex - 1);
+    charIndex--;
+
+    if (charIndex === 0) {
+      isDeleting = false;
+      messageIndex = (messageIndex + 1) % messages.length;
+    }
+  }
+
+  setTimeout(typeEffect, isDeleting ? 60 : 100);
+}
+
+typeEffect();
 
 
-/* ⭐ SUBMIT FORM — SAVE TO FIRESTORE */
-function submitForm() {
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const competition = document.getElementById("competition").value;
+document.querySelector(".video-box").addEventListener("pointerdown", e => {
+  const ripple = document.createElement("span");
+  ripple.className = "ripple";
+  ripple.style.left = e.clientX + "px";
+  ripple.style.top = e.clientY + "px";
 
-    if (name === "" || email === "" || competition === "") {
-        alert("Please fill all fields!");
-        return;
+  document.body.appendChild(ripple);
+
+  setTimeout(() => ripple.remove(), 600);
+}, { passive: true });
+
+</script>
+
+<script>
+const playBtn = document.getElementById("playBtn");
+const thumb = document.getElementById("videoThumb");
+
+playBtn.addEventListener("pointerdown", (e) => {
+  e.stopPropagation(); // ⭐ important: sirf icon click count ho
+
+  const video = document.createElement("video");
+
+  video.src =
+    "https://res.cloudinary.com/dvlxd9gjm/video/upload/q_auto,f_auto/v1765649901/WhatsApp_Video_2025-12-13_at_2.57.08_PM_rttcab.mp4";
+
+  video.controls = true;
+  video.playsInline = true;
+  video.autoplay = true;
+  video.muted = true;      // mobile safety
+  video.preload = "auto";
+  video.style.width = "100%";
+  video.style.height = "100%";
+  video.style.display = "block";
+
+  thumb.replaceWith(video);
+}, { passive: true });
+
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("subscribeForm");
+  const popup = document.getElementById("successPopup");
+
+  if (!form || !popup) return;
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    popup.style.display = "block";
+    popup.innerHTML = "Thank you for subscribing.<br>Please check your email.";
+
+    const formData = new FormData(form);
+
+    fetch("https://formsubmit.co/trustdollarteam@gmail.com", {
+      method: "POST",
+      body: formData,
+      headers: { "Accept": "application/json" }
+    })
+    .then(res => {
+      if (!res.ok) throw new Error();
+      form.reset();
+    })
+    .catch(() => {
+      popup.style.background = "#c20000";
+      popup.textContent = "Something went wrong. Please try again.";
+    });
+
+    setTimeout(() => {
+      popup.style.display = "none";
+    }, 4000);
+  });
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const styles = document.querySelectorAll("style");
+  const seen = new Set();
+
+  styles.forEach(style => {
+    const css = style.innerText.replace(/\s+/g, " ").trim();
+
+    if (seen.has(css)) {
+      style.disabled = true;   // ✅ duplicate ignore
+      console.warn("Duplicate CSS ignored");
+    } else {
+      seen.add(css);
+    }
+  });
+});
+</script>
+<script>
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("selectstart", e => e.preventDefault());
+document.addEventListener("dragstart", e => e.preventDefault());
+["copy","paste","cut"].forEach(evt =>
+  document.addEventListener(evt, e => e.preventDefault())
+);
+
+setInterval(() => console.clear(), 1500);
+</script>
+
+
+<script>
+document.addEventListener("keydown", e => {
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && ["u","s"].includes(e.key.toLowerCase()))
+  ) e.preventDefault();
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("tdMessageForm");
+  const popup = document.getElementById("tdMsgPopup");
+
+  if (!form || !popup) return;
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    // ✅ show immediately
+    popup.style.display = "block";
+    popup.style.background = "#4CAF50";
+    popup.innerHTML = `
+      Thank you for contacting us.<br>
+      We have received your message and our support team will assist you shortly.
+    `;
+
+    fetch("https://formsubmit.co/trustdollarteam@gmail.com", {
+      method: "POST",
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
+    })
+    .then(res => {
+      if (!res.ok) throw new Error();
+      form.reset();
+    })
+    .catch(() => {
+      popup.style.background = "#c20000";
+      popup.textContent = "Something went wrong. Please try again.";
+    });
+
+    // ✅ hide after 4 sec
+    setTimeout(() => {
+      popup.style.display = "none";
+    }, 4000);
+  });
+
+});
+
+</script>
+
+<script>
+(() => {
+  const textarea = document.getElementById("tdMessageInput");
+  if (!textarea) return;
+
+  const texts = [
+    "Describe your issue here...",
+    "Write your message to TrustDollar support...",
+    "Need help? Type your problem here...",
+    "We are here to assist you..."
+  ];
+
+  let textIndex = 0;
+  let charIndex = 0;
+  let timer = null;
+  let typingActive = true;
+
+  function startTyping() {
+    if (!typingActive) return;
+
+    const current = texts[textIndex];
+    textarea.placeholder = current.slice(0, charIndex + 1);
+    charIndex++;
+
+    if (charIndex === current.length) {
+      setTimeout(() => {
+        charIndex = 0;
+        textIndex = (textIndex + 1) % texts.length;
+      }, 1200);
     }
 
-    const uid = Date.now().toString();
+    timer = setTimeout(startTyping, 80);
+  }
 
-    firestore.collection("competition").doc(uid).set({
-        name: name,
-        email: email,
-        competition: competition,
-        timestamp: new Date(),
-        uid: uid
-    }).then(() => {
+  function stopTyping() {
+    typingActive = false;
+    clearTimeout(timer);
+    textarea.placeholder = "";
+  }
 
-        openProPopup(name, competition);
+  function resumeTypingIfEmpty() {
+    if (textarea.value.trim() === "") {
+      typingActive = true;
+      charIndex = 0;
+      startTyping();
+    }
+  }
 
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("competition").value = "";
-    });
-}
+  // ▶ start on load
+  startTyping();
 
+  // 🛑 stop when user types or focuses
+  textarea.addEventListener("focus", stopTyping);
+  textarea.addEventListener("input", stopTyping);
 
-/* ⭐ POPUP OPEN */
-function openProPopup(username, competition) {
-
-    document.getElementById("proPopupTitle").innerHTML =
-        `Thank You, ${username}!`;
-
-    document.getElementById("proPopupText").innerHTML =
-        `Your entry for <b>${competition}</b> has been successfully submitted. We appreciate your participation and wish you the best of luck!`;
-
-    document.getElementById("proPopupExtra").innerHTML =
-        `Your details are safely stored in our system. You will receive an update once the next stage begins.`;
-
-    document.getElementById("proPopupBg").style.display = "flex";
-}
-
-/* ⭐ POPUP CLOSE */
-function closeProPopup() {
-    document.getElementById("proPopupBg").style.display = "none";
-}
+  // ▶ resume when user clicks outside AND textarea empty
+  document.addEventListener("click", (e) => {
+    if (!textarea.contains(e.target)) {
+      resumeTypingIfEmpty();
+    }
+  });
+})();
 </script>
 
 </body>
